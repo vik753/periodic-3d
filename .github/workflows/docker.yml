@@ -55,7 +55,7 @@ jobs:
             echo "element: $(curl -sf http://localhost:8080/api/v1/elements/Fe | head -c 200)"
             echo "index.html: $(curl -sf -o /dev/null -w '%{http_code}' http://localhost:8080/)"
             echo "spa route: $(curl -sf -o /dev/null -w '%{http_code}' http://localhost:8080/e/Fe/O)"
-            echo "etag: $(curl -sfI http://localhost:8080/api/v1/elements | grep -i etag)"
+            echo "etag: $(curl -sf -D - -o /dev/null http://localhost:8080/api/v1/elements | grep -i etag)"
           } | tee out/logs/smoke.log
           curl -sf http://localhost:8080/api/v1/meta | grep -q '2026.01.01-test'
 

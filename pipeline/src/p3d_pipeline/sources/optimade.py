@@ -94,14 +94,34 @@ def candidates(fetcher: Fetcher, reduced_formulas: Iterable[str]) -> dict[str, l
     return result
 
 
+# Structures within this energy (eV/atom) of the most stable one count as equally good.
+STABILITY_WINDOW = 0.02
+
+
+def _mp_number(identifier: str) -> int:
+    digits = identifier.rsplit("-", 1)[-1]
+    return int(digits) if digits.isdigit() else 10**9
+
+
 def best_candidate(options: list[Candidate]) -> Candidate | None:
-    """Most stable structure; ties go to the smaller cell."""
+    """The most stable structure, preferring long-standing Materials Project entries.
+
+    Among structures within STABILITY_WINDOW of the most stable one, the lowest MP id
+    wins. Old ids come from known experimental structures (ICSD); recent ids include
+    machine-generated candidates such as GNoME (CC BY-NC), which the project excludes
+    (ADR 0004). OPTIMADE does not report the origin, so this is the practical guard.
+    """
     if not options:
         return None
-    return min(
-        options,
-        key=lambda c: (c.energy_above_hull if c.energy_above_hull is not None else 9.9, c.nsites, c.id),
-    )
+    energies = [c.energy_above_hull for c in options if c.energy_above_hull is not None]
+    floor = min(energies) if energies else None
+
+    def key(c: Candidate) -> tuple[int, int, int, str]:
+        energy = c.energy_above_hull
+        near = floor is not None and energy is not None and energy <= floor + STABILITY_WINDOW
+        return (0 if near else 1, _mp_number(c.id), c.nsites, c.id)
+
+    return min(options, key=key)
 
 
 def structures(fetcher: Fetcher, ids: Iterable[str]) -> dict[str, dict[str, Any]]:

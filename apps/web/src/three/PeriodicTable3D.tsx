@@ -11,7 +11,7 @@ import type { AtlasEntry } from './labelAtlas';
 import { atlasCell, createLabelAtlas, createLabelMaterial, drawLabelAtlas, DISPLAY_FONT, TEXT_FONT } from './labelAtlas';
 import type { TableTransform } from './layout';
 import { TABLE_AT_REST, TILE, TILE_DEPTH, tileMatrix, tilePosition } from './layout';
-import { RAY_COLOR } from './Rays';
+import { RAY_COLOR } from './colors';
 import { damp } from './useKeepRendering';
 
 const COUNT = ELEMENTS.length;

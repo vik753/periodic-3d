@@ -9,12 +9,11 @@ import type { Partner } from '../data/api';
 import { elementByZ } from '../data/periodic';
 import type { Vec3 } from '../data/structure';
 import { useAppStore } from '../state/store';
+import { RAY_COLOR } from './colors';
 import type { TableTransform } from './layout';
 import { tileWorldPosition } from './layout';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
 
-/** The saturated red of the app belongs to the rays (see the design tokens). */
-export const RAY_COLOR = '#ff3b4e';
 const MAX_RAYS = 48;
 const SEGMENTS = 72;
 const RADIAL = 6;

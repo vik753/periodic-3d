@@ -1,7 +1,7 @@
 import { CameraControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import type { RefObject } from 'react';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 
@@ -15,20 +15,22 @@ import { pairPath } from '../data/source';
 import type { IndexEntry } from '../data/compoundIndex';
 import { useAppStore } from '../state/store';
 import { useCloud } from '../state/useCloud';
-import { AtomModel } from './AtomModel';
 import type { ControlsRef } from './CameraDirector';
 import { CAMERA_FOV, CameraDirector, cloudOverviewPose, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import type { CloudLabel } from './CompoundCloud';
-import { CompoundCloud } from './CompoundCloud';
 import { Dust } from './Dust';
 import { backdropTable, CLOUD_CENTER, recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
 import type { RayLabel } from './Rays';
-import { Rays } from './Rays';
 import type { BeadLabel } from './RayWalk';
-import { RayWalk } from './RayWalk';
-import { StructureView } from './StructureView';
 import { damp } from './useKeepRendering';
+
+// Scene parts beyond the table load on demand: the first screen needs only the table.
+const AtomModel = lazy(() => import('./AtomModel').then((module) => ({ default: module.AtomModel })));
+const CompoundCloud = lazy(() => import('./CompoundCloud').then((module) => ({ default: module.CompoundCloud })));
+const Rays = lazy(() => import('./Rays').then((module) => ({ default: module.Rays })));
+const RayWalk = lazy(() => import('./RayWalk').then((module) => ({ default: module.RayWalk })));
+const StructureView = lazy(() => import('./StructureView').then((module) => ({ default: module.StructureView })));
 
 declare global {
   interface Window {
@@ -103,48 +105,50 @@ function ElementWorld({ controls, names, partners, substance, labelFor, walk, cl
         extras={cloud?.extras}
         strongExtras={cloud?.strongExtras}
       />
-      {scene.kind === 'set' && cloud && cloud.entries.length > 0 && (
-        <CompoundCloud
-          key={scene.symbols.join('-')}
-          controls={controls}
-          entries={cloud.entries}
-          selected={cloud.selected}
-          focusStructure={cloud.focusStructure}
-          labelFor={cloud.labelFor}
-          elementName={elementName}
-        />
-      )}
-      {/* The atom steps aside during a walk: the camera travels right past it. */}
-      {cell && origin && !activePartner && (elementView === 'atom' || !substance) && (
-        <AtomModel key={cell.z} z={cell.z} position={origin} />
-      )}
-      {cell && origin && !activePartner && elementView === 'substance' && substance && (
-        <StructureView key={`substance-${cell.symbol}`} data={substance} position={origin} fitRadius={1.7} elementName={elementName} />
-      )}
-      {cell && origin && partners && partners.length > 0 && (
-        <Rays
-          key={`${cell.symbol}-${width}x${height}`}
-          origin={origin}
-          focusSymbol={cell.symbol}
-          partners={partners}
-          transform={transform}
-          labelFor={labelFor}
-          activeZ={activeZ}
-        />
-      )}
-      {cell && origin && activePartner && walk && (
-        <RayWalk
-          key={`${cell.symbol}-${activePartner.symbol}-${width}x${height}`}
-          controls={controls}
-          origin={origin}
-          transform={transform}
-          partner={activePartner}
-          compounds={walk.compounds}
-          focusStructure={walk.focusStructure}
-          labelFor={walk.labelFor}
-          elementName={elementName}
-        />
-      )}
+      <Suspense fallback={null}>
+        {scene.kind === 'set' && cloud && cloud.entries.length > 0 && (
+          <CompoundCloud
+            key={scene.symbols.join('-')}
+            controls={controls}
+            entries={cloud.entries}
+            selected={cloud.selected}
+            focusStructure={cloud.focusStructure}
+            labelFor={cloud.labelFor}
+            elementName={elementName}
+          />
+        )}
+        {/* The atom steps aside during a walk: the camera travels right past it. */}
+        {cell && origin && !activePartner && (elementView === 'atom' || !substance) && (
+          <AtomModel key={cell.z} z={cell.z} position={origin} />
+        )}
+        {cell && origin && !activePartner && elementView === 'substance' && substance && (
+          <StructureView key={`substance-${cell.symbol}`} data={substance} position={origin} fitRadius={1.7} elementName={elementName} />
+        )}
+        {cell && origin && partners && partners.length > 0 && (
+          <Rays
+            key={`${cell.symbol}-${width}x${height}`}
+            origin={origin}
+            focusSymbol={cell.symbol}
+            partners={partners}
+            transform={transform}
+            labelFor={labelFor}
+            activeZ={activeZ}
+          />
+        )}
+        {cell && origin && activePartner && walk && (
+          <RayWalk
+            key={`${cell.symbol}-${activePartner.symbol}-${width}x${height}`}
+            controls={controls}
+            origin={origin}
+            transform={transform}
+            partner={activePartner}
+            compounds={walk.compounds}
+            focusStructure={walk.focusStructure}
+            labelFor={walk.labelFor}
+            elementName={elementName}
+          />
+        )}
+      </Suspense>
     </>
   );
 }
@@ -157,7 +161,11 @@ interface CompoundStageProps {
 
 function CompoundStage({ id, structure, elementName }: CompoundStageProps) {
   if (!id || !structure) return null;
-  return <StructureView key={id} data={structure} position={STAGE_POSITION} elementName={elementName} />;
+  return (
+    <Suspense fallback={null}>
+      <StructureView key={id} data={structure} position={STAGE_POSITION} elementName={elementName} elementLabels />
+    </Suspense>
+  );
 }
 
 /**

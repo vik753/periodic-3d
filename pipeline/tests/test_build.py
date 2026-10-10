@@ -135,3 +135,16 @@ def test_molecular_crystal_matches() -> None:
     assert molecular_crystal_matches(ice, {"H": 2, "O": 1})
     assert not molecular_crystal_matches(peroxide, {"H": 1, "O": 1})
     assert not molecular_crystal_matches(network, {"H": 2, "O": 1})
+
+
+def test_best_candidate_prefers_long_standing_entries() -> None:
+    from p3d_pipeline.sources.optimade import Candidate, best_candidate
+
+    options = [
+        Candidate("mp-2516584", "C", 8, 0.0),
+        Candidate("mp-48", "C", 4, 0.008),
+        Candidate("mp-66", "C", 2, 0.13),
+    ]
+    best = best_candidate(options)
+    assert best is not None and best.id == "mp-48"  # within the window, the oldest id wins
+    assert best_candidate([]) is None

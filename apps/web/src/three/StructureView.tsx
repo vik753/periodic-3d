@@ -65,6 +65,21 @@ interface StructureViewProps {
   fitRadius?: number;
   /** Show the element name of the atom under the pointer. Off for quick previews. */
   hoverLabel?: boolean;
+  /** One permanent label per element ("Fe Ферум") on an outer atom of that element. */
+  elementLabels?: boolean;
+}
+
+/** For each element, the outermost atom: its label is least likely to hide behind others. */
+export function labelAnchors(positions: THREE.Vector3[], elements: string[]): Array<{ el: string; index: number }> {
+  const best = new Map<string, { index: number; distance: number }>();
+  positions.forEach((position, index) => {
+    const el = elements[index];
+    if (!el) return;
+    const distance = position.length();
+    const current = best.get(el);
+    if (!current || distance > current.distance) best.set(el, { index, distance });
+  });
+  return [...best.entries()].map(([el, { index }]) => ({ el, index }));
 }
 
 export function StructureView({
@@ -73,6 +88,7 @@ export function StructureView({
   elementName,
   fitRadius = FIT_RADIUS,
   hoverLabel = true,
+  elementLabels = false,
 }: StructureViewProps) {
   const groupRef = useRef<THREE.Group>(null);
   const atomsRef = useRef<THREE.InstancedMesh>(null);
@@ -201,6 +217,10 @@ export function StructureView({
     if (event.instanceId !== hoveredAtom) setHoveredAtom(event.instanceId);
   };
 
+  const anchors = useMemo(
+    () => (elementLabels ? labelAnchors(atomPositions, data.atoms.map((atom) => atom.el)) : []),
+    [elementLabels, atomPositions, data],
+  );
   const hovered = hoveredAtom != null ? data.atoms[hoveredAtom] : undefined;
   const hoveredPosition = hoveredAtom != null ? atomPositions[hoveredAtom] : undefined;
 
@@ -214,6 +234,26 @@ export function StructureView({
       />
       {halves.length > 0 && <instancedMesh ref={bondsRef} args={[cylinder, bondMaterial, halves.length]} raycast={() => null} />}
       {cellLines && <lineSegments geometry={cellLines} material={cellMaterial} />}
+      {anchors.map(({ el, index }) => {
+        const anchor = atomPositions[index];
+        if (!anchor) return null;
+        const lift = displayRadius(el) * scale * 1.3;
+        return (
+          <Html
+            key={el}
+            position={[anchor.x, anchor.y + lift, anchor.z]}
+            center
+            distanceFactor={9 * (fitRadius / FIT_RADIUS)}
+            zIndexRange={[15, 0]}
+            pointerEvents="none"
+          >
+            <div className="pointer-events-none -translate-y-3 whitespace-nowrap rounded-full bg-panel/70 px-2.5 py-0.5 text-xs ring-1 ring-rim backdrop-blur-sm">
+              <span className="font-display font-semibold">{el}</span>
+              {elementName?.(el) ? <span className="ml-1.5 text-muted">{elementName(el)}</span> : null}
+            </div>
+          </Html>
+        );
+      })}
       {hoverLabel && (
       <Html
         position={hoveredPosition ?? [0, 0, 0]}

@@ -1,0 +1,589 @@
+{
+  "hosts": [
+    {
+      "name": "PubChem PUG REST",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/962/property/MolecularFormula/JSON",
+      "status": 200,
+      "seconds": 0.19,
+      "bytes": 125
+    },
+    {
+      "name": "PubChem 3D SDF",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/962/SDF?record_type=3d",
+      "status": 200,
+      "seconds": 0.1,
+      "bytes": 1220
+    },
+    {
+      "name": "QLever (Wikidata)",
+      "url": "https://qlever.cs.uni-freiburg.de/api/wikidata?query=PREFIX+wd%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX+wdt%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX+wikibase%3A+%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0APREFIX+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0ASELECT+%3Ff+WHERE+%7B+wd%3AQ283+wdt%3AP274+%3Ff+%7D",
+      "status": 200,
+      "seconds": 0.99,
+      "bytes": 138
+    },
+    {
+      "name": "Wikidata Query Service",
+      "url": "https://query.wikidata.org/sparql?query=PREFIX+wd%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX+wdt%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX+wikibase%3A+%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0APREFIX+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0ASELECT+%3Ff+WHERE+%7B+wd%3AQ283+wdt%3AP274+%3Ff+%7D&format=json",
+      "status": 200,
+      "seconds": 1.0,
+      "bytes": 167
+    },
+    {
+      "name": "Wikidata EntityData",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData/Q283.json",
+      "status": 200,
+      "seconds": 0.43,
+      "bytes": 426183
+    },
+    {
+      "name": "Wikipedia RU REST",
+      "url": "https://ru.wikipedia.org/api/rest_v1/page/summary/%D0%92%D0%BE%D0%B4%D0%B0",
+      "status": 200,
+      "seconds": 0.1,
+      "bytes": 3819
+    },
+    {
+      "name": "Wikipedia UK REST",
+      "url": "https://uk.wikipedia.org/api/rest_v1/page/summary/%D0%92%D0%BE%D0%B4%D0%B0",
+      "status": 200,
+      "seconds": 0.1,
+      "bytes": 3459
+    },
+    {
+      "name": "Wikipedia EN REST",
+      "url": "https://en.wikipedia.org/api/rest_v1/page/summary/Water",
+      "status": 200,
+      "seconds": 0.05,
+      "bytes": 3141
+    },
+    {
+      "name": "Wikimedia Commons API",
+      "url": "https://commons.wikimedia.org/w/api.php?action=query&meta=siteinfo&format=json",
+      "status": 200,
+      "seconds": 0.15,
+      "bytes": 3862
+    },
+    {
+      "name": "COD OPTIMADE",
+      "url": "https://www.crystallography.net/cod/optimade/v1/structures?filter=chemical_formula_reduced%3D%22ClNa%22&page_limit=1",
+      "status": 501,
+      "seconds": 6.51,
+      "bytes": 144
+    },
+    {
+      "name": "MP OPTIMADE",
+      "url": "https://optimade.materialsproject.org/v1/structures?filter=chemical_formula_reduced%3D%22ClNa%22&page_limit=1",
+      "status": 200,
+      "seconds": 0.37,
+      "bytes": 2430
+    },
+    {
+      "name": "MP API heartbeat",
+      "url": "https://api.materialsproject.org/heartbeat",
+      "status": 200,
+      "seconds": 0.17,
+      "bytes": 207
+    },
+    {
+      "name": "MP open data (S3)",
+      "url": "https://materialsproject-build.s3.amazonaws.com/",
+      "status": 200,
+      "seconds": 0.24,
+      "bytes": 358571
+    }
+  ],
+  "properties": {
+    "found": [
+      {
+        "property": "P274",
+        "label": "chemical formula"
+      },
+      {
+        "property": "P662",
+        "label": "PubChem CID"
+      },
+      {
+        "property": "P9902",
+        "label": "Materials Project material ID"
+      }
+    ],
+    "message": "ok",
+    "seconds": 0.95
+  },
+  "wikidata_counts": {
+    "formula_total": {
+      "value": 1427642,
+      "message": "ok",
+      "seconds": 1.63
+    },
+    "formula_any_wiki": {
+      "value": 27950,
+      "message": "ok",
+      "seconds": 2.32
+    },
+    "formula_any_wiki_with_pubchem": {
+      "value": 23387,
+      "message": "ok",
+      "seconds": 2.12
+    },
+    "formula_any_wiki_without_pubchem": {
+      "value": 4563,
+      "message": "ok",
+      "seconds": 2.46
+    },
+    "minerals_any_wiki": {
+      "value": 2076,
+      "message": "ok",
+      "seconds": 1.16
+    },
+    "formula_enwiki": {
+      "value": 24486,
+      "message": "ok",
+      "seconds": 1.34
+    },
+    "formula_ruwiki": {
+      "value": 10070,
+      "message": "ok",
+      "seconds": 1.18
+    },
+    "formula_ukwiki": {
+      "value": 4266,
+      "message": "ok",
+      "seconds": 1.01
+    },
+    "formula_any_wiki_with_P9902": {
+      "value": 1,
+      "message": "ok",
+      "seconds": 0.85
+    }
+  },
+  "wikidata_list_message": "ok",
+  "coverage": {
+    "items": 27950,
+    "parsed": 27528,
+    "unparsed": 422,
+    "elements_with_0": [
+      "Db",
+      "Sg",
+      "Bh",
+      "Hs",
+      "Mt",
+      "Ds",
+      "Rg",
+      "Cn",
+      "Nh",
+      "Fl",
+      "Mc",
+      "Lv"
+    ],
+    "elements_under_10": [
+      "He",
+      "Ne",
+      "Ar",
+      "Kr",
+      "At",
+      "Rn",
+      "Fr",
+      "Bk",
+      "Fm",
+      "Md",
+      "No",
+      "Lr",
+      "Rf",
+      "Ts",
+      "Og"
+    ],
+    "median_per_element": 87.0,
+    "per_element": {
+      "H": 21382,
+      "He": 8,
+      "Li": 222,
+      "Be": 97,
+      "B": 364,
+      "C": 20540,
+      "N": 13032,
+      "O": 19948,
+      "F": 2474,
+      "Ne": 1,
+      "Na": 780,
+      "Mg": 377,
+      "Al": 492,
+      "Si": 784,
+      "P": 1340,
+      "S": 3843,
+      "Cl": 2987,
+      "Ar": 5,
+      "K": 468,
+      "Ca": 506,
+      "Sc": 50,
+      "Ti": 176,
+      "V": 141,
+      "Cr": 165,
+      "Mn": 267,
+      "Fe": 496,
+      "Co": 169,
+      "Ni": 217,
+      "Cu": 411,
+      "Zn": 186,
+      "Ga": 104,
+      "Ge": 125,
+      "As": 388,
+      "Se": 257,
+      "Br": 868,
+      "Kr": 5,
+      "Rb": 68,
+      "Sr": 100,
+      "Y": 96,
+      "Zr": 119,
+      "Nb": 145,
+      "Mo": 136,
+      "Tc": 29,
+      "Ru": 97,
+      "Rh": 159,
+      "Pd": 265,
+      "Ag": 189,
+      "Cd": 83,
+      "In": 84,
+      "Sn": 269,
+      "Sb": 172,
+      "Te": 184,
+      "I": 588,
+      "Xe": 34,
+      "Cs": 75,
+      "Ba": 146,
+      "La": 82,
+      "Ce": 80,
+      "Pr": 175,
+      "Nd": 117,
+      "Pm": 11,
+      "Sm": 100,
+      "Eu": 64,
+      "Gd": 65,
+      "Tb": 51,
+      "Dy": 43,
+      "Ho": 52,
+      "Er": 37,
+      "Tm": 39,
+      "Yb": 65,
+      "Lu": 56,
+      "Hf": 44,
+      "Ta": 56,
+      "W": 104,
+      "Re": 117,
+      "Os": 105,
+      "Ir": 64,
+      "Pt": 335,
+      "Au": 93,
+      "Hg": 222,
+      "Tl": 90,
+      "Pb": 305,
+      "Bi": 153,
+      "Po": 37,
+      "At": 7,
+      "Rn": 5,
+      "Fr": 3,
+      "Ra": 14,
+      "Ac": 10,
+      "Th": 60,
+      "Pa": 36,
+      "U": 175,
+      "Np": 73,
+      "Pu": 132,
+      "Am": 16,
+      "Cm": 12,
+      "Bk": 9,
+      "Cf": 17,
+      "Es": 10,
+      "Fm": 2,
+      "Md": 1,
+      "No": 1,
+      "Lr": 1,
+      "Rf": 1,
+      "Db": 0,
+      "Sg": 0,
+      "Bh": 0,
+      "Hs": 0,
+      "Mt": 0,
+      "Ds": 0,
+      "Rg": 0,
+      "Cn": 0,
+      "Nh": 0,
+      "Fl": 0,
+      "Mc": 0,
+      "Lv": 0,
+      "Ts": 1,
+      "Og": 1
+    },
+    "pairs_total": 1997,
+    "pairs_with_5_plus": 826,
+    "top_pairs": [
+      [
+        "C-H",
+        19873
+      ],
+      [
+        "H-O",
+        17746
+      ],
+      [
+        "C-O",
+        16916
+      ],
+      [
+        "H-N",
+        12594
+      ],
+      [
+        "C-N",
+        12554
+      ],
+      [
+        "N-O",
+        10768
+      ],
+      [
+        "H-S",
+        3121
+      ],
+      [
+        "C-S",
+        2955
+      ],
+      [
+        "O-S",
+        2942
+      ],
+      [
+        "N-S",
+        2463
+      ],
+      [
+        "Cl-H",
+        2414
+      ],
+      [
+        "C-Cl",
+        2382
+      ],
+      [
+        "Cl-O",
+        2016
+      ],
+      [
+        "C-F",
+        1888
+      ],
+      [
+        "F-H",
+        1833
+      ]
+    ],
+    "element_count_histogram": {
+      "1": 329,
+      "2": 4202,
+      "3": 8178,
+      "4": 8892,
+      "5": 4553,
+      "6": 1374
+    },
+    "sitelinks_quantiles": {
+      "p10": 1,
+      "p50": 6,
+      "p90": 22,
+      "p99": 61,
+      "max": 330
+    },
+    "with_cid": 23387
+  },
+  "pubchem_3d": {
+    "sample_size": 150,
+    "with_3d": 108,
+    "share_3d": 0.72,
+    "errors": 0,
+    "median_sdf_bytes": 6866.5,
+    "batch_request": {
+      "status": 200,
+      "records": 4,
+      "seconds": 0.18
+    }
+  },
+  "optimade": {
+    "mp": {
+      "rows": [
+        {
+          "formula": "NaCl",
+          "reduced": "ClNa",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.37
+        },
+        {
+          "formula": "Fe2O3",
+          "reduced": "Fe2O3",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.35
+        },
+        {
+          "formula": "SiO2",
+          "reduced": "O2Si",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.32
+        },
+        {
+          "formula": "CaCO3",
+          "reduced": "CCaO3",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.31
+        },
+        {
+          "formula": "Al2O3",
+          "reduced": "Al2O3",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.23
+        },
+        {
+          "formula": "TiO2",
+          "reduced": "O2Ti",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.24
+        },
+        {
+          "formula": "Fe3O4",
+          "reduced": "Fe3O4",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.26
+        },
+        {
+          "formula": "CuSO4",
+          "reduced": "CuO4S",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.33
+        },
+        {
+          "formula": "KMnO4",
+          "reduced": "KMnO4",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.33
+        },
+        {
+          "formula": "FeS2",
+          "reduced": "FeS2",
+          "status": 200,
+          "available": 154387,
+          "seconds": 0.3
+        }
+      ],
+      "attribute_keys": [
+        "_mp_chemical_system",
+        "_mp_stability",
+        "assemblies",
+        "cartesian_site_positions",
+        "chemical_formula_anonymous",
+        "chemical_formula_descriptive",
+        "chemical_formula_hill",
+        "chemical_formula_reduced",
+        "dimension_types",
+        "elements",
+        "elements_ratios",
+        "immutable_id",
+        "last_modified",
+        "lattice_vectors",
+        "nelements",
+        "nperiodic_dimensions",
+        "nsites",
+        "space_group_it_number",
+        "space_group_symbol_hall",
+        "space_group_symbol_hermann_mauguin",
+        "space_group_symbol_hermann_mauguin_extended",
+        "space_group_symmetry_operations_xyz",
+        "species",
+        "species_at_sites",
+        "structure_features"
+      ]
+    },
+    "cod": {
+      "rows": [
+        {
+          "formula": "NaCl",
+          "reduced": "ClNa",
+          "status": 501,
+          "available": null,
+          "seconds": 6.14
+        },
+        {
+          "formula": "Fe2O3",
+          "reduced": "Fe2O3",
+          "status": -1,
+          "available": null,
+          "seconds": 1.29
+        },
+        {
+          "formula": "SiO2",
+          "reduced": "O2Si",
+          "status": 501,
+          "available": null,
+          "seconds": 5.01
+        },
+        {
+          "formula": "CaCO3",
+          "reduced": "CCaO3",
+          "status": 501,
+          "available": null,
+          "seconds": 5.73
+        },
+        {
+          "formula": "Al2O3",
+          "reduced": "Al2O3",
+          "status": 501,
+          "available": null,
+          "seconds": 1.0
+        },
+        {
+          "formula": "TiO2",
+          "reduced": "O2Ti",
+          "status": 501,
+          "available": null,
+          "seconds": 6.54
+        },
+        {
+          "formula": "Fe3O4",
+          "reduced": "Fe3O4",
+          "status": -1,
+          "available": null,
+          "seconds": 3.92
+        },
+        {
+          "formula": "CuSO4",
+          "reduced": "CuO4S",
+          "status": 501,
+          "available": null,
+          "seconds": 4.37
+        },
+        {
+          "formula": "KMnO4",
+          "reduced": "KMnO4",
+          "status": 501,
+          "available": null,
+          "seconds": 4.74
+        },
+        {
+          "formula": "FeS2",
+          "reduced": "FeS2",
+          "status": -1,
+          "available": null,
+          "seconds": 1.78
+        }
+      ],
+      "attribute_keys": []
+    }
+  },
+  "total_seconds": 151.1
+}

@@ -110,6 +110,11 @@ const resources = {
         select: 'Торкайтеся елементів, щоб додати їх до вибору.',
       },
       selection: { count: 'Вибрано: {{count}}', clear: 'Скинути вибір', show: 'Показати сполуки', mode: 'Вибрати кілька', modeOn: 'Готово' },
+      search: {
+        label: 'Пошук',
+        placeholder: 'Пошук: елемент, формула або назва',
+        empty: 'Нічого не знайдено',
+      },
       cloud: {
         title: 'Сполуки з усіма вибраними елементами',
         back: 'До таблиці',
@@ -221,6 +226,11 @@ const resources = {
         select: 'Касайтесь элементов, чтобы добавить их к выбору.',
       },
       selection: { count: 'Выбрано: {{count}}', clear: 'Сбросить выбор', show: 'Показать соединения', mode: 'Выбрать несколько', modeOn: 'Готово' },
+      search: {
+        label: 'Поиск',
+        placeholder: 'Поиск: элемент, формула или название',
+        empty: 'Ничего не найдено',
+      },
       cloud: {
         title: 'Соединения со всеми выбранными элементами',
         back: 'К таблице',
@@ -330,6 +340,11 @@ const resources = {
         select: 'Tap elements to add them to the selection.',
       },
       selection: { count: 'Selected: {{count}}', clear: 'Clear selection', show: 'Show compounds', mode: 'Select several', modeOn: 'Done' },
+      search: {
+        label: 'Search',
+        placeholder: 'Search: element, formula or name',
+        empty: 'Nothing found',
+      },
       cloud: {
         title: 'Compounds with all selected elements',
         back: 'Back to the table',

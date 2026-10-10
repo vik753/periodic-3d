@@ -20,7 +20,7 @@ const T_END = 0.94;
 const BEAD_RADIUS = 0.075;
 const DRAG_STEP_PX = 70;
 /** Size of the 3D model of the compound in focus (world units). */
-const FOCUS_RADIUS = 0.5;
+const FOCUS_RADIUS = 0.36;
 /** Labels exist for the bead in focus and two neighbours on each side. */
 const LABEL_SLOTS = [-2, -1, 0, 1, 2] as const;
 const WHEEL_STEP = 90;
@@ -102,9 +102,9 @@ export function RayWalk({
     side.normalize();
     const position = point
       .clone()
-      .addScaledVector(tangent, -2.4)
-      .addScaledVector(side, 1.3)
-      .add(new THREE.Vector3(0, 0.8, 0));
+      .addScaledVector(tangent, -2.7)
+      .addScaledVector(side, 1.45)
+      .add(new THREE.Vector3(0, 0.9, 0));
     control.minDistance = 1.5;
     control.maxDistance = 12;
     void control.setLookAt(position.x, position.y, position.z, point.x, point.y, point.z, !reducedMotion);
@@ -221,7 +221,9 @@ export function RayWalk({
     const pulse = reducedMotion ? 1 : 1 + 0.12 * Math.sin(performance.now() / 300);
     for (let i = 0; i < count; i += 1) {
       // The focused bead opens into the 3D model; its neighbours are a little larger.
-      const target = i === index ? (focusStructure ? 0 : 2.2 * pulse) : Math.abs(i - index) === 1 ? 1.3 : 1;
+      // Beads already passed shrink: they sit between the camera and the focus.
+      const target =
+        i === index ? (focusStructure ? 0 : 2.2 * pulse) : i < index ? 0.45 : i === index + 1 ? 1.3 : 1;
       sizes.current[i] = damp(sizes.current[i]!, target, 8, dt);
       const radius = BEAD_RADIUS * sizes.current[i]!;
       scratch.matrix.makeScale(radius, radius, radius).setPosition(positions[i]!);

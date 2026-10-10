@@ -31,6 +31,8 @@ export function RouteSync() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
+      const target = event.target as HTMLElement | null;
+      if (target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
       const current = useAppStore.getState().scene;
       if (current.kind !== 'table') navigate('/');
     };

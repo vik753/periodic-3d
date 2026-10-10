@@ -7,6 +7,7 @@ import { useCompound, useElements } from '../data/hooks';
 import type { Language } from '../i18n';
 import { LANGUAGES, saveLanguage } from '../i18n';
 import { useAppStore } from '../state/store';
+import { Search } from './Search';
 
 const LANGUAGE_LABELS: Record<Language, string> = { uk: 'UA', ru: 'RU', en: 'EN' };
 
@@ -33,7 +34,7 @@ export function TopBar() {
   };
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-10 flex items-start justify-between gap-3 p-3 sm:p-5">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-20 flex flex-wrap items-start justify-between gap-3 p-3 sm:flex-nowrap sm:p-5">
       <nav aria-label={t('nav.breadcrumbs')} className="pointer-events-auto flex min-w-0 items-baseline gap-2 text-sm">
         <Link
           to="/"
@@ -52,6 +53,13 @@ export function TopBar() {
           </span>
         ))}
       </nav>
+      <div
+        className={`order-last flex w-full justify-center sm:order-none sm:w-auto sm:flex-1 ${
+          scene.kind === 'table' ? '' : 'hidden sm:flex'
+        }`}
+      >
+        <Search />
+      </div>
       <div
         role="group"
         aria-label={t('lang.label')}

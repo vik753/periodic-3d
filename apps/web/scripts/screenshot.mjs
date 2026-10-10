@@ -37,6 +37,16 @@ const shots = [
     },
     wait: 3500,
   },
+  {
+    name: 'search-fe',
+    path: '',
+    viewport: desktop,
+    wait: 1500,
+    act: async (page) => {
+      await page.keyboard.press('/');
+      await page.keyboard.type('fe', { delay: 60 });
+    },
+  },
   { name: 'element-fe', path: 'e/Fe', viewport: desktop, quick: true, wait: 3500 },
   { name: 'element-u', path: 'e/U', viewport: desktop, wait: 3500 },
   { name: 'element-o-rays', path: 'e/O', viewport: desktop, quick: true, wait: 4500 },

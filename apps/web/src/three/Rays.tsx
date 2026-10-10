@@ -99,12 +99,14 @@ function createRayMaterial(halo: boolean): THREE.ShaderMaterial {
       varying float vRay;
       varying float vWeight;
       varying float vFacing;
+      varying float vDepth;
       void main() {
         vUv = uv;
         vRay = aRay;
         vWeight = aWeight;
         vec3 expanded = position + normal * uExpand * (0.45 + 0.55 * aWeight);
         vec4 mvPosition = modelViewMatrix * vec4(expanded, 1.0);
+        vDepth = -mvPosition.z;
         vec3 viewNormal = normalize(normalMatrix * normal);
         vFacing = abs(dot(viewNormal, normalize(-mvPosition.xyz)));
         gl_Position = projectionMatrix * mvPosition;
@@ -121,6 +123,7 @@ function createRayMaterial(halo: boolean): THREE.ShaderMaterial {
       varying float vRay;
       varying float vWeight;
       varying float vFacing;
+      varying float vDepth;
       void main() {
         float along = vUv.x;
         if (along > uGrow) discard;
@@ -131,13 +134,16 @@ function createRayMaterial(halo: boolean): THREE.ShaderMaterial {
         float pulse = smoothstep(0.6, 1.0, wave);
         float hovered = 1.0 - step(0.5, abs(vRay - uHover));
         float someoneHovered = step(-0.5, uHover);
-        float strength = mix(0.35, 1.0, vWeight) * mix(1.0, mix(0.28, 1.9, hovered), someoneHovered);
+        float strength = mix(0.45, 1.15, vWeight) * mix(1.0, mix(0.28, 1.6, hovered), someoneHovered);
         float front = 1.0 - smoothstep(uGrow - 0.05, uGrow, along);
         float base = smoothstep(0.0, 0.05, along);
-        float shape = uHalo > 0.5 ? 0.22 * pow(vFacing, 2.2) : 0.55 + 0.45 * core;
-        float alpha = shape * (0.7 + 0.3 * pulse) * strength * base * max(front, 0.35) * uOpacity;
-        vec3 hot = vec3(1.0, 0.86, 0.86);
-        vec3 color = uHalo > 0.5 ? uColor : mix(uColor * 1.6, hot, 0.35 * core + 0.3 * pulse * core);
+        float shape = uHalo > 0.5 ? 0.34 * pow(vFacing, 2.0) : 0.75 + 0.25 * core;
+        // Fade the part of a ray that passes right by the camera (walk view).
+        float near = smoothstep(0.9, 2.8, vDepth);
+        float alpha = shape * (0.72 + 0.28 * pulse) * strength * base * max(front, 0.35) * near * uOpacity;
+        vec3 hot = vec3(1.0, 0.9, 0.9);
+        float heat = uHalo > 0.5 ? 0.0 : pow(core, 3.0) * (0.55 + 0.45 * pulse);
+        vec3 color = mix(uColor * (uHalo > 0.5 ? 1.0 : 1.8), hot, heat);
         gl_FragColor = vec4(color, clamp(alpha, 0.0, 1.0));
         #include <colorspace_fragment>
       }

@@ -1,0 +1,134 @@
+name: data
+
+# Runs the data pipeline. Pushes to pipeline/ build a small slice (H, O, Fe) for
+# quick feedback; a manual run builds the full dataset and can publish a release.
+
+on:
+  workflow_dispatch:
+    inputs:
+      only_elements:
+        description: "Comma-separated element symbols (empty = all)"
+        type: string
+        default: ""
+      limit:
+        description: "Keep the N most famous compounds (0 = all)"
+        type: string
+        default: "0"
+      descriptions:
+        description: "Fetch Wikipedia descriptions"
+        type: boolean
+        default: true
+      release:
+        description: "Publish the dataset as a GitHub release"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "pipeline/**"
+      - ".github/workflows/data.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    defaults:
+      run:
+        working-directory: pipeline
+    env:
+      RUN: ../tools/ci/run.sh
+      ONLY: ${{ github.event_name == 'push' && 'H,O,Fe' || inputs.only_elements }}
+      LIMIT: ${{ github.event_name == 'push' && '60' || inputs.limit }}
+      DESCRIPTIONS: ${{ github.event_name == 'push' && 'true' || inputs.descriptions }}
+      RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: bash $RUN pipeline-install bash ../tools/ci/uv-sync.sh
+
+      - name: Lint
+        id: lint
+        continue-on-error: true
+        run: |
+          bash $RUN pipeline-lint bash -c "uv run ruff check src tests && uv run ruff format --check src tests"
+
+      - name: Types
+        id: types
+        continue-on-error: true
+        run: bash $RUN pipeline-mypy uv run mypy
+
+      - name: Tests
+        id: tests
+        run: bash $RUN pipeline-tests uv run pytest -q
+
+      - name: Restore raw-data cache
+        uses: actions/cache@v4
+        with:
+          path: data/cache
+          key: data-cache-${{ github.run_id }}
+          restore-keys: data-cache-
+
+      - name: Build dataset
+        id: build
+        run: |
+          VERSION="$(date -u +%Y.%m.%d)-r${GITHUB_RUN_NUMBER}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          FLAG=$([ "$DESCRIPTIONS" = "true" ] && echo --descriptions || echo --no-descriptions)
+          bash $RUN pipeline-build uv run p3d-pipeline build --out ../data/build --cache ../data/cache \
+            --version "$VERSION" --only-elements "$ONLY" --limit "$LIMIT" $FLAG
+          tar -czf "../data/dataset-$VERSION.tar.gz" -C ../data/build "$VERSION"
+          ls -la ../data
+          du -sh "../data/build/$VERSION"
+
+      - name: Publish dataset to ci-results
+        if: steps.build.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/dataset
+          cp "../data/build/$VERSION/report.md" "../data/build/$VERSION/manifest.json" out/dataset/
+          size=$(stat -c %s "../data/dataset-$VERSION.tar.gz")
+          # Small slices go to the branch whole; full datasets go to releases.
+          if [ "$size" -lt 25000000 ]; then cp "../data/dataset-$VERSION.tar.gz" out/dataset/dataset.tar.gz; fi
+          echo "$VERSION" > out/dataset/VERSION
+          bash ../tools/ci/publish-results.sh out/dataset data/latest "ci: dataset $VERSION"
+
+      - name: Publish release
+        if: steps.build.outcome == 'success' && env.RELEASE == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "data-$VERSION" "../data/dataset-$VERSION.tar.gz" \
+            --title "Dataset $VERSION" --notes-file "../data/build/$VERSION/report.md" --latest=false
+
+      - name: Commit uv.lock back
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          bash ../tools/ci/commit-back.sh "chore(pipeline): update uv.lock [skip ci]" uv.lock
+
+      - name: Publish logs
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/logs out/run
+          cp -R out/logs out/run/
+          cat > out/run/summary.json <<EOF
+          {"lint": "${{ steps.lint.outcome }}", "types": "${{ steps.types.outcome }}",
+           "tests": "${{ steps.tests.outcome }}", "build": "${{ steps.build.outcome }}",
+           "version": "${VERSION:-none}"}
+          EOF
+          bash ../tools/ci/publish-results.sh out/run data/run "ci: data run ${GITHUB_SHA::7}"

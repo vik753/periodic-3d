@@ -23,6 +23,27 @@ jobs:
       - name: Whitespace and Python syntax
         run: make check
 
+  pipeline:
+    name: pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: bash ../tools/ci/uv-sync.sh
+      - name: Lint
+        run: uv run ruff check src tests && uv run ruff format --check src tests
+      - name: Types
+        run: uv run mypy
+      - name: Tests
+        run: uv run pytest -q
+
   web:
     name: web
     runs-on: ubuntu-latest

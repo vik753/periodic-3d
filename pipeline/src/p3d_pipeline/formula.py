@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import math
 import re
-from collections import Counter
+from collections import defaultdict
 
 from .elements_table import SYMBOL_SET
 
@@ -23,13 +23,13 @@ _LEADING_MULTIPLIER = re.compile(r"^(\d+(?:\.\d+)?)(?=[A-Z(\[{])")
 ElementCounts = dict[str, float]
 
 
-def _parse_group(text: str) -> Counter[str] | None:
-    stack: list[Counter[str]] = [Counter()]
+def _parse_group(text: str) -> defaultdict[str, float] | None:
+    stack: list[defaultdict[str, float]] = [defaultdict(float)]
     i = 0
     while i < len(text):
         char = text[i]
         if char in "([{":
-            stack.append(Counter())
+            stack.append(defaultdict(float))
             i += 1
         elif char in ")]}":
             if len(stack) == 1:
@@ -79,7 +79,7 @@ def parse_formula(raw: str) -> ElementCounts | None:
     text = normalize(raw)
     if not text:
         return None
-    total: Counter[str] = Counter()
+    total: defaultdict[str, float] = defaultdict(float)
     for part in _HYDRATE_SPLIT.split(text):
         if not part:
             continue

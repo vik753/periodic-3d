@@ -1,0 +1,5 @@
+ Container periodic-3d-db-1  Running
+2026-10-10 19:41:38,294 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
+2026-10-10 19:41:38,294 INFO alembic.runtime.migration: Will assume transactional DDL.
+2026-10-10 19:41:38,302 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
+schema is up to date

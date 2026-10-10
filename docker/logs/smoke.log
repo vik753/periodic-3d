@@ -1,0 +1,6 @@
+health: {"status":"ok","version":"2026.01.01-test"}
+meta: {"version":"2026.01.01-test","schemaVersion":1,"apiVersion":1,"created":"2026-01-01T00:00:00+00:00","counts":{"pairs":2,"elements":3,"compounds":4,"structures":2},"licenses":{"rdkit":"Computed with RDKit from PubChem SMILES","pubchem":"PubChem (NIH), public data","wikidata":"CC0, Wikidata","wikipedi
+element: {"version":"2026.01.01-test","z":26,"symbol":"Fe","names":{"en":"Iron","la":"Ferrum","ru":"Железо","uk":"Ферум"},"substanceNames":{"en":"iron","ru":"железо","uk":"залізо"},"wiki
+index.html: 200
+spa route: 200
+etag: 

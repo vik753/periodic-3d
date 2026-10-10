@@ -1,18 +1,31 @@
 $ npm run screenshot
-started: 2026-10-10T23:16:27Z
+started: 2026-10-10T23:49:58Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3857ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 4653ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 6990ms calls=11 url=/periodic-3d/e/Fe
-ok   search-fe 3613ms calls=3 url=/periodic-3d/
-ok   element-fe 6817ms calls=11 url=/periodic-3d/e/Fe
-ok   element-u 6676ms calls=12 url=/periodic-3d/e/U
-ok   element-fe-substance 8948ms calls=8 url=/periodic-3d/e/Fe
-ok   element-o-rays 7828ms calls=9 url=/periodic-3d/e/O
-ok   walk-fe-o 7843ms calls=10 url=/periodic-3d/e/Fe/O
-ok   walk-fe-o-step3 10576ms calls=10 url=/periodic-3d/e/Fe/O
-ok   phone-walk-fe-o 7782ms calls=8 url=/periodic-3d/e/Fe/O
-ok   phone-element-o-rays 8019ms calls=9 url=/periodic-3d/e/O
+ok   table 3980ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 5872ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 7752ms calls=11 url=/periodic-3d/e/Fe
+ok   search-fe 3706ms calls=3 url=/periodic-3d/
+ok   element-fe 7590ms calls=11 url=/periodic-3d/e/Fe
+ok   element-u 7287ms calls=12 url=/periodic-3d/e/U
+ok   element-fe-substance 9169ms calls=8 url=/periodic-3d/e/Fe
+ok   element-o-rays 7851ms calls=9 url=/periodic-3d/e/O
+ok   walk-fe-o 8418ms calls=10 url=/periodic-3d/e/Fe/O
+ok   walk-fe-o-step3 11181ms calls=10 url=/periodic-3d/e/Fe/O
+ok   phone-walk-fe-o 8063ms calls=8 url=/periodic-3d/e/Fe/O
+ok   phone-element-o-rays 7731ms calls=9 url=/periodic-3d/e/O
+ok   set-fe-o 7697ms calls=5 url=/periodic-3d/set/Fe-O
+ok   set-o 7599ms calls=5 url=/periodic-3d/set/O
+ok   phone-set-fe-o 7402ms calls=5 url=/periodic-3d/set/Fe-O
+ok   compound-hematite 9020ms calls=6 url=/periodic-3d/c/Q103223
+ok   compound-water 8239ms calls=5 url=/periodic-3d/c/Q283
+ok   compound-ozone-ru 8261ms calls=5 url=/periodic-3d/c/Q36933
+ok   molecule-benzene 7799ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 7802ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3800ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 8155ms calls=11 url=/periodic-3d/e/Fe
+ok   phone-compound-hematite 7771ms calls=6 url=/periodic-3d/c/Q103223
+finished: 2026-10-10T23:53:11Z
+exit code: 0

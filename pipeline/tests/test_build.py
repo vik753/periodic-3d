@@ -104,6 +104,7 @@ def test_select_compounds_skips_elements_atoms_and_ions_of_one_atom() -> None:
         "Q5283": _record("Q5283", "C", 120),  # diamond: an allotrope, kept
         "Q181395": _record("Q181395", "Fe²⁺Fe³⁺₂O₄", 68, classes={"Q12089225"}),  # magnetite
         "Q849881": _record("Q849881", "H₃O⁺", 45),  # hydronium: an ion, kept
+        "Q104116": _record("Q104116", "OH", 63, classes={"Q141501897"}),  # hydroxyl group: not a substance
     }
     selected = select_compounds(
         records, _options(), excluded=frozenset({"Q677"}), electronegativity={"Fe": 1.83, "O": 3.44}

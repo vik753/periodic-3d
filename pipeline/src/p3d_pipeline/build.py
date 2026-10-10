@@ -25,8 +25,8 @@ from typing import Any
 
 from . import __version__
 from .chemistry import (
-    CLASS_CHEMICAL_ELEMENT,
     CLASS_MINERAL_SPECIES,
+    EXCLUDED_CLASSES,
     MOLECULAR_ELEMENTS,
     MOLECULAR_SMILES,
     NETWORK_SOLIDS,
@@ -209,12 +209,13 @@ def select_compounds(
 ) -> list[Compound]:
     """Compounds for the dataset, most famous first.
 
-    Skipped: chemical elements themselves, single atoms and atomic ions (isotopes, H⁺,
-    Fe³⁺: they belong to the element scene), unparseable or variable formulas.
+    Skipped: chemical elements themselves, chemical groups (hydroxyl), single atoms and
+    atomic ions (isotopes, H⁺, Fe³⁺: they belong to the element scene), unparseable or
+    variable formulas.
     """
     selected: list[Compound] = []
     for record in records.values():
-        if record.qid in excluded or CLASS_CHEMICAL_ELEMENT in record.classes:
+        if record.qid in excluded or not EXCLUDED_CLASSES.isdisjoint(record.classes):
             continue
         counts: ElementCounts | None = None
         raw_formula = ""

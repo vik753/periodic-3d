@@ -55,3 +55,4 @@ packages = ["p3d_pipeline"]
 module = ["rdkit", "rdkit.*", "spglib", "spglib.*"]
 ignore_missing_imports = true
 follow_imports = "skip"
+follow_imports_for_stubs = true

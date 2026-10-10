@@ -58,6 +58,10 @@ NOBLE_GASES: frozenset[str] = frozenset({"He", "Ne", "Ar", "Kr", "Xe", "Rn", "Og
 # Wikidata classes (P31) used by the selection rules.
 CLASS_CHEMICAL_ELEMENT = "Q11344"
 CLASS_MINERAL_SPECIES = "Q12089225"
+CLASS_CHEMICAL_GROUP = "Q141501897"  # "type of chemical group": hydroxyl, methyl… — parts, not substances
+
+# Items of these classes are not compounds and stay out of the dataset.
+EXCLUDED_CLASSES: frozenset[str] = frozenset({CLASS_CHEMICAL_ELEMENT, CLASS_CHEMICAL_GROUP})
 
 # Reduced formulas of covalent network solids: shown as crystals even when PubChem has
 # a small-molecule 3D record (O=Si=O is not quartz).

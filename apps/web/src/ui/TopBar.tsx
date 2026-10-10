@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
+import { useCompound, useElements } from '../data/hooks';
 import type { Language } from '../i18n';
 import { LANGUAGES, saveLanguage } from '../i18n';
 import { useAppStore } from '../state/store';
@@ -11,10 +13,18 @@ const LANGUAGE_LABELS: Record<Language, string> = { uk: 'UA', ru: 'RU', en: 'EN'
 export function TopBar() {
   const { t, i18n } = useTranslation();
   const scene = useAppStore((state) => state.scene);
+  const elements = useElements();
+  const compoundId = scene.kind === 'compound' ? scene.id : null;
+  const compound = useCompound(compoundId);
 
-  const crumbs: Array<{ label: string; to?: string }> = [];
-  if (scene.kind === 'element') crumbs.push({ label: scene.symbol });
-  if (scene.kind === 'compound') crumbs.push({ label: demoCompound(scene.id)?.formula ?? scene.id });
+  const crumbs: Array<{ label: string; detail?: string }> = [];
+  if (scene.kind === 'element') {
+    const element = elements.data?.elements.find((item) => item.symbol === scene.symbol);
+    crumbs.push({ label: scene.symbol, detail: element ? pickName(element.names, i18n.language) : undefined });
+  }
+  if (scene.kind === 'compound') {
+    crumbs.push({ label: demoCompound(scene.id)?.formula ?? compound.data?.formula ?? scene.id });
+  }
 
   const changeLanguage = (language: Language) => {
     void i18n.changeLanguage(language);
@@ -36,6 +46,7 @@ export function TopBar() {
             <span className="font-display font-medium text-text" aria-current="page">
               {crumb.label}
             </span>
+            {crumb.detail && <span className="hidden truncate text-muted sm:inline">{crumb.detail}</span>}
           </span>
         ))}
       </nav>

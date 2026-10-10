@@ -1,10 +1,14 @@
 import { CameraControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 
+import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
+import { useCompound, useElements } from '../data/hooks';
 import { elementBySymbol } from '../data/periodic';
+import type { StructureData } from '../data/structure';
 import { useAppStore } from '../state/store';
 import { AtomModel } from './AtomModel';
 import type { ControlsRef } from './CameraDirector';
@@ -36,12 +40,9 @@ function ElementStage() {
   return <AtomModel key={cell.z} z={cell.z} position={tilePosition(cell)} />;
 }
 
-function CompoundStage() {
-  const scene = useAppStore((state) => state.scene);
-  if (scene.kind !== 'compound') return null;
-  const compound = demoCompound(scene.id);
-  if (!compound) return null;
-  return <StructureView key={compound.id} data={compound.structure} position={STAGE_POSITION} />;
+function CompoundStage({ id, structure }: { id: string | null; structure: StructureData | null }) {
+  if (!id || !structure) return null;
+  return <StructureView key={id} data={structure} position={STAGE_POSITION} />;
 }
 
 /**
@@ -125,6 +126,21 @@ function RenderStats() {
 export function Scene() {
   const controls = useRef<ControlsRef>(null);
   const dpr = useMemo(() => Math.min(window.devicePixelRatio || 1, 1.75), []);
+  const { i18n } = useTranslation();
+
+  // Data hooks run here, outside the Canvas, and reach the 3D tree as props.
+  const elements = useElements();
+  const names = useMemo(
+    () =>
+      elements.data
+        ? new Map(elements.data.elements.map((element) => [element.z, pickName(element.names, i18n.language)] as const))
+        : undefined,
+    [elements.data, i18n.language],
+  );
+  const scene = useAppStore((state) => state.scene);
+  const compoundId = scene.kind === 'compound' ? scene.id : null;
+  const compound = useCompound(compoundId);
+  const structure = compoundId ? (demoCompound(compoundId)?.structure ?? compound.data?.structure ?? null) : null;
 
   return (
     <Canvas
@@ -144,9 +160,9 @@ export function Scene() {
       <CameraDirector controls={controls} />
       <PanelAwareViewOffset />
       <Dust />
-      <PeriodicTable3D />
+      <PeriodicTable3D names={names} />
       <ElementStage />
-      <CompoundStage />
+      <CompoundStage id={compoundId} structure={structure} />
       <RenderStats />
     </Canvas>
   );

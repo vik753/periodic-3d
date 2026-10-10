@@ -15,7 +15,7 @@ const set = process.env.SCREENSHOT_SET ?? 'full';
 const desktop = { width: 1440, height: 900 };
 const phone = { width: 390, height: 844 };
 
-/** @type {Array<{name: string, path: string, viewport: {width: number, height: number}, dpr?: number, wait?: number, quick?: boolean, act?: (page: import('@playwright/test').Page) => Promise<void>}>} */
+/** @type {Array<{name: string, path: string, viewport: {width: number, height: number}, dpr?: number, wait?: number, quick?: boolean, lang?: string, act?: (page: import('@playwright/test').Page) => Promise<void>}>} */
 const shots = [
   { name: 'table', path: '', viewport: desktop, quick: true },
   {
@@ -39,10 +39,14 @@ const shots = [
   },
   { name: 'element-fe', path: 'e/Fe', viewport: desktop, quick: true, wait: 3500 },
   { name: 'element-u', path: 'e/U', viewport: desktop, wait: 3500 },
-  { name: 'molecule-benzene', path: 'c/demo-benzene', viewport: desktop, quick: true, wait: 3500 },
+  { name: 'compound-hematite', path: 'c/Q103223', viewport: desktop, quick: true, wait: 4000 },
+  { name: 'compound-water', path: 'c/Q283', viewport: desktop, wait: 4000 },
+  { name: 'compound-ozone-ru', path: 'c/Q36933', viewport: desktop, wait: 4000, lang: 'ru' },
+  { name: 'molecule-benzene', path: 'c/demo-benzene', viewport: desktop, wait: 3500 },
   { name: 'crystal-nacl', path: 'c/demo-nacl', viewport: desktop, wait: 3500 },
   { name: 'phone-table', path: '', viewport: phone, dpr: 2 },
   { name: 'phone-element-fe', path: 'e/Fe', viewport: phone, dpr: 2, wait: 3500 },
+  { name: 'phone-compound-hematite', path: 'c/Q103223', viewport: phone, dpr: 2, wait: 4000 },
 ];
 
 await mkdir(outDir, { recursive: true });
@@ -55,7 +59,11 @@ let failures = 0;
 
 for (const shot of shots) {
   if (set === 'quick' && !shot.quick) continue;
-  const context = await browser.newContext({ viewport: shot.viewport, deviceScaleFactor: shot.dpr ?? 1 });
+  const context = await browser.newContext({
+    viewport: shot.viewport,
+    deviceScaleFactor: shot.dpr ?? 1,
+    locale: shot.lang === 'ru' ? 'ru-RU' : shot.lang === 'en' ? 'en-US' : 'uk-UA',
+  });
   const page = await context.newPage();
   const messages = [];
   page.on('console', (message) => {

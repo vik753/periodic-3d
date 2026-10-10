@@ -1,12 +1,12 @@
 $ npm run build
-started: 2026-10-10T19:41:53Z
+started: 2026-10-10T19:50:32Z
 
 > @periodic-3d/web@0.1.0 build
 > vite build
 
 [36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
 transforming...
-[32m✓[39m 700 modules transformed.
+[32m✓[39m 701 modules transformed.
 rendering chunks...
 computing gzip size...
 [2mdist/[22m[32mindex.html                                                 [39m[1m[2m  0.99 kB[22m[1m[22m[2m │ gzip:   0.48 kB[22m
@@ -18,11 +18,21 @@ computing gzip size...
 [2mdist/[22m[2massets/[22m[32mgolos-text-latin-wght-normal-BS5oQT7X.woff2         [39m[1m[2m 37.92 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32munbounded-latin-wght-normal-D5afBTBx.woff2          [39m[1m[2m 50.90 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32munbounded-latin-ext-wght-normal-D6H-S6MW.woff2      [39m[1m[2m118.35 kB[22m[1m[22m
-[2mdist/[22m[2massets/[22m[35mindex-UjjkBcfd.css                                  [39m[1m[2m 28.77 kB[22m[1m[22m[2m │ gzip:   7.96 kB[22m
-[2mdist/[22m[2massets/[22m[36mindex-J3GY1zsU.js                                   [39m[1m[2m168.42 kB[22m[1m[22m[2m │ gzip:  54.29 kB[22m
-[2mdist/[22m[2massets/[22m[36mr3f-BfSgjp_4.js                                     [39m[1m[2m227.41 kB[22m[1m[22m[2m │ gzip:  68.49 kB[22m
+[2mdist/[22m[2massets/[22m[35mindex-BVj_JTxj.css                                  [39m[1m[2m 29.11 kB[22m[1m[22m[2m │ gzip:   8.00 kB[22m
+[2mdist/[22m[2massets/[22m[36mformat-D8VPxrCD.js                                  [39m[1m[2m  0.39 kB[22m[1m[22m[2m │ gzip:   0.28 kB[22m
+[2mdist/[22m[2massets/[22m[36mglow-IVh7SLwZ.js                                    [39m[1m[2m  1.21 kB[22m[1m[22m[2m │ gzip:   0.59 kB[22m
+[2mdist/[22m[2massets/[22m[36mAtomModel-BWwvNfbz.js                               [39m[1m[2m  2.58 kB[22m[1m[22m[2m │ gzip:   1.29 kB[22m
+[2mdist/[22m[2massets/[22m[36mSetPanel-CZOJUS9c.js                                [39m[1m[2m  4.01 kB[22m[1m[22m[2m │ gzip:   1.51 kB[22m
+[2mdist/[22m[2massets/[22m[36mCompoundPanel-NZX55lF7.js                           [39m[1m[2m  4.40 kB[22m[1m[22m[2m │ gzip:   1.66 kB[22m
+[2mdist/[22m[2massets/[22m[36mCompoundCloud-CCH1bdza.js                           [39m[1m[2m  4.42 kB[22m[1m[22m[2m │ gzip:   2.16 kB[22m
+[2mdist/[22m[2massets/[22m[36mRayWalk-DOE3v1-I.js                                 [39m[1m[2m  5.40 kB[22m[1m[22m[2m │ gzip:   2.56 kB[22m
+[2mdist/[22m[2massets/[22m[36mRays-BTM1OZvW.js                                    [39m[1m[2m  5.81 kB[22m[1m[22m[2m │ gzip:   2.57 kB[22m
+[2mdist/[22m[2massets/[22m[36mStructureView-BthAFGPV.js                           [39m[1m[2m  6.91 kB[22m[1m[22m[2m │ gzip:   3.28 kB[22m
+[2mdist/[22m[2massets/[22m[36mElementPanel-DQ4PQqlE.js                            [39m[1m[2m  7.77 kB[22m[1m[22m[2m │ gzip:   2.52 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-BRP1Wjvc.js                                   [39m[1m[2m130.67 kB[22m[1m[22m[2m │ gzip:  43.54 kB[22m
+[2mdist/[22m[2massets/[22m[36mr3f-53utwJi1.js                                     [39m[1m[2m228.54 kB[22m[1m[22m[2m │ gzip:  69.00 kB[22m
 [2mdist/[22m[2massets/[22m[36mreact-B7ulV_JK.js                                   [39m[1m[2m264.90 kB[22m[1m[22m[2m │ gzip:  84.67 kB[22m
-[2mdist/[22m[2massets/[22m[36mthree-BYVM2ksI.js                                   [39m[1m[2m724.28 kB[22m[1m[22m[2m │ gzip: 188.46 kB[22m
-[32m✓ built in 5.16s[39m
-finished: 2026-10-10T19:41:59Z
+[2mdist/[22m[2massets/[22m[36mthree-DRTLlGa_.js                                   [39m[1m[2m724.28 kB[22m[1m[22m[2m │ gzip: 188.46 kB[22m
+[32m✓ built in 5.93s[39m
+finished: 2026-10-10T19:50:39Z
 exit code: 0

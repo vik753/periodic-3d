@@ -1,10 +1,10 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 385.6,
+  "initialJsGzipKb": 375.7,
   "withinBudget": true,
   "rows": [
     {
-      "file": "assets/three-BYVM2ksI.js",
+      "file": "assets/three-DRTLlGa_.js",
       "kb": 707.3,
       "gzipKb": 183.5,
       "initial": true
@@ -16,22 +16,82 @@
       "initial": true
     },
     {
-      "file": "assets/r3f-BfSgjp_4.js",
-      "kb": 222.1,
-      "gzipKb": 66.7,
+      "file": "assets/r3f-53utwJi1.js",
+      "kb": 223.2,
+      "gzipKb": 67.2,
       "initial": true
     },
     {
-      "file": "assets/index-J3GY1zsU.js",
-      "kb": 164.5,
-      "gzipKb": 52.9,
+      "file": "assets/index-BRP1Wjvc.js",
+      "kb": 127.6,
+      "gzipKb": 42.5,
       "initial": true
     },
     {
-      "file": "assets/index-UjjkBcfd.css",
-      "kb": 28.1,
-      "gzipKb": 7.7,
+      "file": "assets/index-BVj_JTxj.css",
+      "kb": 28.4,
+      "gzipKb": 7.8,
       "initial": true
+    },
+    {
+      "file": "assets/StructureView-BthAFGPV.js",
+      "kb": 6.8,
+      "gzipKb": 3.2,
+      "initial": false
+    },
+    {
+      "file": "assets/ElementPanel-DQ4PQqlE.js",
+      "kb": 7.6,
+      "gzipKb": 2.5,
+      "initial": false
+    },
+    {
+      "file": "assets/RayWalk-DOE3v1-I.js",
+      "kb": 5.3,
+      "gzipKb": 2.5,
+      "initial": false
+    },
+    {
+      "file": "assets/Rays-BTM1OZvW.js",
+      "kb": 5.7,
+      "gzipKb": 2.5,
+      "initial": false
+    },
+    {
+      "file": "assets/CompoundCloud-CCH1bdza.js",
+      "kb": 4.3,
+      "gzipKb": 2.1,
+      "initial": false
+    },
+    {
+      "file": "assets/CompoundPanel-NZX55lF7.js",
+      "kb": 4.3,
+      "gzipKb": 1.6,
+      "initial": false
+    },
+    {
+      "file": "assets/SetPanel-CZOJUS9c.js",
+      "kb": 3.9,
+      "gzipKb": 1.5,
+      "initial": false
+    },
+    {
+      "file": "assets/AtomModel-BWwvNfbz.js",
+      "kb": 2.5,
+      "gzipKb": 1.3,
+      "initial": false
+    },
+    {
+      "file": "assets/glow-IVh7SLwZ.js",
+      "kb": 1.2,
+      "gzipKb": 0.6,
+      "initial": false
+    },
+    {
+      "file": "assets/format-D8VPxrCD.js",
+      "kb": 0.4,
+      "gzipKb": 0.3,
+      "initial": false
     }
   ]
 }

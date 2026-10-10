@@ -1,5 +1,5 @@
 $ npm test
-started: 2026-10-10T19:41:51Z
+started: 2026-10-10T19:50:30Z
 
 > @periodic-3d/web@0.1.0 test
 > vitest run
@@ -7,15 +7,15 @@ started: 2026-10-10T19:41:51Z
 
 [1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/periodic-3d/periodic-3d/apps/web[39m
 
- [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 21[2mms[22m[39m
- [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 34[2mms[22m[39m
- [32m✓[39m src/data/compoundIndex.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+ [32m✓[39m src/data/compoundIndex.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 23[2mms[22m[39m
  [32m✓[39m src/data/source.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
 [2m      Tests [22m [1m[32m18 passed[39m[22m[90m (18)[39m
-[2m   Start at [22m 19:41:51
-[2m   Duration [22m 1.55s[2m (transform 241ms, setup 0ms, collect 376ms, tests 63ms, environment 1.77s, prepare 431ms)[22m
+[2m   Start at [22m 19:50:30
+[2m   Duration [22m 1.75s[2m (transform 257ms, setup 0ms, collect 429ms, tests 88ms, environment 2.04s, prepare 500ms)[22m
 
-finished: 2026-10-10T19:41:53Z
+finished: 2026-10-10T19:50:32Z
 exit code: 0

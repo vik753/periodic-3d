@@ -6,14 +6,14 @@ import * as THREE from 'three';
 
 import { elementBySymbol } from '../data/periodic';
 import { useAppStore } from '../state/store';
-import { PANEL_LAYOUT, STAGE_POSITION, tableFitDistance, tilePosition } from './layout';
+import { CLOUD_CENTER, CLOUD_RADIUS, PANEL_LAYOUT, STAGE_POSITION, tableFitDistance, tilePosition } from './layout';
 import { prefersReducedMotion } from './useKeepRendering';
 
 export type ControlsRef = ComponentRef<typeof CameraControls>;
 
 export const CAMERA_FOV = 40;
 
-type Pose = { position: [number, number, number]; target: [number, number, number] };
+export type Pose = { position: [number, number, number]; target: [number, number, number] };
 
 /** Panel layout breakpoint: side panel from this width, bottom sheet below it. */
 export const SIDE_PANEL_MIN_WIDTH = PANEL_LAYOUT.sideMinWidth;
@@ -22,15 +22,26 @@ const SHEET_FRACTION = PANEL_LAYOUT.sheetFraction;
 /** Radius of the structure viewer's bounding sphere plus a margin. */
 const STAGE_RADIUS = 2.6 * 1.18;
 
-/** Camera distance that keeps the structure inside the area the info panel leaves free. */
-export function compoundDistance(width: number, height: number): number {
+/** Camera distance that keeps a ball of `radius` inside the area the info panel leaves free. */
+export function fitDistance(width: number, height: number, radius: number, minimum = 0): number {
   const tanV = Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV) / 2);
   const tanH = tanV * (width / Math.max(height, 1));
   const side = width >= SIDE_PANEL_MIN_WIDTH;
   const freeV = side ? tanV : tanV * (1 - SHEET_FRACTION);
   const freeH = side ? tanH * Math.max(0.35, 1 - SIDE_PANEL_WIDTH / width) : tanH;
   const halfAngle = Math.atan(Math.min(freeV, freeH));
-  return Math.max(10.5, STAGE_RADIUS / Math.sin(halfAngle));
+  return Math.max(minimum, radius / Math.sin(halfAngle));
+}
+
+export function compoundDistance(width: number, height: number): number {
+  return fitDistance(width, height, STAGE_RADIUS, 10.5);
+}
+
+/** The whole multi-element cloud in view, slightly from above. */
+export function cloudOverviewPose(width: number, height: number): Pose {
+  const [x, y, z] = CLOUD_CENTER;
+  const distance = fitDistance(width, height, CLOUD_RADIUS * 1.2, 11);
+  return { position: [x, y + distance * 0.12, z + distance], target: [x, y, z] };
 }
 
 function tablePose(aspect: number): Pose {
@@ -73,6 +84,10 @@ export function CameraDirector({ controls }: { controls: RefObject<ControlsRef |
       pose = { position: [x + 0.6, y - 0.4, z + 6.4], target: [x, y, z] };
       control.minDistance = 2.5;
       control.maxDistance = 16;
+    } else if (scene.kind === 'set') {
+      pose = cloudOverviewPose(size.width, size.height);
+      control.minDistance = 2;
+      control.maxDistance = 40;
     } else if (scene.kind === 'compound') {
       const [x, y, z] = STAGE_POSITION;
       const distance = compoundDistance(size.width, size.height);

@@ -1,14 +1,18 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { ELEMENTS } from '../data/periodic';
 import { useAppStore } from '../state/store';
 import { CompoundPanel } from './CompoundPanel';
 import { ElementPanel } from './ElementPanel';
+import { SetPanel } from './SetPanel';
 
 function TableHint() {
   const { t } = useTranslation();
   const selection = useAppStore((state) => state.selection);
   const clearSelection = useAppStore((state) => state.clearSelection);
+  const selectMode = useAppStore((state) => state.selectMode);
+  const setSelectMode = useAppStore((state) => state.setSelectMode);
   return (
     <div className="pointer-events-none fixed inset-x-3 bottom-3 z-10 flex flex-col items-start gap-2 sm:left-5 sm:right-auto sm:bottom-5 sm:max-w-md">
       {selection.length > 0 && (
@@ -17,6 +21,12 @@ function TableHint() {
           <span className="font-display text-sm font-medium text-gold">
             {selection.map((z) => ELEMENTS[z - 1]?.symbol).join(' ')}
           </span>
+          <Link
+            to={`/set/${selection.map((z) => ELEMENTS[z - 1]?.symbol).join('-')}`}
+            className="rounded-full bg-gold px-3 py-1 text-xs font-semibold text-ink transition-colors hover:bg-text"
+          >
+            {t('selection.show')}
+          </Link>
           <button
             type="button"
             onClick={clearSelection}
@@ -26,7 +36,21 @@ function TableHint() {
           </button>
         </div>
       )}
-      <p className="rounded-2xl bg-panel/60 px-4 py-2 text-sm text-muted backdrop-blur-sm">{t('hint.table')}</p>
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          aria-pressed={selectMode}
+          onClick={() => setSelectMode(!selectMode)}
+          className={`pointer-events-auto rounded-full px-3 py-1.5 text-sm ring-1 backdrop-blur-md transition-colors ${
+            selectMode ? 'bg-gold font-semibold text-ink ring-gold' : 'bg-panel text-text ring-rim hover:ring-gold/60'
+          }`}
+        >
+          {t(selectMode ? 'selection.modeOn' : 'selection.mode')}
+        </button>
+        <p className="rounded-2xl bg-panel/60 px-4 py-2 text-sm text-muted backdrop-blur-sm">
+          {t(selectMode ? 'hint.select' : 'hint.table')}
+        </p>
+      </div>
     </div>
   );
 }
@@ -36,5 +60,6 @@ export function InfoPanel() {
   if (scene.kind === 'element')
     return <ElementPanel key={`${scene.symbol}/${scene.partner ?? ''}`} symbol={scene.symbol} partner={scene.partner} />;
   if (scene.kind === 'compound') return <CompoundPanel key={scene.id} id={scene.id} />;
+  if (scene.kind === 'set') return <SetPanel symbols={scene.symbols} />;
   return <TableHint />;
 }

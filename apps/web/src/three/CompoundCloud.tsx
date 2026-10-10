@@ -1,0 +1,225 @@
+import { Html } from '@react-three/drei';
+import type { ThreeEvent } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
+import type { RefObject } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import * as THREE from 'three';
+
+import type { IndexEntry } from '../data/compoundIndex';
+import type { StructureData } from '../data/structure';
+import { useAppStore } from '../state/store';
+import type { ControlsRef } from './CameraDirector';
+import { cloudOverviewPose } from './CameraDirector';
+import { CLOUD_CENTER, CLOUD_RADIUS } from './layout';
+import { StructureView } from './StructureView';
+import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
+
+export const CLOUD_MAX = 90;
+const ORB_RADIUS = 0.085;
+const FOCUS_RADIUS = 0.75;
+const LABELED = 8;
+const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+
+/** Colours: compounds of exactly the selected elements are gold, those with other elements cyan. */
+const GOLD = new THREE.Color('#ffc857');
+const CYAN = new THREE.Color('#62d2ff');
+const WHITE = new THREE.Color('#ffffff');
+
+/**
+ * Orb positions: a Fibonacci ball. The most famous compounds sit near the centre,
+ * the rest spread outwards, so the cloud reads from the middle.
+ */
+export function cloudPositions(count: number, radius = CLOUD_RADIUS): THREE.Vector3[] {
+  const points: THREE.Vector3[] = [];
+  for (let i = 0; i < count; i += 1) {
+    const y = 1 - (2 * (i + 0.5)) / Math.max(count, 1);
+    const ring = Math.sqrt(Math.max(0, 1 - y * y));
+    const theta = GOLDEN_ANGLE * i;
+    const r = radius * (0.35 + 0.65 * Math.cbrt((i + 1) / Math.max(count, 1)));
+    points.push(new THREE.Vector3(Math.cos(theta) * ring * r, y * r * 0.8, Math.sin(theta) * ring * r));
+  }
+  return points;
+}
+
+export interface CloudLabel {
+  formula: string;
+  name: string;
+}
+
+interface CompoundCloudProps {
+  controls: RefObject<ControlsRef | null>;
+  entries: IndexEntry[];
+  /** Atomic numbers of the selected elements (orbs with only these are gold). */
+  selected: number[];
+  focusStructure: StructureData | null;
+  labelFor: (entry: IndexEntry) => CloudLabel;
+  elementName?: (symbol: string) => string | undefined;
+}
+
+/**
+ * The compounds of a multi-element selection float as a slowly turning cloud. Hover an
+ * orb to see what it is; click it to bring it closer and unfold its 3D model; click
+ * again to open its card.
+ */
+export function CompoundCloud({ controls, entries, selected, focusStructure, labelFor, elementName }: CompoundCloudProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  const orbsRef = useRef<THREE.InstancedMesh>(null);
+  const hover = useAppStore((state) => state.cloudHover);
+  const focus = useAppStore((state) => state.cloudFocus);
+  const setHover = useAppStore((state) => state.setCloudHover);
+  const setFocus = useAppStore((state) => state.setCloudFocus);
+  const reducedMotion = useMemo(() => prefersReducedMotion(), []);
+  const size = useThree((state) => state.size);
+  useKeepRendering(true);
+
+  const items = useMemo(() => entries.slice(0, CLOUD_MAX), [entries]);
+  const positions = useMemo(() => cloudPositions(items.length), [items.length]);
+  const strongest = useMemo(() => Math.max(1, ...items.map((entry) => entry.fame)), [items]);
+  const selectedSet = useMemo(() => new Set(selected), [selected]);
+  const focusIndex = items.findIndex((entry) => entry.id === focus);
+  const hoverIndex = items.findIndex((entry) => entry.id === hover);
+
+  const sphere = useMemo(() => new THREE.SphereGeometry(1, 18, 12), []);
+  const material = useMemo(() => new THREE.MeshBasicMaterial({ toneMapped: false }), []);
+  const sizes = useRef(new Float32Array(CLOUD_MAX).fill(0));
+
+  useLayoutEffect(() => {
+    const orbs = orbsRef.current;
+    if (!orbs) return;
+    orbs.count = items.length;
+    const color = new THREE.Color();
+    items.forEach((entry, index) => {
+      const exact = entry.zs.every((z) => selectedSet.has(z));
+      color.copy(exact ? GOLD : CYAN).lerp(WHITE, 0.25);
+      orbs.setColorAt(index, color);
+    });
+    if (orbs.instanceColor) orbs.instanceColor.needsUpdate = true;
+    sizes.current.fill(0);
+  }, [items, selectedSet]);
+
+  // The cloud turns slowly; it stops while something is in focus so the camera can stay on it.
+  useFrame((_, delta) => {
+    const group = groupRef.current;
+    const orbs = orbsRef.current;
+    if (!group || !orbs) return;
+    const dt = Math.min(delta, 0.05);
+    if (!reducedMotion && focusIndex < 0) group.rotation.y += dt * 0.05;
+    const matrix = new THREE.Matrix4();
+    items.forEach((entry, index) => {
+      const base = 0.7 + 0.9 * (Math.log1p(entry.fame) / Math.log1p(strongest));
+      const target = index === focusIndex ? (focusStructure ? 0 : 2.2) : index === hoverIndex ? base * 1.7 : base;
+      sizes.current[index] = damp(sizes.current[index]!, target, 7, dt);
+      const radius = ORB_RADIUS * sizes.current[index]!;
+      matrix.makeScale(radius, radius, radius).setPosition(positions[index]!);
+      orbs.setMatrixAt(index, matrix);
+    });
+    orbs.instanceMatrix.needsUpdate = true;
+  });
+
+  // Focus: the camera comes close to the orb, from the outside of the cloud.
+  useEffect(() => {
+    const control = controls.current;
+    const group = groupRef.current;
+    if (!control || !group) return;
+    const center = new THREE.Vector3(...CLOUD_CENTER);
+    if (focusIndex < 0) {
+      const pose = cloudOverviewPose(size.width, size.height);
+      void control.setLookAt(...pose.position, ...pose.target, !reducedMotion);
+      return;
+    }
+    const local = positions[focusIndex];
+    if (!local) return;
+    const world = local.clone().applyMatrix4(group.matrixWorld);
+    const outward = world.clone().sub(center);
+    if (outward.lengthSq() < 1e-4) outward.set(0, 0, 1);
+    outward.normalize();
+    // Look at the orb from outside the cloud, a little from above and from the camera side.
+    const direction = outward.add(new THREE.Vector3(0, 0.35, 1.2)).normalize();
+    const position = world.clone().addScaledVector(direction, 3.4);
+    void control.setLookAt(position.x, position.y, position.z, world.x, world.y, world.z, !reducedMotion);
+    // Re-run on focus changes only; the overview pose follows the viewport at that moment.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [controls, focusIndex, positions, reducedMotion]);
+
+  const onMove = (event: ThreeEvent<PointerEvent>) => {
+    if (event.instanceId == null) return;
+    event.stopPropagation();
+    const entry = items[event.instanceId];
+    if (entry && entry.id !== hover) setHover(entry.id);
+    document.body.style.cursor = 'pointer';
+  };
+  const onOut = () => {
+    setHover(null);
+    document.body.style.cursor = 'auto';
+  };
+  const onClick = (event: ThreeEvent<MouseEvent>) => {
+    if (event.instanceId == null || event.delta > 6) return;
+    event.stopPropagation();
+    const entry = items[event.instanceId];
+    if (!entry) return;
+    if (entry.id === focus) useAppStore.getState().navigate(`/c/${entry.id}`);
+    else setFocus(entry.id);
+  };
+
+  // Labels: the most famous few, plus the hovered and the focused orb (fixed slots).
+  const labelSlots = useMemo(() => {
+    const slots: Array<{ key: string; index: number; strong: boolean }> = [];
+    for (let i = 0; i < Math.min(LABELED, items.length); i += 1) slots.push({ key: `top-${i}`, index: i, strong: false });
+    slots.push({ key: 'hover', index: hoverIndex, strong: true });
+    return slots;
+  }, [items.length, hoverIndex]);
+
+  const focusEntry = items[focusIndex];
+  const focusPosition = positions[focusIndex];
+  return (
+    <group position={CLOUD_CENTER}>
+      <group ref={groupRef}>
+        <instancedMesh
+          ref={orbsRef}
+          args={[sphere, material, CLOUD_MAX]}
+          onPointerMove={onMove}
+          onPointerOut={onOut}
+          onClick={onClick}
+          frustumCulled={false}
+        />
+        {focusEntry && focusPosition && focusStructure && (
+          <StructureView
+            key={focusEntry.id}
+            data={focusStructure}
+            position={[focusPosition.x, focusPosition.y, focusPosition.z]}
+            fitRadius={FOCUS_RADIUS}
+            hoverLabel={false}
+            elementName={elementName}
+          />
+        )}
+        {labelSlots.map((slot) => {
+          const entry = items[slot.index];
+          const position = positions[slot.index] ?? positions[0] ?? new THREE.Vector3();
+          const hidden = !entry || (slot.key !== 'hover' && (slot.index === hoverIndex || slot.index === focusIndex));
+          const label = entry ? labelFor(entry) : null;
+          const lift = slot.index === focusIndex ? FOCUS_RADIUS + 0.25 : 0.24;
+          return (
+            <Html
+              key={slot.key}
+              position={[position.x, position.y + lift, position.z]}
+              center
+              zIndexRange={[20, 0]}
+              style={{ pointerEvents: 'none', visibility: hidden ? 'hidden' : 'visible' }}
+            >
+              <div
+                className={`whitespace-nowrap rounded-xl px-2.5 py-0.5 text-center backdrop-blur-md ${
+                  slot.strong ? 'bg-panel ring-1 ring-cyan/50' : 'bg-panel/40'
+                }`}
+              >
+                <div className={`font-display font-semibold text-text ${slot.strong ? 'text-sm' : 'text-[11px] opacity-80'}`}>
+                  {label?.formula}
+                </div>
+                {slot.strong && label?.name ? <div className="text-xs text-muted">{label.name}</div> : null}
+              </div>
+            </Html>
+          );
+        })}
+      </group>
+    </group>
+  );
+}

@@ -25,6 +25,7 @@ export function TopBar() {
   if (scene.kind === 'compound') {
     crumbs.push({ label: demoCompound(scene.id)?.formula ?? compound.data?.formula ?? scene.id });
   }
+  if (scene.kind === 'set') crumbs.push({ label: scene.symbols.join(' + ') });
 
   const changeLanguage = (language: Language) => {
     void i18n.changeLanguage(language);

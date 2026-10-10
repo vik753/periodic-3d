@@ -33,8 +33,9 @@ export const CATEGORY_COLORS: Readonly<Record<Category, string>> = {
 const GLASS = new THREE.Color('#121a33');
 const GOLD = new THREE.Color('#FFC857');
 const RAY = new THREE.Color(RAY_COLOR);
+const CYAN = new THREE.Color('#62D2FF');
 
-type TileMode = 'rest' | 'hover' | 'selected' | 'partner' | 'partner-hover' | 'dim';
+type TileMode = 'rest' | 'hover' | 'selected' | 'partner' | 'partner-hover' | 'extra' | 'extra-strong' | 'dim';
 
 function tileColor(category: Category, mode: TileMode, out: THREE.Color): THREE.Color {
   const tint = new THREE.Color(CATEGORY_COLORS[category]);
@@ -47,6 +48,10 @@ function tileColor(category: Category, mode: TileMode, out: THREE.Color): THREE.
       return out.copy(GLASS).lerp(tint, 0.55);
     case 'partner-hover':
       return out.copy(GLASS).lerp(RAY, 0.7);
+    case 'extra':
+      return out.copy(GLASS).lerp(CYAN, 0.38);
+    case 'extra-strong':
+      return out.copy(GLASS).lerp(CYAN, 0.78);
     case 'dim':
       return out.copy(GLASS).lerp(tint, 0.08).multiplyScalar(0.7);
     default:
@@ -63,11 +68,20 @@ interface PeriodicTable3DProps {
   transform?: TableTransform;
   /** Element scene: partners of the focused element (atomic numbers); their tiles light up. */
   partners?: ReadonlySet<number>;
+  /** Set scene: other elements in the cloud's compounds (cyan); `strong` for the hovered compound. */
+  extras?: ReadonlySet<number>;
+  strongExtras?: ReadonlySet<number>;
 }
 
-const NO_PARTNERS: ReadonlySet<number> = new Set();
+const NONE: ReadonlySet<number> = new Set();
 
-export function PeriodicTable3D({ names, transform = TABLE_AT_REST, partners = NO_PARTNERS }: PeriodicTable3DProps) {
+export function PeriodicTable3D({
+  names,
+  transform = TABLE_AT_REST,
+  partners = NONE,
+  extras = NONE,
+  strongExtras = NONE,
+}: PeriodicTable3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const tilesRef = useRef<THREE.InstancedMesh>(null);
   const labelsRef = useRef<THREE.InstancedMesh>(null);
@@ -83,7 +97,8 @@ export function PeriodicTable3D({ names, transform = TABLE_AT_REST, partners = N
 
   const interactive = scene.kind === 'table';
   const elementScene = scene.kind === 'element';
-  const pickable = interactive || elementScene;
+  const setScene = scene.kind === 'set';
+  const pickable = interactive || elementScene || setScene;
   const activeZ = scene.kind === 'element' ? (ELEMENTS.find((e) => e.symbol === scene.symbol)?.z ?? null) : null;
 
   const positions = useMemo(() => ELEMENTS.map((cell) => tilePosition(cell)), []);
@@ -166,6 +181,17 @@ export function PeriodicTable3D({ names, transform = TABLE_AT_REST, partners = N
         const isPartner = partners.has(cell.z);
         mode = isPartner ? (hoveredPartner === cell.z ? 'partner-hover' : 'partner') : hoveredZ === cell.z ? 'hover' : 'dim';
         alpha.setX(index, isPartner || hoveredZ === cell.z ? 1 : 0.22);
+      } else if (setScene) {
+        mode = selection.includes(cell.z)
+          ? 'selected'
+          : strongExtras.has(cell.z)
+            ? 'extra-strong'
+            : extras.has(cell.z)
+              ? 'extra'
+              : hoveredZ === cell.z
+                ? 'hover'
+                : 'dim';
+        alpha.setX(index, mode === 'dim' ? 0.25 : 1);
       } else {
         mode = selection.includes(cell.z) ? 'selected' : hoveredZ === cell.z ? 'hover' : 'rest';
         alpha.setX(index, 1);
@@ -175,7 +201,7 @@ export function PeriodicTable3D({ names, transform = TABLE_AT_REST, partners = N
     alpha.needsUpdate = true;
     if (tiles.instanceColor) tiles.instanceColor.needsUpdate = true;
     invalidate();
-  }, [hoveredZ, selection, invalidate, elementScene, partners, hoveredPartner, labelGeometry]);
+  }, [hoveredZ, selection, invalidate, elementScene, setScene, partners, hoveredPartner, extras, strongExtras, labelGeometry]);
 
   useEffect(() => {
     document.body.style.cursor = pickable && hoveredZ != null ? 'pointer' : 'auto';
@@ -203,7 +229,7 @@ export function PeriodicTable3D({ names, transform = TABLE_AT_REST, partners = N
       if (Math.abs(after - before) > 1e-4) moving = true;
     }
 
-    const targetOpacity = interactive || elementScene ? 1 : 0.06;
+    const targetOpacity = interactive || elementScene || setScene ? 1 : 0.06;
     const nextOpacity = damp(state.opacity, targetOpacity, 6, dt);
     if (Math.abs(nextOpacity - state.opacity) > 0.002) moving = true;
     state.opacity = Math.abs(nextOpacity - targetOpacity) < 0.002 ? targetOpacity : nextOpacity;
@@ -254,12 +280,20 @@ export function PeriodicTable3D({ names, transform = TABLE_AT_REST, partners = N
     event.stopPropagation();
     const cell = ELEMENTS[event.instanceId];
     if (!cell || cell.z === activeZ) return;
-    if (interactive && (event.shiftKey || event.ctrlKey || event.metaKey)) {
+    if (interactive && (event.shiftKey || event.ctrlKey || event.metaKey || useAppStore.getState().selectMode)) {
       toggleSelection(cell.z);
       return;
     }
     setHoveredZ(null);
     const { navigate } = useAppStore.getState();
+    if (scene.kind === 'set') {
+      // In the cloud a tile adds its element to the set or removes it.
+      const symbols = scene.symbols.includes(cell.symbol)
+        ? scene.symbols.filter((symbol) => symbol !== cell.symbol)
+        : [...scene.symbols, cell.symbol];
+      navigate(symbols.length > 0 ? `/set/${symbols.join('-')}` : '/');
+      return;
+    }
     // In the element scene a partner tile opens the walk along its ray; any other tile jumps there.
     if (elementScene && scene.kind === 'element' && partners.has(cell.z)) navigate(`/e/${scene.symbol}/${cell.symbol}`);
     else navigate(`/e/${cell.symbol}`);

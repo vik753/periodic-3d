@@ -22,6 +22,10 @@ export const PANEL_LAYOUT = { sideMinWidth: 640, sideWidth: 380, sheetFraction: 
 /** Where compound structures are shown: in front of the table. */
 export const STAGE_POSITION: Vec3 = [0, 0, 7];
 
+/** The multi-element cloud floats where single compounds are shown. */
+export const CLOUD_CENTER: Vec3 = STAGE_POSITION;
+export const CLOUD_RADIUS = 3.4;
+
 function rowY(row: number): number {
   // f-block rows (9 and 10) sit half a row below period 7.
   return row <= 7 ? row : row - 0.5;

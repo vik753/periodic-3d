@@ -50,6 +50,8 @@ export function RouteSync() {
       const formula = demo?.formula ?? compound.data?.formula ?? scene.id;
       const name = demo ? pickName(demo.names, language) : compound.data ? pickName(compound.data.names, language) : '';
       document.title = [formula, name, app].filter(Boolean).join(' — ');
+    } else if (scene.kind === 'set') {
+      document.title = [scene.symbols.join(' + '), app].join(' — ');
     } else {
       document.title = app;
     }

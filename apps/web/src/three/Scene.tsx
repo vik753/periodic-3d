@@ -12,10 +12,14 @@ import { useCompound, useElement, useElements, usePair } from '../data/hooks';
 import { elementBySymbol } from '../data/periodic';
 import type { StructureData } from '../data/structure';
 import { pairPath } from '../data/source';
+import type { IndexEntry } from '../data/compoundIndex';
 import { useAppStore } from '../state/store';
+import { useCloud } from '../state/useCloud';
 import { AtomModel } from './AtomModel';
 import type { ControlsRef } from './CameraDirector';
 import { CAMERA_FOV, CameraDirector, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
+import type { CloudLabel } from './CompoundCloud';
+import { CompoundCloud } from './CompoundCloud';
 import { Dust } from './Dust';
 import { recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
@@ -50,6 +54,15 @@ interface ElementWorldProps {
     focusStructure: StructureData | null;
     labelFor: (compound: CompoundSummary) => BeadLabel;
   };
+  /** Multi-element cloud: matching compounds, other elements in them, the one in focus. */
+  cloud?: {
+    entries: IndexEntry[];
+    selected: number[];
+    extras: ReadonlySet<number>;
+    strongExtras: ReadonlySet<number>;
+    focusStructure: StructureData | null;
+    labelFor: (entry: IndexEntry) => CloudLabel;
+  };
   elementName?: (symbol: string) => string | undefined;
 }
 
@@ -57,7 +70,7 @@ interface ElementWorldProps {
  * The table, and in the element scene the atom with its rays. Falling into an element
  * pushes the table far back; the rays then run from the atom to the partner tiles.
  */
-function ElementWorld({ controls, names, partners, labelFor, walk, elementName }: ElementWorldProps) {
+function ElementWorld({ controls, names, partners, labelFor, walk, cloud, elementName }: ElementWorldProps) {
   const scene = useAppStore((state) => state.scene);
   const size = useThree((state) => state.size);
   const cell = scene.kind === 'element' ? elementBySymbol(scene.symbol) : undefined;
@@ -75,7 +88,24 @@ function ElementWorld({ controls, names, partners, labelFor, walk, elementName }
 
   return (
     <>
-      <PeriodicTable3D names={names} transform={transform} partners={partnerSet} />
+      <PeriodicTable3D
+        names={names}
+        transform={transform}
+        partners={partnerSet}
+        extras={cloud?.extras}
+        strongExtras={cloud?.strongExtras}
+      />
+      {scene.kind === 'set' && cloud && cloud.entries.length > 0 && (
+        <CompoundCloud
+          key={scene.symbols.join('-')}
+          controls={controls}
+          entries={cloud.entries}
+          selected={cloud.selected}
+          focusStructure={cloud.focusStructure}
+          labelFor={cloud.labelFor}
+          elementName={elementName}
+        />
+      )}
       {/* The atom steps aside during a walk: the camera travels right past it. */}
       {cell && origin && !activePartner && <AtomModel key={cell.z} z={cell.z} position={origin} />}
       {cell && origin && partners && partners.length > 0 && (
@@ -243,6 +273,29 @@ export function Scene() {
     [pair.data, focusCompound.data, beadLabel],
   );
 
+  // Multi-element cloud.
+  const cloudState = useCloud();
+  const cloudHover = useAppStore((state) => state.cloudHover);
+  const cloudFocus = useAppStore((state) => state.cloudFocus);
+  const cloudFocusCompound = useCompound(scene.kind === 'set' ? cloudFocus : null);
+  const cloudLabel = useCallback(
+    (entry: IndexEntry): CloudLabel => ({ formula: entry.formula, name: pickName(entry.names, i18n.language) }),
+    [i18n.language],
+  );
+  const cloud = useMemo(() => {
+    const result = cloudState.result;
+    if (scene.kind !== 'set' || !result) return undefined;
+    const hovered = result.items.find((entry) => entry.id === (cloudHover ?? cloudFocus));
+    return {
+      entries: result.items,
+      selected: cloudState.zs,
+      extras: new Set(result.extras.keys()),
+      strongExtras: new Set(hovered ? hovered.zs.filter((z) => !cloudState.zs.includes(z)) : []),
+      focusStructure: cloudFocusCompound.data?.structure ?? null,
+      labelFor: cloudLabel,
+    };
+  }, [scene.kind, cloudState.result, cloudState.zs, cloudHover, cloudFocus, cloudFocusCompound.data, cloudLabel]);
+
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);
   const structure = compoundId ? (demoCompound(compoundId)?.structure ?? compound.data?.structure ?? null) : null;
@@ -271,6 +324,7 @@ export function Scene() {
         partners={element.data?.partners}
         labelFor={labelFor}
         walk={walk}
+        cloud={cloud}
         elementName={elementName}
       />
       <CompoundStage id={compoundId} structure={structure} elementName={elementName} />

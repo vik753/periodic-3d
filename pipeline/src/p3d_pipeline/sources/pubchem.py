@@ -3,10 +3,15 @@
 from __future__ import annotations
 
 import json
+import logging
 from collections.abc import Iterable, Iterator
 from typing import Any
 
-from ..http import Fetcher
+import httpx
+
+from ..http import Fetcher, RetryableError
+
+log = logging.getLogger("p3d.pubchem")
 
 BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
 PROPERTY_BATCH = 100
@@ -40,9 +45,15 @@ def properties(fetcher: Fetcher, cids: Iterable[int]) -> dict[int, dict[str, Any
     result: dict[int, dict[str, Any]] = {}
     for batch in _chunks(sorted(set(cids)), PROPERTY_BATCH):
         ids = ",".join(map(str, batch))
-        body = fetcher.get(f"{BASE}/compound/cid/{ids}/property/{PROPERTIES_PRIMARY}/JSON")
-        if body is None:
-            body = fetcher.get(f"{BASE}/compound/cid/{ids}/property/{PROPERTIES_FALLBACK}/JSON")
+        try:
+            body = fetcher.get(f"{BASE}/compound/cid/{ids}/property/{PROPERTIES_PRIMARY}/JSON")
+            if body is None:
+                body = fetcher.get(f"{BASE}/compound/cid/{ids}/property/{PROPERTIES_FALLBACK}/JSON")
+        except (RetryableError, httpx.HTTPError) as error:
+            # Skip the batch; it is not cached, so the next run tries again.
+            fetcher.stats["failed_batches"] += 1
+            log.warning("PubChem properties failed for %d CIDs: %s", len(batch), error)
+            continue
         if body is None:
             continue
         for item in json.loads(body).get("PropertyTable", {}).get("Properties", []):
@@ -80,7 +91,12 @@ def conformers_3d(fetcher: Fetcher, cids: Iterable[int]) -> dict[int, str]:
 
     def fetch(batch: list[int]) -> None:
         ids = ",".join(map(str, batch))
-        body = fetcher.get(f"{BASE}/compound/cid/{ids}/SDF", {"record_type": "3d"})
+        try:
+            body = fetcher.get(f"{BASE}/compound/cid/{ids}/SDF", {"record_type": "3d"})
+        except (RetryableError, httpx.HTTPError) as error:
+            fetcher.stats["failed_batches"] += 1
+            log.warning("PubChem 3D failed for %d CIDs: %s", len(batch), error)
+            return
         if body is None:
             if len(batch) > 1:
                 middle = len(batch) // 2

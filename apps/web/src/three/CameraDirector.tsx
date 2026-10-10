@@ -52,6 +52,11 @@ export function CameraDirector({ controls }: { controls: RefObject<ControlsRef |
   useEffect(() => {
     const control = controls.current;
     if (!control) return;
+    // The walk along a ray drives the camera itself (RayWalk).
+    if (scene.kind === 'element' && scene.partner) {
+      previousKind.current = scene.kind;
+      return;
+    }
     const animate = previousKind.current !== null && !prefersReducedMotion();
     previousKind.current = scene.kind;
 

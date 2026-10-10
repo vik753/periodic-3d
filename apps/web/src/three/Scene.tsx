@@ -1,15 +1,17 @@
 import { CameraControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import type { RefObject } from 'react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 
-import type { Partner } from '../data/api';
+import type { CompoundSummary, Partner } from '../data/api';
 import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
-import { useCompound, useElement, useElements } from '../data/hooks';
+import { useCompound, useElement, useElements, usePair } from '../data/hooks';
 import { elementBySymbol } from '../data/periodic';
 import type { StructureData } from '../data/structure';
+import { pairPath } from '../data/source';
 import { useAppStore } from '../state/store';
 import { AtomModel } from './AtomModel';
 import type { ControlsRef } from './CameraDirector';
@@ -19,6 +21,8 @@ import { recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './lay
 import { PeriodicTable3D } from './PeriodicTable3D';
 import type { RayLabel } from './Rays';
 import { Rays } from './Rays';
+import type { BeadLabel } from './RayWalk';
+import { RayWalk } from './RayWalk';
 import { StructureView } from './StructureView';
 import { damp } from './useKeepRendering';
 
@@ -36,16 +40,24 @@ declare global {
 }
 
 interface ElementWorldProps {
+  controls: RefObject<ControlsRef | null>;
   names?: ReadonlyMap<number, string>;
   partners?: Partner[];
   labelFor: (partner: Partner) => RayLabel;
+  /** Walk along a ray: the pair's compounds and the 3D model of the one in focus. */
+  walk?: {
+    compounds: CompoundSummary[];
+    focusStructure: StructureData | null;
+    labelFor: (compound: CompoundSummary) => BeadLabel;
+  };
+  elementName?: (symbol: string) => string | undefined;
 }
 
 /**
  * The table, and in the element scene the atom with its rays. Falling into an element
  * pushes the table far back; the rays then run from the atom to the partner tiles.
  */
-function ElementWorld({ names, partners, labelFor }: ElementWorldProps) {
+function ElementWorld({ controls, names, partners, labelFor, walk, elementName }: ElementWorldProps) {
   const scene = useAppStore((state) => state.scene);
   const size = useThree((state) => state.size);
   const cell = scene.kind === 'element' ? elementBySymbol(scene.symbol) : undefined;
@@ -59,6 +71,7 @@ function ElementWorld({ names, partners, labelFor }: ElementWorldProps) {
   const origin = useMemo(() => (cell ? tilePosition(cell) : null), [cell]);
   const partnerSet = useMemo(() => new Set((cell && partners ? partners : []).map((partner) => partner.z)), [cell, partners]);
   const activeZ = partnerSymbol ? (elementBySymbol(partnerSymbol)?.z ?? null) : null;
+  const activePartner = partners?.find((partner) => partner.z === activeZ);
 
   return (
     <>
@@ -73,6 +86,19 @@ function ElementWorld({ names, partners, labelFor }: ElementWorldProps) {
           transform={transform}
           labelFor={labelFor}
           activeZ={activeZ}
+        />
+      )}
+      {cell && origin && activePartner && walk && (
+        <RayWalk
+          key={`${cell.symbol}-${activePartner.symbol}-${width}x${height}`}
+          controls={controls}
+          origin={origin}
+          transform={transform}
+          partner={activePartner}
+          compounds={walk.compounds}
+          focusStructure={walk.focusStructure}
+          labelFor={walk.labelFor}
+          elementName={elementName}
         />
       )}
     </>
@@ -197,6 +223,25 @@ export function Scene() {
     }),
     [elementName, t],
   );
+  // Walk along a ray: the pair and the compound in focus.
+  const walkCell = scene.kind === 'element' && scene.partner ? elementBySymbol(scene.symbol) : undefined;
+  const walkPartner = scene.kind === 'element' && scene.partner ? elementBySymbol(scene.partner) : undefined;
+  const pair = usePair(walkCell && walkPartner ? pairPath(walkCell, walkPartner) : null);
+  const walkIndex = useAppStore((state) => state.walkIndex);
+  const focusId = pair.data?.compounds[walkIndex]?.id ?? null;
+  const focusCompound = useCompound(focusId);
+  const beadLabel = useCallback(
+    (item: CompoundSummary): BeadLabel => ({ formula: item.formula, name: pickName(item.names, i18n.language) }),
+    [i18n.language],
+  );
+  const walk = useMemo(
+    () =>
+      pair.data
+        ? { compounds: pair.data.compounds, focusStructure: focusCompound.data?.structure ?? null, labelFor: beadLabel }
+        : undefined,
+    [pair.data, focusCompound.data, beadLabel],
+  );
+
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);
   const structure = compoundId ? (demoCompound(compoundId)?.structure ?? compound.data?.structure ?? null) : null;
@@ -219,7 +264,14 @@ export function Scene() {
       <CameraDirector controls={controls} />
       <PanelAwareViewOffset />
       <Dust />
-      <ElementWorld names={names} partners={element.data?.partners} labelFor={labelFor} />
+      <ElementWorld
+        controls={controls}
+        names={names}
+        partners={element.data?.partners}
+        labelFor={labelFor}
+        walk={walk}
+        elementName={elementName}
+      />
       <CompoundStage id={compoundId} structure={structure} elementName={elementName} />
       <RenderStats />
     </Canvas>

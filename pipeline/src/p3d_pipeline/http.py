@@ -7,6 +7,8 @@ sources again. A missing resource (404) is cached as a marker file.
 from __future__ import annotations
 
 import hashlib
+import logging
+import re
 import time
 from collections import Counter
 from collections.abc import Mapping
@@ -16,11 +18,14 @@ from urllib.parse import urlencode, urlparse
 import httpx
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
+log = logging.getLogger("p3d.http")
+
 USER_AGENT = "periodic-3d/0.1 (https://github.com/vik753/periodic-3d; data pipeline)"
 
-# Requests per second per host. PubChem asks for at most 5.
+# Requests per second per host. PubChem allows 5 per second, 400 per minute and
+# 300 seconds of server time per minute; heavy 3D requests hit the time limit first.
 DEFAULT_RATES: dict[str, float] = {
-    "pubchem.ncbi.nlm.nih.gov": 4.0,
+    "pubchem.ncbi.nlm.nih.gov": 3.0,
     "qlever.cs.uni-freiburg.de": 1.0,
     "query.wikidata.org": 1.0,
     "optimade.materialsproject.org": 3.0,
@@ -30,9 +35,24 @@ DEFAULT_RATES: dict[str, float] = {
 }
 FALLBACK_RATE = 2.0
 
+# PubChem reports its load in X-Throttling-Control, e.g.
+# "Request Count status: Green (2%), Request Time status: Yellow (61%), Service status: Green (20%)".
+# Extra pause per request (seconds) by the worst status.
+THROTTLE_PAUSE: dict[str, float] = {"green": 0.0, "yellow": 0.6, "red": 4.0, "black": 30.0}
+_STATUS = re.compile(r"status:\s*(green|yellow|red|black)", re.IGNORECASE)
+# Without a Retry-After header, wait this long after 429/503 so the per-minute window resets.
+BUSY_PAUSE = 20.0
+
 
 class RetryableError(RuntimeError):
     """A transient server or network problem worth retrying."""
+
+
+def throttle_pause(header: str | None) -> float:
+    """Extra pause before the next request to a host that reports its load."""
+    if not header:
+        return 0.0
+    return max((THROTTLE_PAUSE[match.lower()] for match in _STATUS.findall(header)), default=0.0)
 
 
 class Fetcher:
@@ -53,6 +73,7 @@ class Fetcher:
             follow_redirects=True,
         )
         self._last_request: dict[str, float] = {}
+        self._pause: dict[str, float] = {}
         self.stats: Counter[str] = Counter()
 
     def close(self) -> None:
@@ -70,7 +91,7 @@ class Fetcher:
         return self.cache_dir / key[:2] / key
 
     def _throttle(self, host: str) -> None:
-        interval = 1.0 / self.rates.get(host, FALLBACK_RATE)
+        interval = 1.0 / self.rates.get(host, FALLBACK_RATE) + self._pause.get(host, 0.0)
         last = self._last_request.get(host)
         if last is not None:
             wait = interval - (time.monotonic() - last)
@@ -107,8 +128,8 @@ class Fetcher:
 
     @retry(
         retry=retry_if_exception_type((RetryableError, httpx.TransportError)),
-        wait=wait_exponential(multiplier=2, min=2, max=90),
-        stop=stop_after_attempt(7),
+        wait=wait_exponential(multiplier=3, min=5, max=120),
+        stop=stop_after_attempt(10),
         reraise=True,
     )
     def _fetch(self, url: str, params: Mapping[str, str] | None, accept: str | None) -> bytes | None:
@@ -117,6 +138,10 @@ class Fetcher:
         headers = {"Accept": accept} if accept else {}
         response = self.client.get(url, params=params, headers=headers)
         status = response.status_code
+        pause = throttle_pause(response.headers.get("X-Throttling-Control"))
+        if pause != self._pause.get(host, 0.0):
+            log.info("%s asks to slow down: +%.1f s per request", host, pause)
+            self._pause[host] = pause
         if status == 404:
             return None
         if status == 400 and host == "pubchem.ncbi.nlm.nih.gov":
@@ -126,6 +151,8 @@ class Fetcher:
             retry_after = response.headers.get("Retry-After")
             if retry_after and retry_after.isdigit():
                 time.sleep(min(int(retry_after), 120))
+            elif status in (429, 503):
+                time.sleep(BUSY_PAUSE)
             self.stats[f"retry_{status}"] += 1
             raise RetryableError(f"HTTP {status} for {url}")
         response.raise_for_status()

@@ -17,6 +17,7 @@ app = typer.Typer(add_completion=False, help="Periodic Table 3D data pipeline.")
 @app.callback()
 def main() -> None:
     """Fetch public chemistry data and build a versioned dataset."""
+    logging.getLogger("httpx").setLevel(logging.WARNING)  # one line per request is too much
 
 
 @app.command()

@@ -3,9 +3,14 @@
 from __future__ import annotations
 
 import json
+import logging
 from collections.abc import Iterable
 
-from ..http import Fetcher
+import httpx
+
+from ..http import Fetcher, RetryableError
+
+log = logging.getLogger("p3d.wikipedia")
 
 BATCH = 20
 MAX_SENTENCES = 3
@@ -18,21 +23,26 @@ def extracts(fetcher: Fetcher, language: str, titles: Iterable[str]) -> dict[str
     endpoint = f"https://{language}.wikipedia.org/w/api.php"
     for start in range(0, len(unique), BATCH):
         batch = unique[start : start + BATCH]
-        body = fetcher.get(
-            endpoint,
-            {
-                "action": "query",
-                "prop": "extracts",
-                "exintro": "1",
-                "explaintext": "1",
-                "exsentences": str(MAX_SENTENCES),
-                "exlimit": str(BATCH),
-                "redirects": "1",
-                "format": "json",
-                "formatversion": "2",
-                "titles": "|".join(batch),
-            },
-        )
+        try:
+            body = fetcher.get(
+                endpoint,
+                {
+                    "action": "query",
+                    "prop": "extracts",
+                    "exintro": "1",
+                    "explaintext": "1",
+                    "exsentences": str(MAX_SENTENCES),
+                    "exlimit": str(BATCH),
+                    "redirects": "1",
+                    "format": "json",
+                    "formatversion": "2",
+                    "titles": "|".join(batch),
+                },
+            )
+        except (RetryableError, httpx.HTTPError) as error:
+            fetcher.stats["failed_batches"] += 1
+            log.warning("Wikipedia %s extracts failed for %d titles: %s", language, len(batch), error)
+            continue
         if body is None:
             continue
         query = json.loads(body).get("query", {})

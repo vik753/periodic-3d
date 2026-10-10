@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import json
+import logging
 from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Any
 
-from ..http import Fetcher
+import httpx
+
+from ..http import Fetcher, RetryableError
+
+log = logging.getLogger("p3d.optimade")
 
 BASE = "https://optimade.materialsproject.org/v1/structures"
 FORMULA_BATCH = 25
@@ -45,7 +50,12 @@ def _paged(fetcher: Fetcher, params: dict[str, str]) -> list[dict[str, Any]]:
     offset = 0
     while True:
         page = {**params, "page_limit": str(PAGE_LIMIT), "page_offset": str(offset)}
-        body = fetcher.get(BASE, page, accept="application/json")
+        try:
+            body = fetcher.get(BASE, page, accept="application/json")
+        except (RetryableError, httpx.HTTPError) as error:
+            fetcher.stats["failed_batches"] += 1
+            log.warning("OPTIMADE query failed: %s", error)
+            break
         if body is None:
             break
         data = json.loads(body)

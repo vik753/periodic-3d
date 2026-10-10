@@ -40,7 +40,21 @@ const shots = [
   { name: 'element-fe', path: 'e/Fe', viewport: desktop, quick: true, wait: 3500 },
   { name: 'element-u', path: 'e/U', viewport: desktop, wait: 3500 },
   { name: 'element-o-rays', path: 'e/O', viewport: desktop, quick: true, wait: 4500 },
-  { name: 'walk-fe-o', path: 'e/Fe/O', viewport: desktop, wait: 4500 },
+  { name: 'walk-fe-o', path: 'e/Fe/O', viewport: desktop, quick: true, wait: 5000 },
+  {
+    name: 'walk-fe-o-step3',
+    path: 'e/Fe/O',
+    viewport: desktop,
+    wait: 4000,
+    act: async (page) => {
+      await page.waitForTimeout(2500);
+      for (let i = 0; i < 3; i += 1) {
+        await page.keyboard.press('ArrowRight');
+        await page.waitForTimeout(400);
+      }
+    },
+  },
+  { name: 'phone-walk-fe-o', path: 'e/Fe/O', viewport: phone, dpr: 2, wait: 5000 },
   { name: 'phone-element-o-rays', path: 'e/O', viewport: phone, dpr: 2, wait: 4500 },
   { name: 'compound-hematite', path: 'c/Q103223', viewport: desktop, quick: true, wait: 4000 },
   { name: 'compound-water', path: 'c/Q283', viewport: desktop, wait: 4000 },

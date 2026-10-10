@@ -1,17 +1,17 @@
 $ npm run screenshot
-started: 2026-10-10T18:06:41Z
+started: 2026-10-10T18:16:10Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3934ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 7051ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 8031ms calls=9 url=/periodic-3d/e/Fe
-ok   element-fe 8182ms calls=9 url=/periodic-3d/e/Fe
-ok   element-u 8037ms calls=12 url=/periodic-3d/e/U
-ok   molecule-benzene 9095ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 9285ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3767ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 7868ms calls=9 url=/periodic-3d/e/Fe
-finished: 2026-10-10T18:07:59Z
+ok   table 3802ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 4475ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 6900ms calls=9 url=/periodic-3d/e/Fe
+ok   element-fe 7272ms calls=9 url=/periodic-3d/e/Fe
+ok   element-u 7030ms calls=12 url=/periodic-3d/e/U
+ok   molecule-benzene 7663ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 7391ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3670ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 6893ms calls=9 url=/periodic-3d/e/Fe
+finished: 2026-10-10T18:17:15Z
 exit code: 0

@@ -1,13 +1,13 @@
 {
   "base": "https://vik753.github.io/periodic-3d/",
   "set": "quick",
-  "time": "2026-10-10T18:09:16.740Z",
+  "time": "2026-10-10T18:18:32.516Z",
   "shots": [
     {
       "name": "table",
       "path": "",
       "ok": true,
-      "ms": 3990,
+      "ms": 4126,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -21,7 +21,7 @@
       "name": "element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 8029,
+      "ms": 7009,
       "stats": {
         "calls": 9,
         "triangles": 112260,
@@ -37,7 +37,7 @@
       "name": "molecule-benzene",
       "path": "c/demo-benzene",
       "ok": true,
-      "ms": 9147,
+      "ms": 8061,
       "stats": {
         "calls": 5,
         "triangles": 81884,

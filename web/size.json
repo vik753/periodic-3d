@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 377.8,
+  "initialJsGzipKb": 379.5,
   "withinBudget": true,
   "rows": [
     {
@@ -22,14 +22,14 @@
       "initial": true
     },
     {
-      "file": "assets/index-NpjGLiJD.js",
-      "kb": 137.1,
-      "gzipKb": 45.1,
+      "file": "assets/index-GhGv4eZ4.js",
+      "kb": 142.2,
+      "gzipKb": 46.8,
       "initial": true
     },
     {
-      "file": "assets/index-CbyNtra-.css",
-      "kb": 24.7,
+      "file": "assets/index-Dv9j4Kr-.css",
+      "kb": 25,
       "gzipKb": 7.3,
       "initial": true
     }

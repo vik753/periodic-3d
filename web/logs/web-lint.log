@@ -1,5 +1,5 @@
 $ npm run lint
-started: 2026-10-10T18:58:01Z
+started: 2026-10-10T19:05:27Z
 
 > @periodic-3d/web@0.1.0 lint
 > eslint .
@@ -7,15 +7,18 @@ started: 2026-10-10T18:58:01Z
 
 /home/runner/work/periodic-3d/periodic-3d/apps/web/src/three/CameraDirector.tsx
    26:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
-  102:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  107:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
 
 /home/runner/work/periodic-3d/periodic-3d/apps/web/src/three/PeriodicTable3D.tsx
   20:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
 
+/home/runner/work/periodic-3d/periodic-3d/apps/web/src/three/RayWalk.tsx
+  27:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
 /home/runner/work/periodic-3d/periodic-3d/apps/web/src/three/Rays.tsx
   38:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
 
-✖ 4 problems (0 errors, 4 warnings)
+✖ 5 problems (0 errors, 5 warnings)
 
-finished: 2026-10-10T18:58:03Z
+finished: 2026-10-10T19:05:29Z
 exit code: 0

@@ -1,4 +1,4 @@
 {"typecheck": "success", "lint": "success",
  "test": "success", "build": "success",
- "size": "success", "screenshots": "success",
+ "size": "success", "screenshots": "failure",
  "data": "success", "deploy": "success"}

@@ -1,13 +1,13 @@
 {
   "base": "http://localhost:4173/periodic-3d/",
   "set": "full",
-  "time": "2026-10-10T18:59:22.402Z",
+  "time": "2026-10-10T19:05:58.607Z",
   "shots": [
     {
       "name": "table",
       "path": "",
       "ok": true,
-      "ms": 3974,
+      "ms": 3963,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -21,7 +21,7 @@
       "name": "table-hover-fe",
       "path": "",
       "ok": true,
-      "ms": 5493,
+      "ms": 7099,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -35,7 +35,7 @@
       "name": "click-fe-flight",
       "path": "",
       "ok": true,
-      "ms": 8181,
+      "ms": 7844,
       "stats": {
         "calls": 10,
         "triangles": 113988,
@@ -49,7 +49,7 @@
       "name": "element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 8121,
+      "ms": 8101,
       "stats": {
         "calls": 10,
         "triangles": 113988,
@@ -63,7 +63,7 @@
       "name": "element-u",
       "path": "e/U",
       "ok": true,
-      "ms": 8049,
+      "ms": 8180,
       "stats": {
         "calls": 12,
         "triangles": 154900,
@@ -77,7 +77,7 @@
       "name": "element-o-rays",
       "path": "e/O",
       "ok": true,
-      "ms": 8253,
+      "ms": 8278,
       "stats": {
         "calls": 8,
         "triangles": 83828,
@@ -91,10 +91,40 @@
       "name": "walk-fe-o",
       "path": "e/Fe/O",
       "ok": true,
-      "ms": 8895,
+      "ms": 9612,
       "stats": {
-        "calls": 10,
-        "triangles": 113988,
+        "calls": 14,
+        "triangles": 166756,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O"
+      },
+      "console": []
+    },
+    {
+      "name": "walk-fe-o-step3",
+      "path": "e/Fe/O",
+      "ok": true,
+      "ms": 11868,
+      "stats": {
+        "calls": 8,
+        "triangles": 124116,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O"
+      },
+      "console": [
+        "[pageerror] Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node."
+      ]
+    },
+    {
+      "name": "phone-walk-fe-o",
+      "path": "e/Fe/O",
+      "ok": true,
+      "ms": 9096,
+      "stats": {
+        "calls": 13,
+        "triangles": 137636,
         "scene": "element",
         "ready": true,
         "url": "/periodic-3d/e/Fe/O"
@@ -105,7 +135,7 @@
       "name": "phone-element-o-rays",
       "path": "e/O",
       "ok": true,
-      "ms": 7933,
+      "ms": 8072,
       "stats": {
         "calls": 8,
         "triangles": 83828,
@@ -119,7 +149,7 @@
       "name": "compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 9538,
+      "ms": 9778,
       "stats": {
         "calls": 6,
         "triangles": 117108,
@@ -133,7 +163,7 @@
       "name": "compound-water",
       "path": "c/Q283",
       "ok": true,
-      "ms": 8930,
+      "ms": 8687,
       "stats": {
         "calls": 5,
         "triangles": 72588,
@@ -147,7 +177,7 @@
       "name": "compound-ozone-ru",
       "path": "c/Q36933",
       "ok": true,
-      "ms": 8952,
+      "ms": 9050,
       "stats": {
         "calls": 5,
         "triangles": 72644,
@@ -161,7 +191,7 @@
       "name": "molecule-benzene",
       "path": "c/demo-benzene",
       "ok": true,
-      "ms": 9057,
+      "ms": 8831,
       "stats": {
         "calls": 5,
         "triangles": 81884,
@@ -175,7 +205,7 @@
       "name": "crystal-nacl",
       "path": "c/demo-nacl",
       "ok": true,
-      "ms": 9303,
+      "ms": 9684,
       "stats": {
         "calls": 6,
         "triangles": 98348,
@@ -189,7 +219,7 @@
       "name": "phone-table",
       "path": "",
       "ok": true,
-      "ms": 3758,
+      "ms": 3757,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -203,7 +233,7 @@
       "name": "phone-element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 7458,
+      "ms": 7611,
       "stats": {
         "calls": 10,
         "triangles": 113988,
@@ -217,7 +247,7 @@
       "name": "phone-compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 8525,
+      "ms": 8651,
       "stats": {
         "calls": 6,
         "triangles": 117108,

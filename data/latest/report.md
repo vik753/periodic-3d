@@ -1,12 +1,12 @@
-# Отчёт о наборе данных 2026.10.10-r2
+# Отчёт о наборе данных 2026.10.10-r3
 
-- Соединений: 50; с 3D-структурой: 43.
-- С описанием: RU 30, UK 27, EN 48.
-- С названием: RU 37, UK 29, EN 50.
+- Соединений: 49; с 3D-структурой: 42.
+- С описанием: RU 29, UK 26, EN 47.
+- С названием: RU 36, UK 28, EN 49.
 - Пар элементов: 3.
 - Элементов без соединений: He, Li, Be, B, C, N, F, Ne, Na, Mg, Al, Si, P, S, Cl, Ar, K, Ca, Sc, Ti, V, Cr, Mn, Co, Ni, Cu, Zn, Ga, Ge, As, Se, Br, Kr, Rb, Sr, Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd, In, Sn, Sb, Te, I, Xe, Cs, Ba, La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg, Tl, Pb, Bi, Po, At, Rn, Fr, Ra, Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No, Lr, Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn, Nh, Fl, Mc, Lv, Ts, Og.
 - Структуры больше 80000 байт: 0 [].
-- Время сборки: 8 с.
+- Время сборки: 5 с.
 
 ## Источники структур
 
@@ -14,7 +14,7 @@
 | --- | --- |
 | pubchem_3d_available | 17 |
 | rejected_crystal_units | 3 |
-| structure_crystal_crystal | 17 |
+| structure_crystal_crystal | 16 |
 | structure_none | 7 |
 | structure_pubchem3d_molecule | 17 |
 | structure_rdkit_molecule | 9 |
@@ -23,8 +23,8 @@
 
 | Метрика | Значение |
 | --- | --- |
-| cache_hit | 21 |
-| fetched | 17 |
+| cache_hit | 30 |
+| fetched | 8 |
 
 ## Топ-40 классов Wikidata
 
@@ -35,7 +35,6 @@
 | Q111360549 | type of physical object | 1 |
 | Q2512777 | simple substance | 1 |
 | Q428653 | allotrope of oxygen | 1 |
-| Q141501897 | type of chemical group | 1 |
 
 ## Топ-40 соединений
 
@@ -46,7 +45,6 @@
 - Fe₂O₃ — Гематит (73 статей, crystal materialsproject)
 - D₂O — Тяжёлая вода (70 статей, molecule pubchem)
 - Fe₃O₄ — Магнетит (68 статей, crystal materialsproject)
-- OH — Гидроксильная группа (63 статей, crystal materialsproject)
 - FeO(OH) — Гётит (54 статей, crystal materialsproject)
 - Fe₂O₃ — Оксид железа(III) (51 статей, crystal materialsproject)
 - H₃O⁺ — Гидроксоний (45 статей, molecule pubchem)
@@ -79,3 +77,4 @@
 - FeH₂ — Iron(II) hydride (8 статей, molecule rdkit)
 - Fe(OH)₂ — Амакинит (7 статей, crystal materialsproject)
 - H₂O₅ — Pentaoxidane (6 статей, molecule pubchem)
+- FeH — Iron(I) hydride (6 статей, crystal materialsproject)

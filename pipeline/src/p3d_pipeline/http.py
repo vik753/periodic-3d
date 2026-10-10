@@ -16,7 +16,7 @@ from pathlib import Path
 from urllib.parse import urlencode, urlparse
 
 import httpx
-from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
+from tenacity import Retrying, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 log = logging.getLogger("p3d.http")
 
@@ -25,7 +25,7 @@ USER_AGENT = "periodic-3d/0.1 (https://github.com/vik753/periodic-3d; data pipel
 # Requests per second per host. PubChem allows 5 per second, 400 per minute and
 # 300 seconds of server time per minute; heavy 3D requests hit the time limit first.
 DEFAULT_RATES: dict[str, float] = {
-    "pubchem.ncbi.nlm.nih.gov": 3.0,
+    "pubchem.ncbi.nlm.nih.gov": 2.0,
     "qlever.cs.uni-freiburg.de": 1.0,
     "query.wikidata.org": 1.0,
     "optimade.materialsproject.org": 3.0,
@@ -38,7 +38,7 @@ FALLBACK_RATE = 2.0
 # PubChem reports its load in X-Throttling-Control, e.g.
 # "Request Count status: Green (2%), Request Time status: Yellow (61%), Service status: Green (20%)".
 # Extra pause per request (seconds) by the worst status.
-THROTTLE_PAUSE: dict[str, float] = {"green": 0.0, "yellow": 0.6, "red": 4.0, "black": 30.0}
+THROTTLE_PAUSE: dict[str, float] = {"green": 0.0, "yellow": 1.0, "red": 5.0, "black": 60.0}
 _STATUS = re.compile(r"status:\s*(green|yellow|red|black)", re.IGNORECASE)
 # Without a Retry-After header, wait this long after 429/503 so the per-minute window resets.
 BUSY_PAUSE = 20.0
@@ -106,8 +106,14 @@ class Fetcher:
         *,
         accept: str | None = None,
         use_cache: bool = True,
+        cache_only: bool = False,
+        attempts: int = 10,
     ) -> bytes | None:
-        """GET a URL. Returns the body, or None when the resource does not exist."""
+        """GET a URL. Returns the body, or None when the resource does not exist.
+
+        cache_only: answer from the disk cache or return None without asking the host
+        (used when a host has throttled us; the next run fills the gap).
+        """
         path = self._cache_path(url, params)
         missing = path.with_suffix(".missing")
         if use_cache and path.exists():
@@ -116,7 +122,10 @@ class Fetcher:
         if use_cache and missing.exists():
             self.stats["cache_missing"] += 1
             return None
-        body = self._fetch(url, params, accept)
+        if cache_only:
+            self.stats["skipped_offline"] += 1
+            return None
+        body = self._fetch_with_retries(url, params, accept, attempts)
         path.parent.mkdir(parents=True, exist_ok=True)
         if body is None:
             missing.touch()
@@ -126,12 +135,19 @@ class Fetcher:
         self.stats["fetched"] += 1
         return body
 
-    @retry(
-        retry=retry_if_exception_type((RetryableError, httpx.TransportError)),
-        wait=wait_exponential(multiplier=3, min=5, max=120),
-        stop=stop_after_attempt(10),
-        reraise=True,
-    )
+    def _fetch_with_retries(
+        self, url: str, params: Mapping[str, str] | None, accept: str | None, attempts: int
+    ) -> bytes | None:
+        """Retry transient errors with exponential back-off (5 s, 15 s, 45 s, then 120 s)."""
+        retrying = Retrying(
+            retry=retry_if_exception_type((RetryableError, httpx.TransportError)),
+            wait=wait_exponential(multiplier=3, min=5, max=120),
+            stop=stop_after_attempt(attempts),
+            reraise=True,
+        )
+        body: bytes | None = retrying(self._fetch, url, params, accept)
+        return body
+
     def _fetch(self, url: str, params: Mapping[str, str] | None, accept: str | None) -> bytes | None:
         host = urlparse(url).hostname or ""
         self._throttle(host)

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 from collections.abc import Iterable, Iterator
 from typing import Any
 
@@ -87,20 +88,46 @@ def _sdf_cid(record: str) -> int | None:
     return None
 
 
-def conformers_3d(fetcher: Fetcher, cids: Iterable[int]) -> dict[int, str]:
-    """3D SDF records by CID. Batches that fail are split in halves until each CID is tried."""
+def conformers_3d(
+    fetcher: Fetcher,
+    cids: Iterable[int],
+    *,
+    budget_s: float | None = None,
+    max_failures: int = 3,
+) -> dict[int, str]:
+    """3D SDF records by CID. Batches that come back empty are split in halves.
+
+    PubChem blocks clients that ask too much (HTTP 429 for hours). After `max_failures`
+    failed batches in a row, or after `budget_s` seconds, the rest is served from the
+    cache only; callers fall back to RDKit, and the next run continues.
+    """
     result: dict[int, str] = {}
+    started = time.monotonic()
+    state = {"failures": 0, "offline": False}
 
     def fetch(batch: list[int]) -> None:
         ids = ",".join(map(str, batch))
+        if not state["offline"] and budget_s is not None and time.monotonic() - started > budget_s:
+            log.warning("PubChem 3D: time budget used up, continuing from the cache only")
+            state["offline"] = True
         try:
-            body = fetcher.get(f"{BASE}/compound/cid/{ids}/SDF", {"record_type": "3d"})
+            body = fetcher.get(
+                f"{BASE}/compound/cid/{ids}/SDF",
+                {"record_type": "3d"},
+                cache_only=bool(state["offline"]),
+                attempts=4,  # a throttled host stays throttled: give up early, use RDKit
+            )
+            state["failures"] = 0
         except (RetryableError, httpx.HTTPError) as error:
             fetcher.stats["failed_batches"] += 1
             log.warning("PubChem 3D failed for %d CIDs: %s", len(batch), error)
+            state["failures"] = int(state["failures"]) + 1
+            if int(state["failures"]) >= max_failures and not state["offline"]:
+                log.warning("PubChem 3D: %d failures in a row, continuing from the cache only", max_failures)
+                state["offline"] = True
             return
         if body is None:
-            if len(batch) > 1:
+            if len(batch) > 1 and not state["offline"]:
                 middle = len(batch) // 2
                 fetch(batch[:middle])
                 fetch(batch[middle:])

@@ -14,9 +14,11 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import time
 from collections import Counter, defaultdict
+from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from itertools import combinations
@@ -301,6 +303,22 @@ def structure_methods(compound: Compound, wants_crystal: bool) -> list[str]:
     return ["pubchem3d", "rdkit", "crystal"]
 
 
+PUBCHEM_3D_BUDGET_S = 40 * 60
+
+
+def embed_all(smiles: list[str]) -> dict[str, Structure | None]:
+    """RDKit 3D embedding in parallel processes (a few thousand molecules)."""
+    if not smiles:
+        return {}
+    started = time.monotonic()
+    workers = max(1, (os.cpu_count() or 2))
+    log.info("RDKit: embedding %d molecules on %d processes", len(smiles), workers)
+    with ProcessPoolExecutor(max_workers=workers) as pool:
+        structures = list(pool.map(molecule_from_smiles, smiles, chunksize=25))
+    log.info("RDKit: done in %.0f s", time.monotonic() - started)
+    return dict(zip(smiles, structures, strict=True))
+
+
 @dataclass
 class StructureResult:
     structure: Structure
@@ -321,9 +339,22 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
     with_3d = [cid for cid in cids if properties.get(cid, {}).get("conformers3d", 1) > 0]
     log.info("PubChem 3D conformers for %d of %d CIDs", len(with_3d), len(cids))
     started = time.monotonic()
-    conformers = pubchem.conformers_3d(fetcher, with_3d)
+    conformers = pubchem.conformers_3d(fetcher, with_3d, budget_s=PUBCHEM_3D_BUDGET_S)
     log.info("PubChem 3D: %d records in %.0f s", len(conformers), time.monotonic() - started)
     stats["pubchem_3d_available"] = len(conformers)
+
+    # RDKit for molecules without a PubChem 3D record, on all CPU cores.
+    smiles_jobs = sorted(
+        {
+            compound.pubchem["smiles"]
+            for compound in compounds
+            if compound.pubchem.get("smiles")
+            and "." not in compound.pubchem["smiles"]
+            and not (compound.cid and compound.cid in conformers)
+        }
+    )
+    embedded = embed_all(smiles_jobs)
+    stats["rdkit_embedded"] = sum(1 for structure in embedded.values() if structure)
 
     wants_crystal = {
         compound.id: prefers_crystal(compound, compound.cid in conformers if compound.cid else False)
@@ -363,7 +394,8 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
                 structure = parse_sdf(conformers[compound.cid])
                 ref = str(compound.cid)
             elif method == "rdkit" and compound.pubchem.get("smiles"):
-                structure = molecule_from_smiles(compound.pubchem["smiles"])
+                smiles = compound.pubchem["smiles"]
+                structure = embedded[smiles] if smiles in embedded else molecule_from_smiles(smiles)
                 ref = str(compound.cid) if compound.cid else None
             elif method == "crystal" and compound.id in chosen and chosen[compound.id] in crystals:
                 attributes = crystals[chosen[compound.id]]

@@ -1,7 +1,7 @@
-.PHONY: check py-syntax whitespace
+.PHONY: check py-syntax whitespace yaml
 
 ## Lightweight checks that run without installed project dependencies.
-check: whitespace py-syntax
+check: whitespace py-syntax yaml
 
 whitespace:
 	@git diff --check HEAD -- . && echo "whitespace: ok"
@@ -10,3 +10,6 @@ py-syntax:
 	@files="$$(git ls-files '*.py')"; \
 	if [ -n "$$files" ]; then python3 -m py_compile $$files && echo "python syntax: ok"; \
 	else echo "python syntax: no files"; fi
+
+yaml:
+	@python3 tools/ci/check_yaml.py

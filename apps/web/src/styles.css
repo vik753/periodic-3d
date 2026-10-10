@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Unbounded Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Golos Text Variable', 'Segoe UI', system-ui, sans-serif;
+
+  /* Deep indigo "ink" of the scene, glass panels, cool text. */
+  --color-ink: #070b1a;
+  --color-panel: rgb(13 19 42 / 0.76);
+  --color-rim: rgb(139 156 242 / 0.24);
+  --color-text: #e9eef8;
+  --color-muted: #a3afc8;
+
+  /* Accents: rays (bonds) are red, selection is gold, extra elements are cyan. */
+  --color-ray: #ff3b4e;
+  --color-gold: #ffc857;
+  --color-cyan: #62d2ff;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+canvas {
+  touch-action: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

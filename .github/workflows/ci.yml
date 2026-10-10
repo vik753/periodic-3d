@@ -22,3 +22,106 @@ jobs:
       - uses: actions/checkout@v4
       - name: Whitespace and Python syntax
         run: make check
+
+  web:
+    name: web
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: apps/web
+    env:
+      VITE_BASE: /periodic-3d/
+      RUN: ../../tools/ci/run.sh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: bash $RUN web-install bash ../../tools/ci/npm-install.sh
+
+      - name: Typecheck
+        id: typecheck
+        continue-on-error: true
+        run: bash $RUN web-typecheck npm run typecheck
+
+      - name: Lint
+        id: lint
+        continue-on-error: true
+        run: bash $RUN web-lint npm run lint
+
+      - name: Unit tests
+        id: test
+        continue-on-error: true
+        run: bash $RUN web-test npm test
+
+      - name: Build
+        id: build
+        run: bash $RUN web-build npm run build
+
+      - name: Bundle size
+        id: size
+        continue-on-error: true
+        run: bash $RUN web-size npm run size
+
+      - name: Screenshots (local preview)
+        id: screenshots
+        continue-on-error: true
+        run: |
+          npx playwright install --with-deps chromium > out/logs/playwright-install.log 2>&1 || true
+          npx vite preview --port 4173 --strictPort > out/logs/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:4173/periodic-3d/ > /dev/null && break; sleep 1; done
+          SCREENSHOT_BASE=http://localhost:4173/periodic-3d/ bash $RUN web-screenshots npm run screenshot
+
+      - name: Commit lockfile back
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          bash ../../tools/ci/commit-back.sh "chore(web): update package-lock.json [skip ci]" package-lock.json
+
+      - name: Deploy demo to GitHub Pages
+        id: deploy
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          steps.typecheck.outcome == 'success' &&
+          steps.lint.outcome == 'success' &&
+          steps.test.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash $RUN web-deploy bash ../../tools/ci/deploy-pages.sh dist
+
+      - name: Check the live demo
+        if: steps.deploy.outcome == 'success'
+        continue-on-error: true
+        run: |
+          sleep 75
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://vik753.github.io/periodic-3d/)
+          echo "live status: $code" | tee out/logs/live-status.log
+          SCREENSHOT_BASE=https://vik753.github.io/periodic-3d/ SCREENSHOT_OUT=out/live SCREENSHOT_SET=quick \
+            bash $RUN web-live-screenshots npm run screenshot
+
+      - name: Publish results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out
+          cat > out/summary.json <<EOF
+          {"typecheck": "${{ steps.typecheck.outcome }}", "lint": "${{ steps.lint.outcome }}",
+           "test": "${{ steps.test.outcome }}", "build": "${{ steps.build.outcome }}",
+           "size": "${{ steps.size.outcome }}", "screenshots": "${{ steps.screenshots.outcome }}",
+           "deploy": "${{ steps.deploy.outcome }}"}
+          EOF
+          bash ../../tools/ci/publish-results.sh out web "ci: web results for ${GITHUB_SHA::7}"
+
+      - name: Fail on check errors
+        if: >-
+          steps.typecheck.outcome != 'success' ||
+          steps.lint.outcome != 'success' ||
+          steps.test.outcome != 'success'
+        run: exit 1

@@ -1,0 +1,63 @@
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
+
+import { demoCompound } from '../data/demo';
+import type { Language } from '../i18n';
+import { LANGUAGES, saveLanguage } from '../i18n';
+import { useAppStore } from '../state/store';
+
+const LANGUAGE_LABELS: Record<Language, string> = { uk: 'UA', ru: 'RU', en: 'EN' };
+
+export function TopBar() {
+  const { t, i18n } = useTranslation();
+  const scene = useAppStore((state) => state.scene);
+
+  const crumbs: Array<{ label: string; to?: string }> = [];
+  if (scene.kind === 'element') crumbs.push({ label: scene.symbol });
+  if (scene.kind === 'compound') crumbs.push({ label: demoCompound(scene.id)?.formula ?? scene.id });
+
+  const changeLanguage = (language: Language) => {
+    void i18n.changeLanguage(language);
+    saveLanguage(language);
+  };
+
+  return (
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-10 flex items-start justify-between gap-3 p-3 sm:p-5">
+      <nav aria-label={t('nav.breadcrumbs')} className="pointer-events-auto flex min-w-0 items-baseline gap-2 text-sm">
+        <Link
+          to="/"
+          className="font-display text-[15px] font-semibold tracking-tight text-text hover:text-gold sm:text-base"
+        >
+          {t('app.title')}
+        </Link>
+        {crumbs.map((crumb) => (
+          <span key={crumb.label} className="flex items-baseline gap-2 text-muted">
+            <span aria-hidden="true">/</span>
+            <span className="font-display font-medium text-text" aria-current="page">
+              {crumb.label}
+            </span>
+          </span>
+        ))}
+      </nav>
+      <div
+        role="group"
+        aria-label={t('lang.label')}
+        className="pointer-events-auto flex shrink-0 gap-0.5 rounded-full bg-panel p-1 ring-1 ring-rim backdrop-blur-md"
+      >
+        {LANGUAGES.map((language) => (
+          <button
+            key={language}
+            type="button"
+            onClick={() => changeLanguage(language)}
+            aria-pressed={i18n.language === language}
+            className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
+              i18n.language === language ? 'bg-text text-ink' : 'text-muted hover:text-text'
+            }`}
+          >
+            {LANGUAGE_LABELS[language]}
+          </button>
+        ))}
+      </div>
+    </header>
+  );
+}

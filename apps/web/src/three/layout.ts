@@ -86,7 +86,7 @@ export interface TableTransform {
 export const TABLE_AT_REST: TableTransform = { position: [0, 0, 0], scale: 1 };
 
 /** How far the table moves back when the visitor "falls into" an element. */
-export const RECEDE_DEPTH = 15;
+export const RECEDE_DEPTH = 17;
 /** Distance from the camera to the atom in the element scene (see CameraDirector). */
 export const ELEMENT_VIEW_DISTANCE = 6.45;
 
@@ -110,7 +110,8 @@ export function recededTable(
   const halfH = tanV * aspect * depth * (side ? Math.max(0.35, 1 - panel.sideWidth / viewport.width) : 1);
   const extentH = Math.max(TABLE_HALF_WIDTH + px, TABLE_HALF_WIDTH - px);
   const extentV = Math.max(TABLE_HALF_HEIGHT + py, TABLE_HALF_HEIGHT - py);
-  const scale = Math.min(0.8, (0.9 * halfH) / extentH, (0.9 * halfV) / extentV);
+  // Perspective and the curved edges make the table look larger than its flat extent: keep a margin.
+  const scale = Math.min(0.62, (0.74 * halfH) / extentH, (0.8 * halfV) / extentV);
   return { position: [px - scale * px, py - scale * py, pz - RECEDE_DEPTH - scale * pz], scale };
 }
 

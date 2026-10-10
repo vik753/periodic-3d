@@ -15,10 +15,14 @@ import { StructureView } from './StructureView';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
 
 const MAX_BEADS = 30;
-const T_START = 0.14;
+const T_START = 0.2;
 const T_END = 0.94;
 const BEAD_RADIUS = 0.075;
 const DRAG_STEP_PX = 70;
+/** Size of the 3D model of the compound in focus (world units). */
+const FOCUS_RADIUS = 0.5;
+/** Labels exist for the bead in focus and two neighbours on each side. */
+const LABEL_SLOTS = [-2, -1, 0, 1, 2] as const;
 const WHEEL_STEP = 90;
 /** camera-controls ACTION.NONE: the walk takes over drag and wheel. */
 const ACTION_NONE = 0;
@@ -98,9 +102,9 @@ export function RayWalk({
     side.normalize();
     const position = point
       .clone()
-      .addScaledVector(tangent, -3.1)
-      .addScaledVector(side, 1.15)
-      .add(new THREE.Vector3(0, 0.75, 0));
+      .addScaledVector(tangent, -2.4)
+      .addScaledVector(side, 1.3)
+      .add(new THREE.Vector3(0, 0.8, 0));
     control.minDistance = 1.5;
     control.maxDistance = 12;
     void control.setLookAt(position.x, position.y, position.z, point.x, point.y, point.z, !reducedMotion);
@@ -269,30 +273,35 @@ export function RayWalk({
           key={focus.id}
           data={focusStructure}
           position={[focusPosition.x, focusPosition.y, focusPosition.z]}
-          fitRadius={0.85}
+          fitRadius={FOCUS_RADIUS}
+          hoverLabel={false}
           elementName={elementName}
         />
       )}
-      {beads.map((compound, i) => {
-        const position = positions[i];
-        if (!position || Math.abs(i - index) > 2) return null;
-        const label = labelFor(compound);
-        const focused = i === index;
+      {LABEL_SLOTS.map((slot) => {
+        // Fixed slots keep the DOM labels mounted while the walk moves (no churn of portals).
+        const i = index + slot;
+        const compound = beads[i];
+        const position = positions[i] ?? positions[index] ?? new THREE.Vector3();
+        const focused = slot === 0;
+        const label = compound ? labelFor(compound) : null;
         return (
           <Html
-            key={compound.id}
-            position={[position.x, position.y + (focused ? 1.05 : 0.22), position.z]}
+            key={slot}
+            position={[position.x, position.y + (focused ? FOCUS_RADIUS + 0.3 : 0.22), position.z]}
             center
             zIndexRange={[20, 0]}
-            style={{ pointerEvents: 'none' }}
+            style={{ pointerEvents: 'none', visibility: label ? 'visible' : 'hidden' }}
           >
             <div
               className={`whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md ${
                 focused ? 'bg-panel ring-1 ring-ray/60' : 'bg-panel/50 opacity-70'
               }`}
             >
-              <div className={`font-display font-semibold text-text ${focused ? 'text-base' : 'text-xs'}`}>{label.formula}</div>
-              {focused && label.name && <div className="text-xs text-muted">{label.name}</div>}
+              <div className={`font-display font-semibold text-text ${focused ? 'text-base' : 'text-xs'}`}>
+                {label?.formula}
+              </div>
+              {focused && label?.name ? <div className="text-xs text-muted">{label.name}</div> : null}
             </div>
           </Html>
         );

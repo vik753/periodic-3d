@@ -63,9 +63,17 @@ interface StructureViewProps {
   elementName?: (symbol: string) => string | undefined;
   /** Radius of the fitted structure in world units (smaller for previews on a ray). */
   fitRadius?: number;
+  /** Show the element name of the atom under the pointer. Off for quick previews. */
+  hoverLabel?: boolean;
 }
 
-export function StructureView({ data, position, elementName, fitRadius = FIT_RADIUS }: StructureViewProps) {
+export function StructureView({
+  data,
+  position,
+  elementName,
+  fitRadius = FIT_RADIUS,
+  hoverLabel = true,
+}: StructureViewProps) {
   const groupRef = useRef<THREE.Group>(null);
   const atomsRef = useRef<THREE.InstancedMesh>(null);
   const bondsRef = useRef<THREE.InstancedMesh>(null);
@@ -206,19 +214,20 @@ export function StructureView({ data, position, elementName, fitRadius = FIT_RAD
       />
       {halves.length > 0 && <instancedMesh ref={bondsRef} args={[cylinder, bondMaterial, halves.length]} raycast={() => null} />}
       {cellLines && <lineSegments geometry={cellLines} material={cellMaterial} />}
-      {hovered && hoveredPosition && (
-        <Html
-          position={hoveredPosition}
-          center
-          distanceFactor={9 * (fitRadius / FIT_RADIUS)}
-          zIndexRange={[20, 0]}
-          pointerEvents="none"
-        >
-          <div className="pointer-events-none -translate-y-7 whitespace-nowrap rounded-full bg-panel px-3 py-1 text-sm ring-1 ring-rim backdrop-blur-md">
-            <span className="font-display font-semibold">{hovered.el}</span>
-            {elementName?.(hovered.el) ? <span className="ml-2 text-muted">{elementName(hovered.el)}</span> : null}
-          </div>
-        </Html>
+      {hoverLabel && (
+      <Html
+        position={hoveredPosition ?? [0, 0, 0]}
+        center
+        distanceFactor={9 * (fitRadius / FIT_RADIUS)}
+        zIndexRange={[20, 0]}
+        pointerEvents="none"
+        style={{ visibility: hovered ? 'visible' : 'hidden' }}
+      >
+        <div className="pointer-events-none -translate-y-7 whitespace-nowrap rounded-full bg-panel px-3 py-1 text-sm ring-1 ring-rim backdrop-blur-md">
+          <span className="font-display font-semibold">{hovered?.el}</span>
+          {hovered && elementName?.(hovered.el) ? <span className="ml-2 text-muted">{elementName(hovered.el)}</span> : null}
+        </div>
+      </Html>
       )}
     </group>
   );

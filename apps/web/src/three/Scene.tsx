@@ -76,7 +76,8 @@ function ElementWorld({ controls, names, partners, labelFor, walk, elementName }
   return (
     <>
       <PeriodicTable3D names={names} transform={transform} partners={partnerSet} />
-      {cell && origin && <AtomModel key={cell.z} z={cell.z} position={origin} />}
+      {/* The atom steps aside during a walk: the camera travels right past it. */}
+      {cell && origin && !activePartner && <AtomModel key={cell.z} z={cell.z} position={origin} />}
       {cell && origin && partners && partners.length > 0 && (
         <Rays
           key={`${cell.symbol}-${width}x${height}`}

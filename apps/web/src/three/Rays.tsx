@@ -76,7 +76,11 @@ function rayGeometry(curves: RayCurve[], radius: (ray: RayCurve) => number, segm
   return merged;
 }
 
-function createRayMaterial(): THREE.ShaderMaterial {
+/**
+ * Two passes share one geometry: a bright core and a wide, faint halo (the vertex shader
+ * pushes the halo out along the normals). Together they read as a beam of light.
+ */
+function createRayMaterial(halo: boolean): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
     uniforms: {
       uTime: { value: 0 },
@@ -84,10 +88,13 @@ function createRayMaterial(): THREE.ShaderMaterial {
       uHover: { value: -1 },
       uColor: { value: new THREE.Color(RAY_COLOR) },
       uOpacity: { value: 1 },
+      uExpand: { value: halo ? 0.075 : 0 },
+      uHalo: { value: halo ? 1 : 0 },
     },
     vertexShader: /* glsl */ `
       attribute float aRay;
       attribute float aWeight;
+      uniform float uExpand;
       varying vec2 vUv;
       varying float vRay;
       varying float vWeight;
@@ -96,7 +103,8 @@ function createRayMaterial(): THREE.ShaderMaterial {
         vUv = uv;
         vRay = aRay;
         vWeight = aWeight;
-        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        vec3 expanded = position + normal * uExpand * (0.45 + 0.55 * aWeight);
+        vec4 mvPosition = modelViewMatrix * vec4(expanded, 1.0);
         vec3 viewNormal = normalize(normalMatrix * normal);
         vFacing = abs(dot(viewNormal, normalize(-mvPosition.xyz)));
         gl_Position = projectionMatrix * mvPosition;
@@ -108,6 +116,7 @@ function createRayMaterial(): THREE.ShaderMaterial {
       uniform float uHover;
       uniform vec3 uColor;
       uniform float uOpacity;
+      uniform float uHalo;
       varying vec2 vUv;
       varying float vRay;
       varying float vWeight;
@@ -125,8 +134,10 @@ function createRayMaterial(): THREE.ShaderMaterial {
         float strength = mix(0.35, 1.0, vWeight) * mix(1.0, mix(0.28, 1.9, hovered), someoneHovered);
         float front = 1.0 - smoothstep(uGrow - 0.05, uGrow, along);
         float base = smoothstep(0.0, 0.05, along);
-        float alpha = (0.16 + 0.84 * core) * (0.62 + 0.38 * pulse) * strength * base * max(front, 0.35) * uOpacity;
-        vec3 color = uColor * (0.85 + core) + vec3(1.0, 0.82, 0.8) * pulse * core * 0.4;
+        float shape = uHalo > 0.5 ? 0.22 * pow(vFacing, 2.2) : 0.55 + 0.45 * core;
+        float alpha = shape * (0.7 + 0.3 * pulse) * strength * base * max(front, 0.35) * uOpacity;
+        vec3 hot = vec3(1.0, 0.86, 0.86);
+        vec3 color = uHalo > 0.5 ? uColor : mix(uColor * 1.6, hot, 0.35 * core + 0.3 * pulse * core);
         gl_FragColor = vec4(color, clamp(alpha, 0.0, 1.0));
         #include <colorspace_fragment>
       }
@@ -156,9 +167,10 @@ interface RaysProps {
 
 export function Rays({ origin, focusSymbol, partners, transform, labelFor, activeZ = null }: RaysProps) {
   const curves = useMemo(() => buildRayCurves(origin, partners, transform), [origin, partners, transform]);
-  const geometry = useMemo(() => rayGeometry(curves, (ray) => 0.012 + 0.05 * ray.weight, SEGMENTS), [curves]);
+  const geometry = useMemo(() => rayGeometry(curves, (ray) => 0.01 + 0.032 * ray.weight, SEGMENTS), [curves]);
   const hitGeometry = useMemo(() => rayGeometry(curves, () => HIT_RADIUS, 24), [curves]);
-  const material = useMemo(() => createRayMaterial(), []);
+  const material = useMemo(() => createRayMaterial(false), []);
+  const haloMaterial = useMemo(() => createRayMaterial(true), []);
   const hitMaterial = useMemo(() => new THREE.MeshBasicMaterial({ visible: false }), []);
   const hoveredPartner = useAppStore((state) => state.hoveredPartner);
   const setHoveredPartner = useAppStore((state) => state.setHoveredPartner);
@@ -173,7 +185,13 @@ export function Rays({ origin, focusSymbol, partners, transform, labelFor, activ
     },
     [geometry, hitGeometry],
   );
-  useEffect(() => () => material.dispose(), [material]);
+  useEffect(
+    () => () => {
+      material.dispose();
+      haloMaterial.dispose();
+    },
+    [material, haloMaterial],
+  );
   useEffect(() => () => setHoveredPartner(null), [setHoveredPartner]);
 
   const highlighted = activeZ ?? hoveredPartner;
@@ -187,6 +205,10 @@ export function Rays({ origin, focusSymbol, partners, transform, labelFor, activ
     const grow = reducedMotion ? 1.05 : age.current < GROW_DELAY_S ? 0 : damp(uniforms.uGrow!.value as number, 1.05, 2.6, dt);
     uniforms.uGrow!.value = grow;
     uniforms.uHover!.value = highlightedIndex;
+    const halo = haloMaterial.uniforms;
+    halo.uTime!.value = uniforms.uTime!.value;
+    halo.uGrow!.value = grow;
+    halo.uHover!.value = highlightedIndex;
   });
 
   const rayAt = (event: ThreeEvent<PointerEvent | MouseEvent>): RayCurve | undefined => {
@@ -218,16 +240,21 @@ export function Rays({ origin, focusSymbol, partners, transform, labelFor, activ
   if (!geometry || !hitGeometry) return null;
   return (
     <group>
-      <mesh geometry={geometry} material={material} renderOrder={2} raycast={() => null} frustumCulled={false} />
+      <mesh geometry={geometry} material={haloMaterial} renderOrder={2} raycast={() => null} frustumCulled={false} />
+      <mesh geometry={geometry} material={material} renderOrder={3} raycast={() => null} frustumCulled={false} />
       <mesh geometry={hitGeometry} material={hitMaterial} onPointerMove={onMove} onPointerOut={onOut} onClick={onClick} />
-      {label && labelPosition && activeZ == null && (
-        <Html position={labelPosition} center zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
-          <div className="whitespace-nowrap rounded-xl bg-panel px-3 py-1.5 text-center ring-1 ring-ray/50 backdrop-blur-md">
-            <div className="font-display text-sm font-semibold text-text">{label.title}</div>
-            <div className="text-xs text-muted">{label.subtitle}</div>
-          </div>
-        </Html>
-      )}
+      {/* Always mounted, hidden when idle: mounting DOM portals on every hover is fragile. */}
+      <Html
+        position={labelPosition ?? [0, 0, 0]}
+        center
+        zIndexRange={[20, 0]}
+        style={{ pointerEvents: 'none', visibility: label && activeZ == null ? 'visible' : 'hidden' }}
+      >
+        <div className="whitespace-nowrap rounded-xl bg-panel px-3 py-1.5 text-center ring-1 ring-ray/50 backdrop-blur-md">
+          <div className="font-display text-sm font-semibold text-text">{label?.title}</div>
+          <div className="text-xs text-muted">{label?.subtitle}</div>
+        </div>
+      </Html>
     </group>
   );
 }

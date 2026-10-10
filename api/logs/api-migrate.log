@@ -1,8 +1,8 @@
 $ uv run p3d-api migrate
-started: 2026-10-10T18:49:10Z
-2026-10-10 18:49:10,625 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
-2026-10-10 18:49:10,626 INFO alembic.runtime.migration: Will assume transactional DDL.
-2026-10-10 18:49:10,634 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
+started: 2026-10-10T18:57:32Z
+2026-10-10 18:57:33,333 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
+2026-10-10 18:57:33,333 INFO alembic.runtime.migration: Will assume transactional DDL.
+2026-10-10 18:57:33,342 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
 schema is up to date
-finished: 2026-10-10T18:49:10Z
+finished: 2026-10-10T18:57:33Z
 exit code: 0

@@ -1,8 +1,10 @@
 $ uv run p3d-api migrate
-started: 2026-10-10T23:06:14Z
-2026-10-10 23:06:14,493 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
-2026-10-10 23:06:14,493 INFO alembic.runtime.migration: Will assume transactional DDL.
-2026-10-10 23:06:14,500 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
+started: 2026-10-10T23:15:29Z
+2026-10-10 23:15:29,948 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
+2026-10-10 23:15:29,948 INFO alembic.runtime.migration: Will assume transactional DDL.
+2026-10-10 23:15:29,957 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
+2026-10-10 23:15:29,973 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Search: normalized text per compound with a trigram index (pg_trgm).
+2026-10-10 23:15:29,983 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Vectors: 16-dimensional embeddings of elements and compounds (pgvector).
 schema is up to date
-finished: 2026-10-10T23:06:14Z
+finished: 2026-10-10T23:15:30Z
 exit code: 0

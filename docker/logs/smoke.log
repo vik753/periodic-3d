@@ -3,4 +3,4 @@ meta: {"version":"2026.01.01-test","schemaVersion":1,"apiVersion":1,"created":"2
 element: {"version":"2026.01.01-test","z":26,"symbol":"Fe","names":{"en":"Iron","la":"Ferrum","ru":"Железо","uk":"Ферум"},"substanceNames":{"en":"iron","ru":"железо","uk":"залізо"},"wiki
 index.html: 200
 spa route: 200
-etag: 
+etag: etag: W/"2026.01.01-test-local"

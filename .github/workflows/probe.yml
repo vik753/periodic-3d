@@ -28,9 +28,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run probe
-        run: python tools/probe/probe.py out/probe
+        run: |
+          bash tools/ci/run.sh probe python tools/probe/probe.py out/probe
       - name: Publish results
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash tools/ci/publish-results.sh out/probe probe "ci: probe results for ${GITHUB_SHA::7}"
+        run: |
+          mkdir -p out/probe
+          cp -R out/logs out/probe/logs 2>/dev/null || true
+          bash tools/ci/publish-results.sh out/probe probe "ci: probe results for ${GITHUB_SHA::7}"

@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 375.7,
+  "initialJsGzipKb": 376,
   "withinBudget": true,
   "rows": [
     {
@@ -22,9 +22,9 @@
       "initial": true
     },
     {
-      "file": "assets/index-BRP1Wjvc.js",
-      "kb": 127.6,
-      "gzipKb": 42.5,
+      "file": "assets/index-DmFU3_xd.js",
+      "kb": 128.6,
+      "gzipKb": 42.8,
       "initial": true
     },
     {
@@ -34,49 +34,49 @@
       "initial": true
     },
     {
-      "file": "assets/StructureView-BthAFGPV.js",
+      "file": "assets/StructureView-1VDAKmPW.js",
       "kb": 6.8,
       "gzipKb": 3.2,
       "initial": false
     },
     {
-      "file": "assets/ElementPanel-DQ4PQqlE.js",
-      "kb": 7.6,
+      "file": "assets/ElementPanel-BB4iIuMd.js",
+      "kb": 8.2,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/RayWalk-DOE3v1-I.js",
+      "file": "assets/RayWalk-DUaWCiuM.js",
       "kb": 5.3,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/Rays-BTM1OZvW.js",
+      "file": "assets/Rays-CUljRVih.js",
       "kb": 5.7,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/CompoundCloud-CCH1bdza.js",
+      "file": "assets/CompoundCloud-Bd_IXA6G.js",
       "kb": 4.3,
       "gzipKb": 2.1,
       "initial": false
     },
     {
-      "file": "assets/CompoundPanel-NZX55lF7.js",
-      "kb": 4.3,
-      "gzipKb": 1.6,
+      "file": "assets/CompoundPanel--o1vqjKn.js",
+      "kb": 4.9,
+      "gzipKb": 1.7,
       "initial": false
     },
     {
-      "file": "assets/SetPanel-CZOJUS9c.js",
+      "file": "assets/SetPanel-CXF4nriR.js",
       "kb": 3.9,
       "gzipKb": 1.5,
       "initial": false
     },
     {
-      "file": "assets/AtomModel-BWwvNfbz.js",
+      "file": "assets/AtomModel-CS2JU9WY.js",
       "kb": 2.5,
       "gzipKb": 1.3,
       "initial": false

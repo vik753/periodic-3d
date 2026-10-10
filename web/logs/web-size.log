@@ -1,5 +1,5 @@
 $ npm run size
-started: 2026-10-10T23:06:50Z
+started: 2026-10-10T23:16:03Z
 
 > @periodic-3d/web@0.1.0 size
 > node scripts/size-report.mjs
@@ -7,18 +7,18 @@ started: 2026-10-10T23:06:50Z
 *   183.5 KB gz  assets/three-DRTLlGa_.js
 *    82.5 KB gz  assets/react-B7ulV_JK.js
 *    67.2 KB gz  assets/r3f-53utwJi1.js
-*    42.5 KB gz  assets/index-BRP1Wjvc.js
+*    42.8 KB gz  assets/index-DmFU3_xd.js
 *     7.8 KB gz  assets/index-BVj_JTxj.css
-      3.2 KB gz  assets/StructureView-BthAFGPV.js
-      2.5 KB gz  assets/ElementPanel-DQ4PQqlE.js
-      2.5 KB gz  assets/RayWalk-DOE3v1-I.js
-      2.5 KB gz  assets/Rays-BTM1OZvW.js
-      2.1 KB gz  assets/CompoundCloud-CCH1bdza.js
-      1.6 KB gz  assets/CompoundPanel-NZX55lF7.js
-      1.5 KB gz  assets/SetPanel-CZOJUS9c.js
-      1.3 KB gz  assets/AtomModel-BWwvNfbz.js
+      3.2 KB gz  assets/StructureView-1VDAKmPW.js
+      2.5 KB gz  assets/ElementPanel-BB4iIuMd.js
+      2.5 KB gz  assets/RayWalk-DUaWCiuM.js
+      2.5 KB gz  assets/Rays-CUljRVih.js
+      2.1 KB gz  assets/CompoundCloud-Bd_IXA6G.js
+      1.7 KB gz  assets/CompoundPanel--o1vqjKn.js
+      1.5 KB gz  assets/SetPanel-CXF4nriR.js
+      1.3 KB gz  assets/AtomModel-CS2JU9WY.js
       0.6 KB gz  assets/glow-IVh7SLwZ.js
       0.3 KB gz  assets/format-D8VPxrCD.js
-initial JS (gzip): 375.7 KB / budget 400 KB
-finished: 2026-10-10T23:06:50Z
+initial JS (gzip): 376 KB / budget 400 KB
+finished: 2026-10-10T23:16:03Z
 exit code: 0

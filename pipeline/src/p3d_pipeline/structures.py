@@ -25,6 +25,8 @@ Structure = dict[str, Any]
 
 MAX_CRYSTAL_ATOMS = 160
 MAX_BONDS_PER_ATOM = 12
+MAX_UNIT_ATOMS = 240
+SYMPREC_STEPS = (0.1, 0.01, 1e-3)
 
 
 def _r(value: float) -> float:
@@ -136,17 +138,20 @@ def _standardize(
         import spglib
     except ImportError:
         return lattice, frac, numbers
-    cell = (lattice, frac, numbers)
-    for to_primitive in (False, True):
-        try:
-            result = spglib.standardize_cell(cell, to_primitive=to_primitive, no_idealize=False, symprec=1e-3)
-        except Exception:
-            result = None
-        if result is None:
-            continue
-        new_lattice, new_frac, new_numbers = result
-        if len(new_numbers) <= max_atoms:
-            return np.asarray(new_lattice, float), np.asarray(new_frac, float), [int(n) for n in new_numbers]
+    cell = (lattice.tolist(), frac.tolist(), numbers)
+    # Computed structures carry small distortions (magnetic order, relaxation noise).
+    # A loose tolerance recovers the textbook symmetry: bcc iron, corundum-type hematite.
+    for symprec in SYMPREC_STEPS:
+        for to_primitive in (False, True):
+            try:
+                result = spglib.standardize_cell(cell, to_primitive=to_primitive, no_idealize=False, symprec=symprec)
+            except Exception:
+                result = None
+            if result is None:
+                continue
+            new_lattice, new_frac, new_numbers = result
+            if len(new_numbers) <= max_atoms:
+                return np.asarray(new_lattice, float), np.asarray(new_frac, float), [int(n) for n in new_numbers]
     return lattice, frac, numbers
 
 
@@ -162,25 +167,32 @@ def _with_boundary_images(frac: np.ndarray, eps: float = 1e-3) -> list[tuple[np.
     return points
 
 
+def _bond_cutoffs(elements: list[str]) -> np.ndarray:
+    """Pairwise maximum bond lengths; 0 where no bond is drawn (metal–metal next to anions)."""
+    nonmetal = np.array([element in NONMETALS for element in elements])
+    radii = np.array([covalent_radius(element) for element in elements])
+    both_nonmetal = nonmetal[:, None] & nonmetal[None, :]
+    both_metal = ~nonmetal[:, None] & ~nonmetal[None, :]
+    tolerance = np.where(both_nonmetal, 1.1, 1.2)
+    cutoffs = (radii[:, None] + radii[None, :]) * tolerance
+    if nonmetal.any():
+        cutoffs = np.where(both_metal, 0.0, cutoffs)
+    return np.asarray(cutoffs, float)
+
+
 def crystal_bonds(cart: np.ndarray, elements: list[str]) -> list[list[float]]:
     """Distance-based bonds. Metal–metal bonds are skipped in compounds with anions."""
     count = len(elements)
     if count < 2:
         return []
-    nonmetal = [element in NONMETALS for element in elements]
-    has_nonmetal = any(nonmetal)
-    radii = np.array([covalent_radius(element) for element in elements])
+    cutoffs = _bond_cutoffs(elements)
     deltas = cart[:, None, :] - cart[None, :, :]
     distances = np.sqrt((deltas**2).sum(axis=-1))
     candidates: list[tuple[float, int, int]] = []
     for i in range(count):
         for j in range(i + 1, count):
-            both_metal = not nonmetal[i] and not nonmetal[j]
-            if both_metal and has_nonmetal:
-                continue
-            tolerance = 1.1 if (nonmetal[i] and nonmetal[j]) else 1.2
             distance = float(distances[i, j])
-            if 0.4 < distance <= (radii[i] + radii[j]) * tolerance:
+            if 0.4 < distance <= cutoffs[i, j]:
                 candidates.append((distance, i, j))
     candidates.sort()
     degree: Counter[int] = Counter()
@@ -229,7 +241,55 @@ def crystal_fragment(
         "cell": [[_r(v) for v in row] for row in lattice],
         "cellOrigin": [0, 0, 0],
         "sites": Counter(SYMBOLS[n - 1] for n in numbers),
+        "units": molecular_units(lattice, frac, numbers),
     }
+
+
+_SHIFTS = np.array(list(itertools.product((-1, 0, 1), repeat=3)), dtype=int)
+
+
+def molecular_units(lattice: np.ndarray, frac: np.ndarray, numbers: list[int]) -> list[dict[str, int]] | None:
+    """Compositions of the bonded units of a periodic structure.
+
+    Ice gives [{'H': 2, 'O': 1}, ...]: separate molecules. Returns None for extended
+    networks (quartz, metals, salts), where a bonded unit meets its own periodic image.
+    """
+    count = len(numbers)
+    if count == 0 or count > MAX_UNIT_ATOMS:
+        return None
+    elements = [SYMBOLS[number - 1] for number in numbers]
+    cutoffs = _bond_cutoffs(elements)
+    deltas = np.mod(frac, 1.0)[None, :, :] - np.mod(frac, 1.0)[:, None, :]  # j − i
+    # distances[s, i, j]: from atom i to the image of atom j shifted by _SHIFTS[s]
+    cart = (deltas[None, :, :, :] + _SHIFTS[:, None, None, :]) @ lattice
+    distances = np.sqrt((cart**2).sum(axis=-1))
+    bonded = (distances > 0.4) & (distances <= cutoffs[None, :, :])
+    neighbours: list[list[tuple[int, tuple[int, int, int]]]] = [[] for _ in range(count)]
+    for s, i, j in zip(*np.nonzero(bonded), strict=True):
+        shift = _SHIFTS[s]
+        neighbours[int(i)].append((int(j), (int(shift[0]), int(shift[1]), int(shift[2]))))
+
+    offsets: dict[int, tuple[int, int, int]] = {}
+    units: list[dict[str, int]] = []
+    for start in range(count):
+        if start in offsets:
+            continue
+        offsets[start] = (0, 0, 0)
+        stack = [start]
+        unit: Counter[str] = Counter()
+        while stack:
+            atom = stack.pop()
+            unit[elements[atom]] += 1
+            ox, oy, oz = offsets[atom]
+            for other, (sx, sy, sz) in neighbours[atom]:
+                target = (ox + sx, oy + sy, oz + sz)
+                if other not in offsets:
+                    offsets[other] = target
+                    stack.append(other)
+                elif offsets[other] != target:
+                    return None  # the unit reaches its own image: an extended network
+        units.append(dict(unit))
+    return units
 
 
 def composition(structure: Structure) -> dict[str, float]:
@@ -242,4 +302,4 @@ def composition(structure: Structure) -> dict[str, float]:
 
 def finalize(structure: Structure) -> Structure:
     """Drop helper fields before writing to disk."""
-    return {key: value for key, value in structure.items() if key != "sites"}
+    return {key: value for key, value in structure.items() if key not in ("sites", "units")}

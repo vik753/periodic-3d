@@ -152,3 +152,27 @@ def fetch_compounds(fetcher: Fetcher) -> dict[str, CompoundRecord]:
             elif kind == "mp":
                 target.mp_ids.add(value)
     return records
+
+
+LABEL_BATCH = 300
+
+
+def fetch_labels(fetcher: Fetcher, qids: set[str], languages: tuple[str, ...] = LANGUAGES) -> dict[str, dict[str, str]]:
+    """Labels of arbitrary items (for example compound classes) in the given languages."""
+    result: dict[str, dict[str, str]] = {}
+    ordered = sorted(qids)
+    language_list = ", ".join(f'"{language}"' for language in languages)
+    for start in range(0, len(ordered), LABEL_BATCH):
+        values = " ".join(f"wd:{item}" for item in ordered[start : start + LABEL_BATCH])
+        rows = sparql(
+            fetcher,
+            f"""SELECT ?item ?label ?lang WHERE {{
+              VALUES ?item {{ {values} }}
+              ?item rdfs:label ?label .
+              BIND(LANG(?label) AS ?lang)
+              FILTER(?lang IN ({language_list}))
+            }}""",
+        )
+        for row in rows:
+            result.setdefault(qid(row["item"]), {})[row["lang"]] = row["label"]
+    return result

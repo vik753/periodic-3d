@@ -148,3 +148,53 @@ def same_proportions(a: ElementCounts, b: ElementCounts, tolerance: float = 0.02
     total_a = atom_count(a)
     total_b = atom_count(b)
     return all(abs(a[k] / total_a - b[k] / total_b) <= tolerance for k in a)
+
+
+_TRAILING_CHARGE = re.compile(r"(?:[⁰¹²³⁴⁵⁶⁷⁸⁹]*[⁺⁻]|\d*[+\-−])$")
+_INTERNAL_CHARGE = re.compile(r"[⁰¹²³⁴⁵⁶⁷⁸⁹]*[⁺⁻]")
+_GROUPS = re.compile(r"\([^()]*\)|\[[^\[\]]*\]")
+_SYMBOL = re.compile(r"[A-Z][a-z]?")
+
+
+def has_net_charge(raw: str) -> bool:
+    """True for ions: 'NH₄⁺', 'SO₄²⁻'. Oxidation states inside a formula do not count."""
+    return bool(_TRAILING_CHARGE.search(raw.strip()))
+
+
+def net_charge(raw: str) -> int:
+    """Net charge written at the end of a formula: 'SO₄²⁻' → -2, 'NH₄⁺' → 1, 'H₂O' → 0."""
+    match = _TRAILING_CHARGE.search(raw.strip())
+    if not match:
+        return 0
+    text = match.group().translate(_SUBSCRIPTS).translate(str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻−", "0123456789+--"))
+    digits = text[:-1]
+    magnitude = int(digits) if digits.isdigit() else 1
+    return magnitude if text[-1] == "+" else -magnitude
+
+
+def conventional_formula(counts: ElementCounts, electronegativity: dict[str, float]) -> str:
+    """Hill order for organic compounds; otherwise the more electropositive element first."""
+    if "C" in counts and "H" in counts:
+        return hill_formula(counts)
+    order = sorted(counts, key=lambda symbol: (electronegativity.get(symbol, 0.0), symbol))
+    return "".join(f"{symbol}{_format_count(counts[symbol])}" for symbol in order)
+
+
+def display_formula(raw: str, counts: ElementCounts, electronegativity: dict[str, float]) -> str:
+    """Formula for the interface.
+
+    Keeps the author's notation (CH₃COOH, FeO(OH), CuSO₄·5H₂O) and a net charge (NH₄⁺).
+    Drops oxidation states inside mineral formulas: 'Fe³⁺₁₀O₁₄(OH)₂' → 'Fe₁₀O₁₄(OH)₂'.
+    If that leaves an element twice at the top level ('FeFe₂O₄'), the formula is
+    rebuilt from the counts: 'Fe₃O₄'.
+    """
+    text = re.sub(r"\s+", "", raw.strip())
+    match = _TRAILING_CHARGE.search(text)
+    tail = match.group() if match else ""
+    body = text[: match.start()] if match else text
+    stripped = _INTERNAL_CHARGE.sub("", body)
+    if stripped != body:
+        top_level = _SYMBOL.findall(_GROUPS.sub("", stripped))
+        if len(top_level) != len(set(top_level)):
+            stripped = to_subscripts(conventional_formula(counts, electronegativity))
+    return stripped + tail

@@ -5,6 +5,7 @@ Output layout (data/build/<version>/):
     elements.json        118 elements with names (en/ru/uk/la) and properties
     compounds.jsonl      one compound card per line (no coordinates)
     pairs.json           element pairs with compound counts and top compounds
+    classes.json         Wikidata classes of the compounds with labels (en/ru/uk)
     structures/<id>.json 3D structure per compound; element-<Symbol>.json per element
     report.md            quality report
 """
@@ -23,9 +24,26 @@ from pathlib import Path
 from typing import Any
 
 from . import __version__
-from .chemistry import MOLECULAR_ELEMENTS, NETWORK_SOLIDS, NOBLE_GASES, is_metal
+from .chemistry import (
+    CLASS_CHEMICAL_ELEMENT,
+    CLASS_MINERAL_SPECIES,
+    MOLECULAR_ELEMENTS,
+    MOLECULAR_SMILES,
+    NETWORK_SOLIDS,
+    NOBLE_GASES,
+    is_metal,
+)
 from .elements_table import SYMBOLS, UK_ELEMENT_NAMES, Z_BY_SYMBOL
-from .formula import ElementCounts, hill_formula, parse_formula, reduced_formula, same_proportions
+from .formula import (
+    ElementCounts,
+    display_formula,
+    has_net_charge,
+    hill_formula,
+    net_charge,
+    parse_formula,
+    reduced_formula,
+    same_proportions,
+)
 from .http import Fetcher
 from .sources import optimade, pubchem, wikidata, wikipedia
 from .structures import Structure, composition, crystal_fragment, finalize, molecule_from_smiles, parse_sdf
@@ -74,6 +92,7 @@ class Compound:
     cid: int | None
     classes: list[str]
     mp_hint: str | None
+    charged: bool = False
     descriptions: dict[str, str] = field(default_factory=dict)
     pubchem: dict[str, Any] = field(default_factory=dict)
     structure: dict[str, Any] | None = None
@@ -85,6 +104,14 @@ class Compound:
     @property
     def reduced(self) -> str | None:
         return reduced_formula(self.counts)
+
+    @property
+    def mineral(self) -> bool:
+        return CLASS_MINERAL_SPECIES in self.classes
+
+    @property
+    def single_atom(self) -> bool:
+        return len(self.counts) == 1 and abs(next(iter(self.counts.values())) - 1) < 1e-6
 
 
 # ---------------------------------------------------------------------------
@@ -173,33 +200,48 @@ def build_elements(table: dict[int, dict[str, str]], labels: dict[int, wikidata.
 # ---------------------------------------------------------------------------
 
 
-def select_compounds(records: dict[str, wikidata.CompoundRecord], options: Options) -> list[Compound]:
+def select_compounds(
+    records: dict[str, wikidata.CompoundRecord],
+    options: Options,
+    *,
+    excluded: frozenset[str] = frozenset(),
+    electronegativity: dict[str, float] | None = None,
+) -> list[Compound]:
+    """Compounds for the dataset, most famous first.
+
+    Skipped: chemical elements themselves, single atoms and atomic ions (isotopes, H⁺,
+    Fe³⁺: they belong to the element scene), unparseable or variable formulas.
+    """
     selected: list[Compound] = []
     for record in records.values():
+        if record.qid in excluded or CLASS_CHEMICAL_ELEMENT in record.classes:
+            continue
         counts: ElementCounts | None = None
-        display = ""
+        raw_formula = ""
         for raw in sorted(record.formulas, key=lambda f: (len(f), f)):
             counts = parse_formula(raw)
             if counts:
-                display = raw.strip()
+                raw_formula = raw.strip()
                 break
         if not counts or not record.articles:
             continue
         if options.only_elements and not set(counts) <= options.only_elements:
             continue
-        selected.append(
-            Compound(
-                id=record.qid,
-                formula=display,
-                counts=counts,
-                names={language: capitalize(text) for language, text in record.labels.items() if text},
-                articles=dict(record.articles),
-                fame=record.sitelinks or len(record.articles),
-                cid=min(record.cids) if record.cids else None,
-                classes=sorted(record.classes),
-                mp_hint=min(record.mp_ids) if record.mp_ids else None,
-            )
+        compound = Compound(
+            id=record.qid,
+            formula=display_formula(raw_formula, counts, electronegativity or {}),
+            counts=counts,
+            names={language: capitalize(text) for language, text in record.labels.items() if text},
+            articles=dict(record.articles),
+            fame=record.sitelinks or len(record.articles),
+            cid=min(record.cids) if record.cids else None,
+            classes=sorted(record.classes),
+            mp_hint=min(record.mp_ids) if record.mp_ids else None,
+            charged=has_net_charge(raw_formula),
         )
+        if compound.single_atom and compound.id not in ALLOTROPE_STRUCTURES:
+            continue
+        selected.append(compound)
     selected.sort(key=lambda compound: (-compound.fame, compound.id))
     if options.limit:
         selected = selected[: options.limit]
@@ -208,8 +250,10 @@ def select_compounds(records: dict[str, wikidata.CompoundRecord], options: Optio
 
 def prefers_crystal(compound: Compound, has_3d: bool) -> bool:
     """Ionic, metallic and network solids are shown as crystals, molecules as molecules."""
-    if compound.id in ALLOTROPE_STRUCTURES:
+    if compound.id in ALLOTROPE_STRUCTURES or compound.mineral:
         return True
+    if compound.charged:
+        return False  # ions are drawn as molecules (NH₄⁺, SO₄²⁻)
     elements = set(compound.counts)
     if compound.reduced in NETWORK_SOLIDS:
         return True
@@ -229,6 +273,31 @@ def _matches(structure: Structure, counts: ElementCounts) -> bool:
     if structure.get("kind") == "crystal":
         return same_proportions(found, counts)
     return set(found) == set(counts) and same_proportions(found, counts, tolerance=0.001)
+
+
+def _same_counts(a: dict[str, int] | dict[str, float], b: ElementCounts) -> bool:
+    return set(a) == set(b) and all(abs(a[key] - b[key]) < 1e-6 for key in a)
+
+
+def molecular_crystal_matches(structure: Structure, counts: ElementCounts) -> bool:
+    """For a molecule shown as a crystal: every bonded unit of the crystal must be this molecule.
+
+    Ice (units H₂O) passes for water; solid H₂O₂ (units H₂O₂) fails for the OH radical,
+    although both reduce to the formula 'HO'.
+    """
+    units: list[dict[str, int]] | None = structure.get("units")
+    if not units:
+        return False
+    return all(_same_counts(unit, counts) for unit in units)
+
+
+def structure_methods(compound: Compound, wants_crystal: bool) -> list[str]:
+    """Structure sources to try, best first."""
+    if wants_crystal:
+        return ["crystal", "pubchem3d", "rdkit"]
+    if compound.charged:
+        return ["pubchem3d", "rdkit"]
+    return ["pubchem3d", "rdkit", "crystal"]
 
 
 @dataclass
@@ -278,8 +347,7 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
     results: dict[str, StructureResult] = {}
     for compound in compounds:
         has_3d = bool(compound.cid and compound.cid in conformers)
-        methods = ["crystal", "pubchem3d", "rdkit"] if wants_crystal[compound.id] else ["pubchem3d", "rdkit", "crystal"]
-        for method in methods:
+        for method in structure_methods(compound, wants_crystal[compound.id]):
             structure: Structure | None = None
             ref: str | None = None
             if method == "pubchem3d" and has_3d and compound.cid:
@@ -300,6 +368,13 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
                 continue
             if not _matches(structure, compound.counts):
                 stats[f"rejected_{method}"] += 1
+                continue
+            if (
+                method == "crystal"
+                and not wants_crystal[compound.id]
+                and not molecular_crystal_matches(structure, compound.counts)
+            ):
+                stats["rejected_crystal_units"] += 1
                 continue
             source = {"pubchem3d": "pubchem", "rdkit": "rdkit", "crystal": "materialsproject"}[method]
             results[compound.id] = StructureResult(structure=structure, source=source, ref=ref)
@@ -323,7 +398,7 @@ def element_substances(elements: list[dict[str, Any]], fetcher: Fetcher) -> dict
     chosen = {
         symbol: best.id for symbol in crystal_symbols if (best := optimade.best_candidate(candidates.get(symbol, [])))
     }
-    chosen.setdefault("C", "mp-48")  # graphite: the standard state of carbon
+    chosen["C"] = "mp-48"  # graphite: the standard state of carbon
     crystals = optimade.structures(fetcher, set(chosen.values()))
     for element in elements:
         symbol = element["symbol"]
@@ -331,6 +406,8 @@ def element_substances(elements: list[dict[str, Any]], fetcher: Fetcher) -> dict
             cid = MOLECULAR_ELEMENTS[symbol]
             if cid in molecular and (structure := parse_sdf(molecular[cid])):
                 results[symbol] = StructureResult(structure, "pubchem", str(cid))
+            elif structure := molecule_from_smiles(MOLECULAR_SMILES[symbol]):
+                results[symbol] = StructureResult(structure, "rdkit", str(cid))
         elif symbol in NOBLE_GASES:
             atom = {"el": symbol, "x": 0.0, "y": 0.0, "z": 0.0}
             results[symbol] = StructureResult({"kind": "molecule", "atoms": [atom], "bonds": []}, "pubchem", None)
@@ -393,7 +470,7 @@ def compound_card(compound: Compound) -> dict[str, Any]:
         "fame": compound.fame,
         "pubchemCid": compound.cid,
         "mass": compound.pubchem.get("mass"),
-        "charge": compound.pubchem.get("charge", 0),
+        "charge": net_charge(compound.formula),
         "smiles": compound.pubchem.get("smiles"),
         "inchikey": compound.pubchem.get("inchikey"),
         "iupac": compound.pubchem.get("iupac"),
@@ -417,6 +494,7 @@ def write_report(
     oversized: list[str],
     fetch_stats: Counter[str],
     seconds: float,
+    classes: dict[str, dict[str, Any]] | None = None,
 ) -> None:
     with_structure = [compound for compound in compounds if compound.structure]
     per_element = Counter(symbol for compound in compounds for symbol in compound.counts)
@@ -443,11 +521,16 @@ def write_report(
     lines += [f"| {key} | {value} |" for key, value in sorted(stats.items())]
     lines += ["", "## Запросы", "", "| Метрика | Значение |", "| --- | --- |"]
     lines += [f"| {key} | {value} |" for key, value in sorted(fetch_stats.items())]
-    lines += ["", "## Топ-20 соединений", ""]
-    for compound in compounds[:20]:
+    lines += ["", "## Топ-40 классов Wikidata", "", "| Класс | Название | Соединений |", "| --- | --- | --- |"]
+    for qid, info in list((classes or {}).items())[:40]:
+        names = info["names"]
+        lines.append(f"| {qid} | {names.get('en') or names.get('ru') or '—'} | {info['count']} |")
+    lines += ["", "## Топ-40 соединений", ""]
+    for compound in compounds[:40]:
         kind = compound.structure["kind"] if compound.structure else "—"
+        source = compound.structure["source"] if compound.structure else ""
         name = compound.names.get("ru") or compound.names.get("en") or ""
-        lines.append(f"- {compound.formula} — {name} ({compound.fame} статей, {kind})")
+        lines.append(f"- {compound.formula} — {name} ({compound.fame} статей, {kind} {source})")
     (root / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -458,11 +541,25 @@ def run(options: Options) -> Path:
 
     with Fetcher(options.cache_dir) as fetcher:
         log.info("Elements")
-        elements = build_elements(pubchem.periodic_table(fetcher), wikidata.fetch_element_labels(fetcher))
+        element_labels = wikidata.fetch_element_labels(fetcher)
+        elements = build_elements(pubchem.periodic_table(fetcher), element_labels)
+        electronegativity = {e["symbol"]: e["electronegativity"] for e in elements if e["electronegativity"]}
 
         log.info("Compounds from Wikidata")
-        compounds = select_compounds(wikidata.fetch_compounds(fetcher), options)
+        compounds = select_compounds(
+            wikidata.fetch_compounds(fetcher),
+            options,
+            excluded=frozenset(label.qid for label in element_labels.values()),
+            electronegativity=electronegativity,
+        )
         log.info("Selected %d compounds", len(compounds))
+
+        log.info("Class labels")
+        class_counts = Counter(qid for compound in compounds for qid in compound.classes)
+        class_labels = wikidata.fetch_labels(fetcher, set(class_counts))
+        classes = {
+            qid: {"names": class_labels.get(qid, {}), "count": count} for qid, count in class_counts.most_common()
+        }
 
         stats: Counter[str] = Counter()
         oversized: list[str] = []
@@ -489,6 +586,7 @@ def run(options: Options) -> Path:
 
     _write_json(root / "elements.json", elements)
     _write_json(root / "pairs.json", pairs)
+    _write_json(root / "classes.json", classes)
     with (root / "compounds.jsonl").open("w", encoding="utf-8") as handle:
         for compound in compounds:
             handle.write(json.dumps(compound_card(compound), ensure_ascii=False, separators=(",", ":")) + "\n")
@@ -512,6 +610,6 @@ def run(options: Options) -> Path:
         "licenses": LICENSES,
     }
     _write_json(root / "manifest.json", manifest)
-    write_report(root, compounds, elements, pairs, stats, oversized, fetch_stats, seconds)
+    write_report(root, compounds, elements, pairs, stats, oversized, fetch_stats, seconds, classes)
     log.info("Dataset %s written in %.0f s", root, seconds)
     return root

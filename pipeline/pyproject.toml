@@ -51,5 +51,7 @@ mypy_path = "src"
 packages = ["p3d_pipeline"]
 
 [[tool.mypy.overrides]]
-module = ["rdkit.*", "spglib.*"]
+# RDKit ships partial stubs and spglib's are strict about numpy arrays: treat both as untyped.
+module = ["rdkit", "rdkit.*", "spglib", "spglib.*"]
 ignore_missing_imports = true
+follow_imports = "skip"

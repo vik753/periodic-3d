@@ -40,7 +40,24 @@ MOLECULAR_ELEMENTS: dict[str, int] = {
     "S": 66348,  # S₈ (cyclo-octasulfur)
 }
 
+# SMILES of the same molecules, for RDKit when PubChem has no 3D record (H₂, F₂).
+MOLECULAR_SMILES: dict[str, str] = {
+    "H": "[H][H]",
+    "N": "N#N",
+    "O": "O=O",
+    "F": "FF",
+    "Cl": "ClCl",
+    "Br": "BrBr",
+    "I": "II",
+    "P": "P12P3P1P23",
+    "S": "S1SSSSSSS1",
+}
+
 NOBLE_GASES: frozenset[str] = frozenset({"He", "Ne", "Ar", "Kr", "Xe", "Rn", "Og"})
+
+# Wikidata classes (P31) used by the selection rules.
+CLASS_CHEMICAL_ELEMENT = "Q11344"
+CLASS_MINERAL_SPECIES = "Q12089225"
 
 # Reduced formulas of covalent network solids: shown as crystals even when PubChem has
 # a small-molecule 3D record (O=Si=O is not quartz).

@@ -1,9 +1,16 @@
 import importlib.util
 
+import numpy as np
 import pytest
 
 from p3d_pipeline.formula import same_proportions
-from p3d_pipeline.structures import composition, crystal_fragment, molecule_from_smiles, parse_sdf
+from p3d_pipeline.structures import (
+    composition,
+    crystal_fragment,
+    molecular_units,
+    molecule_from_smiles,
+    parse_sdf,
+)
 
 WATER_SDF = """962
   -OEChem-10102618053D
@@ -68,3 +75,31 @@ def test_molecule_from_smiles_ethanol() -> None:
 @pytest.mark.skipif(importlib.util.find_spec("rdkit") is None, reason="RDKit is not installed")
 def test_molecule_from_smiles_rejects_salts() -> None:
     assert molecule_from_smiles("[Na+].[Cl-]") is None
+
+
+def test_molecular_units_find_molecules_across_the_cell_boundary() -> None:
+    lattice = np.eye(3) * 10.0
+    # A water molecule split by the cell face (O–H 0.96 Å) and an N₂ molecule inside.
+    frac = np.array([[0.98, 0.5, 0.5], [0.076, 0.5, 0.5], [0.98, 0.596, 0.5], [0.5, 0.2, 0.2], [0.61, 0.2, 0.2]])
+    assert molecular_units(lattice, frac, [8, 1, 1, 7, 7]) == [{"O": 1, "H": 2}, {"N": 2}]
+
+
+def test_molecular_units_detect_extended_networks() -> None:
+    a = 2.87  # bcc iron: every atom bonds to its own periodic images
+    assert molecular_units(np.eye(3) * a, np.array([[0, 0, 0], [0.5, 0.5, 0.5]]), [26, 26]) is None
+    a = 5.64  # rock salt
+    na = [[0, 0, 0], [0, 0.5, 0.5], [0.5, 0, 0.5], [0.5, 0.5, 0]]
+    cl = [[0.5, 0, 0], [0, 0.5, 0], [0, 0, 0.5], [0.5, 0.5, 0.5]]
+    assert molecular_units(np.eye(3) * a, np.array(na + cl, float), [11] * 4 + [17] * 4) is None
+
+
+@pytest.mark.skipif(importlib.util.find_spec("spglib") is None, reason="spglib is not installed")
+def test_crystal_fragment_recovers_cubic_iron_from_a_noisy_cell() -> None:
+    a = 2.83
+    lattice = [[a, 0, 0], [0, a * 1.004, 0], [0, 0, a * 0.997]]  # small distortion
+    structure = crystal_fragment(lattice, [[0, 0, 0], [a / 2, a / 2, a / 2]], ["Fe", "Fe"])
+    assert structure is not None
+    cell = np.array(structure["cell"])
+    lengths = np.linalg.norm(cell, axis=1)
+    assert np.allclose(lengths, lengths[0], atol=1e-3)  # idealized to cubic
+    assert len(structure["atoms"]) == 9  # body centre + 8 corners

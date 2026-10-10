@@ -51,8 +51,8 @@ Alarms are `send_later` messages into the main session, named
 - Local tools that work: python3 (numpy, pandas, pydantic, networkx, scipy,
   scikit-learn, uvicorn), node 22 (typescript, tsx), Playwright + Chromium
   (/opt/pw-browsers), PostgreSQL 16 binaries (/usr/lib/postgresql/16/bin).
-- Lockfiles (package-lock.json, uv.lock) come from the `lock` workflow, which commits
-  them back to the branch.
+- Lockfiles (package-lock.json, uv.lock) are created in CI and committed back to main
+  (tools/ci/commit-back.sh, `[skip ci]`). Run `git pull --rebase` before every push.
 - Machine outputs from CI (reports, screenshots, built previews) go to the
   `ci-results` branch. Fetch them with git.
 - GitHub Pages hosts the live demo (static mode):

@@ -94,3 +94,43 @@ def test_capitalize_keeps_locants() -> None:
     assert capitalize("хлорид натрия") == "Хлорид натрия"
     assert capitalize("n-butane") == "n-butane"
     assert capitalize("1,2-dichloroethane") == "1,2-dichloroethane"
+
+
+def test_select_compounds_skips_elements_atoms_and_ions_of_one_atom() -> None:
+    records = {
+        "Q677": _record("Q677", "Fe", 250),  # the element item itself
+        "Q54389": _record("Q54389", "³H", 79),  # tritium: a single atom
+        "Q506710": _record("Q506710", "H⁺", 31),  # hydron
+        "Q5283": _record("Q5283", "C", 120),  # diamond: an allotrope, kept
+        "Q181395": _record("Q181395", "Fe²⁺Fe³⁺₂O₄", 68, classes={"Q12089225"}),  # magnetite
+        "Q849881": _record("Q849881", "H₃O⁺", 45),  # hydronium: an ion, kept
+    }
+    selected = select_compounds(
+        records, _options(), excluded=frozenset({"Q677"}), electronegativity={"Fe": 1.83, "O": 3.44}
+    )
+    by_id = {compound.id: compound for compound in selected}
+    assert set(by_id) == {"Q5283", "Q181395", "Q849881"}
+    assert by_id["Q181395"].formula == "Fe₃O₄"
+    assert by_id["Q181395"].mineral
+    assert by_id["Q849881"].charged
+
+
+def test_structure_methods() -> None:
+    from p3d_pipeline.build import structure_methods
+
+    ion = _compound({"N": 1, "H": 4})
+    ion.charged = True
+    assert structure_methods(ion, wants_crystal=False) == ["pubchem3d", "rdkit"]
+    assert structure_methods(_compound({"H": 2, "O": 1}), wants_crystal=False)[-1] == "crystal"
+    assert structure_methods(_compound({"Fe": 2, "O": 3}), wants_crystal=True)[0] == "crystal"
+
+
+def test_molecular_crystal_matches() -> None:
+    from p3d_pipeline.build import molecular_crystal_matches
+
+    ice = {"kind": "crystal", "units": [{"H": 2, "O": 1}, {"H": 2, "O": 1}]}
+    peroxide = {"kind": "crystal", "units": [{"H": 2, "O": 2}]}
+    network = {"kind": "crystal", "units": None}
+    assert molecular_crystal_matches(ice, {"H": 2, "O": 1})
+    assert not molecular_crystal_matches(peroxide, {"H": 1, "O": 1})
+    assert not molecular_crystal_matches(network, {"H": 2, "O": 1})

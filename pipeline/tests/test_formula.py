@@ -1,7 +1,11 @@
 import pytest
 
 from p3d_pipeline.formula import (
+    conventional_formula,
+    display_formula,
+    has_net_charge,
     hill_formula,
+    net_charge,
     parse_formula,
     reduced_formula,
     same_proportions,
@@ -53,3 +57,47 @@ def test_to_subscripts() -> None:
 def test_same_proportions() -> None:
     assert same_proportions({"Na": 4, "Cl": 4}, {"Na": 1, "Cl": 1})
     assert not same_proportions({"Fe": 2, "O": 3}, {"Fe": 3, "O": 4})
+
+
+EN = {"H": 2.2, "O": 3.44, "Fe": 1.83, "Na": 0.93, "Cl": 3.16, "C": 2.55, "N": 3.04}
+
+
+def test_has_net_charge() -> None:
+    assert has_net_charge("NH₄⁺")
+    assert has_net_charge("SO₄²⁻")
+    assert has_net_charge("H₃O+")
+    assert not has_net_charge("Fe²⁺Fe³⁺₂O₄")
+    assert not has_net_charge("Fe³⁺O(OH)")
+    assert not has_net_charge("H₂O")
+
+
+def test_conventional_formula() -> None:
+    assert conventional_formula({"O": 4, "Fe": 3}, EN) == "Fe3O4"
+    assert conventional_formula({"Cl": 1, "Na": 1}, EN) == "NaCl"
+    assert conventional_formula({"C": 2, "H": 6, "O": 1}, EN) == "C2H6O"
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("Fe²⁺Fe³⁺₂O₄", "Fe₃O₄"),
+        ("Fe³⁺₁₀O₁₄(OH)₂", "Fe₁₀O₁₄(OH)₂"),
+        ("Fe³⁺O(OH)", "FeO(OH)"),
+        ("CH₃COOH", "CH₃COOH"),
+        ("NH₄⁺", "NH₄⁺"),
+        ("CuSO₄ · 5H₂O", "CuSO₄·5H₂O"),
+    ],
+)
+def test_display_formula(raw: str, expected: str) -> None:
+    counts = parse_formula(raw)
+    assert counts is not None
+    assert display_formula(raw, counts, EN) == expected
+
+
+def test_net_charge() -> None:
+    assert net_charge("SO₄²⁻") == -2
+    assert net_charge("NH₄⁺") == 1
+    assert net_charge("O₂⁻") == -1
+    assert net_charge("Fe3+") == 3
+    assert net_charge("Fe²⁺Fe³⁺₂O₄") == 0
+    assert net_charge("H₂O") == 0

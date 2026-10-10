@@ -317,8 +317,12 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
         if compound.cid and compound.cid in properties:
             compound.pubchem = properties[compound.cid]
 
-    log.info("PubChem 3D conformers for %d CIDs", len(cids))
-    conformers = pubchem.conformers_3d(fetcher, cids)
+    # Ask for 3D only where PubChem has it (CIDs without properties are tried anyway).
+    with_3d = [cid for cid in cids if properties.get(cid, {}).get("conformers3d", 1) > 0]
+    log.info("PubChem 3D conformers for %d of %d CIDs", len(with_3d), len(cids))
+    started = time.monotonic()
+    conformers = pubchem.conformers_3d(fetcher, with_3d)
+    log.info("PubChem 3D: %d records in %.0f s", len(conformers), time.monotonic() - started)
     stats["pubchem_3d_available"] = len(conformers)
 
     wants_crystal = {
@@ -345,8 +349,12 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
     log.info("OPTIMADE structures for %d materials", len(set(chosen.values())))
     crystals = optimade.structures(fetcher, set(chosen.values()))
 
+    log.info("Assigning structures for %d compounds", len(compounds))
     results: dict[str, StructureResult] = {}
-    for compound in compounds:
+    started = time.monotonic()
+    for number, compound in enumerate(compounds, start=1):
+        if number % 2000 == 0:
+            log.info("  structures: %d/%d (%.0f s)", number, len(compounds), time.monotonic() - started)
         has_3d = bool(compound.cid and compound.cid in conformers)
         for method in structure_methods(compound, wants_crystal[compound.id]):
             structure: Structure | None = None

@@ -84,12 +84,27 @@ jobs:
 
       - name: Build dataset
         id: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="$(date -u +%Y.%m.%d)-r${GITHUB_RUN_NUMBER}"
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           FLAG=$([ "$DESCRIPTIONS" = "true" ] && echo --descriptions || echo --no-descriptions)
+          # Live logs are not readable from the dev container: publish the log tail every 5 minutes.
+          mkdir -p out/logs out/progress
+          (
+            while sleep 300; do
+              tail -n 80 out/logs/pipeline-build.log > out/progress/tail.log 2>/dev/null || true
+              date -u +%FT%TZ > out/progress/updated
+              bash ../tools/ci/publish-results.sh out/progress data/progress "ci: data progress" > /dev/null 2>&1 || true
+            done
+          ) &
+          HEARTBEAT=$!
+          code=0
           bash $RUN pipeline-build uv run p3d-pipeline build --out ../data/build --cache ../data/cache \
-            --version "$VERSION" --only-elements "$ONLY" --limit "$LIMIT" $FLAG
+            --version "$VERSION" --only-elements "$ONLY" --limit "$LIMIT" $FLAG || code=$?
+          kill "$HEARTBEAT" 2>/dev/null || true
+          if [ "$code" -ne 0 ]; then exit "$code"; fi
           tar -czf "../data/dataset-$VERSION.tar.gz" -C ../data/build "$VERSION"
           ls -la ../data
           du -sh "../data/build/$VERSION"

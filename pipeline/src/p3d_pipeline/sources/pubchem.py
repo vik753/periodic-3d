@@ -17,8 +17,9 @@ BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
 PROPERTY_BATCH = 100
 SDF_BATCH = 10
 
-PROPERTIES_PRIMARY = "MolecularFormula,MolecularWeight,SMILES,InChIKey,IUPACName,Charge"
-PROPERTIES_FALLBACK = "MolecularFormula,MolecularWeight,IsomericSMILES,InChIKey,IUPACName,Charge"
+# ConformerCount3D tells which CIDs have a 3D record, so SDF requests never miss.
+PROPERTIES_PRIMARY = "MolecularFormula,MolecularWeight,SMILES,InChIKey,IUPACName,Charge,ConformerCount3D"
+PROPERTIES_FALLBACK = "MolecularFormula,MolecularWeight,IsomericSMILES,InChIKey,IUPACName,Charge,ConformerCount3D"
 
 
 def _chunks(values: list[int], size: int) -> Iterator[list[int]]:
@@ -66,6 +67,7 @@ def properties(fetcher: Fetcher, cids: Iterable[int]) -> dict[int, dict[str, Any
                 "inchikey": item.get("InChIKey"),
                 "iupac": item.get("IUPACName"),
                 "charge": int(item.get("Charge", 0) or 0),
+                "conformers3d": int(item.get("ConformerCount3D", 0) or 0),
             }
     return result
 
@@ -110,6 +112,9 @@ def conformers_3d(fetcher: Fetcher, cids: Iterable[int]) -> dict[int, str]:
             if cid is not None:
                 result[cid] = record
 
-    for batch in _chunks(sorted(set(cids)), SDF_BATCH):
+    batches = list(_chunks(sorted(set(cids)), SDF_BATCH))
+    for number, batch in enumerate(batches, start=1):
+        if number % 200 == 0:
+            log.info("  3D batches: %d/%d, %d records, %s", number, len(batches), len(result), dict(fetcher.stats))
         fetch(batch)
     return result

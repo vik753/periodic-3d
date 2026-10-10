@@ -1,12 +1,31 @@
 $ npm run screenshot
-started: 2026-10-10T23:04:50Z
+started: 2026-10-10T23:07:13Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 4003ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 6241ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 7132ms calls=11 url=/periodic-3d/e/Fe
-ok   search-fe 3677ms calls=3 url=/periodic-3d/
-ok   element-fe 7489ms calls=11 url=/periodic-3d/e/Fe
-ok   element-u 7474ms calls=12 url=/periodic-3d/e/U
+ok   table 3871ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 4674ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 6928ms calls=11 url=/periodic-3d/e/Fe
+ok   search-fe 3638ms calls=3 url=/periodic-3d/
+ok   element-fe 6951ms calls=11 url=/periodic-3d/e/Fe
+ok   element-u 6728ms calls=12 url=/periodic-3d/e/U
+ok   element-fe-substance 8752ms calls=8 url=/periodic-3d/e/Fe
+ok   element-o-rays 7277ms calls=9 url=/periodic-3d/e/O
+ok   walk-fe-o 7887ms calls=10 url=/periodic-3d/e/Fe/O
+ok   walk-fe-o-step3 10600ms calls=10 url=/periodic-3d/e/Fe/O
+ok   phone-walk-fe-o 8544ms calls=8 url=/periodic-3d/e/Fe/O
+ok   phone-element-o-rays 8062ms calls=9 url=/periodic-3d/e/O
+ok   set-fe-o 7152ms calls=5 url=/periodic-3d/set/Fe-O
+ok   set-o 7251ms calls=5 url=/periodic-3d/set/O
+ok   phone-set-fe-o 7044ms calls=5 url=/periodic-3d/set/Fe-O
+ok   compound-hematite 8171ms calls=6 url=/periodic-3d/c/Q103223
+ok   compound-water 7823ms calls=5 url=/periodic-3d/c/Q283
+ok   compound-ozone-ru 7684ms calls=5 url=/periodic-3d/c/Q36933
+ok   molecule-benzene 7492ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 7369ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3736ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 6835ms calls=11 url=/periodic-3d/e/Fe
+ok   phone-compound-hematite 7704ms calls=6 url=/periodic-3d/c/Q103223
+finished: 2026-10-10T23:10:10Z
+exit code: 0

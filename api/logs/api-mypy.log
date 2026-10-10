@@ -1,8 +1,8 @@
 $ uv run mypy
-started: 2026-10-10T18:33:09Z
+started: 2026-10-10T18:33:56Z
 src/p3d_api/repository.py:171: error: Argument 1 to "_summaries" of "Repository" has incompatible type "Select[str, str, dict[str, str], list[str], int, str | None]"; expected "Select[Any]"  [arg-type]
 src/p3d_api/repository.py:225: error: Argument 1 to "_summaries" of "Repository" has incompatible type "Select[str, str, dict[str, str], list[str], int, str | None]"; expected "Select[Any]"  [arg-type]
 src/p3d_api/repository.py:259: error: Argument 1 to "_summaries" of "Repository" has incompatible type "Select[str, str, dict[str, str], list[str], int, str | None]"; expected "Select[Any]"  [arg-type]
 Found 3 errors in 1 file (checked 12 source files)
-finished: 2026-10-10T18:33:16Z
+finished: 2026-10-10T18:34:04Z
 exit code: 1

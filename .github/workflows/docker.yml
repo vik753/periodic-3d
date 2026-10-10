@@ -1,0 +1,72 @@
+name: docker
+
+# Builds the production images and runs the whole stack once (db + api + web)
+# with the test dataset: the same steps as in docs/DEPLOY.md.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "infra/**"
+      - "apps/api/Dockerfile"
+      - "apps/web/Dockerfile"
+      - "apps/web/nginx.conf"
+      - ".github/workflows/docker.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  stack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      COMPOSE: docker compose -f infra/docker-compose.yml --env-file infra/.env
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Environment file
+        run: |
+          cp infra/.env.example infra/.env
+          sed -i "s/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=$(openssl rand -hex 16)/" infra/.env
+
+      - name: Build images
+        run: |
+          mkdir -p out/logs
+          $COMPOSE build 2>&1 | tee out/logs/build.log
+
+      - name: Start and load the test dataset
+        id: stack
+        run: |
+          $COMPOSE up -d 2>&1 | tee out/logs/up.log
+          $COMPOSE run --rm api p3d-api migrate 2>&1 | tee out/logs/migrate.log
+          $COMPOSE run --rm -v "$PWD/apps/api/tests/fixtures/dataset:/data:ro" api p3d-api load /data \
+            2>&1 | tee out/logs/load.log
+          for i in $(seq 1 30); do curl -sf http://localhost:8080/health > /dev/null && break; sleep 2; done
+
+      - name: Smoke test
+        id: smoke
+        run: |
+          set -e
+          {
+            echo "health: $(curl -sf http://localhost:8080/health)"
+            echo "meta: $(curl -sf http://localhost:8080/api/v1/meta | head -c 300)"
+            echo "element: $(curl -sf http://localhost:8080/api/v1/elements/Fe | head -c 200)"
+            echo "index.html: $(curl -sf -o /dev/null -w '%{http_code}' http://localhost:8080/)"
+            echo "spa route: $(curl -sf -o /dev/null -w '%{http_code}' http://localhost:8080/e/Fe/O)"
+            echo "etag: $(curl -sfI http://localhost:8080/api/v1/elements | grep -i etag)"
+          } | tee out/logs/smoke.log
+          curl -sf http://localhost:8080/api/v1/meta | grep -q '2026.01.01-test'
+
+      - name: Container logs
+        if: always()
+        run: $COMPOSE logs --no-color > out/logs/compose.log 2>&1 || true
+
+      - name: Publish results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo '{"stack": "${{ steps.stack.outcome }}", "smoke": "${{ steps.smoke.outcome }}"}' > out/summary.json
+          bash tools/ci/publish-results.sh out docker "ci: docker results for ${GITHUB_SHA::7}"

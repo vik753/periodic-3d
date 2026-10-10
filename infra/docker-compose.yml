@@ -1,0 +1,53 @@
+# Full stack on one machine: PostgreSQL + API + web (nginx).
+#
+#   cp infra/.env.example infra/.env        # set a strong POSTGRES_PASSWORD
+#   docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
+#   docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm api p3d-api migrate
+#   docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm -v "$PWD/data:/data" api \
+#     p3d-api load /data/dataset.tar.gz
+#
+# The site is then on http://localhost:${WEB_PORT:-8080}
+name: periodic-3d
+
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-p3d}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in infra/.env}
+      POSTGRES_DB: ${POSTGRES_DB:-p3d}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-p3d} -d ${POSTGRES_DB:-p3d}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: ../apps/api
+    image: periodic-3d-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-p3d}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-p3d}
+      P3D_CORS_ORIGINS: ${P3D_CORS_ORIGINS:-*}
+      P3D_BUILD_ID: ${P3D_BUILD_ID:-local}
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY:-2}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ../apps/web
+    image: periodic-3d-web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

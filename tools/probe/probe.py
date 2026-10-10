@@ -401,6 +401,20 @@ def optimade_samples() -> dict[str, Any]:
     return out
 
 
+def mp_licensing() -> dict[str, Any]:
+    """What MP's OPTIMADE says about licenses and data origins (GNoME check, ADR 0004)."""
+    out: dict[str, Any] = {}
+    for name, url in (
+        ("info", "https://optimade.materialsproject.org/v1/info"),
+        ("info_structures", "https://optimade.materialsproject.org/v1/info/structures"),
+        ("links", "https://optimade.materialsproject.org/v1/links"),
+    ):
+        status, body, _ = http_get(url, accept="application/json", timeout=60)
+        out[name] = {"status": status, "body": body.decode("utf-8", errors="replace")[:20000]}
+        time.sleep(0.5)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Report
 # ---------------------------------------------------------------------------
@@ -482,6 +496,7 @@ def main() -> int:
         numbers["coverage"] = coverage(items)
         numbers["pubchem_3d"] = pubchem_3d_sample(items)
     numbers["optimade"] = optimade_samples()
+    numbers["mp_licensing"] = mp_licensing()
     numbers["total_seconds"] = round(time.monotonic() - started, 1)
 
     (out_dir / "numbers.json").write_text(json.dumps(numbers, ensure_ascii=False, indent=2, default=str), encoding="utf-8")

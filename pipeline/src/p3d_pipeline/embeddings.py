@@ -49,7 +49,8 @@ def ppmi(counts: np.ndarray) -> np.ndarray:
     with np.errstate(divide="ignore", invalid="ignore"):
         pmi = np.log(counts * total / (rows * cols))
     pmi[~np.isfinite(pmi)] = 0.0
-    return np.maximum(pmi, 0.0)
+    result: np.ndarray = np.maximum(pmi, 0.0)
+    return result
 
 
 def _normalize(matrix: np.ndarray) -> np.ndarray:

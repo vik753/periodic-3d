@@ -211,6 +211,7 @@ jobs:
       - name: Screenshots (local preview)
         id: screenshots
         continue-on-error: true
+        timeout-minutes: 12
         run: |
           npx playwright install --with-deps chromium > out/logs/playwright-install.log 2>&1 || true
           npx vite preview --port 4173 --strictPort > out/logs/preview.log 2>&1 &

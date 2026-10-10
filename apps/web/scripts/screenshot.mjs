@@ -90,9 +90,18 @@ const shots = [
 ];
 
 await mkdir(outDir, { recursive: true });
-const browser = await chromium.launch({
-  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'],
-});
+const launch = () =>
+  chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+let browser = await launch();
+
+/** Rejects after `ms`: a stuck page (software GPU) must not stall the whole job. */
+function within(promise, ms, label) {
+  let timer;
+  const limit = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`timed out: ${label} (${ms} ms)`)), ms);
+  });
+  return Promise.race([promise, limit]).finally(() => clearTimeout(timer));
+}
 
 const report = { base, set, time: new Date().toISOString(), shots: [] };
 let failures = 0;
@@ -112,27 +121,39 @@ for (const shot of shots) {
   page.on('pageerror', (error) => messages.push(`[pageerror] ${error.message}`));
   const started = Date.now();
   let ok = true;
+  let stats = {};
   try {
     await page.goto(base + shot.path, { waitUntil: 'load', timeout: 60_000 });
     await page.waitForFunction(() => window.__p3d?.ready === true, null, { timeout: 30_000 });
     await page.waitForTimeout(1200);
-    if (shot.act) await shot.act(page);
+    if (shot.act) await within(shot.act(page), 30_000, 'act');
     await page.waitForTimeout(shot.wait ?? 1800);
+    stats = await within(
+      page.evaluate(() => ({ ...(window.__p3d ?? {}), project: undefined, url: location.pathname })),
+      15_000,
+      'evaluate',
+    );
+    await within(page.screenshot({ path: `${outDir}/${shot.name}.png`, timeout: 30_000 }), 35_000, 'screenshot');
   } catch (error) {
     ok = false;
     messages.push(`[script] ${error instanceof Error ? error.message : String(error)}`);
   }
-  const stats = await page.evaluate(() => ({ ...(window.__p3d ?? {}), project: undefined, url: location.pathname }));
-  await page.screenshot({ path: `${outDir}/${shot.name}.png` });
   if (!ok || messages.some((line) => line.startsWith('[pageerror]'))) failures += 1;
   report.shots.push({ name: shot.name, path: shot.path, ok, ms: Date.now() - started, stats, console: messages });
   console.log(`${ok ? 'ok  ' : 'FAIL'} ${shot.name} ${Date.now() - started}ms calls=${stats.calls} url=${stats.url}`);
-  await context.close();
+  try {
+    await within(context.close(), 10_000, 'close');
+  } catch {
+    // The renderer is stuck: start a fresh browser for the next shots.
+    await within(browser.close(), 10_000, 'browser close').catch(() => undefined);
+    browser = await launch();
+  }
 }
 
-await browser.close();
+await within(browser.close(), 10_000, 'browser close').catch(() => undefined);
 await writeFile(`${outDir}/report.json`, JSON.stringify(report, null, 2));
 if (failures > 0) {
   console.error(`${failures} screenshot(s) failed`);
   process.exitCode = 1;
 }
+process.exit();

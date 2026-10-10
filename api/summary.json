@@ -1,2 +1,2 @@
-{"lint": "success", "types": "failure",
+{"lint": "success", "types": "success",
  "tests": "success", "export": "success"}

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Builds
+dist/
+build/
+*.egg-info/
+coverage/
+.coverage
+playwright-report/
+test-results/
+
+# Data (built by the pipeline, published separately)
+data/raw/
+data/build/
+data/cache/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Editors and OS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.log

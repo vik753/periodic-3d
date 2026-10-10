@@ -44,8 +44,110 @@ jobs:
       - name: Tests
         run: uv run pytest -q
 
+  api:
+    name: api
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: p3d
+          POSTGRES_PASSWORD: p3d
+          POSTGRES_DB: p3d
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U p3d"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    defaults:
+      run:
+        working-directory: apps/api
+    env:
+      RUN: ../../tools/ci/run.sh
+      DATABASE_URL: postgresql+asyncpg://p3d:p3d@localhost:5432/p3d
+      TEST_DATABASE_URL: postgresql+asyncpg://p3d:p3d@localhost:5432/p3d_test
+      P3D_BUILD_ID: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: bash $RUN api-install bash ../../tools/ci/uv-sync.sh
+
+      - name: Lint
+        id: lint
+        continue-on-error: true
+        run: |
+          bash $RUN api-lint bash -c "uv run ruff check src tests && uv run ruff format --check src tests"
+
+      - name: Types
+        id: types
+        continue-on-error: true
+        run: bash $RUN api-mypy uv run mypy
+
+      - name: Tests
+        id: tests
+        continue-on-error: true
+        run: |
+          PGPASSWORD=p3d psql -h localhost -U p3d -d p3d -c "CREATE DATABASE p3d_test" > /dev/null
+          bash $RUN api-tests uv run pytest -q
+
+      - name: Export static data from the current dataset
+        id: export
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash $RUN api-fetch-dataset bash ../../tools/ci/fetch-dataset.sh out/dataset
+          bash $RUN api-migrate uv run p3d-api migrate
+          bash $RUN api-load uv run p3d-api load out/dataset/dataset.tar.gz
+          bash $RUN api-export uv run p3d-api export-static out/static-data
+          tar -czf out/static-data.tar.gz -C out/static-data .
+          du -sh out/static-data | tee out/logs/static-data-size.log
+
+      - uses: actions/upload-artifact@v4
+        if: steps.export.outcome == 'success'
+        with:
+          name: static-data
+          path: apps/api/out/static-data.tar.gz
+          retention-days: 7
+
+      - name: Commit uv.lock back
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          bash ../../tools/ci/commit-back.sh "chore(api): update uv.lock [skip ci]" uv.lock
+
+      - name: Publish results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/run
+          cp -R out/logs out/run/ 2>/dev/null || true
+          cat > out/run/summary.json <<EOF
+          {"lint": "${{ steps.lint.outcome }}", "types": "${{ steps.types.outcome }}",
+           "tests": "${{ steps.tests.outcome }}", "export": "${{ steps.export.outcome }}"}
+          EOF
+          bash ../../tools/ci/publish-results.sh out/run api "ci: api results for ${GITHUB_SHA::7}"
+
+      - name: Fail on check errors
+        if: >-
+          steps.lint.outcome != 'success' ||
+          steps.types.outcome != 'success' ||
+          steps.tests.outcome != 'success'
+        run: exit 1
+
   web:
     name: web
+    needs: api
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
     permissions:
@@ -90,6 +192,21 @@ jobs:
         id: size
         continue-on-error: true
         run: bash $RUN web-size npm run size
+
+      - name: Download static data
+        id: data
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: static-data
+          path: apps/web/out/static-data
+
+      - name: Add static data to the site
+        if: steps.data.outcome == 'success'
+        run: |
+          mkdir -p dist/data
+          tar -xzf out/static-data/static-data.tar.gz -C dist/data
+          cat dist/data/meta.json
 
       - name: Screenshots (local preview)
         id: screenshots
@@ -136,7 +253,7 @@ jobs:
           {"typecheck": "${{ steps.typecheck.outcome }}", "lint": "${{ steps.lint.outcome }}",
            "test": "${{ steps.test.outcome }}", "build": "${{ steps.build.outcome }}",
            "size": "${{ steps.size.outcome }}", "screenshots": "${{ steps.screenshots.outcome }}",
-           "deploy": "${{ steps.deploy.outcome }}"}
+           "data": "${{ steps.data.outcome }}", "deploy": "${{ steps.deploy.outcome }}"}
           EOF
           bash ../../tools/ci/publish-results.sh out web "ci: web results for ${GITHUB_SHA::7}"
 

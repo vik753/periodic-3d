@@ -1,2 +1,2 @@
- Container periodic-3d-db-1  Running
-loaded 2026.01.01-test: 3 elements, 4 compounds (2 with 3D), 2 pairs, 2 classes
+requests: 1000, errors: 0, concurrency: 32, rps: 184
+latency ms: p50 48.0, p95 247.9, p99 315.7, max 392.6

@@ -1,5 +1,5 @@
 $ npm test
-started: 2026-10-10T18:15:31Z
+started: 2026-10-10T18:23:41Z
 
 > @periodic-3d/web@0.1.0 test
 > vitest run
@@ -7,12 +7,12 @@ started: 2026-10-10T18:15:31Z
 
 [1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/periodic-3d/periodic-3d/apps/web[39m
 
- [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 13[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m8 passed[39m[22m[90m (8)[39m
-[2m   Start at [22m 18:15:32
-[2m   Duration [22m 508ms[2m (transform 62ms, setup 0ms, collect 62ms, tests 11ms, environment 229ms, prepare 59ms)[22m
+[2m   Start at [22m 18:23:42
+[2m   Duration [22m 768ms[2m (transform 71ms, setup 0ms, collect 78ms, tests 13ms, environment 404ms, prepare 85ms)[22m
 
-finished: 2026-10-10T18:15:32Z
+finished: 2026-10-10T18:23:43Z
 exit code: 0

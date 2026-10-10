@@ -9,8 +9,9 @@ from __future__ import annotations
 from typing import Any, Literal
 from urllib.parse import quote
 
-from sqlalchemy import Select, func, or_, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.sql.expression import Executable
 
 from . import API_VERSION
 from .models import ClassRow, CompoundRow, DatasetRow, ElementRow, PairRow
@@ -114,7 +115,7 @@ class Repository:
         rows = await self.session.execute(select(ClassRow.qid, ClassRow.names).where(ClassRow.qid.in_(qids)))
         return {row.qid: row.names for row in rows}
 
-    async def _summaries(self, statement: Select[Any]) -> list[CompoundSummary]:
+    async def _summaries(self, statement: Executable) -> list[CompoundSummary]:
         return [_summary(row) for row in await self.session.execute(statement)]
 
     # -- endpoints -----------------------------------------------------------

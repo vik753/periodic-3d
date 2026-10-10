@@ -1,222 +1,10 @@
 {
   "base": "http://localhost:4173/periodic-3d/",
   "set": "full",
-  "time": "2026-10-10T19:05:58.607Z",
+  "time": "2026-10-10T19:14:32.739Z",
   "shots": [
     {
       "name": "table",
-      "path": "",
-      "ok": true,
-      "ms": 3963,
-      "stats": {
-        "calls": 3,
-        "triangles": 69620,
-        "scene": "table",
-        "ready": true,
-        "url": "/periodic-3d/"
-      },
-      "console": []
-    },
-    {
-      "name": "table-hover-fe",
-      "path": "",
-      "ok": true,
-      "ms": 7099,
-      "stats": {
-        "calls": 3,
-        "triangles": 69620,
-        "scene": "table",
-        "ready": true,
-        "url": "/periodic-3d/"
-      },
-      "console": []
-    },
-    {
-      "name": "click-fe-flight",
-      "path": "",
-      "ok": true,
-      "ms": 7844,
-      "stats": {
-        "calls": 10,
-        "triangles": 113988,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/Fe"
-      },
-      "console": []
-    },
-    {
-      "name": "element-fe",
-      "path": "e/Fe",
-      "ok": true,
-      "ms": 8101,
-      "stats": {
-        "calls": 10,
-        "triangles": 113988,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/Fe"
-      },
-      "console": []
-    },
-    {
-      "name": "element-u",
-      "path": "e/U",
-      "ok": true,
-      "ms": 8180,
-      "stats": {
-        "calls": 12,
-        "triangles": 154900,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/U"
-      },
-      "console": []
-    },
-    {
-      "name": "element-o-rays",
-      "path": "e/O",
-      "ok": true,
-      "ms": 8278,
-      "stats": {
-        "calls": 8,
-        "triangles": 83828,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/O"
-      },
-      "console": []
-    },
-    {
-      "name": "walk-fe-o",
-      "path": "e/Fe/O",
-      "ok": true,
-      "ms": 9612,
-      "stats": {
-        "calls": 14,
-        "triangles": 166756,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/Fe/O"
-      },
-      "console": []
-    },
-    {
-      "name": "walk-fe-o-step3",
-      "path": "e/Fe/O",
-      "ok": true,
-      "ms": 11868,
-      "stats": {
-        "calls": 8,
-        "triangles": 124116,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/Fe/O"
-      },
-      "console": [
-        "[pageerror] Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node."
-      ]
-    },
-    {
-      "name": "phone-walk-fe-o",
-      "path": "e/Fe/O",
-      "ok": true,
-      "ms": 9096,
-      "stats": {
-        "calls": 13,
-        "triangles": 137636,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/Fe/O"
-      },
-      "console": []
-    },
-    {
-      "name": "phone-element-o-rays",
-      "path": "e/O",
-      "ok": true,
-      "ms": 8072,
-      "stats": {
-        "calls": 8,
-        "triangles": 83828,
-        "scene": "element",
-        "ready": true,
-        "url": "/periodic-3d/e/O"
-      },
-      "console": []
-    },
-    {
-      "name": "compound-hematite",
-      "path": "c/Q103223",
-      "ok": true,
-      "ms": 9778,
-      "stats": {
-        "calls": 6,
-        "triangles": 117108,
-        "scene": "compound",
-        "ready": true,
-        "url": "/periodic-3d/c/Q103223"
-      },
-      "console": []
-    },
-    {
-      "name": "compound-water",
-      "path": "c/Q283",
-      "ok": true,
-      "ms": 8687,
-      "stats": {
-        "calls": 5,
-        "triangles": 72588,
-        "scene": "compound",
-        "ready": true,
-        "url": "/periodic-3d/c/Q283"
-      },
-      "console": []
-    },
-    {
-      "name": "compound-ozone-ru",
-      "path": "c/Q36933",
-      "ok": true,
-      "ms": 9050,
-      "stats": {
-        "calls": 5,
-        "triangles": 72644,
-        "scene": "compound",
-        "ready": true,
-        "url": "/periodic-3d/c/Q36933"
-      },
-      "console": []
-    },
-    {
-      "name": "molecule-benzene",
-      "path": "c/demo-benzene",
-      "ok": true,
-      "ms": 8831,
-      "stats": {
-        "calls": 5,
-        "triangles": 81884,
-        "scene": "compound",
-        "ready": true,
-        "url": "/periodic-3d/c/demo-benzene"
-      },
-      "console": []
-    },
-    {
-      "name": "crystal-nacl",
-      "path": "c/demo-nacl",
-      "ok": true,
-      "ms": 9684,
-      "stats": {
-        "calls": 6,
-        "triangles": 98348,
-        "scene": "compound",
-        "ready": true,
-        "url": "/periodic-3d/c/demo-nacl"
-      },
-      "console": []
-    },
-    {
-      "name": "phone-table",
       "path": "",
       "ok": true,
       "ms": 3757,
@@ -230,13 +18,223 @@
       "console": []
     },
     {
+      "name": "table-hover-fe",
+      "path": "",
+      "ok": true,
+      "ms": 3722,
+      "stats": {
+        "calls": 3,
+        "triangles": 69620,
+        "scene": "table",
+        "ready": true,
+        "url": "/periodic-3d/"
+      },
+      "console": []
+    },
+    {
+      "name": "click-fe-flight",
+      "path": "",
+      "ok": true,
+      "ms": 6502,
+      "stats": {
+        "calls": 11,
+        "triangles": 115716,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe"
+      },
+      "console": []
+    },
+    {
+      "name": "element-fe",
+      "path": "e/Fe",
+      "ok": true,
+      "ms": 6777,
+      "stats": {
+        "calls": 11,
+        "triangles": 115716,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe"
+      },
+      "console": []
+    },
+    {
+      "name": "element-u",
+      "path": "e/U",
+      "ok": true,
+      "ms": 6459,
+      "stats": {
+        "calls": 12,
+        "triangles": 154900,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/U"
+      },
+      "console": []
+    },
+    {
+      "name": "element-o-rays",
+      "path": "e/O",
+      "ok": true,
+      "ms": 7070,
+      "stats": {
+        "calls": 9,
+        "triangles": 85556,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/O"
+      },
+      "console": []
+    },
+    {
+      "name": "walk-fe-o",
+      "path": "e/Fe/O",
+      "ok": true,
+      "ms": 7612,
+      "stats": {
+        "calls": 9,
+        "triangles": 125844,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O"
+      },
+      "console": []
+    },
+    {
+      "name": "walk-fe-o-step3",
+      "path": "e/Fe/O",
+      "ok": true,
+      "ms": 10507,
+      "stats": {
+        "calls": 9,
+        "triangles": 125844,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O"
+      },
+      "console": []
+    },
+    {
+      "name": "phone-walk-fe-o",
+      "path": "e/Fe/O",
+      "ok": true,
+      "ms": 7757,
+      "stats": {
+        "calls": 7,
+        "triangles": 56224,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O"
+      },
+      "console": []
+    },
+    {
+      "name": "phone-element-o-rays",
+      "path": "e/O",
+      "ok": true,
+      "ms": 7204,
+      "stats": {
+        "calls": 9,
+        "triangles": 85556,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/O"
+      },
+      "console": []
+    },
+    {
+      "name": "compound-hematite",
+      "path": "c/Q103223",
+      "ok": true,
+      "ms": 7803,
+      "stats": {
+        "calls": 6,
+        "triangles": 117108,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q103223"
+      },
+      "console": []
+    },
+    {
+      "name": "compound-water",
+      "path": "c/Q283",
+      "ok": true,
+      "ms": 7497,
+      "stats": {
+        "calls": 5,
+        "triangles": 72588,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q283"
+      },
+      "console": []
+    },
+    {
+      "name": "compound-ozone-ru",
+      "path": "c/Q36933",
+      "ok": true,
+      "ms": 7476,
+      "stats": {
+        "calls": 5,
+        "triangles": 72644,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q36933"
+      },
+      "console": []
+    },
+    {
+      "name": "molecule-benzene",
+      "path": "c/demo-benzene",
+      "ok": true,
+      "ms": 7133,
+      "stats": {
+        "calls": 5,
+        "triangles": 81884,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/demo-benzene"
+      },
+      "console": []
+    },
+    {
+      "name": "crystal-nacl",
+      "path": "c/demo-nacl",
+      "ok": true,
+      "ms": 7483,
+      "stats": {
+        "calls": 6,
+        "triangles": 98348,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/demo-nacl"
+      },
+      "console": []
+    },
+    {
+      "name": "phone-table",
+      "path": "",
+      "ok": true,
+      "ms": 3670,
+      "stats": {
+        "calls": 3,
+        "triangles": 69620,
+        "scene": "table",
+        "ready": true,
+        "url": "/periodic-3d/"
+      },
+      "console": []
+    },
+    {
       "name": "phone-element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 7611,
+      "ms": 6392,
       "stats": {
-        "calls": 10,
-        "triangles": 113988,
+        "calls": 11,
+        "triangles": 115716,
         "scene": "element",
         "ready": true,
         "url": "/periodic-3d/e/Fe"
@@ -247,7 +245,7 @@
       "name": "phone-compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 8651,
+      "ms": 7206,
       "stats": {
         "calls": 6,
         "triangles": 117108,

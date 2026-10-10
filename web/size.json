@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 379.5,
+  "initialJsGzipKb": 379.6,
   "withinBudget": true,
   "rows": [
     {
@@ -22,9 +22,9 @@
       "initial": true
     },
     {
-      "file": "assets/index-GhGv4eZ4.js",
-      "kb": 142.2,
-      "gzipKb": 46.8,
+      "file": "assets/index-f3NAxqfc.js",
+      "kb": 142.8,
+      "gzipKb": 46.9,
       "initial": true
     },
     {

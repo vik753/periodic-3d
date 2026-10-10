@@ -1,27 +1,26 @@
 $ npm run screenshot
-started: 2026-10-10T19:05:57Z
+started: 2026-10-10T19:14:32Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3963ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 7099ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 7844ms calls=10 url=/periodic-3d/e/Fe
-ok   element-fe 8101ms calls=10 url=/periodic-3d/e/Fe
-ok   element-u 8180ms calls=12 url=/periodic-3d/e/U
-ok   element-o-rays 8278ms calls=8 url=/periodic-3d/e/O
-ok   walk-fe-o 9612ms calls=14 url=/periodic-3d/e/Fe/O
-ok   walk-fe-o-step3 11868ms calls=8 url=/periodic-3d/e/Fe/O
-ok   phone-walk-fe-o 9096ms calls=13 url=/periodic-3d/e/Fe/O
-ok   phone-element-o-rays 8072ms calls=8 url=/periodic-3d/e/O
-ok   compound-hematite 9778ms calls=6 url=/periodic-3d/c/Q103223
-ok   compound-water 8687ms calls=5 url=/periodic-3d/c/Q283
-ok   compound-ozone-ru 9050ms calls=5 url=/periodic-3d/c/Q36933
-ok   molecule-benzene 8831ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 9684ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3757ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 7611ms calls=10 url=/periodic-3d/e/Fe
-ok   phone-compound-hematite 8651ms calls=6 url=/periodic-3d/c/Q103223
-1 screenshot(s) failed
-finished: 2026-10-10T19:08:53Z
-exit code: 1
+ok   table 3757ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 3722ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 6502ms calls=11 url=/periodic-3d/e/Fe
+ok   element-fe 6777ms calls=11 url=/periodic-3d/e/Fe
+ok   element-u 6459ms calls=12 url=/periodic-3d/e/U
+ok   element-o-rays 7070ms calls=9 url=/periodic-3d/e/O
+ok   walk-fe-o 7612ms calls=9 url=/periodic-3d/e/Fe/O
+ok   walk-fe-o-step3 10507ms calls=9 url=/periodic-3d/e/Fe/O
+ok   phone-walk-fe-o 7757ms calls=7 url=/periodic-3d/e/Fe/O
+ok   phone-element-o-rays 7204ms calls=9 url=/periodic-3d/e/O
+ok   compound-hematite 7803ms calls=6 url=/periodic-3d/c/Q103223
+ok   compound-water 7497ms calls=5 url=/periodic-3d/c/Q283
+ok   compound-ozone-ru 7476ms calls=5 url=/periodic-3d/c/Q36933
+ok   molecule-benzene 7133ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 7483ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3670ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 6392ms calls=11 url=/periodic-3d/e/Fe
+ok   phone-compound-hematite 7206ms calls=6 url=/periodic-3d/c/Q103223
+finished: 2026-10-10T19:16:48Z
+exit code: 0

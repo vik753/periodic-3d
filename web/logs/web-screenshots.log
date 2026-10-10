@@ -1,17 +1,21 @@
 $ npm run screenshot
-started: 2026-10-10T18:37:46Z
+started: 2026-10-10T18:41:34Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3834ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 5638ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 7123ms calls=9 url=/periodic-3d/e/Fe
-ok   element-fe 7171ms calls=9 url=/periodic-3d/e/Fe
-ok   element-u 7332ms calls=12 url=/periodic-3d/e/U
-ok   molecule-benzene 7835ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 8144ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3672ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 7143ms calls=9 url=/periodic-3d/e/Fe
-finished: 2026-10-10T18:38:54Z
+ok   table 3850ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 4314ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 7350ms calls=9 url=/periodic-3d/e/Fe
+ok   element-fe 7243ms calls=9 url=/periodic-3d/e/Fe
+ok   element-u 7211ms calls=12 url=/periodic-3d/e/U
+ok   compound-hematite 8364ms calls=6 url=/periodic-3d/c/Q103223
+ok   compound-water 7803ms calls=5 url=/periodic-3d/c/Q283
+ok   compound-ozone-ru 7996ms calls=5 url=/periodic-3d/c/Q36933
+ok   molecule-benzene 7901ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 8022ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3708ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 7128ms calls=9 url=/periodic-3d/e/Fe
+ok   phone-compound-hematite 8046ms calls=6 url=/periodic-3d/c/Q103223
+finished: 2026-10-10T18:43:19Z
 exit code: 0

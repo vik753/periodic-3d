@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 366.5,
+  "initialJsGzipKb": 373.3,
   "withinBudget": true,
   "rows": [
     {
@@ -22,15 +22,15 @@
       "initial": true
     },
     {
-      "file": "assets/index-CRRRi7aD.js",
-      "kb": 103.2,
-      "gzipKb": 34.8,
+      "file": "assets/index-BEVJ6ro-.js",
+      "kb": 125.4,
+      "gzipKb": 41.6,
       "initial": true
     },
     {
-      "file": "assets/index-DkAxuo-0.css",
-      "kb": 21.1,
-      "gzipKb": 6.6,
+      "file": "assets/index-C5SPQRrv.css",
+      "kb": 23.9,
+      "gzipKb": 7.1,
       "initial": true
     }
   ]

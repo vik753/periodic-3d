@@ -1,13 +1,13 @@
 {
   "base": "http://localhost:4173/periodic-3d/",
   "set": "full",
-  "time": "2026-10-10T18:37:47.061Z",
+  "time": "2026-10-10T18:41:35.319Z",
   "shots": [
     {
       "name": "table",
       "path": "",
       "ok": true,
-      "ms": 3834,
+      "ms": 3850,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -21,7 +21,7 @@
       "name": "table-hover-fe",
       "path": "",
       "ok": true,
-      "ms": 5638,
+      "ms": 4314,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -35,7 +35,7 @@
       "name": "click-fe-flight",
       "path": "",
       "ok": true,
-      "ms": 7123,
+      "ms": 7350,
       "stats": {
         "calls": 9,
         "triangles": 112260,
@@ -49,7 +49,7 @@
       "name": "element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 7171,
+      "ms": 7243,
       "stats": {
         "calls": 9,
         "triangles": 112260,
@@ -63,7 +63,7 @@
       "name": "element-u",
       "path": "e/U",
       "ok": true,
-      "ms": 7332,
+      "ms": 7211,
       "stats": {
         "calls": 12,
         "triangles": 154900,
@@ -74,10 +74,52 @@
       "console": []
     },
     {
+      "name": "compound-hematite",
+      "path": "c/Q103223",
+      "ok": true,
+      "ms": 8364,
+      "stats": {
+        "calls": 6,
+        "triangles": 117108,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q103223"
+      },
+      "console": []
+    },
+    {
+      "name": "compound-water",
+      "path": "c/Q283",
+      "ok": true,
+      "ms": 7803,
+      "stats": {
+        "calls": 5,
+        "triangles": 72588,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q283"
+      },
+      "console": []
+    },
+    {
+      "name": "compound-ozone-ru",
+      "path": "c/Q36933",
+      "ok": true,
+      "ms": 7996,
+      "stats": {
+        "calls": 5,
+        "triangles": 72644,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q36933"
+      },
+      "console": []
+    },
+    {
       "name": "molecule-benzene",
       "path": "c/demo-benzene",
       "ok": true,
-      "ms": 7835,
+      "ms": 7901,
       "stats": {
         "calls": 5,
         "triangles": 81884,
@@ -91,7 +133,7 @@
       "name": "crystal-nacl",
       "path": "c/demo-nacl",
       "ok": true,
-      "ms": 8144,
+      "ms": 8022,
       "stats": {
         "calls": 6,
         "triangles": 98348,
@@ -105,7 +147,7 @@
       "name": "phone-table",
       "path": "",
       "ok": true,
-      "ms": 3672,
+      "ms": 3708,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -119,13 +161,27 @@
       "name": "phone-element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 7143,
+      "ms": 7128,
       "stats": {
         "calls": 9,
         "triangles": 112260,
         "scene": "element",
         "ready": true,
         "url": "/periodic-3d/e/Fe"
+      },
+      "console": []
+    },
+    {
+      "name": "phone-compound-hematite",
+      "path": "c/Q103223",
+      "ok": true,
+      "ms": 8046,
+      "stats": {
+        "calls": 6,
+        "triangles": 117108,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q103223"
       },
       "console": []
     }

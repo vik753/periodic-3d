@@ -1,12 +1,12 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 373.5,
+  "initialJsGzipKb": 377.8,
   "withinBudget": true,
   "rows": [
     {
-      "file": "assets/three-DA8Dnnbk.js",
-      "kb": 703.6,
-      "gzipKb": 182.5,
+      "file": "assets/three-Co2EEPcd.js",
+      "kb": 707.3,
+      "gzipKb": 183.5,
       "initial": true
     },
     {
@@ -16,21 +16,21 @@
       "initial": true
     },
     {
-      "file": "assets/r3f-CTGeFR_7.js",
+      "file": "assets/r3f-BdgjJQQI.js",
       "kb": 222.1,
       "gzipKb": 66.7,
       "initial": true
     },
     {
-      "file": "assets/index-rf2WBRsz.js",
-      "kb": 126.2,
-      "gzipKb": 41.8,
+      "file": "assets/index-NpjGLiJD.js",
+      "kb": 137.1,
+      "gzipKb": 45.1,
       "initial": true
     },
     {
-      "file": "assets/index-Bgj9WMB5.css",
-      "kb": 23.9,
-      "gzipKb": 7.1,
+      "file": "assets/index-CbyNtra-.css",
+      "kb": 24.7,
+      "gzipKb": 7.3,
       "initial": true
     }
   ]

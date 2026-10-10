@@ -1,13 +1,13 @@
 {
   "base": "http://localhost:4173/periodic-3d/",
   "set": "full",
-  "time": "2026-10-10T18:50:08.803Z",
+  "time": "2026-10-10T18:59:22.402Z",
   "shots": [
     {
       "name": "table",
       "path": "",
       "ok": true,
-      "ms": 3849,
+      "ms": 3974,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -21,7 +21,7 @@
       "name": "table-hover-fe",
       "path": "",
       "ok": true,
-      "ms": 5699,
+      "ms": 5493,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -35,10 +35,10 @@
       "name": "click-fe-flight",
       "path": "",
       "ok": true,
-      "ms": 6858,
+      "ms": 8181,
       "stats": {
-        "calls": 9,
-        "triangles": 112260,
+        "calls": 10,
+        "triangles": 113988,
         "scene": "element",
         "ready": true,
         "url": "/periodic-3d/e/Fe"
@@ -49,10 +49,10 @@
       "name": "element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 6849,
+      "ms": 8121,
       "stats": {
-        "calls": 9,
-        "triangles": 112260,
+        "calls": 10,
+        "triangles": 113988,
         "scene": "element",
         "ready": true,
         "url": "/periodic-3d/e/Fe"
@@ -63,7 +63,7 @@
       "name": "element-u",
       "path": "e/U",
       "ok": true,
-      "ms": 7247,
+      "ms": 8049,
       "stats": {
         "calls": 12,
         "triangles": 154900,
@@ -74,10 +74,52 @@
       "console": []
     },
     {
+      "name": "element-o-rays",
+      "path": "e/O",
+      "ok": true,
+      "ms": 8253,
+      "stats": {
+        "calls": 8,
+        "triangles": 83828,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/O"
+      },
+      "console": []
+    },
+    {
+      "name": "walk-fe-o",
+      "path": "e/Fe/O",
+      "ok": true,
+      "ms": 8895,
+      "stats": {
+        "calls": 10,
+        "triangles": 113988,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O"
+      },
+      "console": []
+    },
+    {
+      "name": "phone-element-o-rays",
+      "path": "e/O",
+      "ok": true,
+      "ms": 7933,
+      "stats": {
+        "calls": 8,
+        "triangles": 83828,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/O"
+      },
+      "console": []
+    },
+    {
       "name": "compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 8505,
+      "ms": 9538,
       "stats": {
         "calls": 6,
         "triangles": 117108,
@@ -91,7 +133,7 @@
       "name": "compound-water",
       "path": "c/Q283",
       "ok": true,
-      "ms": 8068,
+      "ms": 8930,
       "stats": {
         "calls": 5,
         "triangles": 72588,
@@ -105,7 +147,7 @@
       "name": "compound-ozone-ru",
       "path": "c/Q36933",
       "ok": true,
-      "ms": 8061,
+      "ms": 8952,
       "stats": {
         "calls": 5,
         "triangles": 72644,
@@ -119,7 +161,7 @@
       "name": "molecule-benzene",
       "path": "c/demo-benzene",
       "ok": true,
-      "ms": 7840,
+      "ms": 9057,
       "stats": {
         "calls": 5,
         "triangles": 81884,
@@ -133,7 +175,7 @@
       "name": "crystal-nacl",
       "path": "c/demo-nacl",
       "ok": true,
-      "ms": 8200,
+      "ms": 9303,
       "stats": {
         "calls": 6,
         "triangles": 98348,
@@ -147,7 +189,7 @@
       "name": "phone-table",
       "path": "",
       "ok": true,
-      "ms": 3704,
+      "ms": 3758,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -161,10 +203,10 @@
       "name": "phone-element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 7130,
+      "ms": 7458,
       "stats": {
-        "calls": 9,
-        "triangles": 112260,
+        "calls": 10,
+        "triangles": 113988,
         "scene": "element",
         "ready": true,
         "url": "/periodic-3d/e/Fe"
@@ -175,7 +217,7 @@
       "name": "phone-compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 7747,
+      "ms": 8525,
       "stats": {
         "calls": 6,
         "triangles": 117108,

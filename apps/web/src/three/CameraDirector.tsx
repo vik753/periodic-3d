@@ -15,6 +15,24 @@ export const CAMERA_FOV = 40;
 
 type Pose = { position: [number, number, number]; target: [number, number, number] };
 
+/** Panel layout breakpoint: side panel from this width, bottom sheet below it. */
+export const SIDE_PANEL_MIN_WIDTH = 640;
+const SIDE_PANEL_WIDTH = 380;
+const SHEET_FRACTION = 0.46;
+/** Radius of the structure viewer's bounding sphere plus a margin. */
+const STAGE_RADIUS = 2.6 * 1.18;
+
+/** Camera distance that keeps the structure inside the area the info panel leaves free. */
+export function compoundDistance(width: number, height: number): number {
+  const tanV = Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV) / 2);
+  const tanH = tanV * (width / Math.max(height, 1));
+  const side = width >= SIDE_PANEL_MIN_WIDTH;
+  const freeV = side ? tanV : tanV * (1 - SHEET_FRACTION);
+  const freeH = side ? tanH * Math.max(0.35, 1 - SIDE_PANEL_WIDTH / width) : tanH;
+  const halfAngle = Math.atan(Math.min(freeV, freeH));
+  return Math.max(10.5, STAGE_RADIUS / Math.sin(halfAngle));
+}
+
 function tablePose(aspect: number): Pose {
   const distance = tableFitDistance(aspect, CAMERA_FOV);
   // A slight low angle shows the depth of the curved table without cropping its edges.
@@ -52,9 +70,11 @@ export function CameraDirector({ controls }: { controls: RefObject<ControlsRef |
       control.maxDistance = 16;
     } else if (scene.kind === 'compound') {
       const [x, y, z] = STAGE_POSITION;
-      pose = { position: [x + 1.4, y + 1.0, z + 10.5], target: [x, y, z] };
+      const distance = compoundDistance(size.width, size.height);
+      const direction = new THREE.Vector3(1.4, 1.0, 10.5).normalize().multiplyScalar(distance);
+      pose = { position: [x + direction.x, y + direction.y, z + direction.z], target: [x, y, z] };
       control.minDistance = 3;
-      control.maxDistance = 24;
+      control.maxDistance = Math.max(24, distance * 1.6);
     } else {
       pose = tablePose(aspect);
       control.minDistance = 6;

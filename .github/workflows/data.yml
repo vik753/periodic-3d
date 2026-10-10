@@ -30,6 +30,7 @@ on:
 
 permissions:
   contents: write
+  actions: write # start the ci workflow after a new dataset release
 
 concurrency:
   group: data
@@ -106,13 +107,18 @@ jobs:
           echo "$VERSION" > out/dataset/VERSION
           bash ../tools/ci/publish-results.sh out/dataset data/latest "ci: dataset $VERSION"
 
-      - name: Publish release
+      - name: Publish release and switch the site to it
         if: steps.build.outcome == 'success' && env.RELEASE == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "data-$VERSION" "../data/dataset-$VERSION.tar.gz" \
             --title "Dataset $VERSION" --notes-file "../data/build/$VERSION/report.md" --latest=false
+          mkdir -p ../data
+          echo "release:data-$VERSION" > ../data/DATASET
+          bash ../tools/ci/commit-back.sh "chore(data): use dataset $VERSION [skip ci]" ../data/DATASET
+          # A push made with GITHUB_TOKEN starts no workflow; a dispatch does.
+          gh workflow run ci.yml --ref main
 
       - name: Commit uv.lock back
         if: always() && github.ref == 'refs/heads/main'

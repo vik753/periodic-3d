@@ -7,7 +7,7 @@ import type { DemoCompound } from '../data/demo';
 import { demoCompound } from '../data/demo';
 import { useCompound, useElements } from '../data/hooks';
 import { NotFoundError } from '../data/source';
-import { formatCharge, formatCount, formatNumber } from './format';
+import { formatCharge, formatCount, formatNumber, formulaOrder } from './format';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 
 /** Wikidata classes too generic to show ("type of chemical entity"). */
@@ -27,7 +27,7 @@ function Composition({ compound }: { compound: CompoundDetail }) {
   return (
     <Section title={t('compound.composition')}>
       <dl>
-        {compound.elements.map((symbol) => (
+        {formulaOrder(compound.formula, compound.elements).map((symbol) => (
           <div key={symbol} className="flex items-baseline justify-between gap-4 border-t border-white/5 py-1.5 first:border-t-0">
             <dt className="flex min-w-0 items-baseline gap-2">
               <Link
@@ -104,7 +104,7 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
         )}
         {compound.charge !== 0 && <Row term={t('compound.charge')}>{formatCharge(compound.charge)}</Row>}
       </dl>
-      {compound.iupac && (
+      {compound.iupac && !compound.iupac.includes(';') && (
         <p className="mt-2 break-words text-xs text-muted">
           {t('compound.iupac')}: <span className="text-text/80">{compound.iupac}</span>
         </p>

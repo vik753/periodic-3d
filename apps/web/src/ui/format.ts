@@ -13,3 +13,10 @@ export function formatCharge(charge: number): string {
 export function formatCount(value: number, language: string): string {
   return Number.isInteger(value) ? String(value) : formatNumber(value, language, 2);
 }
+
+/** Elements in the order the formula names them: Fe₂O₃ → Fe, O (the dataset sorts by Z). */
+export function formulaOrder(formula: string, elements: string[]): string[] {
+  const seen = (formula.match(/[A-Z][a-z]?/g) ?? []).filter((symbol) => elements.includes(symbol));
+  const ordered = [...new Set(seen)];
+  return [...ordered, ...elements.filter((symbol) => !ordered.includes(symbol))];
+}

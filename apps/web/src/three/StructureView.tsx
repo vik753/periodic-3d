@@ -11,7 +11,9 @@ import { useAppStore } from '../state/store';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
 
 /** The structure is scaled so its bounding sphere has this radius in world units. */
-const FIT_RADIUS = 2.6;
+export const FIT_RADIUS = 2.6;
+/** Small molecules are not blown up beyond this many world units per ångström. */
+const MAX_SCALE = 1.25;
 const BOND_RADIUS = 0.1; // ångström
 const RESUME_ROTATION_MS = 5000;
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
@@ -75,7 +77,7 @@ export function StructureView({ data, position, elementName }: StructureViewProp
   useKeepRendering(true);
 
   const center = useMemo(() => centroid(data.atoms), [data]);
-  const scale = useMemo(() => FIT_RADIUS / Math.max(boundingRadius(data.atoms), 1.2), [data]);
+  const scale = useMemo(() => Math.min(FIT_RADIUS / Math.max(boundingRadius(data.atoms), 1.2), MAX_SCALE), [data]);
   const halves = useMemo(() => buildBondHalves(data, center, scale), [data, center, scale]);
   const isCrystal = data.kind === 'crystal';
 

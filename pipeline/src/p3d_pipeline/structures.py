@@ -24,6 +24,8 @@ from .elements_table import SYMBOLS, Z_BY_SYMBOL
 Structure = dict[str, Any]
 
 MAX_CRYSTAL_ATOMS = 160
+MAX_3D_HEAVY_ATOMS = 150  # bigger molecules get a flat layout: embedding is slow and the 3D view is cluttered
+EMBED_TIMEOUT_S = 20
 MAX_BONDS_PER_ATOM = 12
 MAX_UNIT_ATOMS = 240
 SYMPREC_STEPS = (0.1, 0.01, 1e-3)
@@ -85,13 +87,19 @@ def molecule_from_smiles(smiles: str, *, seed: int = 42, max_atoms: int = 400) -
     mol = Chem.MolFromSmiles(smiles)
     if mol is None or len(Chem.GetMolFrags(mol)) > 1:
         return None
+    heavy_atoms = mol.GetNumAtoms()
     mol = Chem.AddHs(mol)
     if mol.GetNumAtoms() > max_atoms:
         return None
     kind = "molecule"
     params = AllChem.ETKDGv3()
     params.randomSeed = seed
-    if AllChem.EmbedMolecule(mol, params) != 0:
+    with contextlib.suppress(AttributeError):
+        params.timeout = EMBED_TIMEOUT_S  # RDKit ≥ 2023.09; keeps rare hard cases from stalling the build
+    if heavy_atoms > MAX_3D_HEAVY_ATOMS:
+        AllChem.Compute2DCoords(mol)
+        kind = "flat"
+    elif AllChem.EmbedMolecule(mol, params) != 0:
         params.useRandomCoords = True
         if AllChem.EmbedMolecule(mol, params) != 0:
             AllChem.Compute2DCoords(mol)

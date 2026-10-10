@@ -12,7 +12,7 @@ import type { StructureData } from '../data/structure';
 import { useAppStore } from '../state/store';
 import { AtomModel } from './AtomModel';
 import type { ControlsRef } from './CameraDirector';
-import { CAMERA_FOV, CameraDirector } from './CameraDirector';
+import { CAMERA_FOV, CameraDirector, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import { Dust } from './Dust';
 import { STAGE_POSITION, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
@@ -40,9 +40,15 @@ function ElementStage() {
   return <AtomModel key={cell.z} z={cell.z} position={tilePosition(cell)} />;
 }
 
-function CompoundStage({ id, structure }: { id: string | null; structure: StructureData | null }) {
+interface CompoundStageProps {
+  id: string | null;
+  structure: StructureData | null;
+  elementName?: (symbol: string) => string | undefined;
+}
+
+function CompoundStage({ id, structure, elementName }: CompoundStageProps) {
   if (!id || !structure) return null;
-  return <StructureView key={id} data={structure} position={STAGE_POSITION} />;
+  return <StructureView key={id} data={structure} position={STAGE_POSITION} elementName={elementName} />;
 }
 
 /**
@@ -59,7 +65,7 @@ function PanelAwareViewOffset() {
   const target =
     sceneKind === 'table'
       ? { x: 0, y: 0 }
-      : size.width >= 640
+      : size.width >= SIDE_PANEL_MIN_WIDTH
         ? { x: 180, y: 0 }
         : { x: 0, y: Math.round(size.height * 0.2) };
 
@@ -137,6 +143,12 @@ export function Scene() {
         : undefined,
     [elements.data, i18n.language],
   );
+  const elementName = useMemo(() => {
+    const bySymbol = new Map(
+      elements.data?.elements.map((element) => [element.symbol, pickName(element.names, i18n.language)] as const) ?? [],
+    );
+    return (symbol: string) => bySymbol.get(symbol);
+  }, [elements.data, i18n.language]);
   const scene = useAppStore((state) => state.scene);
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);
@@ -162,7 +174,7 @@ export function Scene() {
       <Dust />
       <PeriodicTable3D names={names} />
       <ElementStage />
-      <CompoundStage id={compoundId} structure={structure} />
+      <CompoundStage id={compoundId} structure={structure} elementName={elementName} />
       <RenderStats />
     </Canvas>
   );

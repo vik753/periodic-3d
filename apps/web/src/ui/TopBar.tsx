@@ -38,7 +38,8 @@ export function TopBar() {
           to="/"
           className="font-display text-[15px] font-semibold tracking-tight text-text hover:text-gold sm:text-base"
         >
-          {t('app.title')}
+          <span className="hidden sm:inline">{t('app.title')}</span>
+          <span className="sm:hidden">{t('app.short')}</span>
         </Link>
         {crumbs.map((crumb) => (
           <span key={crumb.label} className="flex items-baseline gap-2 text-muted">

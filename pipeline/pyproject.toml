@@ -1,0 +1,55 @@
+[project]
+name = "p3d-pipeline"
+version = "0.1.0"
+description = "Data pipeline for Periodic Table 3D: fetch, normalize and build the dataset."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = [
+  "httpx>=0.27",
+  "tenacity>=8.5",
+  "typer>=0.12",
+  "pydantic>=2.8",
+  "numpy>=2.0",
+  "spglib>=2.5",
+  "rdkit>=2024.3.5",
+]
+
+[project.scripts]
+p3d-pipeline = "p3d_pipeline.cli:app"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.6",
+  "mypy>=1.11",
+]
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/p3d_pipeline"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]  # Cyrillic and Unicode subscripts are intentional
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+packages = ["p3d_pipeline"]
+
+[[tool.mypy.overrides]]
+module = ["rdkit.*", "spglib.*"]
+ignore_missing_imports = true

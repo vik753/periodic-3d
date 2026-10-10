@@ -11,7 +11,7 @@ import { useAppStore } from '../state/store';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
 
 /** The structure is scaled so its bounding sphere has this radius in world units. */
-const FIT_RADIUS = 3.1;
+const FIT_RADIUS = 2.6;
 const BOND_RADIUS = 0.1; // ångström
 const RESUME_ROTATION_MS = 5000;
 const Y_AXIS = new THREE.Vector3(0, 1, 0);

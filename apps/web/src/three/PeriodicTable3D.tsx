@@ -34,7 +34,7 @@ const GOLD = new THREE.Color('#FFC857');
 function tileColor(category: Category, mode: 'rest' | 'hover' | 'selected', out: THREE.Color): THREE.Color {
   const tint = new THREE.Color(CATEGORY_COLORS[category]);
   if (mode === 'selected') return out.copy(GLASS).lerp(GOLD, 0.62);
-  return out.copy(GLASS).lerp(tint, mode === 'hover' ? 0.78 : 0.42);
+  return out.copy(GLASS).lerp(tint, mode === 'hover' ? 0.72 : 0.36);
 }
 
 const noRaycast = () => null;
@@ -153,13 +153,13 @@ export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
     let moving = false;
     const matrix = new THREE.Matrix4();
 
-    const targetOpacity = interactive ? 1 : 0.07;
+    const targetOpacity = interactive ? 1 : 0.06;
     const nextOpacity = damp(state.opacity, targetOpacity, 6, dt);
     if (Math.abs(nextOpacity - state.opacity) > 0.002) moving = true;
     state.opacity = Math.abs(nextOpacity - targetOpacity) < 0.002 ? targetOpacity : nextOpacity;
     tileMaterial.opacity = state.opacity;
     tileMaterial.depthWrite = state.opacity > 0.5;
-    labelMaterial.uniforms.uOpacity!.value = state.opacity;
+    labelMaterial.uniforms.uOpacity!.value = state.opacity < 1 ? state.opacity * 0.6 : 1;
 
     for (let index = 0; index < COUNT; index += 1) {
       const z = index + 1;

@@ -17,8 +17,8 @@ type Pose = { position: [number, number, number]; target: [number, number, numbe
 
 function tablePose(aspect: number): Pose {
   const distance = tableFitDistance(aspect, CAMERA_FOV);
-  // A slight low, left angle shows the depth of the curved table.
-  return { position: [-distance * 0.06, -distance * 0.11, distance], target: [0, -0.15, 0] };
+  // A slight low angle shows the depth of the curved table without cropping its edges.
+  return { position: [0, -distance * 0.09, distance], target: [0, -0.1, 0] };
 }
 
 /**
@@ -52,7 +52,7 @@ export function CameraDirector({ controls }: { controls: RefObject<ControlsRef |
       control.maxDistance = 16;
     } else if (scene.kind === 'compound') {
       const [x, y, z] = STAGE_POSITION;
-      pose = { position: [x + 1.2, y + 0.9, z + 9], target: [x, y, z] };
+      pose = { position: [x + 1.4, y + 1.0, z + 10.5], target: [x, y, z] };
       control.minDistance = 3;
       control.maxDistance = 24;
     } else {

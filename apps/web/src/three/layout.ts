@@ -58,9 +58,18 @@ export function tileMatrix(
   return out.compose(scratchPosition, scratchQuaternion, scratchScale);
 }
 
-/** Camera distance that fits the whole table for a given aspect ratio and vertical FOV. */
+/** How far the curved edges of the table come towards the viewer. */
+export const TABLE_EDGE_Z = CURVE * (TABLE_HALF_WIDTH - TILE / 2) ** 2;
+
+/**
+ * Camera distance that fits the whole table for a given aspect ratio and vertical FOV.
+ * The curved edges are closer to the camera, so they need extra distance. A margin
+ * keeps the table clear of the top bar and the hint at the bottom.
+ */
 export function tableFitDistance(aspect: number, fovDegrees: number): number {
   const halfV = Math.tan(THREE.MathUtils.degToRad(fovDegrees / 2));
   const halfH = halfV * aspect;
-  return Math.max(TABLE_HALF_HEIGHT / halfV, TABLE_HALF_WIDTH / halfH) * 1.06;
+  const byHeight = (TABLE_HALF_HEIGHT * 1.16) / halfV;
+  const byWidth = (TABLE_HALF_WIDTH * 1.05) / halfH + TABLE_EDGE_Z;
+  return Math.max(byHeight, byWidth);
 }

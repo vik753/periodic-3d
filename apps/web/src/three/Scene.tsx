@@ -13,6 +13,7 @@ import { Dust } from './Dust';
 import { STAGE_POSITION, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
 import { StructureView } from './StructureView';
+import { damp } from './useKeepRendering';
 
 declare global {
   interface Window {
@@ -41,6 +42,46 @@ function CompoundStage() {
   const compound = demoCompound(scene.id);
   if (!compound) return null;
   return <StructureView key={compound.id} data={compound.structure} position={STAGE_POSITION} />;
+}
+
+/**
+ * Shifts the rendered image away from the info panel so the object stays in the free
+ * area: left of the side panel on wide screens, above the bottom sheet on phones.
+ */
+function PanelAwareViewOffset() {
+  const camera = useThree((state) => state.camera);
+  const size = useThree((state) => state.size);
+  const invalidate = useThree((state) => state.invalidate);
+  const sceneKind = useAppStore((state) => state.scene.kind);
+  const current = useRef({ x: 0, y: 0, width: 0, height: 0 });
+
+  const target =
+    sceneKind === 'table'
+      ? { x: 0, y: 0 }
+      : size.width >= 640
+        ? { x: 180, y: 0 }
+        : { x: 0, y: Math.round(size.height * 0.2) };
+
+  useEffect(() => invalidate(), [target.x, target.y, invalidate]);
+
+  useFrame((_, delta) => {
+    if (!(camera instanceof THREE.PerspectiveCamera)) return;
+    const state = current.current;
+    const dt = Math.min(delta, 0.05);
+    let x = damp(state.x, target.x, 6, dt);
+    let y = damp(state.y, target.y, 6, dt);
+    const settled = Math.abs(x - target.x) < 0.5 && Math.abs(y - target.y) < 0.5;
+    if (settled) {
+      x = target.x;
+      y = target.y;
+    }
+    const changed = x !== state.x || y !== state.y || size.width !== state.width || size.height !== state.height;
+    if (!changed) return;
+    current.current = { x, y, width: size.width, height: size.height };
+    camera.setViewOffset(size.width, size.height, x, y, size.width, size.height);
+    if (!settled) invalidate();
+  });
+  return null;
 }
 
 /** Publishes render stats and a readiness flag for the screenshot script. */
@@ -101,6 +142,7 @@ export function Scene() {
       <directionalLight position={[-12, -6, 10]} intensity={0.5} color="#8fa2ff" />
       <CameraControls ref={controls} makeDefault smoothTime={0.55} draggingSmoothTime={0.12} />
       <CameraDirector controls={controls} />
+      <PanelAwareViewOffset />
       <Dust />
       <PeriodicTable3D />
       <ElementStage />

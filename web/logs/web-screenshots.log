@@ -1,17 +1,15 @@
 $ npm run screenshot
-started: 2026-10-10T18:24:09Z
+started: 2026-10-10T18:35:01Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3913ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 4925ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 8284ms calls=9 url=/periodic-3d/e/Fe
-ok   element-fe 8350ms calls=9 url=/periodic-3d/e/Fe
-ok   element-u 8093ms calls=12 url=/periodic-3d/e/U
-ok   molecule-benzene 9125ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 9256ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3735ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 7972ms calls=9 url=/periodic-3d/e/Fe
-finished: 2026-10-10T18:25:26Z
-exit code: 0
+ok   table 3777ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 4955ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 6873ms calls=9 url=/periodic-3d/e/Fe
+ok   element-fe 6860ms calls=9 url=/periodic-3d/e/Fe
+ok   element-u 6871ms calls=12 url=/periodic-3d/e/U
+ok   molecule-benzene 7284ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 7627ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3673ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 6876ms calls=9 url=/periodic-3d/e/Fe

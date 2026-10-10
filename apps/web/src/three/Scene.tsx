@@ -47,6 +47,8 @@ interface ElementWorldProps {
   controls: RefObject<ControlsRef | null>;
   names?: ReadonlyMap<number, string>;
   partners?: Partner[];
+  /** 3D structure of the element's simple substance, if the dataset has one. */
+  substance?: StructureData | null;
   labelFor: (partner: Partner) => RayLabel;
   /** Walk along a ray: the pair's compounds and the 3D model of the one in focus. */
   walk?: {
@@ -70,8 +72,9 @@ interface ElementWorldProps {
  * The table, and in the element scene the atom with its rays. Falling into an element
  * pushes the table far back; the rays then run from the atom to the partner tiles.
  */
-function ElementWorld({ controls, names, partners, labelFor, walk, cloud, elementName }: ElementWorldProps) {
+function ElementWorld({ controls, names, partners, substance, labelFor, walk, cloud, elementName }: ElementWorldProps) {
   const scene = useAppStore((state) => state.scene);
+  const elementView = useAppStore((state) => state.elementView);
   const size = useThree((state) => state.size);
   const cell = scene.kind === 'element' ? elementBySymbol(scene.symbol) : undefined;
   const partnerSymbol = scene.kind === 'element' ? scene.partner : undefined;
@@ -112,7 +115,12 @@ function ElementWorld({ controls, names, partners, labelFor, walk, cloud, elemen
         />
       )}
       {/* The atom steps aside during a walk: the camera travels right past it. */}
-      {cell && origin && !activePartner && <AtomModel key={cell.z} z={cell.z} position={origin} />}
+      {cell && origin && !activePartner && (elementView === 'atom' || !substance) && (
+        <AtomModel key={cell.z} z={cell.z} position={origin} />
+      )}
+      {cell && origin && !activePartner && elementView === 'substance' && substance && (
+        <StructureView key={`substance-${cell.symbol}`} data={substance} position={origin} fitRadius={1.7} elementName={elementName} />
+      )}
       {cell && origin && partners && partners.length > 0 && (
         <Rays
           key={`${cell.symbol}-${width}x${height}`}
@@ -327,6 +335,7 @@ export function Scene() {
         controls={controls}
         names={names}
         partners={element.data?.partners}
+        substance={element.data?.substance?.structure ?? null}
         labelFor={labelFor}
         walk={walk}
         cloud={cloud}

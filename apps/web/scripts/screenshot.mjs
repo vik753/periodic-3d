@@ -49,6 +49,16 @@ const shots = [
   },
   { name: 'element-fe', path: 'e/Fe', viewport: desktop, quick: true, wait: 3500 },
   { name: 'element-u', path: 'e/U', viewport: desktop, wait: 3500 },
+  {
+    name: 'element-fe-substance',
+    path: 'e/Fe',
+    viewport: desktop,
+    wait: 3500,
+    act: async (page) => {
+      await page.waitForTimeout(1500);
+      await page.getByRole('radio', { name: 'Речовина в 3D' }).click();
+    },
+  },
   { name: 'element-o-rays', path: 'e/O', viewport: desktop, quick: true, wait: 4500 },
   { name: 'walk-fe-o', path: 'e/Fe/O', viewport: desktop, quick: true, wait: 5000 },
   {

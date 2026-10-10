@@ -143,6 +143,40 @@ export function WalkPanel({ element, partner }: { element: ElementCell; partner:
   );
 }
 
+/** The simple substance, with a switch between the atom model and its 3D structure. */
+function SubstanceSection({ data }: { data: ElementDetail }) {
+  const { t, i18n } = useTranslation();
+  const view = useAppStore((state) => state.elementView);
+  const setView = useAppStore((state) => state.setElementView);
+  const substance = data.substance;
+  if (!substance) return null;
+  const language = i18n.language;
+  return (
+    <Section title={t('element.substance')}>
+      <p className="text-sm">
+        {pickName(substance.names, language, pickName(data.names, language))}
+        <span className="text-muted"> — {t(`compound.${substance.info.kind}`).toLowerCase()}</span>
+      </p>
+      <div role="radiogroup" aria-label={t('element.view')} className="mt-2 inline-flex rounded-full bg-white/5 p-1 ring-1 ring-rim">
+        {(['atom', 'substance'] as const).map((value) => (
+          <button
+            key={value}
+            type="button"
+            role="radio"
+            aria-checked={view === value}
+            onClick={() => setView(value)}
+            className={`rounded-full px-3 py-1 text-sm transition-colors ${
+              view === value ? 'bg-text font-semibold text-ink' : 'text-muted hover:text-text'
+            }`}
+          >
+            {t(value === 'atom' ? 'element.viewAtom' : 'element.viewSubstance')}
+          </button>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
 function ElementFacts({ cell, data }: { cell: ElementCell; data: ElementDetail | undefined }) {
   const { t, i18n } = useTranslation();
   const language = i18n.language;
@@ -220,14 +254,7 @@ export function ElementPanel({ symbol, partner }: { symbol: string; partner?: st
 
       {detail.isPending && <Skeleton lines={3} />}
 
-      {data?.substance && (
-        <Section title={t('element.substance')}>
-          <p className="text-sm">
-            {pickName(data.substance.names, language, pickName(data.names, language))}
-            <span className="text-muted"> — {t(`compound.${data.substance.info.kind}`).toLowerCase()}</span>
-          </p>
-        </Section>
-      )}
+      {data?.substance && <SubstanceSection data={data} />}
 
       {data && data.partners.length > 0 && <Partners element={cell} partners={data.partners} />}
 

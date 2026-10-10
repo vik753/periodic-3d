@@ -28,6 +28,8 @@ interface AppState {
   /** Compound under the pointer in the cloud (or its list), and the one in focus. */
   cloudHover: string | null;
   cloudFocus: string | null;
+  /** Element scene: the Bohr atom or the 3D simple substance (O₂, bcc iron…). */
+  elementView: 'atom' | 'substance';
   setScene: (scene: SceneRoute) => void;
   setHoveredZ: (z: number | null) => void;
   toggleSelection: (z: number) => void;
@@ -40,6 +42,7 @@ interface AppState {
   setCloudMode: (mode: CloudMode) => void;
   setCloudHover: (id: string | null) => void;
   setCloudFocus: (id: string | null) => void;
+  setElementView: (view: 'atom' | 'substance') => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -53,6 +56,7 @@ export const useAppStore = create<AppState>((set) => ({
   cloudMode: 'contains',
   cloudHover: null,
   cloudFocus: null,
+  elementView: 'atom',
   navigate: () => undefined,
   setScene: (scene) =>
     set((state) => ({
@@ -63,6 +67,10 @@ export const useAppStore = create<AppState>((set) => ({
       walkIndex: scene.kind === 'element' && state.scene.kind === 'element' && sameRay(scene, state.scene) ? state.walkIndex : 0,
       cloudHover: null,
       cloudFocus: scene.kind === 'set' && state.scene.kind === 'set' ? state.cloudFocus : null,
+      elementView:
+        scene.kind === 'element' && state.scene.kind === 'element' && scene.symbol === state.scene.symbol
+          ? state.elementView
+          : 'atom',
       // The set scene shows its elements as the selection on the table.
       selection: scene.kind === 'set' ? scene.symbols.map((symbol) => SYMBOLS.indexOf(symbol as (typeof SYMBOLS)[number]) + 1) : state.selection,
     })),
@@ -82,6 +90,7 @@ export const useAppStore = create<AppState>((set) => ({
   setCloudMode: (cloudMode) => set({ cloudMode, cloudFocus: null }),
   setCloudHover: (cloudHover) => set({ cloudHover }),
   setCloudFocus: (cloudFocus) => set({ cloudFocus }),
+  setElementView: (elementView) => set({ elementView }),
 }));
 
 function sameRay(a: SceneRoute, b: SceneRoute): boolean {

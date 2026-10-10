@@ -1,13 +1,13 @@
 {
   "base": "https://vik753.github.io/periodic-3d/",
   "set": "quick",
-  "time": "2026-10-10T19:18:05.798Z",
+  "time": "2026-10-10T19:24:40.474Z",
   "shots": [
     {
       "name": "table",
       "path": "",
       "ok": true,
-      "ms": 3969,
+      "ms": 4032,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -21,7 +21,7 @@
       "name": "element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 6890,
+      "ms": 6531,
       "stats": {
         "calls": 11,
         "triangles": 115716,
@@ -37,7 +37,7 @@
       "name": "element-o-rays",
       "path": "e/O",
       "ok": true,
-      "ms": 7289,
+      "ms": 7125,
       "stats": {
         "calls": 9,
         "triangles": 85556,
@@ -53,7 +53,7 @@
       "name": "walk-fe-o",
       "path": "e/Fe/O",
       "ok": true,
-      "ms": 7876,
+      "ms": 7693,
       "stats": {
         "calls": 9,
         "triangles": 125844,
@@ -66,10 +66,26 @@
       ]
     },
     {
+      "name": "set-fe-o",
+      "path": "set/Fe-O",
+      "ok": true,
+      "ms": 7410,
+      "stats": {
+        "calls": 4,
+        "triangles": 75560,
+        "scene": "set",
+        "ready": true,
+        "url": "/periodic-3d/set/Fe-O"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
       "name": "compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 7875,
+      "ms": 7787,
       "stats": {
         "calls": 6,
         "triangles": 117108,

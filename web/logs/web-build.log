@@ -1,12 +1,12 @@
 $ npm run build
-started: 2026-10-10T19:14:10Z
+started: 2026-10-10T19:20:16Z
 
 > @periodic-3d/web@0.1.0 build
 > vite build
 
 [36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
 transforming...
-[32m✓[39m 694 modules transformed.
+[32m✓[39m 698 modules transformed.
 rendering chunks...
 computing gzip size...
 [2mdist/[22m[32mindex.html                                                 [39m[1m[2m  0.99 kB[22m[1m[22m[2m │ gzip:   0.48 kB[22m
@@ -18,11 +18,11 @@ computing gzip size...
 [2mdist/[22m[2massets/[22m[32mgolos-text-latin-wght-normal-BS5oQT7X.woff2         [39m[1m[2m 37.92 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32munbounded-latin-wght-normal-D5afBTBx.woff2          [39m[1m[2m 50.90 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32munbounded-latin-ext-wght-normal-D6H-S6MW.woff2      [39m[1m[2m118.35 kB[22m[1m[22m
-[2mdist/[22m[2massets/[22m[35mindex-Dv9j4Kr-.css                                  [39m[1m[2m 25.59 kB[22m[1m[22m[2m │ gzip:   7.47 kB[22m
-[2mdist/[22m[2massets/[22m[36mindex-f3NAxqfc.js                                   [39m[1m[2m146.26 kB[22m[1m[22m[2m │ gzip:  48.12 kB[22m
-[2mdist/[22m[2massets/[22m[36mr3f-BdgjJQQI.js                                     [39m[1m[2m227.41 kB[22m[1m[22m[2m │ gzip:  68.49 kB[22m
+[2mdist/[22m[2massets/[22m[35mindex-Bfk1SxFm.css                                  [39m[1m[2m 27.62 kB[22m[1m[22m[2m │ gzip:   7.72 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-DilIwIJo.js                                   [39m[1m[2m160.58 kB[22m[1m[22m[2m │ gzip:  52.08 kB[22m
+[2mdist/[22m[2massets/[22m[36mr3f-Cwv4taTw.js                                     [39m[1m[2m227.41 kB[22m[1m[22m[2m │ gzip:  68.49 kB[22m
 [2mdist/[22m[2massets/[22m[36mreact-B7ulV_JK.js                                   [39m[1m[2m264.90 kB[22m[1m[22m[2m │ gzip:  84.67 kB[22m
-[2mdist/[22m[2massets/[22m[36mthree-Co2EEPcd.js                                   [39m[1m[2m724.28 kB[22m[1m[22m[2m │ gzip: 188.46 kB[22m
-[32m✓ built in 3.88s[39m
-finished: 2026-10-10T19:14:14Z
+[2mdist/[22m[2massets/[22m[36mthree-XnhYZyXb.js                                   [39m[1m[2m724.28 kB[22m[1m[22m[2m │ gzip: 188.46 kB[22m
+[32m✓ built in 3.57s[39m
+finished: 2026-10-10T19:20:20Z
 exit code: 0

@@ -1,14 +1,14 @@
 $ npm run screenshot
-started: 2026-10-10T19:39:22Z
+started: 2026-10-10T19:47:02Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 4267ms calls=3 url=/periodic-3d/
-ok   element-fe 7685ms calls=11 url=/periodic-3d/e/Fe
-ok   element-o-rays 7759ms calls=9 url=/periodic-3d/e/O
-ok   walk-fe-o 8646ms calls=10 url=/periodic-3d/e/Fe/O
-ok   set-fe-o 7740ms calls=5 url=/periodic-3d/set/Fe-O
-ok   compound-hematite 10146ms calls=6 url=/periodic-3d/c/Q103223
-finished: 2026-10-10T19:40:14Z
+ok   table 4271ms calls=3 url=/periodic-3d/
+ok   element-fe 8093ms calls=11 url=/periodic-3d/e/Fe
+ok   element-o-rays 7957ms calls=9 url=/periodic-3d/e/O
+ok   walk-fe-o 9095ms calls=10 url=/periodic-3d/e/Fe/O
+ok   set-fe-o 8187ms calls=5 url=/periodic-3d/set/Fe-O
+ok   compound-hematite 9529ms calls=6 url=/periodic-3d/c/Q103223
+finished: 2026-10-10T19:47:55Z
 exit code: 0

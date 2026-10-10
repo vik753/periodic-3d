@@ -1,13 +1,5 @@
 $ uv run mypy
-started: 2026-10-10T18:23:30Z
-src/p3d_pipeline/structures.py:84: error: Module has no attribute "DisableLog"  [attr-defined]
-src/p3d_pipeline/structures.py:92: error: Module has no attribute "ETKDGv3"  [attr-defined]
-src/p3d_pipeline/structures.py:94: error: Module has no attribute "EmbedMolecule"  [attr-defined]
-src/p3d_pipeline/structures.py:96: error: Module has no attribute "EmbedMolecule"  [attr-defined]
-src/p3d_pipeline/structures.py:97: error: Module has no attribute "Compute2DCoords"  [attr-defined]
-src/p3d_pipeline/structures.py:101: error: Module has no attribute "MMFFHasAllMoleculeParams"  [attr-defined]
-src/p3d_pipeline/structures.py:102: error: Module has no attribute "MMFFOptimizeMolecule"  [attr-defined]
-src/p3d_pipeline/structures.py:104: error: Module has no attribute "UFFOptimizeMolecule"  [attr-defined]
-Found 8 errors in 1 file (checked 13 source files)
-finished: 2026-10-10T18:23:33Z
-exit code: 1
+started: 2026-10-10T18:33:42Z
+Success: no issues found in 13 source files
+finished: 2026-10-10T18:33:47Z
+exit code: 0

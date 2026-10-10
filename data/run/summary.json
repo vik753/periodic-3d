@@ -1,3 +1,3 @@
-{"lint": "success", "types": "failure",
+{"lint": "success", "types": "success",
  "tests": "success", "build": "success",
- "version": "2026.10.10-r2"}
+ "version": "2026.10.10-r3"}

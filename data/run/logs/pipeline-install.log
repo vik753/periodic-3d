@@ -1,30 +1,27 @@
 $ bash ../tools/ci/uv-sync.sh
-started: 2026-10-10T18:15:21Z
-uv-sync: creating or refreshing uv.lock
-Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
-Resolved 35 packages in 430ms
+started: 2026-10-10T18:23:29Z
 Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
 Creating virtual environment at: .venv
-Resolved 35 packages in 0.66ms
+Resolved 35 packages in 0.57ms
    Building p3d-pipeline @ file:///home/runner/work/periodic-3d/periodic-3d/pipeline
-Downloading rdkit (30.3MiB)
-Downloading pillow (6.6MiB)
 Downloading ruff (9.9MiB)
-Downloading mypy (14.8MiB)
-Downloading numpy (15.9MiB)
-Downloading pydantic-core (2.1MiB)
-Downloading ast-serialize (1.3MiB)
 Downloading pygments (1.2MiB)
- Downloaded ast-serialize
+Downloading mypy (14.8MiB)
+Downloading pydantic-core (2.1MiB)
+Downloading pillow (6.6MiB)
+Downloading numpy (15.9MiB)
+Downloading ast-serialize (1.3MiB)
+Downloading rdkit (30.3MiB)
  Downloaded pygments
+ Downloaded ast-serialize
  Downloaded pydantic-core
+      Built p3d-pipeline @ file:///home/runner/work/periodic-3d/periodic-3d/pipeline
  Downloaded pillow
  Downloaded ruff
  Downloaded numpy
  Downloaded mypy
  Downloaded rdkit
-      Built p3d-pipeline @ file:///home/runner/work/periodic-3d/periodic-3d/pipeline
-Prepared 34 packages in 573ms
+Prepared 34 packages in 877ms
 Installed 34 packages in 32ms
  + annotated-doc==0.0.5
  + annotated-types==0.8.0
@@ -60,5 +57,5 @@ Installed 34 packages in 32ms
  + typer==0.27.3
  + typing-extensions==4.16.0
  + typing-inspection==0.4.4
-finished: 2026-10-10T18:15:22Z
+finished: 2026-10-10T18:23:30Z
 exit code: 0

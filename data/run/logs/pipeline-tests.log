@@ -1,0 +1,12 @@
+$ uv run pytest -q
+started: 2026-10-10T18:15:26Z
+..............................                                           [100%]
+=============================== warnings summary ===============================
+tests/test_structures.py::test_rock_salt_fragment_from_conventional_cell
+  /home/runner/work/periodic-3d/periodic-3d/pipeline/.venv/lib/python3.12/site-packages/spglib/cell.py:57: DeprecationWarning: Set OLD_ERROR_HANDLING to false and catch the errors directly.
+    _set_no_error()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+30 passed, 1 warning in 0.51s
+finished: 2026-10-10T18:15:27Z
+exit code: 0

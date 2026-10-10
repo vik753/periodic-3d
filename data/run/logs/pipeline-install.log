@@ -1,0 +1,64 @@
+$ bash ../tools/ci/uv-sync.sh
+started: 2026-10-10T18:15:21Z
+uv-sync: creating or refreshing uv.lock
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Resolved 35 packages in 430ms
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: .venv
+Resolved 35 packages in 0.66ms
+   Building p3d-pipeline @ file:///home/runner/work/periodic-3d/periodic-3d/pipeline
+Downloading rdkit (30.3MiB)
+Downloading pillow (6.6MiB)
+Downloading ruff (9.9MiB)
+Downloading mypy (14.8MiB)
+Downloading numpy (15.9MiB)
+Downloading pydantic-core (2.1MiB)
+Downloading ast-serialize (1.3MiB)
+Downloading pygments (1.2MiB)
+ Downloaded ast-serialize
+ Downloaded pygments
+ Downloaded pydantic-core
+ Downloaded pillow
+ Downloaded ruff
+ Downloaded numpy
+ Downloaded mypy
+ Downloaded rdkit
+      Built p3d-pipeline @ file:///home/runner/work/periodic-3d/periodic-3d/pipeline
+Prepared 34 packages in 573ms
+Installed 34 packages in 32ms
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.1
+ + ast-serialize==0.12.1
+ + certifi==2026.7.22
+ + h11==0.16.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + idna==3.20
+ + iniconfig==2.3.1
+ + librt==0.16.0
+ + markdown-it-py==4.2.0
+ + mdurl==0.1.2
+ + mypy==2.4.0
+ + mypy-extensions==1.1.0
+ + numpy==2.5.3
+ + p3d-pipeline==0.1.0 (from file:///home/runner/work/periodic-3d/periodic-3d/pipeline)
+ + packaging==26.3
+ + pathspec==1.1.1
+ + pillow==12.3.0
+ + pluggy==1.6.0
+ + pydantic==2.14.0
+ + pydantic-core==2.50.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + rdkit==2026.9.1
+ + rich==15.0.0
+ + ruff==0.17.0
+ + shellingham==1.5.4
+ + spglib==2.8.0
+ + tenacity==9.2.1
+ + typer==0.27.3
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+finished: 2026-10-10T18:15:22Z
+exit code: 0

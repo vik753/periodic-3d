@@ -9,6 +9,7 @@ import type { CompoundSummary, Partner } from '../data/api';
 import type { StructureData, Vec3 } from '../data/structure';
 import { useAppStore } from '../state/store';
 import type { ControlsRef } from './CameraDirector';
+import { createGlowMaterial, glowGeometry } from './glow';
 import type { TableTransform } from './layout';
 import { buildRayCurves } from './Rays';
 import { StructureView } from './StructureView';
@@ -71,6 +72,7 @@ export function RayWalk({
   const walkIndex = useAppStore((state) => state.walkIndex);
   const setWalkIndex = useAppStore((state) => state.setWalkIndex);
   const beadsRef = useRef<THREE.InstancedMesh>(null);
+  const glowRef = useRef<THREE.InstancedMesh>(null);
   const reducedMotion = useMemo(() => prefersReducedMotion(), []);
   useKeepRendering(true);
 
@@ -89,6 +91,17 @@ export function RayWalk({
     [],
   );
   const sizes = useRef<Float32Array>(new Float32Array(MAX_BEADS));
+  const quad = useMemo(() => glowGeometry(), []);
+  const glowMaterial = useMemo(() => createGlowMaterial(), []);
+  useEffect(
+    () => () => {
+      sphere.dispose();
+      material.dispose();
+      quad.dispose();
+      glowMaterial.dispose();
+    },
+    [sphere, material, quad, glowMaterial],
+  );
 
   // The camera follows the bead in focus: a little behind it on the ray, off to the side.
   useEffect(() => {
@@ -208,15 +221,21 @@ export function RayWalk({
 
   useLayoutEffect(() => {
     const mesh = beadsRef.current;
-    if (!mesh) return;
+    const glow = glowRef.current;
+    if (!mesh || !glow) return;
     mesh.count = count;
+    glow.count = count;
+    const color = new THREE.Color('#ff6b7a');
+    for (let i = 0; i < count; i += 1) glow.setColorAt(i, color);
+    if (glow.instanceColor) glow.instanceColor.needsUpdate = true;
     sizes.current.fill(0);
   }, [count]);
 
   const scratch = useMemo(() => ({ matrix: new THREE.Matrix4(), a: new THREE.Vector3(), b: new THREE.Vector3() }), []);
   useFrame((_, delta) => {
     const mesh = beadsRef.current;
-    if (!mesh || !curve) return;
+    const glow = glowRef.current;
+    if (!mesh || !glow || !curve) return;
     const dt = Math.min(delta, 0.05);
     const pulse = reducedMotion ? 1 : 1 + 0.12 * Math.sin(performance.now() / 300);
     for (let i = 0; i < count; i += 1) {
@@ -228,8 +247,12 @@ export function RayWalk({
       const radius = BEAD_RADIUS * sizes.current[i]!;
       scratch.matrix.makeScale(radius, radius, radius).setPosition(positions[i]!);
       mesh.setMatrixAt(i, scratch.matrix);
+      const halo = radius * 6;
+      scratch.matrix.makeScale(halo, halo, halo).setPosition(positions[i]!);
+      glow.setMatrixAt(i, scratch.matrix);
     }
     mesh.instanceMatrix.needsUpdate = true;
+    glow.instanceMatrix.needsUpdate = true;
     // Screen direction of the ray at the bead in focus: dragging along it walks forward.
     const t = beadT(index, count);
     scratch.a.copy(curve.getPoint(t)).project(camera);
@@ -269,6 +292,13 @@ export function RayWalk({
         }}
         frustumCulled={false}
         renderOrder={3}
+      />
+      <instancedMesh
+        ref={glowRef}
+        args={[quad, glowMaterial, MAX_BEADS]}
+        raycast={() => null}
+        frustumCulled={false}
+        renderOrder={4}
       />
       {focus && focusPosition && focusStructure && (
         <StructureView

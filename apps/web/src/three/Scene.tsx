@@ -17,11 +17,11 @@ import { useAppStore } from '../state/store';
 import { useCloud } from '../state/useCloud';
 import { AtomModel } from './AtomModel';
 import type { ControlsRef } from './CameraDirector';
-import { CAMERA_FOV, CameraDirector, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
+import { CAMERA_FOV, CameraDirector, cloudOverviewPose, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import type { CloudLabel } from './CompoundCloud';
 import { CompoundCloud } from './CompoundCloud';
 import { Dust } from './Dust';
-import { recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
+import { backdropTable, CLOUD_CENTER, recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
 import type { RayLabel } from './Rays';
 import { Rays } from './Rays';
@@ -77,10 +77,15 @@ function ElementWorld({ controls, names, partners, labelFor, walk, cloud, elemen
   const partnerSymbol = scene.kind === 'element' ? scene.partner : undefined;
   const width = size.width;
   const height = size.height;
-  const transform = useMemo(
-    () => (cell ? recededTable(cell, { width, height }, CAMERA_FOV) : TABLE_AT_REST),
-    [cell, width, height],
-  );
+  const setScene = scene.kind === 'set';
+  const transform = useMemo(() => {
+    if (cell) return recededTable(cell, { width, height }, CAMERA_FOV);
+    if (setScene) {
+      const pose = cloudOverviewPose(width, height);
+      return backdropTable({ width, height }, CAMERA_FOV, pose.position[2] - CLOUD_CENTER[2]);
+    }
+    return TABLE_AT_REST;
+  }, [cell, setScene, width, height]);
   const origin = useMemo(() => (cell ? tilePosition(cell) : null), [cell]);
   const partnerSet = useMemo(() => new Set((cell && partners ? partners : []).map((partner) => partner.z)), [cell, partners]);
   const activeZ = partnerSymbol ? (elementBySymbol(partnerSymbol)?.z ?? null) : null;

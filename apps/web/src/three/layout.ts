@@ -119,6 +119,26 @@ export function recededTable(
   return { position: [px - scale * px, py - scale * py, pz - RECEDE_DEPTH - scale * pz], scale };
 }
 
+/**
+ * Cloud scene: the whole table moves far back as a backdrop, centred, so the floating
+ * compounds stand out while the gold and cyan tiles stay readable.
+ */
+export function backdropTable(
+  viewport: { width: number; height: number },
+  fovDegrees: number,
+  cameraDistance: number,
+  panel: { sideWidth: number; sheetFraction: number; sideMinWidth: number } = PANEL_LAYOUT,
+): TableTransform {
+  const depth = cameraDistance + CLOUD_CENTER[2] + RECEDE_DEPTH;
+  const tanV = Math.tan(THREE.MathUtils.degToRad(fovDegrees / 2));
+  const aspect = viewport.width / Math.max(viewport.height, 1);
+  const side = viewport.width >= panel.sideMinWidth;
+  const halfV = tanV * depth * (side ? 1 : 1 - panel.sheetFraction);
+  const halfH = tanV * aspect * depth * (side ? Math.max(0.35, 1 - panel.sideWidth / viewport.width) : 1);
+  const scale = Math.min(1, (0.8 * halfH) / TABLE_HALF_WIDTH, (0.8 * halfV) / TABLE_HALF_HEIGHT);
+  return { position: [0, CLOUD_CENTER[1], -RECEDE_DEPTH], scale };
+}
+
 /** World position of the front face of a tile under a table transform. */
 export function tileWorldPosition(cell: Pick<ElementCell, 'col' | 'row'>, transform: TableTransform): Vec3 {
   const [x, y, z] = tilePosition(cell);

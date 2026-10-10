@@ -10,6 +10,7 @@ import type { StructureData } from '../data/structure';
 import { useAppStore } from '../state/store';
 import type { ControlsRef } from './CameraDirector';
 import { cloudOverviewPose } from './CameraDirector';
+import { createGlowMaterial, glowGeometry } from './glow';
 import { CLOUD_CENTER, CLOUD_RADIUS } from './layout';
 import { StructureView } from './StructureView';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
@@ -64,6 +65,7 @@ interface CompoundCloudProps {
 export function CompoundCloud({ controls, entries, selected, focusStructure, labelFor, elementName }: CompoundCloudProps) {
   const groupRef = useRef<THREE.Group>(null);
   const orbsRef = useRef<THREE.InstancedMesh>(null);
+  const glowRef = useRef<THREE.InstancedMesh>(null);
   const hover = useAppStore((state) => state.cloudHover);
   const focus = useAppStore((state) => state.cloudFocus);
   const setHover = useAppStore((state) => state.setCloudHover);
@@ -81,19 +83,34 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
 
   const sphere = useMemo(() => new THREE.SphereGeometry(1, 18, 12), []);
   const material = useMemo(() => new THREE.MeshBasicMaterial({ toneMapped: false }), []);
+  const quad = useMemo(() => glowGeometry(), []);
+  const glowMaterial = useMemo(() => createGlowMaterial(), []);
+  useEffect(
+    () => () => {
+      sphere.dispose();
+      material.dispose();
+      quad.dispose();
+      glowMaterial.dispose();
+    },
+    [sphere, material, quad, glowMaterial],
+  );
   const sizes = useRef(new Float32Array(CLOUD_MAX).fill(0));
 
   useLayoutEffect(() => {
     const orbs = orbsRef.current;
-    if (!orbs) return;
+    const glow = glowRef.current;
+    if (!orbs || !glow) return;
     orbs.count = items.length;
+    glow.count = items.length;
     const color = new THREE.Color();
     items.forEach((entry, index) => {
       const exact = entry.zs.every((z) => selectedSet.has(z));
-      color.copy(exact ? GOLD : CYAN).lerp(WHITE, 0.25);
-      orbs.setColorAt(index, color);
+      color.copy(exact ? GOLD : CYAN);
+      glow.setColorAt(index, color);
+      orbs.setColorAt(index, color.lerp(WHITE, 0.45));
     });
     if (orbs.instanceColor) orbs.instanceColor.needsUpdate = true;
+    if (glow.instanceColor) glow.instanceColor.needsUpdate = true;
     sizes.current.fill(0);
   }, [items, selectedSet]);
 
@@ -101,7 +118,8 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
   useFrame((_, delta) => {
     const group = groupRef.current;
     const orbs = orbsRef.current;
-    if (!group || !orbs) return;
+    const glow = glowRef.current;
+    if (!group || !orbs || !glow) return;
     const dt = Math.min(delta, 0.05);
     if (!reducedMotion && focusIndex < 0) group.rotation.y += dt * 0.05;
     const matrix = new THREE.Matrix4();
@@ -112,8 +130,12 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
       const radius = ORB_RADIUS * sizes.current[index]!;
       matrix.makeScale(radius, radius, radius).setPosition(positions[index]!);
       orbs.setMatrixAt(index, matrix);
+      const halo = radius * 7;
+      matrix.makeScale(halo, halo, halo).setPosition(positions[index]!);
+      glow.setMatrixAt(index, matrix);
     });
     orbs.instanceMatrix.needsUpdate = true;
+    glow.instanceMatrix.needsUpdate = true;
   });
 
   // Focus: the camera comes close to the orb, from the outside of the cloud.
@@ -181,6 +203,13 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
           onPointerOut={onOut}
           onClick={onClick}
           frustumCulled={false}
+        />
+        <instancedMesh
+          ref={glowRef}
+          args={[quad, glowMaterial, CLOUD_MAX]}
+          raycast={() => null}
+          frustumCulled={false}
+          renderOrder={2}
         />
         {focusEntry && focusPosition && focusStructure && (
           <StructureView

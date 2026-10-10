@@ -1,17 +1,28 @@
-$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.10-r6 --only-elements H,O,Fe --limit 60 --descriptions
-started: 2026-10-10T19:04:48Z
-2026-10-10 19:04:48,960 INFO p3d.build: Elements
-2026-10-10 19:04:48,965 INFO p3d.build: Compounds from Wikidata
-2026-10-10 19:04:50,126 INFO p3d.build: Selected 49 compounds
-2026-10-10 19:04:50,126 INFO p3d.build: Class labels
-2026-10-10 19:04:50,126 INFO p3d.build: PubChem properties for 34 CIDs
-2026-10-10 19:04:50,127 INFO p3d.build: PubChem 3D conformers for 34 CIDs
-2026-10-10 19:04:50,128 INFO p3d.build: OPTIMADE candidates for 17 formulas
-2026-10-10 19:04:50,130 INFO p3d.build: OPTIMADE structures for 11 materials
-2026-10-10 19:04:50,686 INFO p3d.build: Wikipedia en extracts for 48 articles
-2026-10-10 19:04:50,687 INFO p3d.build: Wikipedia ru extracts for 29 articles
-2026-10-10 19:04:50,688 INFO p3d.build: Wikipedia uk extracts for 26 articles
-2026-10-10 19:04:50,692 INFO p3d.build: Dataset ../data/build/2026.10.10-r6 written in 2 s
-../data/build/2026.10.10-r6
-finished: 2026-10-10T19:04:50Z
-exit code: 0
+$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.10-r7 --only-elements  --limit 0 --descriptions
+started: 2026-10-10T19:07:05Z
+2026-10-10 19:07:05,634 INFO p3d.build: Elements
+2026-10-10 19:07:05,639 INFO p3d.build: Compounds from Wikidata
+2026-10-10 19:07:07,012 INFO p3d.build: Selected 27237 compounds
+2026-10-10 19:07:07,012 INFO p3d.build: Class labels
+2026-10-10 19:07:08,413 INFO p3d.build: PubChem properties for 23149 CIDs
+2026-10-10 19:08:37,414 INFO p3d.build: PubChem 3D conformers for 23149 CIDs
+2026-10-10 19:10:26,589 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +30.0 s per request
+2026-10-10 19:10:56,758 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +0.0 s per request
+2026-10-10 19:35:42,185 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5944,5946,5948,5950,5951,5952,5954,5955,5957,5959/SDF
+2026-10-10 19:48:14,924 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5960,5961,5965,5968,5971,5974,5976,5977,5978,5983/SDF
+2026-10-10 20:00:47,620 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5984,5987,5988,5991,5993,5994,5995,5997,6000,6001/SDF
+2026-10-10 20:13:20,342 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6004,6005,6009,6010,6011,6013,6016,6018,6022,6024/SDF
+2026-10-10 20:25:53,417 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6025,6028,6029,6031,6032,6034,6035,6038,6040,6041/SDF
+2026-10-10 20:38:26,150 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6046,6047,6049,6050,6051,6053,6054,6057,6058,6061/SDF
+2026-10-10 20:50:58,892 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6064,6067,6070,6072,6075,6076,6077,6082,6083,6088/SDF
+2026-10-10 21:03:31,606 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6089,6090,6091,6092,6093,6094,6098,6099,6101,6104/SDF
+2026-10-10 21:10:17,621 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +30.0 s per request
+2026-10-10 21:10:48,291 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +0.0 s per request
+2026-10-10 21:25:52,074 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/22037,22044,22047,22069,22107,22128,22150,22174,22188,22197/SDF
+2026-10-10 21:38:24,810 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/22206,22208,22253,22262,22267,22276,22297,22308,22311,22316/SDF
+2026-10-10 21:50:57,521 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/22323,22379,22385,22386,22391,22425,22469,22478,22530,22541/SDF
+2026-10-10 22:03:30,225 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/22544,22565,22567,22571,22621,22631,22646,22660,22781,22829/SDF
+2026-10-10 22:16:02,958 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/22830,22842,22880,22917,22932,22933,22947,22951,22985,23009/SDF
+2026-10-10 22:28:35,706 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/23017,23031,23056,23087,23135,23141,23144,23167,23205,23235/SDF
+2026-10-10 22:41:08,481 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/23257,23266,23272,23287,23342,23345,23354,23393,23403,23404/SDF
+2026-10-10 22:53:41,169 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/23418,23480,23483,23484,23492,23497,23515,23524,23558,23573/SDF

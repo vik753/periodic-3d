@@ -1,48 +1,81 @@
-# Отчёт о наборе данных 2026.10.10-r1
+# Отчёт о наборе данных 2026.10.10-r2
 
-- Соединений: 60; с 3D-структурой: 57.
-- С описанием: RU 39, UK 36, EN 58.
-- С названием: RU 48, UK 39, EN 60.
+- Соединений: 50; с 3D-структурой: 43.
+- С описанием: RU 30, UK 27, EN 48.
+- С названием: RU 37, UK 29, EN 50.
 - Пар элементов: 3.
 - Элементов без соединений: He, Li, Be, B, C, N, F, Ne, Na, Mg, Al, Si, P, S, Cl, Ar, K, Ca, Sc, Ti, V, Cr, Mn, Co, Ni, Cu, Zn, Ga, Ge, As, Se, Br, Kr, Rb, Sr, Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd, In, Sn, Sb, Te, I, Xe, Cs, Ba, La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg, Tl, Pb, Bi, Po, At, Rn, Fr, Ra, Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No, Lr, Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn, Nh, Fl, Mc, Lv, Ts, Og.
 - Структуры больше 80000 байт: 0 [].
-- Время сборки: 51 с.
+- Время сборки: 8 с.
 
 ## Источники структур
 
 | Метрика | Значение |
 | --- | --- |
-| pubchem_3d_available | 16 |
-| structure_crystal_crystal | 27 |
-| structure_none | 3 |
-| structure_pubchem3d_molecule | 16 |
-| structure_rdkit_molecule | 14 |
+| pubchem_3d_available | 17 |
+| rejected_crystal_units | 3 |
+| structure_crystal_crystal | 17 |
+| structure_none | 7 |
+| structure_pubchem3d_molecule | 17 |
+| structure_rdkit_molecule | 9 |
 
 ## Запросы
 
 | Метрика | Значение |
 | --- | --- |
-| fetched | 37 |
+| cache_hit | 21 |
+| fetched | 17 |
 
-## Топ-20 соединений
+## Топ-40 классов Wikidata
 
-- H₂O — Вода (330 статей, molecule)
-- Fe — Железо (253 статей, crystal)
-- O — Кислород (234 статей, crystal)
-- H₂O — Лёд (178 статей, crystal)
-- O₃ — Озон (107 статей, molecule)
-- H — Тритий (79 статей, crystal)
-- H₂O₂ — Пероксид водорода (75 статей, molecule)
-- Fe₂O₃ — Гематит (73 статей, crystal)
-- D₂O — Тяжёлая вода (70 статей, molecule)
-- Fe²⁺Fe³⁺₂O₄ — Магнетит (68 статей, crystal)
-- OH — Гидроксильная группа (63 статей, crystal)
-- FeO(OH) — Гётит (54 статей, crystal)
-- Fe₂O₃ — Оксид железа(III) (51 статей, crystal)
-- H₃O⁺ — Гидроксоний (45 статей, molecule)
-- FeO — Оксид железа(II) (41 статей, crystal)
-- FeH₂O₂ — Гидроксид железа(II) (33 статей, crystal)
-- Fe₃O₄ — Оксид железа(II,III) (32 статей, crystal)
-- T₂O — Тритиевая вода (32 статей, molecule)
-- H⁺ — Гидрон (31 статей, molecule)
-- FeHO₂ — Метагидроксид железа (27 статей, crystal)
+| Класс | Название | Соединений |
+| --- | --- | --- |
+| Q113145171 | type of chemical entity | 38 |
+| Q12089225 | mineral species | 9 |
+| Q111360549 | type of physical object | 1 |
+| Q2512777 | simple substance | 1 |
+| Q428653 | allotrope of oxygen | 1 |
+| Q141501897 | type of chemical group | 1 |
+
+## Топ-40 соединений
+
+- H₂O — Вода (330 статей, molecule pubchem)
+- H₂O — Лёд (178 статей, crystal materialsproject)
+- O₃ — Озон (107 статей, molecule pubchem)
+- H₂O₂ — Пероксид водорода (75 статей, molecule pubchem)
+- Fe₂O₃ — Гематит (73 статей, crystal materialsproject)
+- D₂O — Тяжёлая вода (70 статей, molecule pubchem)
+- Fe₃O₄ — Магнетит (68 статей, crystal materialsproject)
+- OH — Гидроксильная группа (63 статей, crystal materialsproject)
+- FeO(OH) — Гётит (54 статей, crystal materialsproject)
+- Fe₂O₃ — Оксид железа(III) (51 статей, crystal materialsproject)
+- H₃O⁺ — Гидроксоний (45 статей, molecule pubchem)
+- FeO — Оксид железа(II) (41 статей, crystal materialsproject)
+- FeH₂O₂ — Гидроксид железа(II) (33 статей, crystal materialsproject)
+- Fe₃O₄ — Оксид железа(II,III) (32 статей, crystal materialsproject)
+- T₂O — Тритиевая вода (32 статей, molecule pubchem)
+- FeHO₂ — Метагидроксид железа (27 статей, crystal materialsproject)
+- H₂O₃ — Триоксид диводорода (27 статей, molecule pubchem)
+- HO — Гидроксильный радикал (27 статей, molecule rdkit)
+- FeO(OH) — Лепидокрокит (26 статей, crystal materialsproject)
+- O₃⁻ — Озониды (26 статей, molecule rdkit)
+- HD — Дейтерид водорода (22 статей, molecule rdkit)
+- H₃⁺ — Катион тригидрогена (21 статей, — )
+- FeO — Вюстит (20 статей, crystal materialsproject)
+- HO₂ — Гидропероксильный радикал (19 статей, molecule rdkit)
+- O₄ — Тетракислород (17 статей, — )
+- O₂ — Молекулярный кислород (17 статей, molecule pubchem)
+- H₂⁺ — Молекулярный ион водорода (17 статей, molecule rdkit)
+- HO⁻ — Гидроксид-ион (16 статей, molecule pubchem)
+- HDO — Полутяжёлая вода (14 статей, molecule pubchem)
+- H₂ — Молекулярный водород (14 статей, molecule rdkit)
+- O₂⁺ — Диоксигенил (14 статей, molecule rdkit)
+- FeO₄²⁻ — Ferrate(VI) ion (13 статей, — )
+- O₃ — Циклический озон (13 статей, molecule pubchem)
+- Fe₁₀O₁₄(OH)₂ — Ферригидрит (11 статей, crystal materialsproject)
+- H₃ — Triatomic hydrogen (11 статей, — )
+- FeO(OH) — Feroxyhyte (10 статей, crystal materialsproject)
+- FeH₃O₃ — Гидроксид железа(III) (9 статей, — )
+- FeH₂ — Iron(II) hydride (8 статей, molecule rdkit)
+- Fe(OH)₂ — Амакинит (7 статей, crystal materialsproject)
+- H₂O₅ — Pentaoxidane (6 статей, molecule pubchem)

@@ -6,7 +6,7 @@ import * as THREE from 'three';
 
 import { elementBySymbol } from '../data/periodic';
 import { useAppStore } from '../state/store';
-import { STAGE_POSITION, tableFitDistance, tilePosition } from './layout';
+import { PANEL_LAYOUT, STAGE_POSITION, tableFitDistance, tilePosition } from './layout';
 import { prefersReducedMotion } from './useKeepRendering';
 
 export type ControlsRef = ComponentRef<typeof CameraControls>;
@@ -16,9 +16,9 @@ export const CAMERA_FOV = 40;
 type Pose = { position: [number, number, number]; target: [number, number, number] };
 
 /** Panel layout breakpoint: side panel from this width, bottom sheet below it. */
-export const SIDE_PANEL_MIN_WIDTH = 640;
-const SIDE_PANEL_WIDTH = 380;
-const SHEET_FRACTION = 0.46;
+export const SIDE_PANEL_MIN_WIDTH = PANEL_LAYOUT.sideMinWidth;
+const SIDE_PANEL_WIDTH = PANEL_LAYOUT.sideWidth;
+const SHEET_FRACTION = PANEL_LAYOUT.sheetFraction;
 /** Radius of the structure viewer's bounding sphere plus a margin. */
 const STAGE_RADIUS = 2.6 * 1.18;
 

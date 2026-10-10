@@ -70,7 +70,7 @@ export function drawLabelAtlas(texture: THREE.CanvasTexture, entries: readonly A
   texture.needsUpdate = true;
 }
 
-/** Instanced label quads: each instance samples its own atlas cell. */
+/** Instanced label quads: each instance samples its own atlas cell and has its own alpha (aAlpha). */
 export function createLabelMaterial(atlas: THREE.Texture): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
     uniforms: {
@@ -80,12 +80,15 @@ export function createLabelMaterial(atlas: THREE.Texture): THREE.ShaderMaterial 
     },
     vertexShader: /* glsl */ `
       attribute vec2 aCell;
+      attribute float aAlpha;
       uniform float uGrid;
       varying vec2 vUv;
+      varying float vAlpha;
       void main() {
         // Canvas row 0 is at the top; texture v = 1 is at the top (flipY).
         vec2 cell = vec2(aCell.x, uGrid - 1.0 - aCell.y);
         vUv = (uv + cell) / uGrid;
+        vAlpha = aAlpha;
         gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(position, 1.0);
       }
     `,
@@ -93,9 +96,10 @@ export function createLabelMaterial(atlas: THREE.Texture): THREE.ShaderMaterial 
       uniform sampler2D uAtlas;
       uniform float uOpacity;
       varying vec2 vUv;
+      varying float vAlpha;
       void main() {
         vec4 texel = texture2D(uAtlas, vUv);
-        float alpha = texel.a * uOpacity;
+        float alpha = texel.a * uOpacity * vAlpha;
         if (alpha < 0.01) discard;
         gl_FragColor = vec4(texel.rgb, alpha);
         #include <colorspace_fragment>

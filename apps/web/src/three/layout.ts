@@ -16,6 +16,9 @@ const CURVE = 0.016;
 export const TABLE_HALF_WIDTH = 10.3;
 export const TABLE_HALF_HEIGHT = 5.45;
 
+/** Screen layout of the info panel: side panel on wide screens, bottom sheet on phones. */
+export const PANEL_LAYOUT = { sideMinWidth: 640, sideWidth: 380, sheetFraction: 0.46 } as const;
+
 /** Where compound structures are shown: in front of the table. */
 export const STAGE_POSITION: Vec3 = [0, 0, 7];
 
@@ -72,4 +75,48 @@ export function tableFitDistance(aspect: number, fovDegrees: number): number {
   const byHeight = (TABLE_HALF_HEIGHT * 1.16) / halfV;
   const byWidth = (TABLE_HALF_WIDTH * 1.05) / halfH + TABLE_EDGE_Z;
   return Math.max(byHeight, byWidth);
+}
+
+/** Where the table group sits and how large it is. */
+export interface TableTransform {
+  position: Vec3;
+  scale: number;
+}
+
+export const TABLE_AT_REST: TableTransform = { position: [0, 0, 0], scale: 1 };
+
+/** How far the table moves back when the visitor "falls into" an element. */
+export const RECEDE_DEPTH = 15;
+/** Distance from the camera to the atom in the element scene (see CameraDirector). */
+export const ELEMENT_VIEW_DISTANCE = 6.45;
+
+/**
+ * Element scene: the table moves far behind the atom and shrinks, centred on the chosen
+ * tile. The rays then run from the atom "into the distance" to the partner tiles, and
+ * the whole table stays inside the area that the info panel leaves free.
+ */
+export function recededTable(
+  cell: Pick<ElementCell, 'col' | 'row'>,
+  viewport: { width: number; height: number },
+  fovDegrees: number,
+  panel: { sideWidth: number; sheetFraction: number; sideMinWidth: number } = PANEL_LAYOUT,
+): TableTransform {
+  const [px, py, pz] = tilePosition(cell);
+  const depth = ELEMENT_VIEW_DISTANCE + RECEDE_DEPTH;
+  const tanV = Math.tan(THREE.MathUtils.degToRad(fovDegrees / 2));
+  const aspect = viewport.width / Math.max(viewport.height, 1);
+  const side = viewport.width >= panel.sideMinWidth;
+  const halfV = tanV * depth * (side ? 1 : 1 - panel.sheetFraction);
+  const halfH = tanV * aspect * depth * (side ? Math.max(0.35, 1 - panel.sideWidth / viewport.width) : 1);
+  const extentH = Math.max(TABLE_HALF_WIDTH + px, TABLE_HALF_WIDTH - px);
+  const extentV = Math.max(TABLE_HALF_HEIGHT + py, TABLE_HALF_HEIGHT - py);
+  const scale = Math.min(0.8, (0.9 * halfH) / extentH, (0.9 * halfV) / extentV);
+  return { position: [px - scale * px, py - scale * py, pz - RECEDE_DEPTH - scale * pz], scale };
+}
+
+/** World position of the front face of a tile under a table transform. */
+export function tileWorldPosition(cell: Pick<ElementCell, 'col' | 'row'>, transform: TableTransform): Vec3 {
+  const [x, y, z] = tilePosition(cell);
+  const { position, scale } = transform;
+  return [position[0] + scale * x, position[1] + scale * y, position[2] + scale * (z + TILE_DEPTH / 2)];
 }

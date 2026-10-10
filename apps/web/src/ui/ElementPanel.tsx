@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 import type { CompoundSummary, ElementDetail, Partner } from '../data/api';
 import { pickName } from '../data/api';
@@ -9,6 +9,7 @@ import { useElement, usePair } from '../data/hooks';
 import type { ElementCell } from '../data/periodic';
 import { condensedConfiguration, elementBySymbol, shellsOf } from '../data/periodic';
 import { pairPath } from '../data/source';
+import { useAppStore } from '../state/store';
 import { formatNumber } from './format';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 
@@ -49,43 +50,96 @@ function CompoundLinks({ compounds }: { compounds: CompoundSummary[] }) {
   );
 }
 
-function PairCompounds({ element, partner }: { element: ElementCell; partner: Partner }) {
-  const { t } = useTranslation();
-  const pair = usePair(pairPath(element, partner));
-  if (pair.isPending) return <Skeleton lines={3} />;
-  if (!pair.data) return <StatusNote>{t('status.error')}</StatusNote>;
-  return <CompoundLinks compounds={pair.data.compounds.slice(0, 20)} />;
-}
-
 function Partners({ element, partners }: { element: ElementCell; partners: Partner[] }) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState<number | null>(null);
-  const active = partners.find((partner) => partner.z === open) ?? null;
+  const hoveredPartner = useAppStore((state) => state.hoveredPartner);
+  const setHoveredPartner = useAppStore((state) => state.setHoveredPartner);
   return (
     <Section title={t('element.partners')}>
-      <ul className="flex flex-wrap gap-1.5">
+      <ul className="flex flex-wrap gap-1.5" onMouseLeave={() => setHoveredPartner(null)}>
         {partners.slice(0, PARTNERS_SHOWN).map((partner) => (
           <li key={partner.z}>
-            <button
-              type="button"
-              aria-pressed={open === partner.z}
-              onClick={() => setOpen(open === partner.z ? null : partner.z)}
+            <Link
+              to={`/e/${element.symbol}/${partner.symbol}`}
+              onMouseEnter={() => setHoveredPartner(partner.z)}
+              onFocus={() => setHoveredPartner(partner.z)}
+              onBlur={() => setHoveredPartner(null)}
               className={`inline-flex items-baseline gap-1.5 rounded-full px-2.5 py-1 text-sm ring-1 transition-colors ${
-                open === partner.z ? 'bg-ray/15 ring-ray/60' : 'ring-rim hover:bg-white/5'
+                hoveredPartner === partner.z ? 'bg-ray/15 ring-ray/60' : 'ring-rim hover:bg-white/5'
               }`}
             >
               <span className="font-display font-medium">{partner.symbol}</span>
               <span className="text-xs tabular-nums text-muted">{partner.count}</span>
-            </button>
+            </Link>
           </li>
         ))}
       </ul>
-      {active && (
-        <div className="mt-3">
-          <PairCompounds element={element} partner={active} />
-        </div>
-      )}
+      <p className="mt-2 text-xs text-muted">{t('rays.hint')}</p>
     </Section>
+  );
+}
+
+/** Walking along one ray: the compounds of the pair, the one in focus is marked. */
+export function WalkPanel({ element, partner }: { element: ElementCell; partner: ElementCell }) {
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const pair = usePair(pairPath(element, partner));
+  const walkIndex = useAppStore((state) => state.walkIndex);
+  const setWalkIndex = useAppStore((state) => state.setWalkIndex);
+  const listRef = useRef<HTMLOListElement>(null);
+  const compounds = pair.data?.compounds ?? [];
+
+  useEffect(() => {
+    const item = listRef.current?.children[walkIndex] as HTMLElement | undefined;
+    item?.scrollIntoView({ block: 'nearest' });
+  }, [walkIndex]);
+
+  return (
+    <Panel label={t('rays.walkTitle', { a: element.symbol, b: partner.symbol })}>
+      <button
+        type="button"
+        onClick={() => navigate(`/e/${element.symbol}`)}
+        className="mb-4 rounded-full px-3 py-1 text-sm text-muted ring-1 ring-rim transition-colors hover:text-text"
+      >
+        {t('rays.back', { symbol: element.symbol })}
+      </button>
+      <p className="font-display text-4xl font-semibold leading-none tracking-tight">
+        {element.symbol}
+        <span className="mx-2 text-ray">—</span>
+        {partner.symbol}
+      </p>
+      <h1 className="mt-3 text-lg font-medium">{t('rays.walkTitle', { a: element.symbol, b: partner.symbol })}</h1>
+      {pair.data && <p className="mt-1 text-sm text-muted">{t('rays.compounds', { count: pair.data.count })}</p>}
+      <p className="mt-3 text-xs leading-relaxed text-muted">{t('rays.walkHint')}</p>
+      {pair.isPending && <Skeleton lines={5} />}
+      {pair.isError && <StatusNote>{t('status.error')}</StatusNote>}
+      <ol ref={listRef} className="mt-4 flex flex-col">
+        {compounds.map((compound, index) => (
+          <li key={compound.id}>
+            <button
+              type="button"
+              onClick={() => (index === walkIndex ? navigate(`/c/${compound.id}`) : setWalkIndex(index))}
+              aria-current={index === walkIndex ? 'true' : undefined}
+              className={`-mx-2 flex w-[calc(100%+1rem)] items-baseline gap-3 rounded-xl px-2 py-1.5 text-left transition-colors ${
+                index === walkIndex ? 'bg-ray/12 ring-1 ring-ray/50' : 'hover:bg-white/5'
+              }`}
+            >
+              <span className="w-6 shrink-0 text-right text-xs tabular-nums text-muted">{index + 1}</span>
+              <span className="min-w-[4.5rem] font-display text-sm font-medium">{compound.formula}</span>
+              <span className="truncate text-sm text-muted">{pickName(compound.names, i18n.language)}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+      {compounds[walkIndex] && (
+        <Link
+          to={`/c/${compounds[walkIndex].id}`}
+          className="mt-4 inline-flex rounded-full bg-text px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-gold"
+        >
+          {t('rays.open')}: {compounds[walkIndex].formula}
+        </Link>
+      )}
+    </Panel>
   );
 }
 
@@ -129,11 +183,13 @@ function ElementFacts({ cell, data }: { cell: ElementCell; data: ElementDetail |
   );
 }
 
-export function ElementPanel({ symbol }: { symbol: string }) {
+export function ElementPanel({ symbol, partner }: { symbol: string; partner?: string }) {
   const { t, i18n } = useTranslation();
   const cell = elementBySymbol(symbol);
+  const partnerCell = partner ? elementBySymbol(partner) : undefined;
   const detail = useElement(cell ? cell.symbol : null);
   if (!cell) return null;
+  if (partnerCell) return <WalkPanel element={cell} partner={partnerCell} />;
   const data = detail.data;
   const language = i18n.language;
   const name = data ? pickName(data.names, language) : '';

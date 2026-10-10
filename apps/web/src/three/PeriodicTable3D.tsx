@@ -9,7 +9,9 @@ import { ELEMENTS } from '../data/periodic';
 import { useAppStore } from '../state/store';
 import type { AtlasEntry } from './labelAtlas';
 import { atlasCell, createLabelAtlas, createLabelMaterial, drawLabelAtlas, DISPLAY_FONT, TEXT_FONT } from './labelAtlas';
-import { TILE, TILE_DEPTH, tileMatrix, tilePosition } from './layout';
+import type { TableTransform } from './layout';
+import { TABLE_AT_REST, TILE, TILE_DEPTH, tileMatrix, tilePosition } from './layout';
+import { RAY_COLOR } from './Rays';
 import { damp } from './useKeepRendering';
 
 const COUNT = ELEMENTS.length;
@@ -30,11 +32,26 @@ export const CATEGORY_COLORS: Readonly<Record<Category, string>> = {
 
 const GLASS = new THREE.Color('#121a33');
 const GOLD = new THREE.Color('#FFC857');
+const RAY = new THREE.Color(RAY_COLOR);
 
-function tileColor(category: Category, mode: 'rest' | 'hover' | 'selected', out: THREE.Color): THREE.Color {
+type TileMode = 'rest' | 'hover' | 'selected' | 'partner' | 'partner-hover' | 'dim';
+
+function tileColor(category: Category, mode: TileMode, out: THREE.Color): THREE.Color {
   const tint = new THREE.Color(CATEGORY_COLORS[category]);
-  if (mode === 'selected') return out.copy(GLASS).lerp(GOLD, 0.62);
-  return out.copy(GLASS).lerp(tint, mode === 'hover' ? 0.72 : 0.36);
+  switch (mode) {
+    case 'selected':
+      return out.copy(GLASS).lerp(GOLD, 0.62);
+    case 'hover':
+      return out.copy(GLASS).lerp(tint, 0.72);
+    case 'partner':
+      return out.copy(GLASS).lerp(tint, 0.55);
+    case 'partner-hover':
+      return out.copy(GLASS).lerp(RAY, 0.7);
+    case 'dim':
+      return out.copy(GLASS).lerp(tint, 0.08).multiplyScalar(0.7);
+    default:
+      return out.copy(GLASS).lerp(tint, 0.36);
+  }
 }
 
 const noRaycast = () => null;
@@ -42,9 +59,16 @@ const noRaycast = () => null;
 interface PeriodicTable3DProps {
   /** Localized element names by atomic number; drawn under the symbols when available. */
   names?: ReadonlyMap<number, string>;
+  /** Element scene: where the receded table goes. */
+  transform?: TableTransform;
+  /** Element scene: partners of the focused element (atomic numbers); their tiles light up. */
+  partners?: ReadonlySet<number>;
 }
 
-export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
+const NO_PARTNERS: ReadonlySet<number> = new Set();
+
+export function PeriodicTable3D({ names, transform = TABLE_AT_REST, partners = NO_PARTNERS }: PeriodicTable3DProps) {
+  const groupRef = useRef<THREE.Group>(null);
   const tilesRef = useRef<THREE.InstancedMesh>(null);
   const labelsRef = useRef<THREE.InstancedMesh>(null);
   const invalidate = useThree((state) => state.invalidate);
@@ -54,8 +78,12 @@ export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
   const selection = useAppStore((state) => state.selection);
   const setHoveredZ = useAppStore((state) => state.setHoveredZ);
   const toggleSelection = useAppStore((state) => state.toggleSelection);
+  const hoveredPartner = useAppStore((state) => state.hoveredPartner);
+  const setHoveredPartner = useAppStore((state) => state.setHoveredPartner);
 
   const interactive = scene.kind === 'table';
+  const elementScene = scene.kind === 'element';
+  const pickable = interactive || elementScene;
   const activeZ = scene.kind === 'element' ? (ELEMENTS.find((e) => e.symbol === scene.symbol)?.z ?? null) : null;
 
   const positions = useMemo(() => ELEMENTS.map((cell) => tilePosition(cell)), []);
@@ -75,6 +103,7 @@ export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
       cells[index * 2 + 1] = row;
     });
     geometry.setAttribute('aCell', new THREE.InstancedBufferAttribute(cells, 2));
+    geometry.setAttribute('aAlpha', new THREE.InstancedBufferAttribute(new Float32Array(COUNT).fill(1), 1));
     return geometry;
   }, []);
   const atlas = useMemo(() => createLabelAtlas(), []);
@@ -125,22 +154,32 @@ export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
     invalidate();
   }, [positions, invalidate]);
 
-  // Colours react to hover and selection.
+  // Colours react to hover and selection; in the element scene partners light up.
   useEffect(() => {
     const tiles = tilesRef.current;
     if (!tiles) return;
     const color = new THREE.Color();
+    const alpha = labelGeometry.getAttribute('aAlpha') as THREE.InstancedBufferAttribute;
     ELEMENTS.forEach((cell, index) => {
-      const mode = selection.includes(cell.z) ? 'selected' : hoveredZ === cell.z ? 'hover' : 'rest';
+      let mode: TileMode;
+      if (elementScene) {
+        const isPartner = partners.has(cell.z);
+        mode = isPartner ? (hoveredPartner === cell.z ? 'partner-hover' : 'partner') : hoveredZ === cell.z ? 'hover' : 'dim';
+        alpha.setX(index, isPartner || hoveredZ === cell.z ? 1 : 0.22);
+      } else {
+        mode = selection.includes(cell.z) ? 'selected' : hoveredZ === cell.z ? 'hover' : 'rest';
+        alpha.setX(index, 1);
+      }
       tiles.setColorAt(index, tileColor(cell.category, mode, color));
     });
+    alpha.needsUpdate = true;
     if (tiles.instanceColor) tiles.instanceColor.needsUpdate = true;
     invalidate();
-  }, [hoveredZ, selection, invalidate]);
+  }, [hoveredZ, selection, invalidate, elementScene, partners, hoveredPartner, labelGeometry]);
 
   useEffect(() => {
-    document.body.style.cursor = interactive && hoveredZ != null ? 'pointer' : 'auto';
-  }, [interactive, hoveredZ]);
+    document.body.style.cursor = pickable && hoveredZ != null ? 'pointer' : 'auto';
+  }, [pickable, hoveredZ]);
 
   useEffect(() => invalidate(), [scene, invalidate]);
 
@@ -153,7 +192,18 @@ export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
     let moving = false;
     const matrix = new THREE.Matrix4();
 
-    const targetOpacity = interactive ? 1 : 0.06;
+    // The group moves back (element scene) or returns to rest.
+    const group = groupRef.current;
+    if (group) {
+      const [tx, ty, tz] = transform.position;
+      const before = group.position.x + group.position.y + group.position.z + group.scale.x;
+      group.position.set(damp(group.position.x, tx, 5, dt), damp(group.position.y, ty, 5, dt), damp(group.position.z, tz, 5, dt));
+      group.scale.setScalar(damp(group.scale.x, transform.scale, 5, dt));
+      const after = group.position.x + group.position.y + group.position.z + group.scale.x;
+      if (Math.abs(after - before) > 1e-4) moving = true;
+    }
+
+    const targetOpacity = interactive || elementScene ? 1 : 0.06;
     const nextOpacity = damp(state.opacity, targetOpacity, 6, dt);
     if (Math.abs(nextOpacity - state.opacity) > 0.002) moving = true;
     state.opacity = Math.abs(nextOpacity - targetOpacity) < 0.002 ? targetOpacity : nextOpacity;
@@ -163,7 +213,7 @@ export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
 
     for (let index = 0; index < COUNT; index += 1) {
       const z = index + 1;
-      const isHover = interactive && hoveredZ === z;
+      const isHover = pickable && hoveredZ === z;
       const isSelected = selection.includes(z);
       const targetScale = activeZ === z ? 0.001 : isHover ? 1.1 : isSelected ? 1.05 : 1;
       const targetLift = isHover ? 0.32 : isSelected ? 0.18 : 0;
@@ -186,35 +236,41 @@ export function PeriodicTable3D({ names }: PeriodicTable3DProps) {
   });
 
   const handleMove = (event: ThreeEvent<PointerEvent>) => {
-    if (!interactive || event.instanceId == null) return;
+    if (!pickable || event.instanceId == null) return;
     event.stopPropagation();
     const z = event.instanceId + 1;
+    if (z === activeZ) return;
     if (z !== hoveredZ) setHoveredZ(z);
+    if (elementScene) setHoveredPartner(partners.has(z) ? z : null);
   };
 
   const handleOut = () => {
     if (hoveredZ != null) setHoveredZ(null);
+    if (elementScene && hoveredPartner != null) setHoveredPartner(null);
   };
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
-    if (!interactive || event.instanceId == null || event.delta > 6) return;
+    if (!pickable || event.instanceId == null || event.delta > 6) return;
     event.stopPropagation();
     const cell = ELEMENTS[event.instanceId];
-    if (!cell) return;
-    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+    if (!cell || cell.z === activeZ) return;
+    if (interactive && (event.shiftKey || event.ctrlKey || event.metaKey)) {
       toggleSelection(cell.z);
       return;
     }
     setHoveredZ(null);
-    useAppStore.getState().navigate(`/e/${cell.symbol}`);
+    const { navigate } = useAppStore.getState();
+    // In the element scene a partner tile opens the walk along its ray; any other tile jumps there.
+    if (elementScene && scene.kind === 'element' && partners.has(cell.z)) navigate(`/e/${scene.symbol}/${cell.symbol}`);
+    else navigate(`/e/${cell.symbol}`);
   };
 
   return (
-    <group>
+    <group ref={groupRef}>
       <instancedMesh
         ref={tilesRef}
         args={[tileGeometry, tileMaterial, COUNT]}
-        raycast={interactive ? THREE.InstancedMesh.prototype.raycast : noRaycast}
+        raycast={pickable ? THREE.InstancedMesh.prototype.raycast : noRaycast}
         onPointerMove={handleMove}
         onPointerOut={handleOut}
         onClick={handleClick}

@@ -33,7 +33,8 @@ function TableHint() {
 
 export function InfoPanel() {
   const scene = useAppStore((state) => state.scene);
-  if (scene.kind === 'element') return <ElementPanel key={scene.symbol} symbol={scene.symbol} />;
+  if (scene.kind === 'element')
+    return <ElementPanel key={`${scene.symbol}/${scene.partner ?? ''}`} symbol={scene.symbol} partner={scene.partner} />;
   if (scene.kind === 'compound') return <CompoundPanel key={scene.id} id={scene.id} />;
   return <TableHint />;
 }

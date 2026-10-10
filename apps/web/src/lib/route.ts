@@ -3,21 +3,25 @@ import { elementBySymbol } from '../data/periodic';
 /** What the 3D world shows. Derived from the URL so every scene has its own address. */
 export type SceneRoute =
   | { kind: 'table' }
-  | { kind: 'element'; symbol: string }
+  | { kind: 'element'; symbol: string; partner?: string }
   | { kind: 'compound'; id: string }
   | { kind: 'set'; symbols: string[] };
 
 /**
  * Parse a router pathname (already relative to the app base):
  *   /            → table
- *   /e/Fe        → element
+ *   /e/Fe        → element with rays to its partners
+ *   /e/Fe/O      → walk along the Fe–O ray
  *   /c/<id>      → compound
  *   /set/Fe-O-H  → set of elements
  */
 export function parseSceneRoute(pathname: string): SceneRoute {
   const parts = pathname.split('/').filter(Boolean);
-  const [head, value] = parts;
-  if (head === 'e' && value && elementBySymbol(value)) return { kind: 'element', symbol: value };
+  const [head, value, extra] = parts;
+  if (head === 'e' && value && elementBySymbol(value)) {
+    if (extra && extra !== value && elementBySymbol(extra)) return { kind: 'element', symbol: value, partner: extra };
+    return { kind: 'element', symbol: value };
+  }
   if (head === 'c' && value) return { kind: 'compound', id: decodeURIComponent(value) };
   if (head === 'set' && value) {
     const symbols = value.split('-').filter((symbol) => elementBySymbol(symbol));
@@ -31,7 +35,7 @@ export function scenePath(route: SceneRoute): string {
     case 'table':
       return '/';
     case 'element':
-      return `/e/${route.symbol}`;
+      return route.partner ? `/e/${route.symbol}/${route.partner}` : `/e/${route.symbol}`;
     case 'compound':
       return `/c/${encodeURIComponent(route.id)}`;
     case 'set':

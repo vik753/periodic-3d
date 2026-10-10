@@ -1,12 +1,13 @@
 import { CameraControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 
+import type { Partner } from '../data/api';
 import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
-import { useCompound, useElements } from '../data/hooks';
+import { useCompound, useElement, useElements } from '../data/hooks';
 import { elementBySymbol } from '../data/periodic';
 import type { StructureData } from '../data/structure';
 import { useAppStore } from '../state/store';
@@ -14,8 +15,10 @@ import { AtomModel } from './AtomModel';
 import type { ControlsRef } from './CameraDirector';
 import { CAMERA_FOV, CameraDirector, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import { Dust } from './Dust';
-import { STAGE_POSITION, tilePosition } from './layout';
+import { recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
+import type { RayLabel } from './Rays';
+import { Rays } from './Rays';
 import { StructureView } from './StructureView';
 import { damp } from './useKeepRendering';
 
@@ -32,12 +35,48 @@ declare global {
   }
 }
 
-function ElementStage() {
+interface ElementWorldProps {
+  names?: ReadonlyMap<number, string>;
+  partners?: Partner[];
+  labelFor: (partner: Partner) => RayLabel;
+}
+
+/**
+ * The table, and in the element scene the atom with its rays. Falling into an element
+ * pushes the table far back; the rays then run from the atom to the partner tiles.
+ */
+function ElementWorld({ names, partners, labelFor }: ElementWorldProps) {
   const scene = useAppStore((state) => state.scene);
-  if (scene.kind !== 'element') return null;
-  const cell = elementBySymbol(scene.symbol);
-  if (!cell) return null;
-  return <AtomModel key={cell.z} z={cell.z} position={tilePosition(cell)} />;
+  const size = useThree((state) => state.size);
+  const cell = scene.kind === 'element' ? elementBySymbol(scene.symbol) : undefined;
+  const partnerSymbol = scene.kind === 'element' ? scene.partner : undefined;
+  const width = size.width;
+  const height = size.height;
+  const transform = useMemo(
+    () => (cell ? recededTable(cell, { width, height }, CAMERA_FOV) : TABLE_AT_REST),
+    [cell, width, height],
+  );
+  const origin = useMemo(() => (cell ? tilePosition(cell) : null), [cell]);
+  const partnerSet = useMemo(() => new Set((cell && partners ? partners : []).map((partner) => partner.z)), [cell, partners]);
+  const activeZ = partnerSymbol ? (elementBySymbol(partnerSymbol)?.z ?? null) : null;
+
+  return (
+    <>
+      <PeriodicTable3D names={names} transform={transform} partners={partnerSet} />
+      {cell && origin && <AtomModel key={cell.z} z={cell.z} position={origin} />}
+      {cell && origin && partners && partners.length > 0 && (
+        <Rays
+          key={`${cell.symbol}-${width}x${height}`}
+          origin={origin}
+          focusSymbol={cell.symbol}
+          partners={partners}
+          transform={transform}
+          labelFor={labelFor}
+          activeZ={activeZ}
+        />
+      )}
+    </>
+  );
 }
 
 interface CompoundStageProps {
@@ -132,7 +171,7 @@ function RenderStats() {
 export function Scene() {
   const controls = useRef<ControlsRef>(null);
   const dpr = useMemo(() => Math.min(window.devicePixelRatio || 1, 1.75), []);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Data hooks run here, outside the Canvas, and reach the 3D tree as props.
   const elements = useElements();
@@ -150,6 +189,14 @@ export function Scene() {
     return (symbol: string) => bySymbol.get(symbol);
   }, [elements.data, i18n.language]);
   const scene = useAppStore((state) => state.scene);
+  const element = useElement(scene.kind === 'element' ? scene.symbol : null);
+  const labelFor = useCallback(
+    (partner: Partner): RayLabel => ({
+      title: [partner.symbol, elementName(partner.symbol)].filter(Boolean).join(' '),
+      subtitle: t('rays.compounds', { count: partner.count }),
+    }),
+    [elementName, t],
+  );
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);
   const structure = compoundId ? (demoCompound(compoundId)?.structure ?? compound.data?.structure ?? null) : null;
@@ -172,8 +219,7 @@ export function Scene() {
       <CameraDirector controls={controls} />
       <PanelAwareViewOffset />
       <Dust />
-      <PeriodicTable3D names={names} />
-      <ElementStage />
+      <ElementWorld names={names} partners={element.data?.partners} labelFor={labelFor} />
       <CompoundStage id={compoundId} structure={structure} elementName={elementName} />
       <RenderStats />
     </Canvas>

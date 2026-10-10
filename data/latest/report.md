@@ -1,4 +1,4 @@
-# Отчёт о наборе данных 2026.10.10-r9
+# Отчёт о наборе данных 2026.10.10-r10
 
 - Соединений: 49; с 3D-структурой: 42.
 - С описанием: RU 29, UK 26, EN 47.
@@ -6,13 +6,14 @@
 - Пар элементов: 3.
 - Элементов без соединений: He, Li, Be, B, C, N, F, Ne, Na, Mg, Al, Si, P, S, Cl, Ar, K, Ca, Sc, Ti, V, Cr, Mn, Co, Ni, Cu, Zn, Ga, Ge, As, Se, Br, Kr, Rb, Sr, Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd, In, Sn, Sb, Te, I, Xe, Cs, Ba, La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg, Tl, Pb, Bi, Po, At, Rn, Fr, Ra, Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No, Lr, Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn, Nh, Fl, Mc, Lv, Ts, Og.
 - Структуры больше 80000 байт: 0 [].
-- Время сборки: 4 с.
+- Время сборки: 2 с.
 
 ## Источники структур
 
 | Метрика | Значение |
 | --- | --- |
 | pubchem_3d_available | 17 |
+| rdkit_embedded | 11 |
 | rejected_crystal_units | 3 |
 | structure_crystal_crystal | 16 |
 | structure_none | 7 |
@@ -23,8 +24,7 @@
 
 | Метрика | Значение |
 | --- | --- |
-| cache_hit | 28 |
-| fetched | 8 |
+| cache_hit | 36 |
 
 ## Топ-40 классов Wikidata
 

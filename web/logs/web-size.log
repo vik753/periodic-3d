@@ -1,5 +1,5 @@
 $ npm run size
-started: 2026-10-10T18:41:12Z
+started: 2026-10-10T18:49:44Z
 
 > @periodic-3d/web@0.1.0 size
 > node scripts/size-report.mjs
@@ -7,8 +7,8 @@ started: 2026-10-10T18:41:12Z
 *   182.5 KB gz  assets/three-DA8Dnnbk.js
 *    82.5 KB gz  assets/react-B7ulV_JK.js
 *    66.7 KB gz  assets/r3f-CTGeFR_7.js
-*    41.6 KB gz  assets/index-BEVJ6ro-.js
-*     7.1 KB gz  assets/index-C5SPQRrv.css
-initial JS (gzip): 373.3 KB / budget 400 KB
-finished: 2026-10-10T18:41:12Z
+*    41.8 KB gz  assets/index-rf2WBRsz.js
+*     7.1 KB gz  assets/index-Bgj9WMB5.css
+initial JS (gzip): 373.5 KB / budget 400 KB
+finished: 2026-10-10T18:49:45Z
 exit code: 0

@@ -1,21 +1,21 @@
 $ npm run screenshot
-started: 2026-10-10T18:41:34Z
+started: 2026-10-10T18:50:08Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3850ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 4314ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 7350ms calls=9 url=/periodic-3d/e/Fe
-ok   element-fe 7243ms calls=9 url=/periodic-3d/e/Fe
-ok   element-u 7211ms calls=12 url=/periodic-3d/e/U
-ok   compound-hematite 8364ms calls=6 url=/periodic-3d/c/Q103223
-ok   compound-water 7803ms calls=5 url=/periodic-3d/c/Q283
-ok   compound-ozone-ru 7996ms calls=5 url=/periodic-3d/c/Q36933
-ok   molecule-benzene 7901ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 8022ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3708ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 7128ms calls=9 url=/periodic-3d/e/Fe
-ok   phone-compound-hematite 8046ms calls=6 url=/periodic-3d/c/Q103223
-finished: 2026-10-10T18:43:19Z
+ok   table 3849ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 5699ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 6858ms calls=9 url=/periodic-3d/e/Fe
+ok   element-fe 6849ms calls=9 url=/periodic-3d/e/Fe
+ok   element-u 7247ms calls=12 url=/periodic-3d/e/U
+ok   compound-hematite 8505ms calls=6 url=/periodic-3d/c/Q103223
+ok   compound-water 8068ms calls=5 url=/periodic-3d/c/Q283
+ok   compound-ozone-ru 8061ms calls=5 url=/periodic-3d/c/Q36933
+ok   molecule-benzene 7840ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 8200ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3704ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 7130ms calls=9 url=/periodic-3d/e/Fe
+ok   phone-compound-hematite 7747ms calls=6 url=/periodic-3d/c/Q103223
+finished: 2026-10-10T18:51:54Z
 exit code: 0

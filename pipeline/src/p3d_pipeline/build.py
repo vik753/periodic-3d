@@ -6,6 +6,7 @@ Output layout (data/build/<version>/):
     compounds.jsonl      one compound card per line (no coordinates)
     pairs.json           element pairs with compound counts and top compounds
     classes.json         Wikidata classes of the compounds with labels (en/ru/uk)
+    vectors.json         16-dimensional vectors of elements and compounds (similarity)
     structures/<id>.json 3D structure per compound; element-<Symbol>.json per element
     report.md            quality report
 """
@@ -25,7 +26,7 @@ from itertools import combinations
 from pathlib import Path
 from typing import Any
 
-from . import __version__
+from . import __version__, embeddings
 from .chemistry import (
     CLASS_MINERAL_SPECIES,
     EXCLUDED_CLASSES,
@@ -536,6 +537,7 @@ def write_report(
     fetch_stats: Counter[str],
     seconds: float,
     classes: dict[str, dict[str, Any]] | None = None,
+    neighbours: dict[str, list[tuple[str, float]]] | None = None,
 ) -> None:
     with_structure = [compound for compound in compounds if compound.structure]
     per_element = Counter(symbol for compound in compounds for symbol in compound.counts)
@@ -566,6 +568,9 @@ def write_report(
     for qid, info in list((classes or {}).items())[:40]:
         names = info["names"]
         lines.append(f"| {qid} | {names.get('en') or names.get('ru') or '—'} | {info['count']} |")
+    lines += ["", "## Векторная модель: ближайшие элементы", ""]
+    for symbol, items in (neighbours or {}).items():
+        lines.append(f"- {symbol}: " + ", ".join(f"{other} ({score})" for other, score in items))
     lines += ["", "## Топ-40 соединений", ""]
     for compound in compounds[:40]:
         kind = compound.structure["kind"] if compound.structure else "—"
@@ -628,6 +633,28 @@ def run(options: Options) -> Path:
     _write_json(root / "elements.json", elements)
     _write_json(root / "pairs.json", pairs)
     _write_json(root / "classes.json", classes)
+
+    log.info("Vectors")
+    element_vectors = embeddings.element_vectors([compound.counts for compound in compounds])
+    compound_vectors = {
+        compound.id: vector
+        for compound in compounds
+        if (vector := embeddings.compound_vector(compound.counts, element_vectors)) is not None
+    }
+    _write_json(
+        root / "vectors.json",
+        {
+            "dim": embeddings.DIM,
+            "method": "PPMI + SVD of element co-occurrence in compounds; compounds: atom-fraction mean",
+            "elements": element_vectors,
+            "compounds": compound_vectors,
+        },
+    )
+    stats["vectors_elements"] = len(element_vectors)
+    stats["vectors_compounds"] = len(compound_vectors)
+    neighbours = {
+        symbol: embeddings.nearest(element_vectors, symbol, 5) for symbol in ("Na", "Fe", "Cl", "C", "O", "U")
+    }
     with (root / "compounds.jsonl").open("w", encoding="utf-8") as handle:
         for compound in compounds:
             handle.write(json.dumps(compound_card(compound), ensure_ascii=False, separators=(",", ":")) + "\n")
@@ -651,6 +678,6 @@ def run(options: Options) -> Path:
         "licenses": LICENSES,
     }
     _write_json(root / "manifest.json", manifest)
-    write_report(root, compounds, elements, pairs, stats, oversized, fetch_stats, seconds, classes)
+    write_report(root, compounds, elements, pairs, stats, oversized, fetch_stats, seconds, classes, neighbours)
     log.info("Dataset %s written in %.0f s", root, seconds)
     return root

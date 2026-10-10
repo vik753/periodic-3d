@@ -20,7 +20,8 @@ from typing import Any
 from sqlalchemy import delete, insert, text
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from .models import ClassRow, CompoundRow, DatasetRow, ElementRow, PairRow
+from .models import EMBEDDING_DIM, ClassRow, CompoundRow, DatasetRow, ElementRow, PairRow
+from .text import search_text
 
 SUPPORTED_SCHEMAS = {1}
 BATCH = 500
@@ -68,7 +69,23 @@ def open_dataset(path: Path) -> Iterator[Path]:
         yield find_dataset(path)
 
 
-def _compound_rows(root: Path, element_counts: Counter[str], stats: Counter[str]) -> Iterator[dict[str, Any]]:
+def _read_vectors(root: Path) -> tuple[dict[str, list[float]], dict[str, list[float]]]:
+    """Element and compound vectors (vectors.json); empty for datasets without them."""
+    path = root / "vectors.json"
+    if not path.is_file():
+        return {}, {}
+    data = _read_json(path)
+    if data.get("dim") != EMBEDDING_DIM:
+        raise DatasetError(f"vectors.json has dim {data.get('dim')!r}, the database expects {EMBEDDING_DIM}")
+    return data.get("elements", {}), data.get("compounds", {})
+
+
+def _compound_rows(
+    root: Path,
+    element_counts: Counter[str],
+    stats: Counter[str],
+    vectors: dict[str, list[float]] | None = None,
+) -> Iterator[dict[str, Any]]:
     with (root / "compounds.jsonl").open(encoding="utf-8") as handle:
         for line in handle:
             if not line.strip():
@@ -92,6 +109,8 @@ def _compound_rows(root: Path, element_counts: Counter[str], stats: Counter[str]
                 "names": card.get("names") or {},
                 "card": card,
                 "structure": structure,
+                "search": search_text(card["formula"], card.get("names") or {}),
+                "embedding": (vectors or {}).get(card["id"]),
             }
 
 
@@ -115,13 +134,15 @@ async def load_dataset(engine: AsyncEngine, root: Path) -> LoadReport:
     classes_path = root / "classes.json"
     classes: dict[str, dict[str, Any]] = _read_json(classes_path) if classes_path.is_file() else {}
 
+    element_vectors, compound_vectors = _read_vectors(root)
+
     element_counts: Counter[str] = Counter()
     stats: Counter[str] = Counter()
     async with engine.begin() as connection:
         for table in (PairRow, CompoundRow, ElementRow, ClassRow, DatasetRow):
             await connection.execute(delete(table))
 
-        for batch in _batches(_compound_rows(root, element_counts, stats)):
+        for batch in _batches(_compound_rows(root, element_counts, stats, compound_vectors)):
             await connection.execute(insert(CompoundRow), batch)
 
         element_rows = []
@@ -137,6 +158,7 @@ async def load_dataset(engine: AsyncEngine, root: Path) -> LoadReport:
                     "data": element,
                     "compound_count": element_counts[element["symbol"]],
                     "substance": substance,
+                    "embedding": element_vectors.get(element["symbol"]),
                 }
             )
         await connection.execute(insert(ElementRow), element_rows)

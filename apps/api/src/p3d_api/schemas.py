@@ -79,6 +79,14 @@ class CompoundSummary(Schema):
     kind: str | None = None
 
 
+class SimilarElement(Schema):
+    """An element with a similar set of partners (vector model)."""
+
+    z: int
+    symbol: str
+    score: float
+
+
 class ElementDetail(Schema):
     version: str
     z: int
@@ -104,6 +112,7 @@ class ElementDetail(Schema):
     substance: Substance | None = None
     partners: list[Partner]
     top_compounds: list[CompoundSummary]
+    similar: list[SimilarElement] = Field(default_factory=list)
 
 
 class ClassRef(Schema):
@@ -138,6 +147,7 @@ class CompoundDetail(Schema):
     structure_info: StructureInfo | None = None
     structure: dict[str, Any] | None = None
     sources: list[Source]
+    similar: list[CompoundSummary] = Field(default_factory=list)
 
 
 class ElementRef(Schema):
@@ -174,6 +184,12 @@ class CompoundIndex(Schema):
     version: str
     fields: list[str]
     rows: list[list[Any]]
+
+
+class SearchResult(Schema):
+    version: str
+    query: str
+    compounds: list[CompoundSummary]
 
 
 class Health(Schema):

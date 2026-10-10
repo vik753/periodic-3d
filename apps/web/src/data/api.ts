@@ -64,6 +64,13 @@ export interface CompoundSummary {
   kind: StructureKind | null;
 }
 
+export interface SimilarElement {
+  z: number;
+  symbol: string;
+  /** Cosine similarity of the element vectors, −1…1. */
+  score: number;
+}
+
 export interface ElementDetail {
   version: string;
   z: number;
@@ -89,6 +96,8 @@ export interface ElementDetail {
   substance: Substance | null;
   partners: Partner[];
   topCompounds: CompoundSummary[];
+  /** Elements with similar partners (vector model); empty for older datasets. */
+  similar?: SimilarElement[];
 }
 
 export interface ClassRef {
@@ -123,6 +132,8 @@ export interface CompoundDetail {
   structureInfo: StructureInfo | null;
   structure: StructureData | null;
   sources: Source[];
+  /** Compounds with similar elements in similar proportions (vector model). */
+  similar?: CompoundSummary[];
 }
 
 export interface ElementRef {

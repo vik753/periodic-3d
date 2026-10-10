@@ -15,6 +15,7 @@ JSON export that the GitHub Pages demo uses (ADR 0003).
 | `/pairs/{A}-{B}` | compounds of two elements, most famous first (beads on a ray) |
 | `/compounds?elements=Fe,O&mode=contains\|only` | compounds of a selection (the cloud) |
 | `/index` | compact list of all compounds (browser-side search in static mode) |
+| `/search?q=гематит` | compounds by formula or name in UA/RU/EN (pg_trgm index) |
 
 Interactive docs: `/api/docs`. Health check: `/health`.
 

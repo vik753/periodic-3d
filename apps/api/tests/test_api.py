@@ -190,3 +190,29 @@ async def test_static_export_matches_the_api(loaded_database: str, client: Any, 
     }
     for api_path, file in pairs.items():
         assert json.loads(file.read_text(encoding="utf-8")) == await get(client, f"/api/v1/{api_path}")
+
+
+async def test_search_by_formula_and_name(client: Any) -> None:
+    body = await get(client, "/api/v1/search", params={"q": "H2O"})
+    assert body["compounds"][0]["id"] == "Q283"
+    body = await get(client, "/api/v1/search", params={"q": "гемати́т"})  # stress mark is ignored
+    assert [compound["id"] for compound in body["compounds"]] == ["Q103223"]
+    body = await get(client, "/api/v1/search", params={"q": "вод"})
+    assert "Q283" in [compound["id"] for compound in body["compounds"]]
+
+
+async def test_search_escapes_wildcards(client: Any) -> None:
+    body = await get(client, "/api/v1/search", params={"q": "%"})
+    assert body["compounds"] == []
+    assert (await client.get("/api/v1/search", params={"q": ""})).status_code == 422
+
+
+async def test_similar_elements_from_vectors(client: Any) -> None:
+    body = await get(client, "/api/v1/elements/Fe")
+    assert [item["symbol"] for item in body["similar"]] == ["O", "H"]
+    assert abs(body["similar"][0]["score"] - 0.6) < 0.01
+
+
+async def test_similar_compounds_from_vectors(client: Any) -> None:
+    body = await get(client, "/api/v1/compounds/Q103223")
+    assert [compound["id"] for compound in body["similar"]] == ["Q36933", "Q283", "Q849881"]

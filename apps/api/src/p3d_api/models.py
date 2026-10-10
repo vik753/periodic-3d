@@ -17,6 +17,10 @@ from sqlalchemy import DateTime, Integer, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+from .vector import Vector
+
+EMBEDDING_DIM = 16
+
 
 class Base(DeclarativeBase):
     pass
@@ -40,6 +44,7 @@ class ElementRow(Base):
     data: Mapped[dict[str, Any]] = mapped_column(JSONB)
     compound_count: Mapped[int] = mapped_column(Integer, default=0)
     substance: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    embedding: Mapped[list[float] | None] = mapped_column(Vector(EMBEDDING_DIM), deferred=True)
 
 
 class CompoundRow(Base):
@@ -54,6 +59,9 @@ class CompoundRow(Base):
     names: Mapped[dict[str, str]] = mapped_column(JSONB)
     card: Mapped[dict[str, Any]] = mapped_column(JSONB)
     structure: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    # Normalized formula and names for search (p3d_api.text.search_text); trigram index.
+    search: Mapped[str] = mapped_column(Text, default="")
+    embedding: Mapped[list[float] | None] = mapped_column(Vector(EMBEDDING_DIM), deferred=True)
 
 
 class PairRow(Base):

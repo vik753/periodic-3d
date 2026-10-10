@@ -25,6 +25,7 @@ from .schemas import (
     Health,
     Meta,
     PairDetail,
+    SearchResult,
 )
 from .settings import Settings, load_settings
 
@@ -110,6 +111,15 @@ async def read_pair(pair: str, repo: Repo) -> PairDetail:
     if result is None:
         raise HTTPException(status_code=404, detail=f"no compounds for pair: {pair}")
     return result
+
+
+@router.get("/search", response_model=SearchResult, summary="Find compounds by formula or name (UA/RU/EN)")
+async def search(
+    repo: Repo,
+    q: Annotated[str, Query(min_length=1, max_length=80, description="Formula or name, e.g. h2o, гематит")],
+    limit: Annotated[int, Query(ge=1, le=50)] = 20,
+) -> SearchResult:
+    return await repo.search(q, limit)
 
 
 @router.get("/index", response_model=CompoundIndex, summary="Compact list of all compounds")

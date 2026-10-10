@@ -12,6 +12,7 @@ on:
       - "apps/api/Dockerfile"
       - "apps/web/Dockerfile"
       - "apps/web/nginx.conf"
+      - "apps/api/src/**"
       - ".github/workflows/docker.yml"
 
 permissions:
@@ -59,6 +60,32 @@ jobs:
           } | tee out/logs/smoke.log
           curl -sf http://localhost:8080/api/v1/meta | grep -q '2026.01.01-test'
 
+      - name: Load test (no cache, through nginx)
+        id: load
+        continue-on-error: true
+        run: |
+          urls=(
+            "http://localhost:8080/api/v1/elements/Fe"
+            "http://localhost:8080/api/v1/compounds/Q283"
+            "http://localhost:8080/api/v1/pairs/O-Fe"
+            "http://localhost:8080/api/v1/compounds?elements=O&mode=contains"
+            "http://localhost:8080/api/v1/search?q=%D0%B2%D0%BE%D0%B4"
+          )
+          for i in $(seq 1 200); do printf '%s\n' "${urls[@]}"; done > out/urls.txt
+          start=$(date +%s.%N)
+          xargs -P 32 -n 1 curl -s -o /dev/null -w '%{http_code} %{time_total}\n' < out/urls.txt > out/times.txt
+          end=$(date +%s.%N)
+          python3 - "$start" "$end" <<'PY' | tee out/logs/load.log
+          import statistics, sys
+          rows = [line.split() for line in open("out/times.txt")]
+          times = sorted(float(t) * 1000 for _, t in rows)
+          errors = sum(1 for code, _ in rows if code != "200")
+          q = statistics.quantiles(times, n=100)
+          seconds = float(sys.argv[2]) - float(sys.argv[1])
+          print(f"requests: {len(rows)}, errors: {errors}, concurrency: 32, rps: {len(rows) / seconds:.0f}")
+          print(f"latency ms: p50 {q[49]:.1f}, p95 {q[94]:.1f}, p99 {q[98]:.1f}, max {times[-1]:.1f}")
+          PY
+
       - name: Container logs
         if: always()
         run: $COMPOSE logs --no-color > out/logs/compose.log 2>&1 || true
@@ -68,5 +95,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo '{"stack": "${{ steps.stack.outcome }}", "smoke": "${{ steps.smoke.outcome }}"}' > out/summary.json
+          echo '{"stack": "${{ steps.stack.outcome }}", "smoke": "${{ steps.smoke.outcome }}", "load": "${{ steps.load.outcome }}"}' > out/summary.json
           bash tools/ci/publish-results.sh out docker "ci: docker results for ${GITHUB_SHA::7}"

@@ -263,6 +263,25 @@ export function ElementPanel({ symbol, partner }: { symbol: string; partner?: st
           <CompoundLinks compounds={data.topCompounds} />
         </Section>
       )}
+
+      {data?.similar && data.similar.length > 0 && (
+        <Section title={t('element.similar')}>
+          <ul className="flex flex-wrap gap-1.5">
+            {data.similar.map((item) => (
+              <li key={item.z}>
+                <Link
+                  to={`/e/${item.symbol}`}
+                  className="inline-flex items-baseline gap-1.5 rounded-full px-2.5 py-1 text-sm ring-1 ring-rim transition-colors hover:bg-white/5"
+                >
+                  <span className="font-display font-medium">{item.symbol}</span>
+                  <span className="text-xs tabular-nums text-muted">{formatNumber(item.score, language, 2)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs leading-relaxed text-muted">{t('element.similarHint')}</p>
+        </Section>
+      )}
       {data && data.topCompounds.length === 0 && <StatusNote>{t('element.noCompounds')}</StatusNote>}
 
       {detail.unavailable && (

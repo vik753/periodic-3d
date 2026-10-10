@@ -28,12 +28,18 @@ from .schemas import (
     Meta,
     PairDetail,
     Partner,
+    SearchResult,
+    SimilarElement,
     Source,
     StructureInfo,
     Substance,
 )
+from .text import normalize_text
+from .vector import cosine_distance
 
 TOP_COMPOUNDS = 12
+SIMILAR_ELEMENTS = 6
+SIMILAR_COMPOUNDS = 8
 QUERY_LIMIT_MAX = 200
 INDEX_FIELDS = ["id", "formula", "elements", "fame", "kind", "names"]
 
@@ -191,7 +197,35 @@ class Repository:
                 "substance": substance,
                 "partners": partners,
                 "topCompounds": top,
+                "similar": await self.similar_elements(row.z),
             }
+        )
+
+    async def similar_elements(self, z: int) -> list[SimilarElement]:
+        """Elements with the closest vectors (cosine distance, pgvector)."""
+        target = select(ElementRow.embedding).where(ElementRow.z == z).scalar_subquery()
+        distance = cosine_distance(ElementRow.embedding, target).label("distance")
+        rows = await self.session.execute(
+            select(ElementRow.z, ElementRow.symbol, distance)
+            .where(ElementRow.z != z, ElementRow.embedding.is_not(None))
+            .order_by(distance, ElementRow.z)
+            .limit(SIMILAR_ELEMENTS)
+        )
+        return [
+            SimilarElement(z=row.z, symbol=row.symbol, score=round(1 - float(row.distance), 3))
+            for row in rows
+            if row.distance is not None
+        ]
+
+    async def similar_compounds(self, compound_id: str) -> list[CompoundSummary]:
+        """Compounds with the closest vectors: similar elements in similar proportions."""
+        target = select(CompoundRow.embedding).where(CompoundRow.id == compound_id).scalar_subquery()
+        distance = cosine_distance(CompoundRow.embedding, target)
+        return await self._summaries(
+            select(*_SUMMARY_COLUMNS)
+            .where(CompoundRow.id != compound_id, CompoundRow.embedding.is_not(None), distance.is_not(None))
+            .order_by(distance, CompoundRow.fame.desc(), CompoundRow.id)
+            .limit(SIMILAR_COMPOUNDS)
         )
 
     async def compound(self, compound_id: str) -> CompoundDetail | None:
@@ -209,6 +243,7 @@ class Repository:
             structureInfo=card.get("structure") if row.structure is not None else None,
             structure=row.structure,
             sources=compound_sources(card, has_structure=row.structure is not None),
+            similar=await self.similar_compounds(row.id),
         )
         return CompoundDetail.model_validate(payload)
 
@@ -264,6 +299,23 @@ class Repository:
             .offset(offset)
         )
         return CompoundQuery(version=version, elements=selected, mode=mode, total=total, compounds=compounds)
+
+    async def search(self, query: str, limit: int = 20) -> SearchResult:
+        """Compounds whose formula or name contains the query; exact formulas and famous ones first."""
+        version = await self.version()
+        needle = normalize_text(query)
+        if not needle:
+            return SearchResult(version=version, query=query, compounds=[])
+        pattern = "%" + needle.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
+        compact = needle.replace(" ", "")
+        exact = CompoundRow.search.startswith(compact + " |", autoescape=True)
+        statement = (
+            select(*_SUMMARY_COLUMNS)
+            .where(CompoundRow.search.ilike(pattern))
+            .order_by(exact.desc(), func.similarity(CompoundRow.search, needle).desc(), CompoundRow.fame.desc())
+            .limit(min(limit, QUERY_LIMIT_MAX))
+        )
+        return SearchResult(version=version, query=query, compounds=await self._summaries(statement))
 
     async def index(self) -> CompoundIndex:
         version = await self.version()

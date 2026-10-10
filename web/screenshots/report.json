@@ -1,0 +1,133 @@
+{
+  "base": "http://localhost:4173/periodic-3d/",
+  "set": "full",
+  "time": "2026-10-10T18:00:08.412Z",
+  "shots": [
+    {
+      "name": "table",
+      "path": "",
+      "ok": true,
+      "ms": 3948,
+      "stats": {
+        "calls": 3,
+        "triangles": 69620,
+        "scene": "table",
+        "ready": true,
+        "url": "/periodic-3d/"
+      },
+      "console": []
+    },
+    {
+      "name": "table-hover-fe",
+      "path": "",
+      "ok": true,
+      "ms": 7022,
+      "stats": {
+        "calls": 3,
+        "triangles": 69620,
+        "scene": "table",
+        "ready": true,
+        "url": "/periodic-3d/"
+      },
+      "console": []
+    },
+    {
+      "name": "click-fe-flight",
+      "path": "",
+      "ok": true,
+      "ms": 7692,
+      "stats": {
+        "calls": 9,
+        "triangles": 112260,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe"
+      },
+      "console": []
+    },
+    {
+      "name": "element-fe",
+      "path": "e/Fe",
+      "ok": true,
+      "ms": 7896,
+      "stats": {
+        "calls": 9,
+        "triangles": 112260,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe"
+      },
+      "console": []
+    },
+    {
+      "name": "element-u",
+      "path": "e/U",
+      "ok": true,
+      "ms": 8058,
+      "stats": {
+        "calls": 12,
+        "triangles": 154900,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/U"
+      },
+      "console": []
+    },
+    {
+      "name": "molecule-benzene",
+      "path": "c/demo-benzene",
+      "ok": true,
+      "ms": 8998,
+      "stats": {
+        "calls": 5,
+        "triangles": 81884,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/demo-benzene"
+      },
+      "console": []
+    },
+    {
+      "name": "crystal-nacl",
+      "path": "c/demo-nacl",
+      "ok": true,
+      "ms": 9598,
+      "stats": {
+        "calls": 6,
+        "triangles": 98348,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/demo-nacl"
+      },
+      "console": []
+    },
+    {
+      "name": "phone-table",
+      "path": "",
+      "ok": true,
+      "ms": 3730,
+      "stats": {
+        "calls": 3,
+        "triangles": 69620,
+        "scene": "table",
+        "ready": true,
+        "url": "/periodic-3d/"
+      },
+      "console": []
+    },
+    {
+      "name": "phone-element-fe",
+      "path": "e/Fe",
+      "ok": true,
+      "ms": 7671,
+      "stats": {
+        "calls": 9,
+        "triangles": 112260,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe"
+      },
+      "console": []
+    }
+  ]
+}

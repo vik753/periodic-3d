@@ -1,0 +1,37 @@
+{
+  "budgetKb": 400,
+  "initialJsGzipKb": 366.2,
+  "withinBudget": true,
+  "rows": [
+    {
+      "file": "assets/three-DA8Dnnbk.js",
+      "kb": 703.6,
+      "gzipKb": 182.5,
+      "initial": true
+    },
+    {
+      "file": "assets/react-B7ulV_JK.js",
+      "kb": 258.7,
+      "gzipKb": 82.5,
+      "initial": true
+    },
+    {
+      "file": "assets/r3f-CTGeFR_7.js",
+      "kb": 222.1,
+      "gzipKb": 66.7,
+      "initial": true
+    },
+    {
+      "file": "assets/index-g22lh0Kt.js",
+      "kb": 102.5,
+      "gzipKb": 34.5,
+      "initial": true
+    },
+    {
+      "file": "assets/index-DkAxuo-0.css",
+      "kb": 21.1,
+      "gzipKb": 6.6,
+      "initial": true
+    }
+  ]
+}

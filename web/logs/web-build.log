@@ -1,0 +1,28 @@
+$ npm run build
+started: 2026-10-10T17:59:32Z
+
+> @periodic-3d/web@0.1.0 build
+> vite build
+
+[36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 684 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                                                 [39m[1m[2m  0.99 kB[22m[1m[22m[2m │ gzip:   0.48 kB[22m
+[2mdist/[22m[2massets/[22m[32munbounded-vietnamese-wght-normal-rat7GD3o.woff2     [39m[1m[2m 13.88 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mgolos-text-cyrillic-ext-wght-normal-hICkpzq7.woff2  [39m[1m[2m 17.51 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mgolos-text-latin-ext-wght-normal-B-I5lbAQ.woff2     [39m[1m[2m 19.18 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mgolos-text-cyrillic-wght-normal-mKek_fSS.woff2      [39m[1m[2m 22.03 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32munbounded-cyrillic-wght-normal-C627f1f8.woff2       [39m[1m[2m 31.42 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mgolos-text-latin-wght-normal-BS5oQT7X.woff2         [39m[1m[2m 37.92 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32munbounded-latin-wght-normal-D5afBTBx.woff2          [39m[1m[2m 50.90 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32munbounded-latin-ext-wght-normal-D6H-S6MW.woff2      [39m[1m[2m118.35 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[35mindex-DkAxuo-0.css                                  [39m[1m[2m 21.61 kB[22m[1m[22m[2m │ gzip:   6.74 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-g22lh0Kt.js                                   [39m[1m[2m105.01 kB[22m[1m[22m[2m │ gzip:  35.35 kB[22m
+[2mdist/[22m[2massets/[22m[36mr3f-CTGeFR_7.js                                     [39m[1m[2m227.41 kB[22m[1m[22m[2m │ gzip:  68.49 kB[22m
+[2mdist/[22m[2massets/[22m[36mreact-B7ulV_JK.js                                   [39m[1m[2m264.90 kB[22m[1m[22m[2m │ gzip:  84.67 kB[22m
+[2mdist/[22m[2massets/[22m[36mthree-DA8Dnnbk.js                                   [39m[1m[2m720.48 kB[22m[1m[22m[2m │ gzip: 187.46 kB[22m
+[32m✓ built in 5.52s[39m
+finished: 2026-10-10T17:59:38Z
+exit code: 0

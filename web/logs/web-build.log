@@ -1,12 +1,12 @@
 $ npm run build
-started: 2026-10-10T19:27:12Z
+started: 2026-10-10T19:34:25Z
 
 > @periodic-3d/web@0.1.0 build
 > vite build
 
 [36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
 transforming...
-[32m✓[39m 699 modules transformed.
+[32m✓[39m 700 modules transformed.
 rendering chunks...
 computing gzip size...
 [2mdist/[22m[32mindex.html                                                 [39m[1m[2m  0.99 kB[22m[1m[22m[2m │ gzip:   0.48 kB[22m
@@ -19,10 +19,10 @@ computing gzip size...
 [2mdist/[22m[2massets/[22m[32munbounded-latin-wght-normal-D5afBTBx.woff2          [39m[1m[2m 50.90 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32munbounded-latin-ext-wght-normal-D6H-S6MW.woff2      [39m[1m[2m118.35 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[35mindex-UjjkBcfd.css                                  [39m[1m[2m 28.77 kB[22m[1m[22m[2m │ gzip:   7.96 kB[22m
-[2mdist/[22m[2massets/[22m[36mindex-COCp2Qia.js                                   [39m[1m[2m164.74 kB[22m[1m[22m[2m │ gzip:  53.42 kB[22m
-[2mdist/[22m[2massets/[22m[36mr3f-Cwv4taTw.js                                     [39m[1m[2m227.41 kB[22m[1m[22m[2m │ gzip:  68.49 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-BtZtgGSv.js                                   [39m[1m[2m167.20 kB[22m[1m[22m[2m │ gzip:  54.05 kB[22m
+[2mdist/[22m[2massets/[22m[36mr3f-BfSgjp_4.js                                     [39m[1m[2m227.41 kB[22m[1m[22m[2m │ gzip:  68.49 kB[22m
 [2mdist/[22m[2massets/[22m[36mreact-B7ulV_JK.js                                   [39m[1m[2m264.90 kB[22m[1m[22m[2m │ gzip:  84.67 kB[22m
-[2mdist/[22m[2massets/[22m[36mthree-XnhYZyXb.js                                   [39m[1m[2m724.28 kB[22m[1m[22m[2m │ gzip: 188.46 kB[22m
-[32m✓ built in 4.66s[39m
-finished: 2026-10-10T19:27:17Z
+[2mdist/[22m[2massets/[22m[36mthree-BYVM2ksI.js                                   [39m[1m[2m724.28 kB[22m[1m[22m[2m │ gzip: 188.46 kB[22m
+[32m✓ built in 5.56s[39m
+finished: 2026-10-10T19:34:31Z
 exit code: 0

@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 377.3,
+  "initialJsGzipKb": 379.1,
   "withinBudget": true,
   "rows": [
     {
@@ -22,67 +22,73 @@
       "initial": true
     },
     {
-      "file": "assets/index-CKtPHAjl.js",
-      "kb": 131.5,
-      "gzipKb": 44.1,
+      "file": "assets/index-IbsIpwP1.js",
+      "kb": 137.3,
+      "gzipKb": 45.9,
       "initial": true
     },
     {
-      "file": "assets/index-CSxllaZs.css",
-      "kb": 28.5,
-      "gzipKb": 7.8,
+      "file": "assets/index-BZDpEqP8.css",
+      "kb": 29.1,
+      "gzipKb": 7.9,
       "initial": true
     },
     {
-      "file": "assets/ElementPanel-kzXduX0y.js",
+      "file": "assets/ElementPanel-DTtAwN2Q.js",
       "kb": 8.2,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/RayWalk-1XQ9IGdA.js",
+      "file": "assets/RayWalk-Cawr9qSC.js",
       "kb": 5.3,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/Rays-CcaLujHF.js",
+      "file": "assets/Rays-Cr-nIxuv.js",
       "kb": 5.7,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/StructureView-Pj7LVX6e.js",
+      "file": "assets/StructureView-C4XryK15.js",
       "kb": 5.4,
       "gzipKb": 2.4,
       "initial": false
     },
     {
-      "file": "assets/CompoundCloud-DZjIhnQV.js",
+      "file": "assets/CompoundCloud-DtqutBfF.js",
       "kb": 4.3,
       "gzipKb": 2.1,
       "initial": false
     },
     {
-      "file": "assets/CompoundPanel-C6SsUU29.js",
+      "file": "assets/CompoundPanel-DmKAPx9l.js",
       "kb": 4.9,
       "gzipKb": 1.7,
       "initial": false
     },
     {
-      "file": "assets/SetPanel-B1kUItmn.js",
+      "file": "assets/SetPanel-DynuI4vN.js",
       "kb": 3.9,
       "gzipKb": 1.5,
       "initial": false
     },
     {
-      "file": "assets/AtomModel-BrF1yr3g.js",
+      "file": "assets/AtomModel-KVJzmJQ7.js",
       "kb": 2.5,
       "gzipKb": 1.3,
       "initial": false
     },
     {
-      "file": "assets/CompositionView-hTzMcb5K.js",
+      "file": "assets/AboutPanel-B7_xbs9E.js",
+      "kb": 2.9,
+      "gzipKb": 1.1,
+      "initial": false
+    },
+    {
+      "file": "assets/CompositionView-_2_P9D8x.js",
       "kb": 2.2,
       "gzipKb": 1.1,
       "initial": false

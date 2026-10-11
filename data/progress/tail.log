@@ -12,3 +12,7 @@ started: 2026-10-11T10:32:08Z
 2026-10-11 10:37:46,825 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/449123,449171,449193,449241,449459,449488,449520,449673,450173,450503/SDF
 2026-10-11 10:39:30,799 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/451388,451448,451668,451706,452548,452705,452707,452967,453180,454194/SDF
 2026-10-11 10:41:42,071 INFO p3d.pubchem:   3D batches: 600/1078, 11972 records, {'cache_hit': 244, 'memo_hit': 6002, 'fetched': 597, 'retry_429': 10, 'failed_batches': 2}
+2026-10-11 10:43:22,413 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +1.0 s per request
+2026-10-11 10:43:23,796 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +0.0 s per request
+2026-10-11 10:43:31,010 INFO p3d.pubchem:   3D batches: 800/1078, 13972 records, {'cache_hit': 244, 'memo_hit': 6002, 'fetched': 797, 'retry_429': 10, 'failed_batches': 2}
+2026-10-11 10:46:11,998 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/13020598,13034801,13056773,13074411,13083282,13140993,13140997,13141004,13152769,13236269/SDF

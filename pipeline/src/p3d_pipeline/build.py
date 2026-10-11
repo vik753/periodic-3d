@@ -334,33 +334,57 @@ EMBED_CHUNK = 25
 MAX_POOL_RESTARTS = 20
 
 
-def embed_all(smiles: list[str]) -> dict[str, Structure | None]:
+RDKIT_MEMO = "rdkit-3d-v1"  # bump when molecule_from_smiles changes its output
+EMBED_LOG_EVERY = 2000
+
+
+def _remember_structure(fetcher: Fetcher, smiles: str, structure: Structure | None) -> None:
+    """Memo of one RDKit result; a value that does not serialize is simply not remembered."""
+    try:
+        text = json.dumps(structure, default=lambda value: value.item() if hasattr(value, "item") else str(value))
+        fetcher.memo_put(RDKIT_MEMO, smiles, text if structure else "")
+    except (TypeError, ValueError, OSError) as error:
+        log.debug("RDKit memo skipped for %s: %s", smiles, error)
+
+
+def embed_all(smiles: list[str], fetcher: Fetcher | None = None) -> dict[str, Structure | None]:
     """RDKit 3D embedding in parallel processes (thousands of molecules).
 
-    If RDKit crashes a worker process, the pool breaks: the chunk that was running is
-    skipped (no 3D for those molecules) and a new pool continues with the rest.
+    Embedding uses a fixed seed, so a SMILES always gives the same model: results are
+    remembered per SMILES (fetcher memo) and the next build skips them. If RDKit
+    crashes a worker process, the pool breaks: the chunk that was running is skipped
+    (no 3D for those molecules) and a new pool continues with the rest.
     """
     if not smiles:
         return {}
     started = time.monotonic()
-    workers = max(1, (os.cpu_count() or 2))
-    log.info("RDKit: embedding %d molecules on %d processes", len(smiles), workers)
     results: dict[str, Structure | None] = {}
-    remaining = list(smiles)
+    if fetcher is not None:
+        for item in smiles:
+            remembered = fetcher.memo_get(RDKIT_MEMO, item)
+            if remembered is not None:
+                results[item] = json.loads(remembered) if remembered else None
+    remaining = [item for item in smiles if item not in results]
+    workers = max(1, (os.cpu_count() or 2))
+    log.info("RDKit: %d molecules remembered, embedding %d on %d processes", len(results), len(remaining), workers)
     for _ in range(MAX_POOL_RESTARTS):
+        if not remaining:
+            break
         try:
             with ProcessPoolExecutor(max_workers=workers) as pool:
                 embedded = pool.map(molecule_from_smiles, remaining, chunksize=EMBED_CHUNK)
-                for item, structure in zip(remaining, embedded, strict=True):
+                for number, (item, structure) in enumerate(zip(remaining, embedded, strict=True), start=1):
                     results[item] = structure
+                    if fetcher is not None:
+                        _remember_structure(fetcher, item, structure)
+                    if number % EMBED_LOG_EVERY == 0:
+                        log.info("  RDKit: %d/%d (%.0f s)", number, len(remaining), time.monotonic() - started)
         except BrokenProcessPool:
             done = [item for item in remaining if item in results]
             skipped = [item for item in remaining if item not in results][:EMBED_CHUNK]
             log.warning("RDKit: a worker crashed; skipping %d molecules after %d done", len(skipped), len(done))
             results.update(dict.fromkeys(skipped))
         remaining = [item for item in remaining if item not in results]
-        if not remaining:
-            break
     results.update(dict.fromkeys(remaining))
     log.info("RDKit: done in %.0f s", time.monotonic() - started)
     return results
@@ -400,7 +424,7 @@ def assign_structures(
             if (smiles := compound.smiles) and not (compound.cid and compound.cid in conformers)
         }
     )
-    embedded = embed_all(smiles_jobs)
+    embedded = embed_all(smiles_jobs, fetcher)
     stats["rdkit_embedded"] = sum(1 for structure in embedded.values() if structure)
 
     wants_crystal = {

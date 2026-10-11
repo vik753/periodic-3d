@@ -17,8 +17,8 @@
 
 **[▶ Дивитися повне відео (2 хв)](https://vik753.github.io/periodic-3d/about?video&lang=uk)**: воно відкривається на сайті поверх
 таблиці, з паузою і перемотуванням. На самому сайті: **Як користуватися** → **Дивитися
-відео**. Файли відео: [українською](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r4/guide-uk.mp4) ·
-[російською](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r4/guide-ru.mp4) · [англійською](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r4/guide-en.mp4).
+відео**. Файли відео: [українською](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r5/guide-uk.mp4) ·
+[російською](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r5/guide-ru.mp4) · [англійською](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r5/guide-en.mp4).
 
 > [!IMPORTANT]
 > **Дані перевірені.** Формули, маси і структури взято з відкритих наукових баз даних і

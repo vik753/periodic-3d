@@ -1,5 +1,5 @@
 $ npm run lint
-started: 2026-10-11T09:23:27Z
+started: 2026-10-11T09:37:13Z
 
 > @periodic-3d/web@0.1.0 lint
 > eslint .
@@ -14,6 +14,7 @@ started: 2026-10-11T09:23:27Z
 
 /home/runner/work/periodic-3d/periodic-3d/apps/web/src/three/CompoundCloud.tsx
   39:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  52:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
 
 /home/runner/work/periodic-3d/periodic-3d/apps/web/src/three/PeriodicTable3D.tsx
   21:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
@@ -27,7 +28,7 @@ started: 2026-10-11T09:23:27Z
 /home/runner/work/periodic-3d/periodic-3d/apps/web/src/three/StructureView.tsx
   74:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
 
-✖ 10 problems (0 errors, 10 warnings)
+✖ 11 problems (0 errors, 11 warnings)
 
-finished: 2026-10-11T09:23:28Z
+finished: 2026-10-11T09:37:14Z
 exit code: 0

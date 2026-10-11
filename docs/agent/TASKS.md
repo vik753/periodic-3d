@@ -97,12 +97,12 @@
 Решения — ADR 0007.
 
 - [x] G.0 Замер набора в CI (workflow probe-gnome): 554 054 материала, by_id.zip 455 МБ.
-- [ ] G.1 Конвейер: команда `p3d-pipeline gnome` → материалы, компактные ячейки, пары;
-      workflow `gnome` → релиз `gnome-<версия>`; указатель `data/GNOME`.
-- [ ] G.2 API: таблицы materials и material_pairs, загрузчик, эндпоинты
-      /materials/shard/{xyz}, /materials/by-element/{symbol}, /materials/pairs; экспорт.
-- [ ] G.3 Публикация сайта через actions/deploy-pages (сайт ≈ 600 МБ); заказчик
-      переключает Pages → Source: GitHub Actions.
+- [x] G.1 Конвейер: команда `p3d-pipeline gnome` → материалы, компактные ячейки, пары;
+      workflow `gnome` → релиз `gnome-2026.10.11-r2`; указатель `data/GNOME`.
+- [x] G.2 API: таблицы materials и material_pairs, загрузчик, эндпоинты
+      /materials/shard/{4 hex}, /materials/by-element/{symbol}, /materials/pairs; экспорт.
+- [ ] G.3 Публикация сайта через actions/deploy-pages (сайт ≈ 630 МБ). Код готов;
+      ждём, когда заказчик переключит Pages → Source: GitHub Actions.
 - [ ] G.4 Сайт: карточка материала /m/<id> с 3D-ячейкой, пометкой «предсказано»,
       свойствами и атрибуцией.
 - [ ] G.5 Сайт: лучи, движение по лучу и облако с переключателем «+ предсказанные».

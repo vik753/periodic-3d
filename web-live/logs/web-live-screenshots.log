@@ -1,9 +1,9 @@
 $ npm run screenshot
-started: 2026-10-11T09:17:46Z
+started: 2026-10-11T09:30:45Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 6398ms calls=3 url=/periodic-3d/
-ok   element-fe 8470ms calls=10 url=/periodic-3d/e/Fe
-ok   element-o-rays 9620ms calls=8 url=/periodic-3d/e/O
+ok   table 5581ms calls=3 url=/periodic-3d/
+ok   element-fe 7329ms calls=10 url=/periodic-3d/e/Fe
+ok   element-o-rays 7823ms calls=8 url=/periodic-3d/e/O

@@ -8,6 +8,9 @@ on:
     paths-ignore:
       - "docs/**"
       - "*.md"
+      # The guide video recorder runs in its own workflow (guide.yml).
+      - "apps/web/scripts/guide-*"
+      - ".github/workflows/guide.yml"
   pull_request:
   workflow_dispatch:
 

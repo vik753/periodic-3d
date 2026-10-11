@@ -11,7 +11,7 @@
     .guide-ring { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px;
       border-radius: 50%; border: 3px solid #ffd27a; animation: guide-ring .5s ease-out both; }
     @keyframes guide-ring { from { transform: scale(.3); opacity: 1; } to { transform: scale(1.25); opacity: 0; } }
-    #guide-caption { position: absolute; left: 50%; bottom: 34px; max-width: min(78%, 980px);
+    #guide-caption { position: absolute; left: 50%; bottom: 34px; max-width: min(78vw, 860px);
       transform: translateX(-50%); padding: 14px 24px; border-radius: 18px;
       background: rgba(10, 13, 28, .86); box-shadow: 0 0 0 1px rgba(182,156,255,.35), 0 12px 40px rgba(0,0,0,.45);
       color: #f4f7ff; font-size: 25px; line-height: 1.35; text-align: center; opacity: 0;
@@ -86,8 +86,33 @@
       const pointer = document.getElementById('guide-pointer');
       if (pointer) pointer.style.visibility = hidden ? 'hidden' : 'visible';
     },
+    /**
+     * Keep the caption off the site's own controls. With a side panel open, the caption
+     * sits at the bottom, centred in the space left of the panel. On the table (hints and
+     * the selection bar at the bottom left) it sits at the top, in the empty space above
+     * the transition metals.
+     */
+    place() {
+      const caption = document.getElementById('guide-caption');
+      if (!caption) return;
+      const panel = document.querySelector('aside[aria-label]');
+      const box = panel ? panel.getBoundingClientRect() : null;
+      const sidePanel = box && box.width > 0 && box.left > window.innerWidth / 2;
+      if (sidePanel) {
+        caption.style.left = `${box.left / 2}px`;
+        caption.style.maxWidth = `${Math.min(860, box.left - 48)}px`;
+        caption.style.top = 'auto';
+        caption.style.bottom = '34px';
+      } else {
+        caption.style.left = '50%';
+        caption.style.maxWidth = 'min(64vw, 760px)';
+        caption.style.top = '74px';
+        caption.style.bottom = 'auto';
+      }
+    },
     /** Advance every CSS animation and transition by dt milliseconds of video time. */
     tick(dt) {
+      window.__guide.place();
       for (const animation of document.getAnimations()) {
         if (!seen.has(animation)) {
           // Started during the last real-time gap: restart it on this video frame.

@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 VERSION = "2026.01.01-test"
+GNOME = "gnome-2026.01.01-g1"
 
 
 async def get(client: Any, path: str, **kwargs: Any) -> Any:
@@ -21,7 +22,12 @@ async def test_meta(client: Any) -> None:
     assert body["apiVersion"] == 1
     assert body["schemaVersion"] == 1
     assert body["counts"]["compounds"] == 4
-    assert response.headers["etag"] == f'W/"{VERSION}-test"'
+    assert body["gnome"]["version"] == GNOME
+    assert body["gnome"]["license"] == "CC BY-NC 4.0"
+    assert body["gnome"]["counts"]["materials"] == 4
+    assert body["gnome"]["citation"].startswith("A. Merchant")
+    # Reloading either the dataset or the GNoME layer changes every ETag.
+    assert response.headers["etag"] == f'W/"{VERSION}+{GNOME}-test"'
     assert "s-maxage=" in response.headers["cache-control"]
 
 
@@ -181,7 +187,7 @@ async def test_index(client: Any) -> None:
 
 async def test_health(client: Any) -> None:
     body = await get(client, "/health")
-    assert body == {"status": "ok", "version": VERSION}
+    assert body == {"status": "ok", "version": f"{VERSION}+{GNOME}"}
 
 
 async def test_openapi_lists_the_endpoints(client: Any) -> None:
@@ -199,9 +205,13 @@ async def test_static_export_matches_the_api(loaded_database: str, client: Any, 
     finally:
         await database.dispose()
     assert report.missing == []
-    # meta + elements list + 3 elements + 4 compounds + 2 pairs + index
-    assert report.files == 12
+    # meta + elements list + 3 elements + 4 compounds + 2 pairs + index,
+    # then the GNoME layer: material pairs + 3 elements + 3 shards
+    assert report.files == 12 + 7
+    assert report.gnome == GNOME
+    assert report.material_files == 7
     root = tmp_path / VERSION
+    materials = tmp_path / GNOME / "materials"
     pairs = {
         "meta": tmp_path / "meta.json",
         "elements": root / "elements.json",
@@ -209,6 +219,10 @@ async def test_static_export_matches_the_api(loaded_database: str, client: Any, 
         "compounds/Q283": root / "compounds" / "Q283.json",
         "pairs/O-Fe": root / "pairs" / "O-Fe.json",
         "index": root / "index.json",
+        "materials/pairs": materials / "pairs.json",
+        "materials/by-element/O": materials / "by-element" / "O.json",
+        "materials/shard/aaaa": materials / "shard" / "aaaa.json",
+        "materials/shard/cccc": materials / "shard" / "cccc.json",
     }
     for api_path, file in pairs.items():
         assert json.loads(file.read_text(encoding="utf-8")) == await get(client, f"/api/v1/{api_path}")
@@ -239,3 +253,68 @@ async def test_similar_elements_from_vectors(client: Any) -> None:
 async def test_similar_compounds_from_vectors(client: Any) -> None:
     body = await get(client, "/api/v1/compounds/Q103223")
     assert [compound["id"] for compound in body["similar"]] == ["Q36933", "Q283", "Q849881"]
+
+
+def decode_sites(text: str) -> list[list[int]]:
+    import base64
+    import struct
+
+    raw = base64.b64decode(text)
+    return [list(struct.unpack_from("<BHHH", raw, offset)) for offset in range(0, len(raw), 7)]
+
+
+async def test_material_pairs(client: Any) -> None:
+    body = await get(client, "/api/v1/materials/pairs")
+    assert body["version"] == GNOME
+    assert body["elements"] == [[1, 2], [8, 4], [26, 3]]
+    assert body["pairs"] == [[1, 8, 2], [1, 26, 1], [8, 26, 3]]
+
+
+async def test_material_shard(client: Any) -> None:
+    body = await get(client, "/api/v1/materials/shard/AAAA")
+    assert body["version"] == GNOME
+    assert body["prefix"] == "aaaa"
+    assert [material["id"] for material in body["materials"]] == ["aaaa000001", "aaaa000002"]
+    hematite = body["materials"][0]
+    assert hematite["formula"] == "Fe2O3"
+    assert hematite["composition"] == {"O": 3, "Fe": 2}
+    assert hematite["elements"] == ["O", "Fe"]
+    assert hematite["spaceGroup"] == "R-3c"
+    assert hematite["decompositionEnergy"] == -0.012
+    assert hematite["r2scanDecompositionEnergy"] == -0.02
+    # Columns a visitor cannot read stay in the database only.
+    assert "energy" not in hematite and "decompositionEnergyMp" not in hematite
+    structure = hematite["structure"]
+    assert structure["cell"] == [5.035, 5.035, 13.747, 90.0, 90.0, 120.0]
+    sites = decode_sites(structure["sites"])
+    assert len(sites) == hematite["nsites"] == 5
+    assert sites[0] == [26, 0, 0, 3553]
+    assert sites[-1] == [8, 6941, 6941, 2500]
+    assert body["materials"][1]["r2scanDecompositionEnergy"] is None
+
+
+async def test_material_shard_unknown_or_malformed_is_404(client: Any) -> None:
+    for prefix in ("dddd", "aaa", "zzzz", "aaaa0"):
+        response = await client.get(f"/api/v1/materials/shard/{prefix}")
+        assert response.status_code == 404, prefix
+
+
+async def test_materials_by_element_simplest_and_most_stable_first(client: Any) -> None:
+    body = await get(client, "/api/v1/materials/by-element/fe")
+    assert body["symbol"] == "Fe"
+    assert body["total"] == 3
+    assert body["fields"] == ["id", "formula", "decompositionEnergy"]
+    assert body["rows"] == [
+        ["bbbb000003", "Fe3O4", -0.031],
+        ["aaaa000001", "Fe2O3", -0.012],
+        ["aaaa000002", "FeHO2", 0.0],
+    ]
+    oxygen = await get(client, "/api/v1/materials/by-element/O")
+    # Two-element materials first; a material without an energy ends its group.
+    assert [row[0] for row in oxygen["rows"]] == ["bbbb000003", "aaaa000001", "cccc000004", "aaaa000002"]
+
+
+async def test_materials_by_element_without_materials_is_404(client: Any) -> None:
+    for symbol in ("U", "Xx"):
+        response = await client.get(f"/api/v1/materials/by-element/{symbol}")
+        assert response.status_code == 404, symbol

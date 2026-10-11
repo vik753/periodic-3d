@@ -20,15 +20,36 @@ from typing import Any
 from sqlalchemy import delete, insert, text
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from .models import EMBEDDING_DIM, ClassRow, CompoundRow, DatasetRow, ElementRow, PairRow
+from .models import (
+    EMBEDDING_DIM,
+    MATERIAL_SHARD_CHARS,
+    ClassRow,
+    CompoundRow,
+    DatasetRow,
+    ElementRow,
+    GnomeLayerRow,
+    MaterialPairRow,
+    MaterialRow,
+    PairRow,
+)
 from .text import search_text
 
 SUPPORTED_SCHEMAS = {1}
 BATCH = 500
+MATERIAL_BATCH = 2000
+GNOME_KIND = "gnome"
 
 
 class DatasetError(ValueError):
     """The directory is not a dataset this API understands."""
+
+
+@dataclass
+class GnomeLoadReport:
+    version: str
+    materials: int
+    pairs: int
+    elements: int
 
 
 @dataclass
@@ -127,6 +148,8 @@ def _batches(rows: Iterator[dict[str, Any]], size: int = BATCH) -> Iterator[list
 
 async def load_dataset(engine: AsyncEngine, root: Path) -> LoadReport:
     manifest = _read_json(root / "manifest.json")
+    if manifest.get("kind") == GNOME_KIND:
+        raise DatasetError("this is a GNoME layer: load it with 'p3d-api load-gnome'")
     if manifest.get("schema") not in SUPPORTED_SCHEMAS:
         raise DatasetError(f"unsupported dataset schema {manifest.get('schema')!r}")
     elements: list[dict[str, Any]] = _read_json(root / "elements.json")
@@ -183,4 +206,58 @@ async def load_dataset(engine: AsyncEngine, root: Path) -> LoadReport:
         structures=stats["structures"],
         pairs=len(pair_rows),
         classes=len(class_rows),
+    )
+
+
+def gnome_version(manifest: dict[str, Any]) -> str:
+    """Layer name, also the release tag and the static directory: gnome-<build version>."""
+    return f"{GNOME_KIND}-{manifest['version']}"
+
+
+def _material_rows(root: Path, stats: Counter[str]) -> Iterator[dict[str, Any]]:
+    with (root / "materials.jsonl").open(encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            record = json.loads(line)
+            structure = record.pop("structure")
+            material_id = str(record["id"]).lower()
+            stats["materials"] += 1
+            yield {
+                "id": material_id,
+                "shard": material_id[:MATERIAL_SHARD_CHARS],
+                "formula": record["formula"],
+                "elements": record["elements"],
+                "element_count": len(record["elements"]),
+                "decomposition": record.get("decompositionEnergy"),
+                "data": record,
+                "structure": structure,
+            }
+
+
+async def load_gnome(engine: AsyncEngine, root: Path) -> GnomeLoadReport:
+    """Replace the layer of predicted materials (ADR 0007); known compounds stay untouched."""
+    manifest = _read_json(root / "manifest.json")
+    if manifest.get("kind") != GNOME_KIND:
+        raise DatasetError(f"{root} is not a GNoME layer (manifest kind {manifest.get('kind')!r})")
+    pairs: list[list[int]] = _read_json(root / "pairs.json")
+    element_counts: dict[str, int] = _read_json(root / "elements.json")
+    version = gnome_version(manifest)
+    stored = {**manifest, "elements": element_counts}
+
+    stats: Counter[str] = Counter()
+    async with engine.begin() as connection:
+        for table in (MaterialPairRow, MaterialRow, GnomeLayerRow):
+            await connection.execute(delete(table))
+        for batch in _batches(_material_rows(root, stats), MATERIAL_BATCH):
+            await connection.execute(insert(MaterialRow), batch)
+        pair_rows = [{"a": a, "b": b, "count": count} for a, b, count in pairs]
+        for start in range(0, len(pair_rows), BATCH):
+            await connection.execute(insert(MaterialPairRow), pair_rows[start : start + BATCH])
+        await connection.execute(insert(GnomeLayerRow), [{"version": version, "manifest": stored}])
+        await connection.execute(text("ANALYZE materials"))
+        await connection.execute(text("ANALYZE material_pairs"))
+
+    return GnomeLoadReport(
+        version=version, materials=stats["materials"], pairs=len(pair_rows), elements=len(element_counts)
     )

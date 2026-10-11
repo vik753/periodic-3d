@@ -18,6 +18,22 @@ class Schema(BaseModel):
     model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
 
+class GnomeInfo(Schema):
+    """The loaded layer of predicted materials (GNoME, ADR 0007).
+
+    version names the layer ("gnome-2026.10.11-r3"); in static mode its files live
+    under data/<version>/materials/….
+    """
+
+    version: str
+    created: str
+    counts: dict[str, int]
+    license: str
+    license_url: str | None = None
+    citation: str
+    source_url: str | None = None
+
+
 class Meta(Schema):
     version: str
     schema_version: int
@@ -25,6 +41,7 @@ class Meta(Schema):
     created: str
     counts: dict[str, int]
     licenses: dict[str, str]
+    gnome: GnomeInfo | None = None
 
 
 class ElementSummary(Schema):
@@ -202,6 +219,80 @@ class SearchResult(Schema):
     version: str
     query: str
     compounds: list[CompoundSummary]
+
+
+class MaterialStructure(Schema):
+    """Compact unit cell: browsers build the picture (atoms on faces, bonds) themselves.
+
+    cell: a, b, c in ångström and alpha, beta, gamma in degrees.
+    sites: base64 of 7-byte records, one per atom: Z (uint8), then the fractional
+    coordinates x, y, z times 10⁴ (uint16, little-endian). Binary sites take 40% less
+    space than JSON numbers; that keeps the static site under the GitHub Pages limit.
+    """
+
+    cell: list[float]
+    sites: str
+
+
+class Material(Schema):
+    """A crystal predicted by GNoME: computed, not confirmed by experiment.
+
+    Energies are in eV per atom. decompositionEnergy is the distance to the convex
+    hull of competing phases: zero or below means stable in the calculation. The
+    database keeps more columns of the source; the API leaves out the ones a visitor
+    cannot read (total energy, hull distances against other reference sets) to keep
+    the static site under the GitHub Pages limit.
+    """
+
+    id: str
+    formula: str
+    composition: dict[str, int]  # atoms per formula unit
+    elements: list[str]  # by atomic number
+    nsites: int  # atoms in the unit cell
+    space_group: str | None = None
+    space_group_number: int | None = None
+    point_group: str | None = None
+    crystal_system: str | None = None
+    volume: float | None = None  # Å³ per cell
+    density: float | None = None  # g/cm³
+    formation_energy: float | None = None
+    decomposition_energy: float | None = None
+    r2scan_decomposition_energy: float | None = None
+    bandgap: float | None = None  # eV
+    dimensionality: str | None = None
+    structure: MaterialStructure
+
+
+class MaterialShard(Schema):
+    """All predicted materials whose id starts with the same characters (one static file)."""
+
+    version: str
+    prefix: str
+    materials: list[Material]
+
+
+class MaterialList(Schema):
+    """Every predicted material that contains an element, the simplest and most stable first.
+
+    rows: [id, formula, decompositionEnergy]; the formula names the other elements.
+    """
+
+    version: str
+    symbol: str
+    total: int
+    fields: list[str]
+    rows: list[list[Any]]
+
+
+class MaterialPairs(Schema):
+    """How many predicted materials each element and each pair of elements has (rays).
+
+    elements: [[Z, count]…]; pairs: [[Za, Zb, count]…] with Za < Zb.
+    """
+
+    version: str
+    elements: list[list[int]]
+    pairs: list[list[int]]
 
 
 class Health(Schema):

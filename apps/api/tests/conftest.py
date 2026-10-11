@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 
 FIXTURE = Path(__file__).parent / "fixtures" / "dataset"
+GNOME_FIXTURE = Path(__file__).parent / "fixtures" / "gnome"
 VERSION = "2026.01.01-test"
 
 
@@ -25,9 +26,9 @@ def database_url() -> str:
 
 @pytest.fixture(scope="session")
 def loaded_database(database_url: str) -> str:
-    """Migrate the schema and load the fixture dataset once per test session."""
+    """Migrate the schema and load the fixture dataset and GNoME layer once per test session."""
     from p3d_api.db import Database
-    from p3d_api.loader import load_dataset, open_dataset
+    from p3d_api.loader import load_dataset, load_gnome, open_dataset
     from p3d_api.migrate import run_migrations
 
     run_migrations(database_url)
@@ -37,6 +38,8 @@ def loaded_database(database_url: str) -> str:
         try:
             with open_dataset(FIXTURE) as root:
                 await load_dataset(database.engine, root)
+            with open_dataset(GNOME_FIXTURE) as root:
+                await load_gnome(database.engine, root)
         finally:
             await database.dispose()
 

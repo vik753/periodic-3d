@@ -6,6 +6,9 @@ and small lookup tables for its lifetime.
 
 from __future__ import annotations
 
+import base64
+import struct
+from collections.abc import AsyncIterator
 from typing import Any, Literal
 from urllib.parse import quote
 
@@ -14,7 +17,17 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql.expression import Executable
 
 from . import API_VERSION
-from .models import ClassRow, CompoundRow, DatasetRow, ElementRow, PairRow
+from .models import (
+    MATERIAL_SHARD_CHARS,
+    ClassRow,
+    CompoundRow,
+    DatasetRow,
+    ElementRow,
+    GnomeLayerRow,
+    MaterialPairRow,
+    MaterialRow,
+    PairRow,
+)
 from .schemas import (
     ClassRef,
     CompoundDetail,
@@ -25,6 +38,11 @@ from .schemas import (
     ElementList,
     ElementRef,
     ElementSummary,
+    GnomeInfo,
+    Material,
+    MaterialList,
+    MaterialPairs,
+    MaterialShard,
     Meta,
     PairDetail,
     Partner,
@@ -55,10 +73,31 @@ CLASS_MINERAL_SPECIES = "Q12089225"
 LICENSE_WIKIDATA = "CC0 1.0"
 LICENSE_WIKIPEDIA = "CC BY-SA 4.0"
 LICENSE_PUBCHEM = "PubChem (NIH), public data"
+MATERIAL_LIST_FIELDS = ["id", "formula", "decompositionEnergy"]
+HEX_DIGITS = frozenset("0123456789abcdef")
+SITE_RECORD = struct.Struct("<BHHH")  # Z, x·10⁴, y·10⁴, z·10⁴
 
 
 class NoDatasetError(RuntimeError):
     """The database has no dataset loaded yet."""
+
+
+def encode_sites(flat: list[int]) -> str:
+    """[Z, x, y, z, …] (coordinates ×10⁴) → base64 of 7-byte records (MaterialStructure)."""
+    buffer = bytearray()
+    for index in range(0, len(flat) - 3, 4):
+        buffer += SITE_RECORD.pack(*flat[index : index + 4])
+    return base64.b64encode(bytes(buffer)).decode("ascii")
+
+
+def material_from_row(data: dict[str, Any], structure: dict[str, Any]) -> Material:
+    compact = {"cell": structure.get("cell", []), "sites": encode_sites(structure.get("sites", []))}
+    return Material.model_validate({**data, "structure": compact})
+
+
+def valid_shard(prefix: str) -> str | None:
+    prefix = prefix.strip().lower()
+    return prefix if len(prefix) == MATERIAL_SHARD_CHARS and set(prefix) <= HEX_DIGITS else None
 
 
 def normalize_symbol(symbol: str) -> str:
@@ -98,6 +137,8 @@ class Repository:
         self._manifest: dict[str, Any] | None = None
         self._z_by_symbol: dict[str, int] | None = None
         self._classes: dict[str, dict[str, str]] | None = None
+        self._gnome: tuple[str, dict[str, Any]] | None = None
+        self._gnome_checked = False
 
     # -- lookups -------------------------------------------------------------
 
@@ -114,6 +155,14 @@ class Repository:
             rows = await self.session.execute(select(ElementRow.symbol, ElementRow.z))
             self._z_by_symbol = {row.symbol: row.z for row in rows}
         return self._z_by_symbol
+
+    async def gnome(self) -> tuple[str, dict[str, Any]] | None:
+        """Version and manifest of the predicted-materials layer, or None if none is loaded."""
+        if not self._gnome_checked:
+            row = (await self.session.execute(select(GnomeLayerRow.version, GnomeLayerRow.manifest).limit(1))).first()
+            self._gnome = (row.version, row.manifest) if row is not None else None
+            self._gnome_checked = True
+        return self._gnome
 
     async def preload(self) -> None:
         """Load all lookup tables at once (for the static export)."""
@@ -145,6 +194,23 @@ class Repository:
             created=str(manifest.get("created", "")),
             counts={key: int(value) for key, value in manifest.get("counts", {}).items()},
             licenses={key: str(value) for key, value in manifest.get("licenses", {}).items()},
+            gnome=await self.gnome_info(),
+        )
+
+    async def gnome_info(self) -> GnomeInfo | None:
+        layer = await self.gnome()
+        if layer is None:
+            return None
+        version, manifest = layer
+        source = manifest.get("source") or {}
+        return GnomeInfo(
+            version=version,
+            created=str(manifest.get("created", "")),
+            counts={key: int(value) for key, value in manifest.get("counts", {}).items()},
+            license=str(manifest.get("license", "")),
+            license_url=manifest.get("licenseUrl"),
+            citation=str(manifest.get("citation", "")),
+            source_url=source.get("url"),
         )
 
     async def elements(self) -> ElementList:
@@ -369,6 +435,83 @@ class Repository:
                 for row in rows
             ],
         )
+
+    # -- predicted materials (GNoME layer, ADR 0007) --------------------------
+
+    async def material_shard(self, prefix: str) -> MaterialShard | None:
+        layer = await self.gnome()
+        shard = valid_shard(prefix)
+        if layer is None or shard is None:
+            return None
+        statement = (
+            select(MaterialRow.data, MaterialRow.structure).where(MaterialRow.shard == shard).order_by(MaterialRow.id)
+        )
+        rows = (await self.session.execute(statement)).all()
+        if not rows:
+            return None
+        return MaterialShard(
+            version=layer[0], prefix=shard, materials=[material_from_row(row.data, row.structure) for row in rows]
+        )
+
+    async def materials_by_element(self, symbol: str) -> MaterialList | None:
+        """All materials with the element: fewer elements first, then the most stable."""
+        layer = await self.gnome()
+        if layer is None:
+            return None
+        symbol = normalize_symbol(symbol)
+        total = int((layer[1].get("elements") or {}).get(symbol, 0))
+        if total == 0:
+            return None
+        rows = await self.session.execute(
+            select(MaterialRow.id, MaterialRow.formula, MaterialRow.decomposition)
+            .where(MaterialRow.elements.contains([symbol]))
+            .order_by(MaterialRow.element_count, MaterialRow.decomposition.asc().nulls_last(), MaterialRow.id)
+        )
+        return MaterialList(
+            version=layer[0],
+            symbol=symbol,
+            total=total,
+            fields=MATERIAL_LIST_FIELDS,
+            rows=[[row.id, row.formula, row.decomposition] for row in rows],
+        )
+
+    async def material_pairs(self) -> MaterialPairs | None:
+        layer = await self.gnome()
+        if layer is None:
+            return None
+        version, manifest = layer
+        z_by_symbol = await self.z_by_symbol()
+        counts = manifest.get("elements") or {}
+        elements = sorted(
+            [z_by_symbol[symbol], int(count)] for symbol, count in counts.items() if symbol in z_by_symbol
+        )
+        rows = await self.session.execute(
+            select(MaterialPairRow.a, MaterialPairRow.b, MaterialPairRow.count).order_by(
+                MaterialPairRow.a, MaterialPairRow.b
+            )
+        )
+        return MaterialPairs(version=version, elements=elements, pairs=[[row.a, row.b, row.count] for row in rows])
+
+    async def material_symbols(self) -> list[str]:
+        layer = await self.gnome()
+        return sorted((layer[1].get("elements") or {}) if layer else {})
+
+    async def material_shards(self) -> AsyncIterator[MaterialShard]:
+        """Every shard in id order, read in one pass (the static export writes 65 536 files)."""
+        layer = await self.gnome()
+        if layer is None:
+            return
+        statement = select(MaterialRow.shard, MaterialRow.data, MaterialRow.structure).order_by(MaterialRow.id)
+        current: str | None = None
+        materials: list[Material] = []
+        async for row in await self.session.stream(statement.execution_options(yield_per=5000)):
+            if row.shard != current and materials:
+                yield MaterialShard(version=layer[0], prefix=str(current), materials=materials)
+                materials = []
+            current = row.shard
+            materials.append(material_from_row(row.data, row.structure))
+        if materials:
+            yield MaterialShard(version=layer[0], prefix=str(current), materials=materials)
 
     # -- export helpers ------------------------------------------------------
 

@@ -23,6 +23,9 @@ from .schemas import (
     ElementDetail,
     ElementList,
     Health,
+    MaterialList,
+    MaterialPairs,
+    MaterialShard,
     Meta,
     PairDetail,
     SearchResult,
@@ -31,7 +34,11 @@ from .settings import Settings, load_settings
 
 
 class VersionCache:
-    """Dataset version for ETags, refreshed every few seconds (a new load changes it)."""
+    """Data version for ETags, refreshed every few seconds (a new load changes it).
+
+    It joins the dataset version and the GNoME layer version: reloading either one
+    changes every ETag.
+    """
 
     def __init__(self, database: Database, ttl: float) -> None:
         self._database = database
@@ -43,10 +50,13 @@ class VersionCache:
         now = time.monotonic()
         if now - self._checked >= self._ttl:
             async with self._database.session() as session:
+                repo = Repository(session)
                 try:
-                    self._value = await Repository(session).version()
+                    version = await repo.version()
                 except NoDatasetError:
-                    self._value = None
+                    version = None
+                layer = await repo.gnome()
+                self._value = f"{version}+{layer[0]}" if version and layer else version
             self._checked = now
         return self._value
 
@@ -125,6 +135,45 @@ async def search(
 @router.get("/index", response_model=CompoundIndex, summary="Compact list of all compounds")
 async def read_index(repo: Repo) -> CompoundIndex:
     return await repo.index()
+
+
+NO_MATERIALS = "predicted materials are not loaded"
+
+
+@router.get(
+    "/materials/pairs",
+    response_model=MaterialPairs,
+    summary="Predicted materials (GNoME) per element and per pair of elements",
+)
+async def read_material_pairs(repo: Repo) -> MaterialPairs:
+    result = await repo.material_pairs()
+    if result is None:
+        raise HTTPException(status_code=404, detail=NO_MATERIALS)
+    return result
+
+
+@router.get(
+    "/materials/shard/{prefix}",
+    response_model=MaterialShard,
+    summary="Predicted materials whose id starts with these 4 hex characters, with unit cells",
+)
+async def read_material_shard(prefix: str, repo: Repo) -> MaterialShard:
+    result = await repo.material_shard(prefix)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"no predicted materials in shard: {prefix}")
+    return result
+
+
+@router.get(
+    "/materials/by-element/{symbol}",
+    response_model=MaterialList,
+    summary="All predicted materials that contain an element, simplest and most stable first",
+)
+async def read_materials_by_element(symbol: str, repo: Repo) -> MaterialList:
+    result = await repo.materials_by_element(symbol)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"no predicted materials with: {symbol}")
+    return result
 
 
 def _etag_matches(header: str | None, etag: str) -> bool:

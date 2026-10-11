@@ -13,13 +13,16 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import DateTime, Integer, SmallInteger, String, Text, func
+from sqlalchemy import DateTime, Float, Integer, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from .vector import Vector
 
 EMBEDDING_DIM = 16
+# Predicted materials are grouped by the first characters of their hex id: 16⁴ groups of
+# about 8 materials (≈ 5 KB each), so a material card loads one small file (ADR 0007).
+MATERIAL_SHARD_CHARS = 4
 
 
 class Base(DeclarativeBase):
@@ -82,4 +85,39 @@ class ClassRow(Base):
 
     qid: Mapped[str] = mapped_column(String(24), primary_key=True)
     names: Mapped[dict[str, str]] = mapped_column(JSONB)
+    count: Mapped[int] = mapped_column(Integer)
+
+
+class GnomeLayerRow(Base):
+    """The loaded GNoME layer version (one row; ADR 0007)."""
+
+    __tablename__ = "gnome_layer"
+
+    version: Mapped[str] = mapped_column(String(64), primary_key=True)
+    manifest: Mapped[dict[str, Any]] = mapped_column(JSONB)
+    loaded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class MaterialRow(Base):
+    """A crystal predicted by GNoME: properties as JSONB, the compact cell, index columns."""
+
+    __tablename__ = "materials"
+
+    id: Mapped[str] = mapped_column(String(16), primary_key=True)
+    shard: Mapped[str] = mapped_column(String(MATERIAL_SHARD_CHARS))  # first characters of the id
+    formula: Mapped[str] = mapped_column(Text)
+    elements: Mapped[list[str]] = mapped_column(ARRAY(String(3)))  # symbols, by Z
+    element_count: Mapped[int] = mapped_column(SmallInteger)
+    decomposition: Mapped[float | None] = mapped_column(Float)  # eV/atom below the hull: lower is more stable
+    data: Mapped[dict[str, Any]] = mapped_column(JSONB)
+    structure: Mapped[dict[str, Any]] = mapped_column(JSONB)
+
+
+class MaterialPairRow(Base):
+    """Two elements (a < b by Z) and how many predicted materials contain both."""
+
+    __tablename__ = "material_pairs"
+
+    a: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=False)
+    b: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=False)
     count: Mapped[int] = mapped_column(Integer)

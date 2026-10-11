@@ -47,7 +47,7 @@ jobs:
   api:
     name: api
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
     permissions:
       contents: write
     services:
@@ -106,8 +106,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bash $RUN api-fetch-dataset bash ../../tools/ci/fetch-dataset.sh out/dataset
+          bash $RUN api-fetch-gnome bash ../../tools/ci/fetch-gnome.sh out/gnome
           bash $RUN api-migrate uv run p3d-api migrate
           bash $RUN api-load uv run p3d-api load out/dataset/dataset.tar.gz
+          if [ -f out/gnome/gnome.tar.gz ]; then
+            bash $RUN api-load-gnome uv run p3d-api load-gnome out/gnome/gnome.tar.gz
+          fi
           bash $RUN api-export uv run p3d-api export-static out/static-data
           tar -czf out/static-data.tar.gz -C out/static-data .
           du -sh out/static-data | tee out/logs/static-data-size.log
@@ -152,6 +156,7 @@ jobs:
     timeout-minutes: 25
     permissions:
       contents: write
+      pages: read # publishing mode (gh-pages branch or workflow artifact)
     defaults:
       run:
         working-directory: apps/web
@@ -199,14 +204,27 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: static-data
-          path: apps/web/out/static-data
+          # Outside out/: everything in out/ goes to the ci-results branch.
+          path: ${{ runner.temp }}/static-data
 
       - name: Add static data to the site
         if: steps.data.outcome == 'success'
         run: |
           mkdir -p dist/data
-          tar -xzf out/static-data/static-data.tar.gz -C dist/data
+          tar -xzf "$RUNNER_TEMP/static-data/static-data.tar.gz" -C dist/data
           cat dist/data/meta.json
+          mkdir -p out/logs && du -sh dist | tee out/logs/site-size.log
+
+      - name: Pages publishing mode
+        id: pages
+        if: github.ref == 'refs/heads/main'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # "workflow": Pages serves the artifact of this workflow; "legacy": the gh-pages branch.
+          mode="$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type 2>/dev/null || echo unknown)"
+          echo "mode=$mode" | tee -a "$GITHUB_OUTPUT"
 
       - name: Screenshots (local preview)
         id: screenshots
@@ -232,7 +250,16 @@ jobs:
           steps.test.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash $RUN web-deploy bash ../../tools/ci/deploy-pages.sh dist
+        run: |
+          # The predicted materials (≈ 470 MB, ADR 0007) go only with the artifact deploy:
+          # the gh-pages branch gets the known compounds.
+          gnome="$(jq -r '.gnome.version // empty' dist/data/meta.json 2>/dev/null || true)"
+          if [ -n "$gnome" ]; then
+            rm -rf "dist/data/$gnome"
+            jq -c 'del(.gnome)' dist/data/meta.json > "$RUNNER_TEMP/meta.json"
+            mv "$RUNNER_TEMP/meta.json" dist/data/meta.json
+          fi
+          bash $RUN web-deploy bash ../../tools/ci/deploy-pages.sh dist
 
       - name: Check the live demo
         if: steps.deploy.outcome == 'success'

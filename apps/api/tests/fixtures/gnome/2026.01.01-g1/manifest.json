@@ -1,0 +1,22 @@
+{
+ "version": "2026.01.01-g1",
+ "kind": "gnome",
+ "created": "2026-01-01T00:00:00+00:00",
+ "pipeline": "0.1.0",
+ "counts": {
+  "materials": 4,
+  "pairs": 3,
+  "elements": 3
+ },
+ "source": {
+  "name": "GNoME (Google DeepMind)",
+  "url": "https://github.com/google-deepmind/materials_discovery",
+  "files": [
+   "gnome_data/stable_materials_summary.csv",
+   "gnome_data/by_id.zip"
+  ]
+ },
+ "license": "CC BY-NC 4.0",
+ "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+ "citation": "A. Merchant et al. Scaling deep learning for materials discovery. Nature 624, 80–85 (2023)."
+}

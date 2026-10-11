@@ -11,7 +11,7 @@ import typer
 
 from .db import Database
 from .export import export_static
-from .loader import load_dataset, open_dataset
+from .loader import load_dataset, load_gnome, open_dataset
 from .migrate import run_migrations
 from .settings import load_settings
 
@@ -51,6 +51,26 @@ def load(
     asyncio.run(run())
 
 
+@app.command("load-gnome")
+def load_gnome_command(
+    layer: Annotated[Path, typer.Argument(exists=True, help="GNoME layer directory or .tar.gz from the pipeline")],
+) -> None:
+    """Replace the layer of predicted materials (GNoME, ADR 0007); known compounds stay."""
+
+    async def run() -> None:
+        database = Database(load_settings().database_url)
+        try:
+            with open_dataset(layer) as root:
+                report = await load_gnome(database.engine, root)
+        finally:
+            await database.dispose()
+        typer.echo(
+            f"loaded {report.version}: {report.materials} materials, {report.pairs} pairs, {report.elements} elements"
+        )
+
+    asyncio.run(run())
+
+
 @app.command("export-static")
 def export_static_command(
     out: Annotated[Path, typer.Argument(help="Output directory, e.g. apps/web/dist/data")],
@@ -64,6 +84,8 @@ def export_static_command(
         finally:
             await database.dispose()
         typer.echo(f"exported {report.version}: {report.files} files, {report.bytes / 1e6:.1f} MB")
+        if report.gnome:
+            typer.echo(f"of them {report.gnome}: {report.material_files} files, {report.material_bytes / 1e6:.1f} MB")
         if report.missing:
             typer.echo(f"missing: {report.missing[:20]}", err=True)
             raise typer.Exit(code=1)

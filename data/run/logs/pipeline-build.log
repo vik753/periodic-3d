@@ -1,9 +1,0 @@
-$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.11-r15 --only-elements  --limit 0 --descriptions
-started: 2026-10-11T03:20:57Z
-2026-10-11 03:20:57,450 INFO p3d.build: Elements
-2026-10-11 03:20:57,456 INFO p3d.build: Compounds from Wikidata
-2026-10-11 03:20:59,106 INFO p3d.build: Selected 27202 compounds
-2026-10-11 03:20:59,107 INFO p3d.build: Class labels
-2026-10-11 03:21:00,730 INFO p3d.build: PubChem properties for 23149 CIDs
-2026-10-11 03:21:00,829 INFO p3d.build: PubChem 3D conformers for 16781 of 23149 CIDs
-2026-10-11 03:21:01,531 INFO p3d.pubchem:   3D batches: 200/1678, 1990 records, {'cache_hit': 439, 'fetched': 3}

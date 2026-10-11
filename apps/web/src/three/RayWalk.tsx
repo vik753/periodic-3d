@@ -75,6 +75,7 @@ export function RayWalk({
   const size = useThree((state) => state.size);
   const walkIndex = useAppStore((state) => state.walkIndex);
   const setWalkIndex = useAppStore((state) => state.setWalkIndex);
+  const portrait = size.width < size.height;
   const beadsRef = useRef<THREE.InstancedMesh>(null);
   const glowRef = useRef<THREE.InstancedMesh>(null);
   const reducedMotion = useMemo(() => prefersReducedMotion(), []);
@@ -127,15 +128,16 @@ export function RayWalk({
     const side = new THREE.Vector3(0, 1, 0).cross(tangent);
     if (side.lengthSq() < 1e-6) side.set(1, 0, 0);
     side.normalize();
+    // Portrait phones: a step further back, so the label above the model clears the top bar.
     const position = point
       .clone()
-      .addScaledVector(tangent, -2.7)
-      .addScaledVector(side, 1.45)
+      .addScaledVector(tangent, portrait ? -3.3 : -2.7)
+      .addScaledVector(side, portrait ? 1.6 : 1.45)
       .add(new THREE.Vector3(0, 0.9, 0));
     control.minDistance = 1.5;
     control.maxDistance = 12;
     void control.setLookAt(position.x, position.y, position.z, point.x, point.y, point.z, !reducedMotion);
-  }, [controls, curve, index, count, reducedMotion]);
+  }, [controls, curve, index, count, reducedMotion, portrait]);
 
   // Drag and wheel move along the ray instead of orbiting the camera.
   const screenDirection = useRef(new THREE.Vector2(0, -1));
@@ -334,7 +336,7 @@ export function RayWalk({
         return (
           <Html
             key={slot}
-            position={[position.x, position.y + (focused ? FOCUS_RADIUS + 0.3 : 0.22), position.z]}
+            position={[position.x, position.y + (focused ? FOCUS_RADIUS + (portrait ? 0.12 : 0.3) : 0.22), position.z]}
             center
             zIndexRange={[20, 0]}
             style={{ pointerEvents: 'none', visibility: label ? 'visible' : 'hidden' }}

@@ -14,6 +14,7 @@ on:
       - "apps/web/Dockerfile"
       - "apps/web/nginx.conf"
       - "apps/api/src/**"
+      - "data/GNOME"
       - ".github/workflows/docker.yml"
 
 permissions:
@@ -82,6 +83,12 @@ jobs:
           bash tools/ci/fetch-dataset.sh out/full 2>&1 | tee out/logs/fetch-full.log
           $COMPOSE run --rm -v "$PWD/out/full:/data:ro" api p3d-api load /data/dataset.tar.gz \
             2>&1 | tee out/logs/db-load-full.log
+          # The layer of predicted materials (data/GNOME, ADR 0007): 554 054 materials.
+          bash tools/ci/fetch-gnome.sh out/gnome 2>&1 | tee out/logs/fetch-gnome.log
+          if [ -f out/gnome/gnome.tar.gz ]; then
+            $COMPOSE run --rm -v "$PWD/out/gnome:/data:ro" api p3d-api load-gnome /data/gnome.tar.gz \
+              2>&1 | tee out/logs/db-load-gnome.log
+          fi
           curl -sf http://localhost:8080/api/v1/meta | tee out/logs/meta-full.json
           echo
           urls=(
@@ -92,6 +99,13 @@ jobs:
             "http://localhost:8080/api/v1/compounds?elements=Fe,O&mode=only"
             "http://localhost:8080/api/v1/search?q=%D0%BA%D0%B8%D1%81%D0%BB%D0%BE%D1%82%D0%B0"
           )
+          if [ -f out/gnome/gnome.tar.gz ]; then
+            urls+=(
+              "http://localhost:8080/api/v1/materials/shard/df66"
+              "http://localhost:8080/api/v1/materials/pairs"
+              "http://localhost:8080/api/v1/materials/by-element/Fe"
+            )
+          fi
           {
             echo "# 32 parallel requests (a busy server; the load generator shares the 4 CPUs)"
             bash tools/ci/load-test.sh 150 "${urls[@]}"

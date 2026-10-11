@@ -23,3 +23,5 @@ started: 2026-10-11T05:29:57Z
 2026-10-11 05:41:01,305 INFO p3d.pubchem:   3D batches: 1600/1678, 15450 records, {'cache_hit': 1386, 'fetched': 403, 'retry_429': 17, 'failed_batches': 4, 'skipped_offline': 50}
 2026-10-11 05:41:01,307 INFO p3d.build: PubChem 3D: 15450 records in 662 s
 2026-10-11 05:41:01,330 INFO p3d.build: RDKit: embedding 8153 molecules on 4 processes
+2026-10-11 05:49:16,062 INFO p3d.build: RDKit: done in 495 s
+2026-10-11 05:49:16,226 INFO p3d.build: OPTIMADE candidates for 10790 formulas

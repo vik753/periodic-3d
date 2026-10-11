@@ -34,7 +34,7 @@
 
 **Пояснение.** Набор данных для сайта задаёт файл `data/DATASET`:
 
-- `release:data-2026.10.11-r7` — релиз GitHub с полным набором;
+- `release:data-2026.10.11-r25` — релиз GitHub с полным набором;
 - `ci-results:data/latest` — последний тестовый срез (если файла нет).
 
 **Ожидаемый результат.** Через 5–7 минут после push сайт показывает новую версию.
@@ -104,7 +104,7 @@ docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm api p3
 ```bash
 mkdir -p data
 # Номер релиза — в файле data/DATASET (после "release:")
-gh release download data-2026.10.11-r7 --repo vik753/periodic-3d --pattern 'dataset-*.tar.gz' --output data/dataset.tar.gz
+gh release download data-2026.10.11-r25 --repo vik753/periodic-3d --pattern 'dataset-*.tar.gz' --output data/dataset.tar.gz
 docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm -v "$PWD/data:/data" api \
   p3d-api load /data/dataset.tar.gz
 ```

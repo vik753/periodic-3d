@@ -21,14 +21,16 @@ and English).
   extra elements light up in cyan.
 - Search by formula or name in UA/RU/EN; every scene has its own URL.
 - Similar elements and compounds from a vector model (PPMI + SVD, pgvector).
+- Photos of substances and elements from Wikimedia Commons, with author and license.
+- The cloud can be filtered: all, organic, inorganic or minerals.
 - Keyboard access to all elements, reduced-motion support, adaptive rendering quality.
 
 ## Dataset
 
-About 27 000 compounds that have a Wikipedia article in English, Russian or Ukrainian
-(selection rules: [ADR 0004](docs/adr/0004-data-sources-and-selection.md)). 3D models:
-PubChem conformers, crystals from Materials Project, RDKit for the rest; salts and
-hydrates are shown as ions side by side. Each dataset version is a GitHub release
+27 202 compounds that have a Wikipedia article in English, Russian or Ukrainian
+(selection rules: [ADR 0004](docs/adr/0004-data-sources-and-selection.md)); 25 554 (94%)
+have a 3D model: PubChem conformers, crystals from Materials Project, RDKit for the rest;
+salts and hydrates are shown as ions side by side. Each dataset version is a GitHub release
 (`data-<version>`); `data/DATASET` says which one the site uses.
 
 ## Architecture
@@ -60,16 +62,17 @@ Design decisions are recorded in [docs/adr](docs/adr); the plan is in
 | Metric | Budget | Measured (CI) |
 | --- | --- | --- |
 | Initial JavaScript (gzip) | ≤ 400 KB | ≈ 380 KB |
-| LCP on 4G (9 Mbit/s, 170 ms) | ≤ 2.5 s | ≈ 0.9 s desktop, ≈ 1.1 s phone (CPU ×4) |
-| Draw calls per frame | ≤ 100 | 3–12 |
+| LCP on 4G (9 Mbit/s, 170 ms) | ≤ 2.5 s | ≈ 0.85 s desktop, ≈ 1.1 s phone (CPU ×4) |
+| Draw calls per frame | ≤ 100 | 3–14 |
 | 3D structure file (gzip), 95% of compounds | ≤ 20 KB | ≈ 1.5 KB |
-| API p95 without cache, 32 parallel requests | ≤ 300 ms | ≈ 240–290 ms |
+| API p95 without cache, 4 parallel requests, full dataset | ≤ 300 ms | 14–66 ms per endpoint |
 
 ## Data sources and licenses
 
 The source code is MIT-licensed. Chemical data keeps the licenses of its sources:
 Wikidata (CC0), Wikipedia (CC BY-SA 4.0), PubChem (NIH, public domain), Materials
-Project (CC BY 4.0). GNoME data (CC BY-NC) is excluded. The site's About page and
+Project (CC BY 4.0), Wikimedia Commons (license per photo). GNoME data (CC BY-NC) is
+excluded. The site's About page and
 [docs/data-sources.md](docs/data-sources.md) list the details.
 
 ## License

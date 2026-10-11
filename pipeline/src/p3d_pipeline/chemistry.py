@@ -63,6 +63,25 @@ CLASS_CHEMICAL_GROUP = "Q141501897"  # "type of chemical group": hydroxyl, methy
 # Items of these classes are not compounds and stay out of the dataset.
 EXCLUDED_CLASSES: frozenset[str] = frozenset({CLASS_CHEMICAL_ELEMENT, CLASS_CHEMICAL_GROUP})
 
+# Formulas with more atoms are proteins, antibodies and polymers; Wikidata formulas of
+# such items are often wrong (hemoglobin "Fe4321"), and they have no useful 3D model.
+MAX_FORMULA_ATOMS = 1000
+
+# Famous items that name a group of isomers (glucose, xylene) have no SMILES of their
+# own. A well-known member represents the group in the 3D view.
+REPRESENTATIVE_SMILES: dict[str, str] = {
+    "Q37525": "C([C@@H]1[C@H]([C@@H]([C@H](C(O1)O)O)O)O)O",  # glucose → D-glucopyranose
+    "Q66589593": "C([C@@H]1[C@@H]([C@@H]([C@H](C(O1)O)O)O)O)O",  # galactose → D-galactopyranose
+    "Q208366": "Cc1ccc(C)cc1",  # xylene → p-xylene
+    "Q663902": "CCCCO",  # butanol → 1-butanol
+    "Q151335": "C=CCC",  # butene → 1-butene
+    "Q151353": "C=CCCC",  # pentene → 1-pentene
+    "Q151366": "C=CCCCC",  # hexene → 1-hexene
+    "Q248797": "CCCCCO",  # amyl alcohol → 1-pentanol
+    "Q26272": "CN1C2CCC1CC(C2)OC(=O)C(CO)c1ccccc1",  # atropine (racemic hyoscyamine)
+    "Q193598": "OCC(O)C1OC(=O)C(O)=C1O",  # DL-ascorbic acid
+}
+
 # Reduced formulas of covalent network solids: shown as crystals even when PubChem has
 # a small-molecule 3D record (O=Si=O is not quartz).
 NETWORK_SOLIDS: frozenset[str] = frozenset({"O2Si", "CSi", "BN", "N4Si3", "B4C", "B2O3", "GeO2", "AlN", "GaN"})

@@ -148,3 +148,19 @@ def test_best_candidate_prefers_long_standing_entries() -> None:
     best = best_candidate(options)
     assert best is not None and best.id == "mp-48"  # within the window, the oldest id wins
     assert best_candidate([]) is None
+
+
+def test_select_compounds_skips_giant_formulas_and_finds_smiles() -> None:
+    records = {
+        "Q43041": _record("Q43041", "C2952H4664Fe4321O8125S8", 100),  # hemoglobin with a broken formula
+        "Q37525": _record("Q37525", "C6H12O6", 114),  # glucose: a group of isomers, no SMILES of its own
+        "Q153": _record("Q153", "C2H6O", 132, smiles={"CCO"}, canonical_smiles={"OCC"}),
+        "Q2270": _record("Q2270", "C6H6", 93, canonical_smiles={"c1ccccc1"}),
+    }
+    by_id = {compound.id: compound for compound in select_compounds(records, _options())}
+    assert set(by_id) == {"Q37525", "Q153", "Q2270"}
+    assert by_id["Q153"].smiles == "CCO"  # isomeric SMILES first
+    assert by_id["Q2270"].smiles == "c1ccccc1"
+    assert by_id["Q37525"].smiles and by_id["Q37525"].smiles.count("O") == 6
+    by_id["Q153"].pubchem = {"smiles": "C(C)O"}
+    assert by_id["Q153"].smiles == "C(C)O"  # PubChem wins

@@ -30,10 +30,12 @@ from . import __version__, embeddings
 from .chemistry import (
     CLASS_MINERAL_SPECIES,
     EXCLUDED_CLASSES,
+    MAX_FORMULA_ATOMS,
     MOLECULAR_ELEMENTS,
     MOLECULAR_SMILES,
     NETWORK_SOLIDS,
     NOBLE_GASES,
+    REPRESENTATIVE_SMILES,
     is_metal,
 )
 from .elements_table import SYMBOLS, UK_ELEMENT_NAMES, Z_BY_SYMBOL
@@ -69,7 +71,7 @@ LICENSES = {
     "materialsproject": "CC BY 4.0, Materials Project",
     "wikidata": "CC0, Wikidata",
     "wikipedia": "CC BY-SA 4.0, Wikipedia",
-    "rdkit": "Computed with RDKit from PubChem SMILES",
+    "rdkit": "Computed with RDKit from SMILES (PubChem, Wikidata)",
 }
 
 
@@ -96,6 +98,7 @@ class Compound:
     classes: list[str]
     mp_hint: str | None
     charged: bool = False
+    wikidata_smiles: str | None = None
     descriptions: dict[str, str] = field(default_factory=dict)
     pubchem: dict[str, Any] = field(default_factory=dict)
     structure: dict[str, Any] | None = None
@@ -107,6 +110,12 @@ class Compound:
     @property
     def reduced(self) -> str | None:
         return reduced_formula(self.counts)
+
+    @property
+    def smiles(self) -> str | None:
+        """PubChem SMILES, else Wikidata SMILES or a representative isomer."""
+        value = self.pubchem.get("smiles") or self.wikidata_smiles
+        return str(value) if value else None
 
     @property
     def mineral(self) -> bool:
@@ -214,7 +223,7 @@ def select_compounds(
 
     Skipped: chemical elements themselves, chemical groups (hydroxyl), single atoms and
     atomic ions (isotopes, H⁺, Fe³⁺: they belong to the element scene), unparseable or
-    variable formulas.
+    variable formulas, and giant formulas (proteins, antibodies: MAX_FORMULA_ATOMS).
     """
     selected: list[Compound] = []
     for record in records.values():
@@ -227,7 +236,7 @@ def select_compounds(
             if counts:
                 raw_formula = raw.strip()
                 break
-        if not counts or not record.articles:
+        if not counts or not record.articles or sum(counts.values()) > MAX_FORMULA_ATOMS:
             continue
         if options.only_elements and not set(counts) <= options.only_elements:
             continue
@@ -242,6 +251,7 @@ def select_compounds(
             classes=sorted(record.classes),
             mp_hint=min(record.mp_ids) if record.mp_ids else None,
             charged=has_net_charge(raw_formula),
+            wikidata_smiles=record.best_smiles or REPRESENTATIVE_SMILES.get(record.qid),
         )
         if compound.single_atom and compound.id not in ALLOTROPE_STRUCTURES:
             continue
@@ -266,7 +276,7 @@ def prefers_crystal(compound: Compound, has_3d: bool) -> bool:
         single_atom = abs(compound.counts[symbol] - 1) < 1e-6
         return single_atom and symbol not in MOLECULAR_ELEMENTS and symbol not in NOBLE_GASES and symbol != "C"
     has_metal = any(is_metal(symbol) for symbol in elements)
-    smiles = compound.pubchem.get("smiles") or ""
+    smiles = compound.smiles or ""
     if has_metal and "C" not in elements:
         return True
     return "." in smiles and not has_3d
@@ -344,14 +354,12 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
     log.info("PubChem 3D: %d records in %.0f s", len(conformers), time.monotonic() - started)
     stats["pubchem_3d_available"] = len(conformers)
 
-    # RDKit for molecules without a PubChem 3D record, on all CPU cores.
+    # RDKit for molecules (and salts) without a PubChem 3D record, on all CPU cores.
     smiles_jobs = sorted(
         {
-            compound.pubchem["smiles"]
+            smiles
             for compound in compounds
-            if compound.pubchem.get("smiles")
-            and "." not in compound.pubchem["smiles"]
-            and not (compound.cid and compound.cid in conformers)
+            if (smiles := compound.smiles) and not (compound.cid and compound.cid in conformers)
         }
     )
     embedded = embed_all(smiles_jobs)
@@ -394,9 +402,8 @@ def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict
             if method == "pubchem3d" and has_3d and compound.cid:
                 structure = parse_sdf(conformers[compound.cid])
                 ref = str(compound.cid)
-            elif method == "rdkit" and compound.pubchem.get("smiles"):
-                smiles = compound.pubchem["smiles"]
-                structure = embedded[smiles] if smiles in embedded else molecule_from_smiles(smiles)
+            elif method == "rdkit" and (smiles_text := compound.smiles):
+                structure = embedded[smiles_text] if smiles_text in embedded else molecule_from_smiles(smiles_text)
                 ref = str(compound.cid) if compound.cid else None
             elif method == "crystal" and compound.id in chosen and chosen[compound.id] in crystals:
                 attributes = crystals[chosen[compound.id]]
@@ -513,7 +520,7 @@ def compound_card(compound: Compound) -> dict[str, Any]:
         "pubchemCid": compound.cid,
         "mass": compound.pubchem.get("mass"),
         "charge": net_charge(compound.formula),
-        "smiles": compound.pubchem.get("smiles"),
+        "smiles": compound.smiles,
         "inchikey": compound.pubchem.get("inchikey"),
         "iupac": compound.pubchem.get("iupac"),
         "classes": compound.classes,

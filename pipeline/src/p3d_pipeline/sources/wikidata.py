@@ -7,10 +7,13 @@ the English, Russian or Ukrainian Wikipedia.
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass, field
 from urllib.parse import unquote
 
 from ..http import Fetcher
+
+log = logging.getLogger("p3d.wikidata")
 
 QLEVER = "https://qlever.cs.uni-freiburg.de/api/wikidata"
 
@@ -82,6 +85,16 @@ class CompoundRecord:
     inchikeys: set[str] = field(default_factory=set)
     classes: set[str] = field(default_factory=set)
     mp_ids: set[str] = field(default_factory=set)
+    smiles: set[str] = field(default_factory=set)  # isomeric (P2017)
+    canonical_smiles: set[str] = field(default_factory=set)  # P233
+
+    @property
+    def best_smiles(self) -> str | None:
+        """Isomeric SMILES first (it keeps stereochemistry), then canonical; shortest wins."""
+        for options in (self.smiles, self.canonical_smiles):
+            if options:
+                return min(options, key=lambda value: (len(value), value))
+        return None
 
 
 def _article_title(iri: str) -> str:
@@ -130,14 +143,21 @@ def fetch_compounds(fetcher: Fetcher) -> dict[str, CompoundRecord]:
         "inchikey": "wdt:P235",
         "class": "wdt:P31",
         "mp": "wdt:P9902",
+        "smiles": "wdt:P2017",
+        "canonical_smiles": "wdt:P233",
     }
+    optional = {"smiles", "canonical_smiles"}  # added later: an outage must not stop a build from the cache
     for kind, predicate in identifier_queries.items():
-        rows = sparql(
-            fetcher,
-            f"""SELECT DISTINCT ?item ?value WHERE {{
+        query = f"""SELECT DISTINCT ?item ?value WHERE {{
               ?item wdt:P274 ?formula ; {predicate} ?value . {_HAS_ARTICLE}
-            }}""",
-        )
+            }}"""
+        try:
+            rows = sparql(fetcher, query)
+        except Exception as error:
+            if kind not in optional:
+                raise
+            log.warning("Wikidata %s skipped: %s", kind, error)
+            continue
         for row in rows:
             target = records.get(qid(row["item"]))
             if target is None:
@@ -151,6 +171,10 @@ def fetch_compounds(fetcher: Fetcher) -> dict[str, CompoundRecord]:
                 target.classes.add(qid(value))
             elif kind == "mp":
                 target.mp_ids.add(value)
+            elif kind == "smiles":
+                target.smiles.add(value)
+            elif kind == "canonical_smiles":
+                target.canonical_smiles.add(value)
     return records
 
 

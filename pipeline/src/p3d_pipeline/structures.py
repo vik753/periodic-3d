@@ -14,6 +14,7 @@ import contextlib
 import itertools
 import re
 from collections import Counter
+from dataclasses import dataclass
 from typing import Any
 
 import numpy as np
@@ -72,25 +73,134 @@ def parse_sdf(record: str) -> Structure | None:
     return {"kind": "molecule", "atoms": atoms, "bonds": bonds}
 
 
-def molecule_from_smiles(smiles: str, *, seed: int = 42, max_atoms: int = 400) -> Structure | None:
-    """Embed a single-fragment molecule in 3D with RDKit (ETKDG + force field).
+MAX_FRAGMENTS = 16
+ION_GAP = 2.5  # Å from a counter-ion to the oppositely charged atom it sits next to
+NEUTRAL_GAP = 2.9  # Å for neutral parts (water of crystallization)
 
-    Falls back to a flat 2D layout when 3D embedding fails. Returns None for
-    multi-fragment SMILES (salts) and when RDKit cannot parse the input.
+
+@dataclass
+class Fragment:
+    """One embedded part of a multi-part SMILES (an ion or a water molecule)."""
+
+    structure: Structure
+    charges: list[int]  # formal charge per atom
+
+
+def _fibonacci_sphere(count: int) -> np.ndarray:
+    """Evenly spread unit vectors (directions to try when placing a fragment)."""
+    index = np.arange(count) + 0.5
+    polar = np.arccos(1 - 2 * index / count)
+    azimuth = np.pi * (1 + 5**0.5) * index
+    return np.column_stack([np.cos(azimuth) * np.sin(polar), np.sin(azimuth) * np.sin(polar), np.cos(polar)])
+
+
+_DIRECTIONS = _fibonacci_sphere(96)
+
+
+def _coordinates(structure: Structure) -> np.ndarray:
+    return np.array([[atom["x"], atom["y"], atom["z"]] for atom in structure["atoms"]], dtype=float).reshape(-1, 3)
+
+
+def assemble_fragments(fragments: list[Fragment]) -> Structure:
+    """Place the parts of a salt or hydrate next to each other.
+
+    The largest part stays at the centre. Every other part touches a free atom of the
+    opposite charge (Na⁺ next to O⁻ of acetate) or, when neutral, an O or N atom.
+    Among 96 directions the one with the most room wins, so parts do not overlap.
+    """
+    order = sorted(range(len(fragments)), key=lambda i: (-len(fragments[i].structure["atoms"]), i))
+    first = fragments[order[0]]
+    placed = _coordinates(first.structure)
+    placed -= placed.mean(axis=0)
+    elements = [atom["el"] for atom in first.structure["atoms"]]
+    bonds = [list(bond) for bond in first.structure["bonds"]]
+    charges = list(first.charges)
+    flat = first.structure["kind"] == "flat"
+    used: Counter[int] = Counter()
+    for index in order[1:]:
+        fragment = fragments[index]
+        local = _coordinates(fragment.structure)
+        charge = sum(fragment.charges)
+        centre = local.mean(axis=0)
+        charged = [i for i, value in enumerate(fragment.charges) if value]
+        heavy = [i for i, atom in enumerate(fragment.structure["atoms"]) if atom["el"] != "H"] or [0]
+        contact = min(charged or heavy, key=lambda i: float(np.linalg.norm(local[i] - centre)))
+        local = local - local[contact]
+        anchors = [i for i, value in enumerate(charges) if charge and value * charge < 0]
+        if not anchors:
+            anchors = [i for i, symbol in enumerate(elements) if symbol in ("O", "N")]
+        if not anchors:
+            anchors = [i for i, symbol in enumerate(elements) if symbol != "H"] or [0]
+        anchor = min(anchors, key=lambda i: (used[i], i))
+        used[anchor] += 1
+        outward = placed[anchor] - placed.mean(axis=0)
+        norm = float(np.linalg.norm(outward))
+        outward = outward / norm if norm > 1e-6 else np.array([1.0, 0.0, 0.0])
+        gap = ION_GAP if charge else NEUTRAL_GAP
+        best_score, best = -np.inf, local + placed[anchor] + gap * _DIRECTIONS[0]
+        for direction in _DIRECTIONS:
+            moved = local + placed[anchor] + gap * direction
+            clearance = float(np.min(np.linalg.norm(moved[:, None, :] - placed[None, :, :], axis=2)))
+            score = min(clearance, gap) + 0.5 * float(direction @ outward)
+            if score > best_score:
+                best_score, best = score, moved
+        offset = len(elements)
+        bonds += [[a + offset, b + offset, kind] for a, b, kind in fragment.structure["bonds"]]
+        elements += [atom["el"] for atom in fragment.structure["atoms"]]
+        charges += fragment.charges
+        placed = np.vstack([placed, best])
+        flat = flat or fragment.structure["kind"] == "flat"
+    placed -= placed.mean(axis=0)
+    atoms = [
+        {"el": symbol, "x": _r(x), "y": _r(y), "z": _r(z)} for symbol, (x, y, z) in zip(elements, placed, strict=True)
+    ]
+    return {"kind": "flat" if flat else "molecule", "atoms": atoms, "bonds": bonds}
+
+
+def molecule_from_smiles(smiles: str, *, seed: int = 42, max_atoms: int = 400) -> Structure | None:
+    """Embed a molecule in 3D with RDKit (ETKDG + force field).
+
+    Salts and hydrates (multi-part SMILES, "CC(=O)[O-].[Na+]") are embedded part by
+    part and placed side by side (assemble_fragments). Falls back to a flat 2D layout
+    when 3D embedding fails. Returns None when RDKit cannot parse the input.
     """
     try:
         from rdkit import Chem, RDLogger
-        from rdkit.Chem import AllChem
     except ImportError:
         return None
     RDLogger.DisableLog("rdApp.*")
     mol = Chem.MolFromSmiles(smiles)
-    if mol is None or len(Chem.GetMolFrags(mol)) > 1:
+    if mol is None:
         return None
+    parts = Chem.GetMolFrags(mol, asMols=True)
+    if len(parts) > MAX_FRAGMENTS:
+        return None
+    fragments: list[Fragment] = []
+    budget = max_atoms
+    for part in parts:
+        fragment = _embed(part, seed=seed, max_atoms=budget)
+        if fragment is None:
+            return None
+        budget -= len(fragment.structure["atoms"])
+        fragments.append(fragment)
+    if len(fragments) == 1:
+        return fragments[0].structure
+    return assemble_fragments(fragments)
+
+
+def _embed(mol: Any, *, seed: int, max_atoms: int) -> Fragment | None:
+    """3D coordinates for one connected molecule (RDKit Mol)."""
+    from rdkit import Chem
+    from rdkit.Chem import AllChem
+
     heavy_atoms = mol.GetNumAtoms()
     mol = Chem.AddHs(mol)
     if mol.GetNumAtoms() > max_atoms:
         return None
+    if mol.GetNumAtoms() == 1:
+        atom = mol.GetAtomWithIdx(0)
+        point = {"el": atom.GetSymbol(), "x": 0.0, "y": 0.0, "z": 0.0}
+        return Fragment({"kind": "molecule", "atoms": [point], "bonds": []}, [atom.GetFormalCharge()])
     kind = "molecule"
     params = AllChem.ETKDGv3()
     params.randomSeed = seed
@@ -120,7 +230,8 @@ def molecule_from_smiles(smiles: str, *, seed: int = 42, max_atoms: int = 400) -
         position = conformer.GetAtomPosition(atom.GetIdx())
         atoms.append({"el": atom.GetSymbol(), "x": _r(position.x), "y": _r(position.y), "z": _r(position.z)})
     bonds = [[bond.GetBeginAtomIdx(), bond.GetEndAtomIdx(), bond.GetBondTypeAsDouble() or 1] for bond in mol.GetBonds()]
-    return {"kind": kind, "atoms": atoms, "bonds": bonds}
+    charges = [atom.GetFormalCharge() for atom in mol.GetAtoms()]
+    return Fragment({"kind": kind, "atoms": atoms, "bonds": bonds}, charges)
 
 
 # ---------------------------------------------------------------------------

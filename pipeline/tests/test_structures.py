@@ -5,6 +5,9 @@ import pytest
 
 from p3d_pipeline.formula import same_proportions
 from p3d_pipeline.structures import (
+    ION_GAP,
+    Fragment,
+    assemble_fragments,
     composition,
     crystal_fragment,
     molecular_units,
@@ -73,8 +76,67 @@ def test_molecule_from_smiles_ethanol() -> None:
 
 
 @pytest.mark.skipif(importlib.util.find_spec("rdkit") is None, reason="RDKit is not installed")
-def test_molecule_from_smiles_rejects_salts() -> None:
-    assert molecule_from_smiles("[Na+].[Cl-]") is None
+def test_molecule_from_smiles_places_salt_parts_side_by_side() -> None:
+    structure = molecule_from_smiles("CC(=O)[O-].[Na+]")  # sodium acetate
+    assert structure is not None
+    assert structure["kind"] == "molecule"
+    assert composition(structure) == {"C": 2.0, "O": 2.0, "H": 3.0, "Na": 1.0}
+
+
+@pytest.mark.skipif(importlib.util.find_spec("rdkit") is None, reason="RDKit is not installed")
+def test_molecule_from_smiles_rejects_too_many_parts() -> None:
+    assert molecule_from_smiles(".".join(["O"] * 17)) is None
+
+
+def _point(symbol: str, x: float = 0.0, y: float = 0.0, z: float = 0.0) -> dict[str, float | str]:
+    return {"el": symbol, "x": x, "y": y, "z": z}
+
+
+def _distances(structure: dict, first: int) -> np.ndarray:
+    points = np.array([[atom["x"], atom["y"], atom["z"]] for atom in structure["atoms"]])
+    return np.linalg.norm(points[:first, None, :] - points[None, first:, :], axis=2)
+
+
+def test_assemble_fragments_puts_counter_ion_next_to_opposite_charge() -> None:
+    # Hydroxide-like anion O⁻–H (charge on O) and a Na⁺ ion.
+    anion = Fragment({"kind": "molecule", "atoms": [_point("O"), _point("H", 0.96)], "bonds": [[0, 1, 1]]}, [-1, 0])
+    cation = Fragment({"kind": "molecule", "atoms": [_point("Na")], "bonds": []}, [1])
+    structure = assemble_fragments([cation, anion])
+    assert [atom["el"] for atom in structure["atoms"]] == ["O", "H", "Na"]  # largest part first
+    assert structure["bonds"] == [[0, 1, 1]]
+    distances = _distances(structure, 2)
+    assert distances[0, 0] == pytest.approx(ION_GAP, abs=0.01)  # Na⁺ touches O⁻
+    assert distances[1, 0] > 1.5  # and keeps clear of H
+
+
+def test_assemble_fragments_spreads_parts_without_overlap() -> None:
+    sulfate = Fragment(
+        {
+            "kind": "molecule",
+            "atoms": [_point("S"), _point("O", 1.5), _point("O", -1.5), _point("O", 0, 1.5), _point("O", 0, -1.5)],
+            "bonds": [[0, 1, 2], [0, 2, 2], [0, 3, 1], [0, 4, 1]],
+        },
+        [0, 0, 0, -1, -1],
+    )
+    sodium = Fragment({"kind": "molecule", "atoms": [_point("Na")], "bonds": []}, [1])
+    water = Fragment(
+        {"kind": "molecule", "atoms": [_point("O"), _point("H", 0.96), _point("H", -0.24, 0.93)], "bonds": []},
+        [0, 0, 0],
+    )
+    structure = assemble_fragments([sulfate, sodium, sodium, water, water])
+    assert len(structure["atoms"]) == 5 + 2 + 6
+    points = np.array([[atom["x"], atom["y"], atom["z"]] for atom in structure["atoms"]])
+    assert np.allclose(points.mean(axis=0), 0, atol=0.01)
+    # Output order: largest part first (sulfate, two waters), then the ions.
+    assert [atom["el"] for atom in structure["atoms"]][-2:] == ["Na", "Na"]
+    parts = [range(0, 5), range(5, 8), range(8, 11), range(11, 12), range(12, 13)]
+    for i, first in enumerate(parts):
+        for second in parts[i + 1 :]:
+            gap = min(np.linalg.norm(points[a] - points[b]) for a in first for b in second)
+            assert gap > 1.4, (first, second, gap)
+    # Each Na⁺ takes its own O⁻.
+    sodium_neighbours = {int(np.argmin(np.linalg.norm(points[:5] - points[index], axis=1))) for index in (11, 12)}
+    assert sodium_neighbours == {3, 4}
 
 
 def test_molecular_units_find_molecules_across_the_cell_boundary() -> None:

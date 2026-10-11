@@ -459,6 +459,15 @@ def assign_structures(
         elif compound.reduced and (best := optimade.best_candidate(candidates.get(compound.reduced, []), experimental)):
             chosen[compound.id] = best.id
     log.info("OPTIMADE structures for %d materials", len(set(chosen.values())))
+    if origins:
+        known = sum(1 for identifier in set(chosen.values()) if identifier in origins)
+        log.info(
+            "MP API origins known for %d of %d chosen structures (e.g. %s; chosen e.g. %s)",
+            known,
+            len(set(chosen.values())),
+            sorted(origins)[:3],
+            sorted(set(chosen.values()))[:3],
+        )
     crystals = optimade.structures(fetcher, set(chosen.values()))
 
     log.info("Assigning structures for %d compounds", len(compounds))

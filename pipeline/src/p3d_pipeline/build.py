@@ -373,14 +373,19 @@ class StructureResult:
     ref: str | None
 
 
-def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict[str, StructureResult], Counter[str]]:
+def assign_structures(
+    compounds: list[Compound], fetcher: Fetcher, with_3d: list[int] | None = None
+) -> tuple[dict[str, StructureResult], Counter[str]]:
     stats: Counter[str] = Counter()
     cids = [compound.cid for compound in compounds if compound.cid]
 
     # Ask for 3D only where PubChem has it (CIDs without properties are tried anyway).
-    with_3d = [
-        compound.cid for compound in compounds if compound.cid and int(compound.pubchem.get("conformers3d", 1) or 0) > 0
-    ]
+    if with_3d is None:
+        with_3d = [
+            compound.cid
+            for compound in compounds
+            if compound.cid and int(compound.pubchem.get("conformers3d", 1) or 0) > 0
+        ]
     log.info("PubChem 3D conformers for %d of %d CIDs", len(with_3d), len(cids))
     started = time.monotonic()
     conformers = pubchem.conformers_3d(fetcher, with_3d, budget_s=PUBCHEM_3D_BUDGET_S)
@@ -555,14 +560,21 @@ def _structure_meta(result: StructureResult) -> dict[str, Any]:
     }
 
 
-def attach_pubchem(compounds: list[Compound], fetcher: Fetcher) -> None:
-    """PubChem properties (formula, mass, SMILES, InChIKey, IUPAC name) for compounds with a CID."""
+def attach_pubchem(compounds: list[Compound], fetcher: Fetcher) -> list[int]:
+    """PubChem properties (formula, mass, SMILES, InChIKey, IUPAC name) for compounds with a CID.
+
+    Returns the CIDs to ask 3D for, as Wikidata links them: taken before the formula
+    cross-check drops any link, they form the same 3D batches as earlier builds, and the
+    URL cache serves them.
+    """
     cids = [compound.cid for compound in compounds if compound.cid]
     log.info("PubChem properties for %d CIDs", len(cids))
     properties = pubchem.properties(fetcher, cids)
     for compound in compounds:
         if compound.cid and compound.cid in properties:
             compound.pubchem = properties[compound.cid]
+    # CIDs without properties are tried anyway (default 1).
+    return [cid for cid in cids if int(properties.get(cid, {}).get("conformers3d", 1) or 0) > 0]
 
 
 QUALITY_EXAMPLES = 40
@@ -777,13 +789,13 @@ def run(options: Options) -> Path:
 
         stats: Counter[str] = Counter()
         oversized: list[str] = []
-        quality = QualityReport()
+        with_3d: list[int] | None = None
         if options.structures:
-            attach_pubchem(compounds, fetcher)
+            with_3d = attach_pubchem(compounds, fetcher)
         masses = {element["symbol"]: element["mass"] for element in elements if element.get("mass")}
         quality = reconcile_formulas(compounds, masses, electronegativity)
         if options.structures:
-            results, stats = assign_structures(compounds, fetcher)
+            results, stats = assign_structures(compounds, fetcher, with_3d)
             for compound in compounds:
                 result = results.get(compound.id)
                 if result is None:

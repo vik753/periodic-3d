@@ -1,27 +1,57 @@
-$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.11-r29 --only-elements H,O,Fe --limit 60 --descriptions
-started: 2026-10-11T09:39:18Z
-2026-10-11 09:39:19,065 INFO p3d.build: Elements
-2026-10-11 09:39:19,069 INFO p3d.build: Compounds from Wikidata
-2026-10-11 09:39:20,390 INFO p3d.build: Selected 49 compounds
-2026-10-11 09:39:20,390 INFO p3d.build: Class labels
-2026-10-11 09:39:20,390 INFO p3d.build: PubChem properties for 34 CIDs
-2026-10-11 09:39:20,391 INFO p3d.build: Formula checks: {<Verdict.OK: 'ok'>: 33, <Verdict.NO_PUBCHEM: 'no_pubchem'>: 16}
-2026-10-11 09:39:20,391 INFO p3d.build: PubChem 3D conformers for 17 of 34 CIDs
-2026-10-11 09:39:20,393 INFO p3d.build: PubChem 3D: 17 records in 0 s
-2026-10-11 09:39:20,393 INFO p3d.build: RDKit: embedding 20 molecules on 4 processes
-2026-10-11 09:39:20,520 INFO p3d.build: RDKit: done in 0 s
-2026-10-11 09:39:20,520 INFO p3d.build: OPTIMADE candidates for 17 formulas
-2026-10-11 09:39:20,523 INFO p3d.build: OPTIMADE structures for 11 materials
-2026-10-11 09:39:20,523 INFO p3d.build: Assigning structures for 49 compounds
-2026-10-11 09:39:21,319 INFO p3d.build: Wikipedia en extracts for 48 articles
-2026-10-11 09:39:21,321 INFO p3d.wikipedia: Wikipedia en: 48 of 48 titles remembered
-2026-10-11 09:39:21,322 INFO p3d.build: Wikipedia ru extracts for 29 articles
-2026-10-11 09:39:21,323 INFO p3d.wikipedia: Wikipedia ru: 29 of 29 titles remembered
-2026-10-11 09:39:21,323 INFO p3d.build: Wikipedia uk extracts for 26 articles
-2026-10-11 09:39:21,324 INFO p3d.wikipedia: Wikipedia uk: 26 of 26 titles remembered
-2026-10-11 09:39:21,325 INFO p3d.build: Commons photos for 124 files
-2026-10-11 09:39:21,330 INFO p3d.build: Vectors
-2026-10-11 09:39:21,336 INFO p3d.build: Dataset ../data/build/2026.10.11-r29 written in 2 s
-../data/build/2026.10.11-r29
-finished: 2026-10-11T09:39:21Z
+$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.11-r30 --only-elements  --limit 0 --descriptions
+started: 2026-10-11T09:40:06Z
+2026-10-11 09:40:07,257 INFO p3d.build: Elements
+2026-10-11 09:40:07,262 INFO p3d.build: Compounds from Wikidata
+2026-10-11 09:40:09,099 INFO p3d.build: Selected 27202 compounds
+2026-10-11 09:40:09,099 INFO p3d.build: Class labels
+2026-10-11 09:40:09,118 INFO p3d.build: PubChem properties for 23149 CIDs
+2026-10-11 09:40:09,615 INFO p3d.build: Formula checks: {<Verdict.OK: 'ok'>: 22647, <Verdict.NO_PUBCHEM: 'no_pubchem'>: 4227, <Verdict.PUBCHEM_DROPPED: 'pubchem_dropped'>: 65, <Verdict.WIKIDATA_FIXED: 'wikidata_fixed'>: 239, <Verdict.DISAGREE: 'disagree'>: 20, <Verdict.SCALED: 'scaled'>: 3, <Verdict.ISOTOPES: 'isotopes'>: 1}
+2026-10-11 09:40:09,619 INFO p3d.build: PubChem 3D conformers for 16781 of 23084 CIDs
+2026-10-11 09:41:40,700 INFO p3d.pubchem:   3D batches: 200/1676, 2012 records, {'cache_hit': 270, 'memo_hit': 22, 'fetched': 173}
+2026-10-11 09:42:55,932 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +1.0 s per request
+2026-10-11 09:42:57,274 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +0.0 s per request
+2026-10-11 09:43:22,492 INFO p3d.pubchem:   3D batches: 400/1676, 4012 records, {'cache_hit': 279, 'memo_hit': 22, 'fetched': 364}
+2026-10-11 09:47:07,362 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/18608,18615,18621,18632,18635,18636,18651,18652,18698,18735/SDF
+2026-10-11 09:48:51,408 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/18937,18938,18980,18982,18985,18989,19003,19009,19063,19077/SDF
+2026-10-11 09:52:44,590 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/19527,19529,19571,19587,19588,19592,19596,19646,19649,19662/SDF
+2026-10-11 09:56:12,123 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/20288,20299,20313,20395,20414,20417,20441,20467,20468,20473/SDF
+2026-10-11 09:57:55,674 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/20485,20486,20501,20517,20544,20677,20686,20737,20748,20774/SDF
+2026-10-11 09:59:39,229 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/20796,20806,20810,20811,20824,20848,20861,20883,20970,20972/SDF
+2026-10-11 09:59:39,229 WARNING p3d.pubchem: PubChem 3D: 3 failures in a row, continuing from the cache only
+2026-10-11 09:59:39,235 INFO p3d.pubchem:   3D batches: 600/1676, 4492 records, {'cache_hit': 280, 'memo_hit': 22, 'fetched': 411, 'retry_429': 37, 'failed_batches': 6, 'skipped_offline': 146}
+2026-10-11 09:59:39,429 INFO p3d.pubchem:   3D batches: 800/1676, 6002 records, {'cache_hit': 431, 'memo_hit': 22, 'fetched': 411, 'retry_429': 37, 'failed_batches': 6, 'skipped_offline': 195}
+2026-10-11 09:59:39,437 INFO p3d.pubchem:   3D batches: 1000/1676, 6002 records, {'cache_hit': 431, 'memo_hit': 22, 'fetched': 411, 'retry_429': 37, 'failed_batches': 6, 'skipped_offline': 395}
+2026-10-11 09:59:39,444 INFO p3d.pubchem:   3D batches: 1200/1676, 6002 records, {'cache_hit': 431, 'memo_hit': 22, 'fetched': 411, 'retry_429': 37, 'failed_batches': 6, 'skipped_offline': 595}
+2026-10-11 09:59:39,452 INFO p3d.pubchem:   3D batches: 1400/1676, 6002 records, {'cache_hit': 431, 'memo_hit': 22, 'fetched': 411, 'retry_429': 37, 'failed_batches': 6, 'skipped_offline': 795}
+2026-10-11 09:59:39,459 INFO p3d.pubchem:   3D batches: 1600/1676, 6002 records, {'cache_hit': 431, 'memo_hit': 22, 'fetched': 411, 'retry_429': 37, 'failed_batches': 6, 'skipped_offline': 995}
+2026-10-11 09:59:39,462 INFO p3d.build: PubChem 3D: 6002 records in 1170 s
+2026-10-11 09:59:39,486 INFO p3d.build: RDKit: embedding 17590 molecules on 4 processes
+2026-10-11 10:18:43,916 INFO p3d.build: RDKit: done in 1144 s
+2026-10-11 10:18:44,219 INFO p3d.build: OPTIMADE candidates for 16641 formulas
+2026-10-11 10:22:33,661 INFO p3d.build: OPTIMADE structures for 4486 materials
+2026-10-11 10:23:45,730 INFO p3d.build: Assigning structures for 27202 compounds
+2026-10-11 10:23:48,873 INFO p3d.build:   structures: 2000/27202 (3 s)
+2026-10-11 10:23:51,269 INFO p3d.build:   structures: 4000/27202 (6 s)
+2026-10-11 10:23:53,568 INFO p3d.build:   structures: 6000/27202 (8 s)
+2026-10-11 10:23:55,183 INFO p3d.build:   structures: 8000/27202 (9 s)
+2026-10-11 10:23:57,302 INFO p3d.build:   structures: 10000/27202 (12 s)
+2026-10-11 10:23:59,127 INFO p3d.build:   structures: 12000/27202 (13 s)
+2026-10-11 10:24:01,422 INFO p3d.build:   structures: 14000/27202 (16 s)
+2026-10-11 10:24:03,072 INFO p3d.build:   structures: 16000/27202 (17 s)
+2026-10-11 10:24:04,405 INFO p3d.build:   structures: 18000/27202 (19 s)
+2026-10-11 10:24:05,149 INFO p3d.build:   structures: 20000/27202 (19 s)
+2026-10-11 10:24:06,290 INFO p3d.build:   structures: 22000/27202 (21 s)
+2026-10-11 10:24:07,729 INFO p3d.build:   structures: 24000/27202 (22 s)
+2026-10-11 10:24:14,144 INFO p3d.build:   structures: 26000/27202 (28 s)
+2026-10-11 10:24:19,188 INFO p3d.build: Wikipedia en extracts for 23859 articles
+2026-10-11 10:24:20,306 INFO p3d.wikipedia: Wikipedia en: 23859 of 23859 titles remembered
+2026-10-11 10:24:20,581 INFO p3d.build: Wikipedia ru extracts for 9759 articles
+2026-10-11 10:24:21,041 INFO p3d.wikipedia: Wikipedia ru: 9759 of 9759 titles remembered
+2026-10-11 10:24:21,140 INFO p3d.build: Wikipedia uk extracts for 3844 articles
+2026-10-11 10:24:21,323 INFO p3d.wikipedia: Wikipedia uk: 3844 of 3844 titles remembered
+2026-10-11 10:24:21,368 INFO p3d.build: Commons photos for 2367 files
+2026-10-11 10:24:21,570 INFO p3d.build: Vectors
+2026-10-11 10:24:23,248 INFO p3d.build: Dataset ../data/build/2026.10.11-r30 written in 2656 s
+../data/build/2026.10.11-r30
+finished: 2026-10-11T10:24:23Z
 exit code: 0

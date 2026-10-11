@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
-import { useCompound, useElements } from '../data/hooks';
+import { useCompound, useElements, useMaterial } from '../data/hooks';
 import type { Language } from '../i18n';
 import { LANGUAGES, saveLanguage } from '../i18n';
 import { wasAboutSeen } from '../lib/visits';
@@ -36,6 +36,7 @@ export function TopBar() {
   const elements = useElements();
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);
+  const material = useMaterial(scene.kind === 'material' ? scene.id : null);
 
   const crumbs: Array<{ label: string; detail?: string }> = [];
   if (scene.kind === 'element') {
@@ -45,6 +46,7 @@ export function TopBar() {
   if (scene.kind === 'compound') {
     crumbs.push({ label: demoCompound(scene.id)?.formula ?? compound.data?.formula ?? scene.id });
   }
+  if (scene.kind === 'material') crumbs.push({ label: material.data?.formula ?? scene.id, detail: t('material.kind') });
   if (scene.kind === 'set') crumbs.push({ label: scene.symbols.join(' + ') });
 
   const changeLanguage = (language: Language) => {

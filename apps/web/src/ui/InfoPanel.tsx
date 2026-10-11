@@ -14,6 +14,7 @@ import { Panel, Skeleton } from './Panel';
 const AboutPanel = lazy(() => import('./AboutPanel').then((module) => ({ default: module.AboutPanel })));
 const CompoundPanel = lazy(() => import('./CompoundPanel').then((module) => ({ default: module.CompoundPanel })));
 const ElementPanel = lazy(() => import('./ElementPanel').then((module) => ({ default: module.ElementPanel })));
+const MaterialPanel = lazy(() => import('./MaterialPanel').then((module) => ({ default: module.MaterialPanel })));
 const SetPanel = lazy(() => import('./SetPanel').then((module) => ({ default: module.SetPanel })));
 
 function Loading() {
@@ -140,6 +141,7 @@ function ScenePanel() {
   if (scene.kind === 'element')
     return <ElementPanel key={`${scene.symbol}/${scene.partner ?? ''}`} symbol={scene.symbol} partner={scene.partner} />;
   if (scene.kind === 'compound') return <CompoundPanel key={scene.id} id={scene.id} />;
+  if (scene.kind === 'material') return <MaterialPanel key={scene.id} id={scene.id} />;
   if (scene.kind === 'set') return <SetPanel symbols={scene.symbols} />;
   return <TableHint />;
 }

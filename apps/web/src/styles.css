@@ -11,10 +11,12 @@
   --color-text: #e9eef8;
   --color-muted: #a3afc8;
 
-  /* Accents: rays (bonds) are red, selection is gold, extra elements are cyan. */
+  /* Accents: rays (bonds) are red, selection is gold, extra elements are cyan,
+     predicted materials (GNoME) are violet. */
   --color-ray: #ff3b4e;
   --color-gold: #ffc857;
   --color-cyan: #62d2ff;
+  --color-violet: #b69cff;
 }
 
 html,

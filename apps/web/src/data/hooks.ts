@@ -1,7 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import type { CompoundDetail, ElementDetail, ElementList, Meta, PairDetail } from './api';
+import type {
+  CompoundDetail,
+  ElementDetail,
+  ElementList,
+  Material,
+  MaterialList,
+  MaterialPairs,
+  MaterialShard,
+  Meta,
+  PairDetail,
+} from './api';
 import { registerElementColors } from './chemistry';
 import { fetchJson, metaUrl, NotFoundError, resourceUrl } from './source';
 
@@ -54,4 +64,55 @@ export function useCompound(id: string | null) {
 
 export function usePair(path: string | null) {
   return useDataset<PairDetail>(path);
+}
+
+/** Characters of a material id that name its shard file (MATERIAL_SHARD_CHARS in the API). */
+export const MATERIAL_SHARD_CHARS = 4;
+
+/** True for a GNoME material id: 10 hex characters. */
+export function isMaterialId(id: string): boolean {
+  return /^[0-9a-f]{10}$/.test(id);
+}
+
+/** A file of the GNoME layer (its own version). Idle when the site has no layer or `path` is null. */
+function useGnomeFile<T>(path: string | null) {
+  const meta = useMeta();
+  const version = meta.data?.gnome?.version;
+  const query = useQuery({
+    queryKey: ['gnome', version, path],
+    queryFn: ({ signal }) => fetchJson<T>(resourceUrl(version as string, path as string), signal),
+    enabled: Boolean(version && path),
+    retry,
+    staleTime: Infinity,
+  });
+  return {
+    ...query,
+    /** The site has no layer of predicted materials. */
+    unavailable: meta.isError || (meta.isSuccess && !meta.data?.gnome),
+    isPending: query.isPending && Boolean(version) && path !== null,
+  };
+}
+
+/** The layer's description from meta.json (license, citation, counts), or null. */
+export function useGnome() {
+  const meta = useMeta();
+  return meta.data?.gnome ?? null;
+}
+
+/** One predicted material: its shard file holds about 8 materials (≈ 3 KB gzip). */
+export function useMaterial(id: string | null) {
+  const valid = id && isMaterialId(id) ? id : null;
+  const shard = useGnomeFile<MaterialShard>(valid ? `materials/shard/${valid.slice(0, MATERIAL_SHARD_CHARS)}` : null);
+  const material: Material | undefined = shard.data?.materials.find((item) => item.id === valid);
+  return { ...shard, data: material, missing: shard.isSuccess && !material };
+}
+
+/** Counts of predicted materials per element and per pair of elements (≈ 12 KB gzip). */
+export function useMaterialPairs(enabled = true) {
+  return useGnomeFile<MaterialPairs>(enabled ? 'materials/pairs' : null);
+}
+
+/** Every predicted material that contains the element; loaded only when asked for. */
+export function useMaterialsByElement(symbol: string | null) {
+  return useGnomeFile<MaterialList>(symbol ? `materials/by-element/${symbol}` : null);
 }

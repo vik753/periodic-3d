@@ -98,7 +98,7 @@ export function CameraDirector({ controls }: { controls: RefObject<ControlsRef |
       pose = cloudOverviewPose(size.width, size.height);
       control.minDistance = 2;
       control.maxDistance = 40;
-    } else if (scene.kind === 'compound') {
+    } else if (scene.kind === 'compound' || scene.kind === 'material') {
       const [x, y, z] = STAGE_POSITION;
       const distance = compoundDistance(size.width, size.height);
       const direction = new THREE.Vector3(1.4, 1.0, 10.5).normalize().multiplyScalar(distance);

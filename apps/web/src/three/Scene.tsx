@@ -8,7 +8,8 @@ import * as THREE from 'three';
 import type { CompoundSummary, Partner } from '../data/api';
 import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
-import { useCompound, useElement, useElements, usePair } from '../data/hooks';
+import { crystalFromCell } from '../data/crystal';
+import { useCompound, useElement, useElements, useMaterial, usePair } from '../data/hooks';
 import { elementBySymbol } from '../data/periodic';
 import type { StructureData } from '../data/structure';
 import { pairPath } from '../data/source';
@@ -338,7 +339,15 @@ export function Scene() {
 
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);
-  const structure = compoundId ? (demoCompound(compoundId)?.structure ?? compound.data?.structure ?? null) : null;
+  const compoundStructure = compoundId ? (demoCompound(compoundId)?.structure ?? compound.data?.structure ?? null) : null;
+  // A predicted material: the browser builds the crystal from its compact unit cell.
+  const materialId = scene.kind === 'material' ? scene.id : null;
+  const material = useMaterial(materialId);
+  const materialStructure = useMemo(
+    () => (material.data ? crystalFromCell(material.data.structure) : null),
+    [material.data],
+  );
+  const structure = materialId ? materialStructure : compoundStructure;
   const parts = useMemo(() => {
     const data = compound.data;
     if (!data || data.structure) return null;
@@ -383,7 +392,12 @@ export function Scene() {
         cloud={cloud}
         elementName={elementName}
       />
-      <CompoundStage id={compoundId} structure={structure} parts={parts} elementName={elementName} />
+      <CompoundStage
+        id={compoundId ?? materialId}
+        structure={structure}
+        parts={materialId ? null : parts}
+        elementName={elementName}
+      />
       <RenderStats />
     </Canvas>
   );

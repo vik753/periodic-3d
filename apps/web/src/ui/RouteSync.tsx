@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
-import { useCompound, useElements } from '../data/hooks';
+import { useCompound, useElements, useMaterial } from '../data/hooks';
 import { parseSceneRoute } from '../lib/route';
 import { useAppStore } from '../state/store';
 
@@ -18,6 +18,7 @@ export function RouteSync() {
   const scene = useAppStore((state) => state.scene);
   const elements = useElements();
   const compound = useCompound(scene.kind === 'compound' ? scene.id : null);
+  const material = useMaterial(scene.kind === 'material' ? scene.id : null);
 
   useEffect(() => {
     setNavigate((path) => navigate(path));
@@ -52,12 +53,14 @@ export function RouteSync() {
       const formula = demo?.formula ?? compound.data?.formula ?? scene.id;
       const name = demo ? pickName(demo.names, language) : compound.data ? pickName(compound.data.names, language) : '';
       document.title = [formula, name, app].filter(Boolean).join(' — ');
+    } else if (scene.kind === 'material') {
+      document.title = [material.data?.formula ?? scene.id, t('material.kind'), app].join(' — ');
     } else if (scene.kind === 'set') {
       document.title = [scene.symbols.join(' + '), app].join(' — ');
     } else {
       document.title = app;
     }
-  }, [scene, t, i18n.language, elements.data, compound.data]);
+  }, [scene, t, i18n.language, elements.data, compound.data, material.data]);
 
   return null;
 }

@@ -16,6 +16,19 @@ export interface Meta {
   created: string;
   counts: Record<string, number>;
   licenses: Record<string, string>;
+  /** The layer of predicted materials (GNoME, ADR 0007); absent when the site has none. */
+  gnome?: GnomeInfo | null;
+}
+
+export interface GnomeInfo {
+  /** Layer name, e.g. "gnome-2026.10.11-r2"; static files live under data/<version>/materials/. */
+  version: string;
+  created: string;
+  counts: Record<string, number>;
+  license: string;
+  licenseUrl: string | null;
+  citation: string;
+  sourceUrl: string | null;
 }
 
 export interface ElementSummary {
@@ -169,6 +182,61 @@ export interface CompoundIndex {
   version: string;
   fields: string[];
   rows: CompoundIndexRow[];
+}
+
+/** Compact unit cell; data/crystal.ts turns it into a displayable structure. */
+export interface MaterialStructure {
+  /** a, b, c in ångström; alpha, beta, gamma in degrees. */
+  cell: number[];
+  /** base64 of 7-byte records: Z, then x, y, z ×10⁴ (uint16, little-endian). */
+  sites: string;
+}
+
+/** A crystal predicted by GNoME: computed, not confirmed by experiment. Energies in eV/atom. */
+export interface Material {
+  id: string;
+  formula: string;
+  composition: Record<string, number>;
+  elements: string[];
+  nsites: number;
+  spaceGroup: string | null;
+  spaceGroupNumber: number | null;
+  pointGroup: string | null;
+  crystalSystem: string | null;
+  volume: number | null;
+  density: number | null;
+  formationEnergy: number | null;
+  /** Distance to the convex hull of competing phases; ≤ 0 means stable in the calculation. */
+  decompositionEnergy: number | null;
+  r2scanDecompositionEnergy: number | null;
+  bandgap: number | null;
+  dimensionality: string | null;
+  structure: MaterialStructure;
+}
+
+export interface MaterialShard {
+  version: string;
+  prefix: string;
+  materials: Material[];
+}
+
+/** rows: [id, formula, decompositionEnergy]: fewer elements first, then the most stable. */
+export type MaterialListRow = [string, string, number | null];
+
+export interface MaterialList {
+  version: string;
+  symbol: string;
+  total: number;
+  fields: string[];
+  rows: MaterialListRow[];
+}
+
+export interface MaterialPairs {
+  version: string;
+  /** [Z, count] */
+  elements: Array<[number, number]>;
+  /** [Za, Zb, count], Za < Zb */
+  pairs: Array<[number, number, number]>;
 }
 
 /** Picks a name in the interface language, then English, then any. */

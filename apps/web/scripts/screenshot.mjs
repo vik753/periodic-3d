@@ -124,6 +124,10 @@ const shots = [
   { name: 'set-o', path: 'set/O', viewport: desktop, wait: 4500 },
   { name: 'phone-set-fe-o', path: 'set/Fe-O', viewport: phone, dpr: 2, wait: 4500 },
   { name: 'compound-hematite', path: 'c/Q103223', viewport: desktop, quick: true, wait: 4000 },
+  // Predicted materials (GNoME): a fluoride with a wide band gap and an intermetallic.
+  { name: 'material-gdy3f12', path: 'm/df6697e2c1', viewport: desktop, quick: true, wait: 4000 },
+  { name: 'material-laal3zn', path: 'm/1f3b0ccd3c', viewport: desktop, wait: 4000 },
+  { name: 'phone-material-gdy3f12', path: 'm/df6697e2c1', viewport: phone, dpr: 2, wait: 4000 },
   { name: 'compound-water', path: 'c/Q283', viewport: desktop, wait: 4000 },
   { name: 'compound-ozone-ru', path: 'c/Q36933', viewport: desktop, wait: 4000, lang: 'ru' },
   { name: 'compound-glucose', path: 'c/Q37525', viewport: desktop, wait: 4000 },

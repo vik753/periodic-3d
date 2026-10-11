@@ -5,6 +5,7 @@ export type SceneRoute =
   | { kind: 'table' }
   | { kind: 'element'; symbol: string; partner?: string }
   | { kind: 'compound'; id: string }
+  | { kind: 'material'; id: string }
   | { kind: 'set'; symbols: string[] };
 
 /**
@@ -13,6 +14,7 @@ export type SceneRoute =
  *   /e/Fe        → element with rays to its partners
  *   /e/Fe/O      → walk along the Fe–O ray
  *   /c/<id>      → compound
+ *   /m/<id>      → predicted material (GNoME, 10 hex characters)
  *   /set/Fe-O-H  → set of elements
  */
 export function parseSceneRoute(pathname: string): SceneRoute {
@@ -23,6 +25,7 @@ export function parseSceneRoute(pathname: string): SceneRoute {
     return { kind: 'element', symbol: value };
   }
   if (head === 'c' && value) return { kind: 'compound', id: decodeURIComponent(value) };
+  if (head === 'm' && value && /^[0-9a-fA-F]{10}$/.test(value)) return { kind: 'material', id: value.toLowerCase() };
   if (head === 'set' && value) {
     const symbols = value.split('-').filter((symbol) => elementBySymbol(symbol));
     if (symbols.length > 0) return { kind: 'set', symbols };
@@ -38,6 +41,8 @@ export function scenePath(route: SceneRoute): string {
       return route.partner ? `/e/${route.symbol}/${route.partner}` : `/e/${route.symbol}`;
     case 'compound':
       return `/c/${encodeURIComponent(route.id)}`;
+    case 'material':
+      return `/m/${route.id}`;
     case 'set':
       return `/set/${route.symbols.join('-')}`;
   }

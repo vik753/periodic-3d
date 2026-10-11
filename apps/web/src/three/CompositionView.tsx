@@ -21,11 +21,11 @@ interface CompositionViewProps {
 
 /**
  * Stand-in for compounds without a 3D model: one sphere per element, sized by the
- * number of its atoms in the formula. It shows composition, not geometry, and the
- * caption says so.
+ * number of its atoms in the formula. It shows composition, not geometry; the panel
+ * says so (compound.noStructure).
  */
 export function CompositionView({ parts, position, elementName }: CompositionViewProps) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const groupRef = useRef<THREE.Group>(null);
   const reducedMotion = useMemo(() => prefersReducedMotion(), []);
   const radii = useMemo(() => parts.map((part) => partRadius(part.count)), [parts]);
@@ -80,17 +80,6 @@ export function CompositionView({ parts, position, elementName }: CompositionVie
           );
         })}
       </group>
-      <Html
-        position={[0, -ring - Math.max(...radii) - 0.9, 0]}
-        center
-        distanceFactor={9}
-        zIndexRange={[15, 0]}
-        pointerEvents="none"
-      >
-        <p className="pointer-events-none max-w-[16rem] text-center text-xs leading-snug text-muted">
-          {t('compound.compositionOnly')}
-        </p>
-      </Html>
     </group>
   );
 }

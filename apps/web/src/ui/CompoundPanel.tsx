@@ -11,8 +11,18 @@ import { formatCharge, formatCount, formatNumber, formulaOrder } from './format'
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
 
-/** Wikidata classes too generic to show ("type of chemical entity"). */
-const GENERIC_CLASSES = new Set(['Q113145171', 'Q111360549']);
+/** Wikidata classes too generic to show ("type of chemical entity", "group of isomers"…). */
+const GENERIC_CLASSES = new Set([
+  'Q113145171', // type of chemical entity
+  'Q111360549', // type of physical object
+  'Q119892838', // type of mixture of chemical entities
+  'Q55640599', // group of chemical entities
+  'Q15711994', // group of isomeric entities
+  'Q59199015', // group of stereoisomers
+  'Q47154513', // structural class of chemical entities
+  'Q17339814', // group or class of chemical substances
+  'Q122754124', // ambiguous Wikidata item
+]);
 
 const ROLE_KEYS: Record<Source['role'], string> = {
   identity: 'compound.roleIdentity',

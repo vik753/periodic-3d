@@ -12,6 +12,9 @@ describe('composition layout', () => {
       expect(z).toBe(0);
     }
     expect(ring[0]![1]).toBeCloseTo(RING_RADIUS); // first element on top
+    const pair = ringPositions(2);
+    expect(pair[0]![0]).toBeCloseTo(-RING_RADIUS); // two elements: left and right
+    expect(pair[1]![0]).toBeCloseTo(RING_RADIUS);
   });
 
   it('grows spheres slowly and caps them', () => {

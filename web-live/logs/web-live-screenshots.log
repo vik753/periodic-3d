@@ -1,9 +1,13 @@
 $ npm run screenshot
-started: 2026-10-11T09:30:45Z
+started: 2026-10-11T09:51:56Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 5581ms calls=3 url=/periodic-3d/
-ok   element-fe 7329ms calls=10 url=/periodic-3d/e/Fe
-ok   element-o-rays 7823ms calls=8 url=/periodic-3d/e/O
+ok   table 5229ms calls=3 url=/periodic-3d/
+ok   element-fe 7556ms calls=10 url=/periodic-3d/e/Fe
+ok   element-o-rays 7928ms calls=8 url=/periodic-3d/e/O
+ok   walk-fe-o 8590ms calls=9 url=/periodic-3d/e/Fe/O
+ok   walk-fe-o-predicted 12060ms calls=11 url=/periodic-3d/e/Fe/O/predicted
+ok   set-fe-o 7422ms calls=4 url=/periodic-3d/set/Fe-O
+ok   compound-hematite 7752ms calls=5 url=/periodic-3d/c/Q103223

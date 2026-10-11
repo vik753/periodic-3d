@@ -17,12 +17,20 @@ export interface QualityState {
 }
 
 /**
+ * A background animation that asks for frames at a fixed, lower rate (the table's dust,
+ * 30 FPS) sets the interval here. Frames that arrive on that beat are paced, not slow.
+ */
+export const framePacing = { interval: 0 };
+
+/**
  * One step of the quality controller. Returns the new level.
  * Slow frames for 1.5 s of active rendering lower the pixel ratio by one step;
  * 8 s of fast frames raise it again, up to the device limit (maxLevel).
+ * With pacedInterval > 0, frames that arrive about one pacing interval apart are skipped.
  */
-export function nextQualityLevel(state: QualityState, delta: number, maxLevel: number): number {
+export function nextQualityLevel(state: QualityState, delta: number, maxLevel: number, pacedInterval = 0): number {
   if (delta > IDLE_GAP_S) return state.level;
+  if (pacedInterval > 0 && delta > pacedInterval * 0.8 && delta < pacedInterval * 1.4) return state.level;
   state.average = state.average * 0.9 + delta * 0.1;
   if (state.average > SLOW_FRAME_S) {
     state.slow += delta;

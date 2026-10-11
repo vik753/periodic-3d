@@ -2,7 +2,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
 
 import type { QualityState } from './quality';
-import { maxQualityLevel, nextQualityLevel, pixelRatioFor } from './quality';
+import { framePacing, maxQualityLevel, nextQualityLevel, pixelRatioFor } from './quality';
 
 /**
  * Keeps the frame rate within the budget (60 FPS on laptops, 45+ on phones) by
@@ -15,7 +15,7 @@ export function AdaptiveQuality() {
 
   useFrame((_, delta) => {
     const before = state.current.level;
-    const after = nextQualityLevel(state.current, delta, maxLevel.current);
+    const after = nextQualityLevel(state.current, delta, maxLevel.current, framePacing.interval);
     if (after !== before) {
       setDpr(pixelRatioFor(after));
       if (window.__p3d) window.__p3d.dpr = pixelRatioFor(after);

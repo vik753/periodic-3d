@@ -29,4 +29,13 @@ describe('adaptive quality', () => {
     expect(state.level).toBe(3);
     expect(state.average).toBeCloseTo(1 / 60);
   });
+
+  it('treats frames on the pacing beat as paced, not slow', () => {
+    const state: QualityState = { level: 3, average: 1 / 60, slow: 0, fast: 0 };
+    for (let i = 0; i < 300; i += 1) nextQualityLevel(state, 1 / 30, 3, 1 / 30);
+    expect(state.level).toBe(3);
+    // A device that cannot keep the beat still steps down.
+    for (let i = 0; i < 100; i += 1) nextQualityLevel(state, 1 / 20, 3, 1 / 30);
+    expect(state.level).toBeLessThan(3);
+  });
 });

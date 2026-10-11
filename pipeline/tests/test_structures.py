@@ -13,6 +13,7 @@ from p3d_pipeline.structures import (
     molecular_units,
     molecule_from_smiles,
     parse_sdf,
+    supercell_repeats,
 )
 
 WATER_SDF = """962
@@ -61,6 +62,24 @@ def test_rock_salt_fragment_from_conventional_cell() -> None:
         pair = {structure["atoms"][a_index]["el"], structure["atoms"][b_index]["el"]}
         assert pair == {"Na", "Cl"}
     assert len(structure["bonds"]) == 54
+
+
+def test_supercell_repeats_only_for_tiny_cells() -> None:
+    graphite = np.array([[2.46, 0, 0], [-1.23, 2.13, 0], [0, 0, 7.8]])
+    assert supercell_repeats(graphite, 4) == (3, 3, 1)
+    assert supercell_repeats(np.eye(3) * 2.87, 2) == (2, 2, 2)  # bcc iron
+    assert supercell_repeats(np.eye(3) * 5.64, 8) == (1, 1, 1)  # rock salt: big enough
+    assert supercell_repeats(np.eye(3) * 1.0, 7) == (2, 2, 2)  # 3×3×3 would exceed 64 sites
+
+
+def test_iron_fragment_is_a_block_of_cells_with_one_cell_frame() -> None:
+    a = 2.87
+    structure = crystal_fragment([[a, 0, 0], [0, a, 0], [0, 0, a]], [[0, 0, 0], [a / 2, a / 2, a / 2]], ["Fe", "Fe"])
+    assert structure is not None
+    # 2×2×2 cells: 3³ corner atoms + 2³ body centres.
+    assert len(structure["atoms"]) == 27 + 8
+    assert structure["cell"] == [[a, 0, 0], [0, a, 0], [0, 0, a]]
+    assert composition(structure) == {"Fe": 2.0}
 
 
 def test_crystal_fragment_rejects_unknown_species() -> None:

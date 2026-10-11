@@ -325,6 +325,24 @@ def crystal_bonds(cart: np.ndarray, elements: list[str]) -> list[list[float]]:
     return bonds
 
 
+SMALL_CELL_SITES = 8
+SUPERCELL_TARGET = 6.0  # Å: a block of cells should be at least this long on each side
+SUPERCELL_MAX_SITES = 64
+
+
+def supercell_repeats(lattice: np.ndarray, sites: int) -> tuple[int, int, int]:
+    """How many cells to show along a, b, c: more than one only for tiny cells."""
+    if sites >= SMALL_CELL_SITES:
+        return (1, 1, 1)
+    lengths = np.linalg.norm(lattice, axis=1)
+    target = max(SUPERCELL_TARGET, float(lengths.max()))
+    repeats = [int(min(3, max(1, round(target / float(length))))) for length in lengths]
+    while sites * repeats[0] * repeats[1] * repeats[2] > SUPERCELL_MAX_SITES:
+        largest = repeats.index(max(repeats))
+        repeats[largest] -= 1
+    return (repeats[0], repeats[1], repeats[2])
+
+
 def crystal_fragment(
     lattice_vectors: list[list[float]],
     cartesian_positions: list[list[float]],
@@ -332,7 +350,11 @@ def crystal_fragment(
     *,
     max_atoms: int = MAX_CRYSTAL_ATOMS,
 ) -> Structure | None:
-    """Unit cell for display: standardized, closed with boundary images, with bonds."""
+    """Unit cell for display: standardized, closed with boundary images, with bonds.
+
+    The frame ("cell") always shows one unit cell; tiny cells are repeated around it
+    (supercell_repeats), so metals and graphite look like a crystal, not a few balls.
+    """
     lattice = np.asarray(lattice_vectors, float)
     cart = np.asarray(cartesian_positions, float)
     if lattice.shape != (3, 3) or cart.ndim != 2 or len(cart) == 0 or len(cart) != len(species):
@@ -344,11 +366,18 @@ def crystal_fragment(
     frac = np.linalg.solve(lattice.T, cart.T).T
     lattice, frac, numbers = _standardize(lattice, np.mod(frac, 1.0), numbers, max_atoms)
 
-    points = _with_boundary_images(frac)
+    # Tiny cells (iron: 2 atoms, graphite: 4) are shown as a block of a few cells.
+    repeats = supercell_repeats(lattice, len(numbers))
+    shifts = np.array(list(itertools.product(*(range(n) for n in repeats))), dtype=float)
+    super_frac = ((np.mod(frac, 1.0)[None, :, :] + shifts[:, None, :]) / np.array(repeats, float)).reshape(-1, 3)
+    super_numbers = numbers * len(shifts)
+    super_lattice = lattice * np.array(repeats, float)[:, None]
+
+    points = _with_boundary_images(super_frac)
     if len(points) > max_atoms * 1.6:
-        points = [(point, index) for index, point in enumerate(np.mod(frac, 1.0))]
-    positions = np.array([point for point, _ in points]) @ lattice
-    elements = [SYMBOLS[numbers[index] - 1] for _, index in points]
+        points = [(point, index) for index, point in enumerate(np.mod(super_frac, 1.0))]
+    positions = np.array([point for point, _ in points]) @ super_lattice
+    elements = [SYMBOLS[super_numbers[index] - 1] for _, index in points]
     atoms = [
         {"el": element, "x": _r(position[0]), "y": _r(position[1]), "z": _r(position[2])}
         for element, position in zip(elements, positions, strict=True)

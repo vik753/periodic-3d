@@ -1,0 +1,10 @@
+$ uv run p3d-pipeline gnome --out ../data/gnome --cache ../data/gnome-cache --version 2026.10.11-r1 --limit 2000
+started: 2026-10-11T07:42:40Z
+2026-10-11 07:42:42,690 INFO p3d.gnome: GNoME gnome_data/stable_materials_summary.csv: 151452777 bytes in 1 s
+2026-10-11 07:42:45,217 INFO p3d.gnome: GNoME summary: 554054 materials
+2026-10-11 07:42:45,739 INFO p3d.gnome: GNoME gnome_data/stable_materials_r2scan.csv: 22004293 bytes in 0 s
+2026-10-11 07:42:49,504 INFO p3d.gnome: GNoME gnome_data/by_id.zip: 455074116 bytes in 3 s
+2026-10-11 07:42:52,575 INFO p3d.gnome: GNoME layer ../data/gnome/2026.10.11-r1: 2000 materials in 11 s
+../data/gnome/2026.10.11-r1
+finished: 2026-10-11T07:42:52Z
+exit code: 0

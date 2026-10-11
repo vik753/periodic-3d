@@ -1,0 +1,164 @@
+{
+  "lang": "en",
+  "fps": 30,
+  "frames": 3345,
+  "seconds": 111.5,
+  "recordSeconds": 2151,
+  "errors": [],
+  "timeline": [
+    {
+      "scene": "intro",
+      "from": 0,
+      "to": 3.6,
+      "seconds": 81
+    },
+    {
+      "at": 3.966666666666667,
+      "caption": "Point at an element: the tile grows and a card appears at the bottom."
+    },
+    {
+      "scene": "hover",
+      "from": 3.6,
+      "to": 10.866666666666667,
+      "seconds": 86
+    },
+    {
+      "at": 11.233333333333333,
+      "caption": "The mouse wheel zooms towards the element under the pointer."
+    },
+    {
+      "at": 14.5,
+      "caption": "Even close up, the letters on the tiles stay sharp."
+    },
+    {
+      "scene": "zoom",
+      "from": 10.866666666666667,
+      "to": 18.7,
+      "seconds": 96
+    },
+    {
+      "at": 19.066666666666666,
+      "caption": "Click an element: the camera flies inside."
+    },
+    {
+      "at": 23.533333333333335,
+      "caption": "The <b>Substance in 3D</b> switch shows the simple substance: the iron crystal."
+    },
+    {
+      "scene": "element",
+      "from": 18.7,
+      "to": 28.533333333333335,
+      "seconds": 169
+    },
+    {
+      "at": 28.9,
+      "caption": "Red rays lead to the elements it forms compounds with. A thick ray means many compounds."
+    },
+    {
+      "scene": "rays",
+      "from": 28.533333333333335,
+      "to": 36.1,
+      "seconds": 134
+    },
+    {
+      "at": 36.46666666666667,
+      "caption": "Click a ray, a partner tile or a symbol in the panel: the compounds of the pair line up, the best known first."
+    },
+    {
+      "at": 40.53333333333333,
+      "caption": "Scroll or drag along the ray to move from compound to compound."
+    },
+    {
+      "scene": "walk",
+      "from": 36.1,
+      "to": 44.333333333333336,
+      "seconds": 184
+    },
+    {
+      "at": 44.7,
+      "caption": "The compound card: 3D model, formula, composition, mass, description and sources."
+    },
+    {
+      "at": 48.86666666666667,
+      "caption": "Drag the model to turn it."
+    },
+    {
+      "scene": "card",
+      "from": 44.333333333333336,
+      "to": 52.333333333333336,
+      "seconds": 170
+    },
+    {
+      "at": 52.7,
+      "caption": "<b>To the table</b>, the <kbd>Esc</kbd> key or a click on empty space takes you back."
+    },
+    {
+      "scene": "back",
+      "from": 52.333333333333336,
+      "to": 56.5,
+      "seconds": 64
+    },
+    {
+      "at": 56.86666666666667,
+      "caption": "<kbd>Shift</kbd> + click picks several elements. On a phone, use <b>Select several</b>."
+    },
+    {
+      "at": 61.03333333333333,
+      "caption": "<b>Show compounds</b>: a cloud of compounds that contain all chosen elements. One orb is one compound."
+    },
+    {
+      "at": 68.2,
+      "caption": "The filter keeps organic, inorganic substances or minerals only."
+    },
+    {
+      "at": 72.96666666666667,
+      "caption": "Violet orbs are materials predicted by GNoME: found by computation, not by experiment."
+    },
+    {
+      "scene": "select",
+      "from": 56.5,
+      "to": 76.76666666666667,
+      "seconds": 288
+    },
+    {
+      "at": 77.13333333333334,
+      "caption": "Inside an element, <b>Show the violet rays</b> opens the predicted materials."
+    },
+    {
+      "at": 91.3,
+      "caption": "A predicted material: its unit cell in 3D and its computed properties."
+    },
+    {
+      "scene": "violet",
+      "from": 76.76666666666667,
+      "to": 95.6,
+      "seconds": 541
+    },
+    {
+      "at": 95.96666666666667,
+      "caption": "Search: press <kbd>/</kbd>, then type a symbol, a formula or a name in any of three languages."
+    },
+    {
+      "scene": "search",
+      "from": 95.6,
+      "to": 102.66666666666667,
+      "seconds": 155
+    },
+    {
+      "at": 103.03333333333333,
+      "caption": "The <b>How to use</b> button opens a short guide, the data sources and this video."
+    },
+    {
+      "scene": "about",
+      "from": 102.66666666666667,
+      "to": 107.7,
+      "seconds": 94
+    },
+    {
+      "scene": "outro",
+      "from": 107.7,
+      "to": 111.5,
+      "seconds": 52
+    }
+  ]
+}

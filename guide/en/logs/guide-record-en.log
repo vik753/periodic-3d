@@ -1,7 +1,19 @@
 $ node scripts/guide-video.mjs
-started: 2026-10-11T17:45:43Z
-warm-up done in 26 s
-intro: 3.6 s of video, 554 s to record
-hover: 7.3 s of video, 1091 s to record
-zoom: 7.8 s of video, 1176 s to record
-element: 9.8 s of video, 1477 s to record
+started: 2026-10-11T18:58:56Z
+warm-up done in 36 s
+intro: 3.6 s of video, 81 s to record
+hover: 7.3 s of video, 86 s to record
+zoom: 7.8 s of video, 96 s to record
+element: 9.8 s of video, 169 s to record
+rays: 7.6 s of video, 134 s to record
+walk: 8.2 s of video, 184 s to record
+card: 8.0 s of video, 170 s to record
+back: 4.2 s of video, 64 s to record
+select: 20.3 s of video, 288 s to record
+violet: 18.8 s of video, 541 s to record
+search: 7.1 s of video, 155 s to record
+about: 5.0 s of video, 94 s to record
+outro: 3.8 s of video, 52 s to record
+3345 frames (111.5 s), 0 errors
+finished: 2026-10-11T19:34:48Z
+exit code: 0

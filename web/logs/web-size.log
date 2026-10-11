@@ -1,5 +1,5 @@
 $ npm run size
-started: 2026-10-11T10:39:03Z
+started: 2026-10-11T11:19:46Z
 
 > @periodic-3d/web@0.1.0 size
 > node scripts/size-report.mjs
@@ -25,5 +25,5 @@ started: 2026-10-11T10:39:03Z
       0.5 KB gz  assets/ReportLink-DtNmTMS2.js
       0.2 KB gz  assets/ClickGuard-CLCsR6iP.js
 initial JS (gzip): 389.9 KB / budget 400 KB
-finished: 2026-10-11T10:39:03Z
+finished: 2026-10-11T11:19:46Z
 exit code: 0

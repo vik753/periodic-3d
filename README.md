@@ -11,10 +11,14 @@ cloud of compounds that contain all of them.
 **Open the site:** https://vik753.github.io/periodic-3d/ — free, no sign-up, works in a
 desktop browser and on a phone. The interface speaks Ukrainian, Russian and English.
 
-**Prefer a video?** On the site, press **How to use** at the top, then **Watch the video**:
-a two-minute tour of every feature in your language.
+## Video guide
 
-![The table on the home screen](docs/images/table.webp)
+[![A two-minute tour of the site: click to watch the full video](docs/images/guide-preview-en.webp)](https://vik753.github.io/periodic-3d/about?video&lang=en)
+
+**[▶ Watch the full video (2 min)](https://vik753.github.io/periodic-3d/about?video&lang=en)**: it opens on the site, over the
+table, with play, pause and seeking. On the site itself: **How to use** → **Watch the
+video**. The video files: [English](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r4/guide-en.mp4) ·
+[Українською](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r4/guide-uk.mp4) · [По-русски](https://github.com/vik753/periodic-3d/releases/download/guide-2026.10.11-r4/guide-ru.mp4).
 
 > [!IMPORTANT]
 > **The data is checked.** Formulas, masses and structures come from open scientific

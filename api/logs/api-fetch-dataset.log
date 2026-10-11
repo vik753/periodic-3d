@@ -1,5 +1,5 @@
 $ bash ../../tools/ci/fetch-dataset.sh out/dataset
-started: 2026-10-11T11:24:06Z
+started: 2026-10-11T11:38:17Z
 fetch-dataset: release:data-2026.10.11-r34 → /home/runner/work/periodic-3d/periodic-3d/apps/api/out/dataset/dataset.tar.gz (24480230 bytes)
-finished: 2026-10-11T11:24:07Z
+finished: 2026-10-11T11:38:20Z
 exit code: 0

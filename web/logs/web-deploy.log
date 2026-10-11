@@ -1,5 +1,0 @@
-$ bash ../../tools/ci/deploy-pages.sh dist
-started: 2026-10-11T04:17:56Z
-deploy-pages: published bd17e1d3cde2fb935b3dbe09a1fe0c5b366efef7
-finished: 2026-10-11T04:17:57Z
-exit code: 0

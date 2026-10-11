@@ -1,0 +1,35 @@
+# generated using pymatgen
+data_PrNdPa(InPd)3
+_symmetry_space_group_name_H-M   'P 1'
+_cell_length_a   7.67804201
+_cell_length_b   7.74745192
+_cell_length_c   4.08114700
+_cell_angle_alpha   90.00000000
+_cell_angle_beta   90.00000000
+_cell_angle_gamma   120.30244159
+_symmetry_Int_Tables_number   1
+_chemical_formula_structural   PrNdPa(InPd)3
+_chemical_formula_sum   'Pr1 Nd1 Pa1 In3 Pd3'
+_cell_volume   209.59967411
+_cell_formula_units_Z   1
+loop_
+ _symmetry_equiv_pos_site_id
+ _symmetry_equiv_pos_as_xyz
+  1  'x, y, z'
+loop_
+ _atom_site_type_symbol
+ _atom_site_label
+ _atom_site_symmetry_multiplicity
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+  Pr  Pr0  1  0.411028  0.413100  0.000000  1
+  Nd  Nd1  1  0.589079  0.002119  0.000000  1
+  Pa  Pa2  1  0.000014  0.585037  0.000000  1
+  In  In3  1  0.742261  0.748139  0.500000  1
+  In  In4  1  0.999647  0.244322  0.500000  1
+  In  In5  1  0.258019  0.005531  0.500000  1
+  Pd  Pd6  1  0.305294  0.662738  0.500000  1
+  Pd  Pd7  1  0.999765  0.981992  0.000000  1
+  Pd  Pd8  1  0.694892  0.357022  0.500000  1

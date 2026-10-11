@@ -1,0 +1,366 @@
+{
+  "heads": {
+    "gnome_data/stable_materials_summary.csv": {
+      "status": "200",
+      "bytes": "151452777"
+    },
+    "gnome_data/stable_materials_r2scan.csv": {
+      "status": "200",
+      "bytes": "22004293"
+    },
+    "gnome_data/by_id.zip": {
+      "status": "200",
+      "bytes": "455074116"
+    },
+    "gnome_data/by_composition.zip": {
+      "status": "200",
+      "bytes": "468184470"
+    },
+    "gnome_data/by_reduced_formula.zip": {
+      "status": "200",
+      "bytes": "471554630"
+    },
+    "external_data/external_materials_summary.csv": {
+      "status": "200",
+      "bytes": "5802210"
+    },
+    "external_data/mp_snapshot_summary.csv": {
+      "status": "200",
+      "bytes": "3104484"
+    }
+  },
+  "summary_download_s": 1.4,
+  "summary_columns": [
+    "",
+    "Composition",
+    "MaterialId",
+    "Reduced Formula",
+    "Elements",
+    "NSites",
+    "Volume",
+    "Density",
+    "Point Group",
+    "Space Group",
+    "Space Group Number",
+    "Crystal System",
+    "Uncorrected Energy",
+    "Corrected Energy",
+    "Formation Energy Per Atom",
+    "Decomposition Energy Per Atom",
+    "Dimensionality Cheon",
+    "Bandgap",
+    "Is Train",
+    "Decomposition Energy Per Atom All",
+    "Decomposition Energy Per Atom Relative",
+    "Decomposition Energy Per Atom MP",
+    "Decomposition Energy Per Atom MP OQMD",
+    "Data Directory"
+  ],
+  "summary_rows": 554054,
+  "summary_sample": [
+    {
+      "": "0",
+      "Composition": "Cs1S6Zr3",
+      "MaterialId": "000006a8c4",
+      "Reduced Formula": "Cs(ZrS2)3",
+      "Elements": "['S', 'Zr', 'Cs']",
+      "NSites": "10",
+      "Volume": "302.9202",
+      "Density": "3.2834",
+      "Point Group": "2/m",
+      "Space Group": "C2/m",
+      "Space Group Number": "12",
+      "Crystal System": "monoclinic",
+      "Uncorrected Energy": "-67.3975",
+      "Corrected Energy": "-70.4155",
+      "Formation Energy Per Atom": "-1.9058",
+      "Decomposition Energy Per Atom": "-0.1625",
+      "Dimensionality Cheon": "intercalated ion",
+      "Bandgap": "0.0023",
+      "Is Train": "True",
+      "Decomposition Energy Per Atom All": "0.0",
+      "Decomposition Energy Per Atom Relative": "",
+      "Decomposition Energy Per Atom MP": "-0.1631",
+      "Decomposition Energy Per Atom MP OQMD": "-0.0734",
+      "Data Directory": "gs://crystal-design/output/borg/improved_wy_2/1e_3_med_0_common_84_nobal/Cs1S6Zr3/0"
+    },
+    {
+      "": "1",
+      "Composition": "Al18Fe1Ho4Pd1Pt4",
+      "MaterialId": "00006650ea",
+      "Reduced Formula": "Ho4Al18FePdPt4",
+      "Elements": "['Al', 'Fe', 'Pd', 'Ho', 'Pt']",
+      "NSites": "28",
+      "Volume": "469.8946",
+      "Density": "7.3787",
+      "Point Group": "2/m",
+      "Space Group": "C2/m",
+      "Space Group Number": "12",
+      "Crystal System": "monoclinic",
+      "Uncorrected Energy": "-145.6636",
+      "Corrected Energy": "-145.6636",
+      "Formation Energy Per Atom": "-0.785",
+      "Decomposition Energy Per Atom": "-0.0198",
+      "Dimensionality Cheon": "3D",
+      "Bandgap": "0.0009",
+      "Is Train": "True",
+      "Decomposition Energy Per Atom All": "0.0009",
+      "Decomposition Energy Per Atom Relative": "",
+      "Decomposition Energy Per Atom MP": "-0.0198",
+      "Decomposition Energy Per Atom MP OQMD": "-0.0179",
+      "Data Directory": "gs://crystal-design/output/borg/round_3_wy_updated_4/1e_2_med_0_common_84_nobal/Al18Fe1Ho4Pd1Pt4/0"
+    },
+    {
+      "": "2",
+      "Composition": "Al2B24Lu8Tc2",
+      "MaterialId": "00008f2ec4",
+      "Reduced Formula": "Lu4AlTcB12",
+      "Elements": "['B', 'Al', 'Tc', 'Lu']",
+      "NSites": "36",
+      "Volume": "373.1385",
+      "Density": "8.4961",
+      "Point Group": "2/m",
+      "Space Group": "P2/m",
+      "Space Group Number": "10",
+      "Crystal System": "monoclinic",
+      "Uncorrected Energy": "-248.1449",
+      "Corrected Energy": "-248.1449",
+      "Formation Energy Per Atom": "-0.6517",
+      "Decomposition Energy Per Atom": "-0.0602",
+      "Dimensionality Cheon": "3D",
+      "Bandgap": "0.0014",
+      "Is Train": "True",
+      "Decomposition Energy Per Atom All": "0.0002",
+      "Decomposition Energy Per Atom Relative": "",
+      "Decomposition Energy Per Atom MP": "-0.0602",
+      "Decomposition Energy Per Atom MP OQMD": "-0.0558",
+      "Data Directory": "gs://crystal-design/output/borg/round_3_4/1e_3_med_0_common_84_nobal/Al2B24Lu8Tc2/0"
+    }
+  ],
+  "nsites": {
+    "p50": 22.0,
+    "p90": 36.0,
+    "p99": 39.0,
+    "max": 107.0,
+    "sum": 12738672.0
+  },
+  "elements": {
+    "Ho": 83833,
+    "Tb": 83821,
+    "Dy": 81762,
+    "Si": 79738,
+    "Y": 79319,
+    "Er": 77917,
+    "Ir": 73358,
+    "Tm": 66810,
+    "Rh": 63082,
+    "Co": 61348,
+    "Ru": 57177,
+    "Pt": 53316,
+    "Al": 50161,
+    "Nd": 49240,
+    "Lu": 48675,
+    "O": 44611,
+    "P": 43262,
+    "Ga": 43080,
+    "Pr": 41064,
+    "Ni": 39991,
+    "Pd": 39718,
+    "In": 39470,
+    "B": 39305,
+    "Sn": 39120,
+    "Cd": 36221,
+    "Os": 35924,
+    "Sc": 35772,
+    "La": 32490,
+    "Bi": 28200,
+    "Zn": 27167,
+    "Zr": 25933,
+    "Hf": 25391,
+    "Fe": 25109,
+    "Tc": 25055,
+    "Th": 24559,
+    "Sm": 23182,
+    "Sb": 22570,
+    "Li": 21593,
+    "Au": 21011,
+    "Ti": 20968,
+    "Mg": 19775,
+    "As": 19752,
+    "Cu": 19474,
+    "Nb": 19104,
+    "Ge": 18794,
+    "Ta": 18656,
+    "Hg": 18603,
+    "Re": 18302,
+    "Pb": 18027,
+    "Mn": 17929,
+    "Ca": 16965,
+    "C": 16647,
+    "Ag": 16074,
+    "Mo": 16028,
+    "Ce": 15346,
+    "Br": 14182,
+    "W": 14044,
+    "Se": 13696,
+    "Sr": 13044,
+    "Pa": 12575,
+    "I": 12198,
+    "V": 11763,
+    "N": 10991,
+    "Rb": 10981,
+    "Ba": 10716,
+    "F": 10639,
+    "S": 10312,
+    "Cs": 9872,
+    "Na": 9511,
+    "K": 9403,
+    "Cr": 8614,
+    "U": 7991,
+    "Te": 7962,
+    "Ac": 7725,
+    "Be": 7555,
+    "Cl": 7423,
+    "Eu": 7117,
+    "Tl": 6866,
+    "H": 6725,
+    "Gd": 6708,
+    "Np": 4166,
+    "Pu": 2754,
+    "Pm": 937
+  },
+  "arity": {
+    "2": 1741,
+    "3": 63441,
+    "4": 306688,
+    "5": 177392,
+    "6": 4792
+  },
+  "pairs": 3403,
+  "top_pairs": [
+    [
+      "Dy-Tb",
+      14299
+    ],
+    [
+      "Tb-Y",
+      14177
+    ],
+    [
+      "Dy-Ho",
+      14129
+    ],
+    [
+      "Co-P",
+      13907
+    ],
+    [
+      "Er-Ho",
+      13520
+    ],
+    [
+      "Ho-Tb",
+      13234
+    ],
+    [
+      "Dy-Ir",
+      13006
+    ],
+    [
+      "Dy-Y",
+      12651
+    ],
+    [
+      "Ho-Ir",
+      12542
+    ],
+    [
+      "Dy-Er",
+      12517
+    ],
+    [
+      "Ho-Y",
+      12001
+    ],
+    [
+      "Er-Tm",
+      11884
+    ],
+    [
+      "Er-Y",
+      11648
+    ],
+    [
+      "Er-Tb",
+      11619
+    ],
+    [
+      "Co-Ho",
+      11488
+    ],
+    [
+      "Co-Dy",
+      11405
+    ],
+    [
+      "Ho-Tm",
+      11353
+    ],
+    [
+      "Ho-Si",
+      11344
+    ],
+    [
+      "Co-Tb",
+      11224
+    ],
+    [
+      "Er-Ir",
+      11191
+    ]
+  ],
+  "by_Crystal System": {
+    "monoclinic": 189055,
+    "orthorhombic": 114988,
+    "triclinic": 96628,
+    "trigonal": 64802,
+    "tetragonal": 38108,
+    "hexagonal": 38015,
+    "cubic": 12458
+  },
+  "by_Dimensionality Cheon": {
+    "3D": 396360,
+    "intercalated ion": 79549,
+    "": 68784,
+    "2D": 4069,
+    "0D": 2747,
+    "1D": 1685,
+    "intercalated molecule": 524,
+    "inf": 336
+  },
+  "bandgap_known": 400922,
+  "by_id_download_s": 4.5,
+  "by_id_bytes": 455074116,
+  "by_id_files": 554054,
+  "by_id_names_sample": [
+    "by_id/bcc7a64ee3.CIF",
+    "by_id/170ed8d0df.CIF",
+    "by_id/1e0e2c04d5.CIF",
+    "by_id/41d20179ea.CIF",
+    "by_id/a6cc4db4ed.CIF"
+  ],
+  "by_id_uncompressed": 964009526,
+  "by_id_nested_archives": [],
+  "cif_sample": {
+    "parsed": 4015,
+    "failures": 0,
+    "raw_mean": 1738,
+    "compact_mean": 655,
+    "compact_p95": 1053,
+    "gzip_mean": 251,
+    "symops": {
+      "1": 4015
+    }
+  },
+  "estimated_compact_total_mb": 362.9
+}

@@ -1,0 +1,16 @@
+$ python tools/probe/gnome_probe.py out/probe-gnome
+started: 2026-10-11T07:31:09Z
+# GNoME probe
+
+- summary_rows: 554054
+- pairs: 3403
+- arity: {"2": 1741, "3": 63441, "4": 306688, "5": 177392, "6": 4792}
+- nsites: {"p50": 22.0, "p90": 36.0, "p99": 39.0, "max": 107.0, "sum": 12738672.0}
+- by_id_bytes: 455074116
+- by_id_files: 554054
+- by_id_uncompressed: 964009526
+- cif_sample: {"parsed": 4015, "failures": 0, "raw_mean": 1738, "compact_mean": 655, "compact_p95": 1053, "gzip_mean": 251, "symops": {"1": 4015}}
+- estimated_compact_total_mb: 362.9
+- heads: {"gnome_data/stable_materials_summary.csv": {"status": "200", "bytes": "151452777"}, "gnome_data/stable_materials_r2scan.csv": {"status": "200", "bytes": "22004293"}, "gnome_data/by_id.zip": {"status": "200", "bytes": "455074116"}, "gnome_data/by_composition.zip": {"status": "200", "bytes": "468184470"}, "gnome_data/by_reduced_formula.zip": {"status": "200", "bytes": "471554630"}, "external_data/external_materials_summary.csv": {"status": "200", "bytes": "5802210"}, "external_data/mp_snapshot_summary.csv": {"status": "200", "bytes": "3104484"}}
+finished: 2026-10-11T07:31:24Z
+exit code: 0

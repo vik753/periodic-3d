@@ -3,6 +3,11 @@ name: ci
 on:
   push:
     branches: [main]
+    # Docs do not change the site; a docs push must not cancel a running deploy.
+    # `make check` covers their whitespace locally.
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
   pull_request:
   workflow_dispatch:
 

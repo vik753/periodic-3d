@@ -11,6 +11,9 @@ cloud of compounds that contain all of them.
 **Open the site:** https://vik753.github.io/periodic-3d/ — free, no sign-up, works in a
 desktop browser and on a phone. The interface speaks Ukrainian, Russian and English.
 
+**Prefer a video?** On the site, press **How to use** at the top, then **Watch the video**:
+a two-minute tour of every feature in your language.
+
 ![The table on the home screen](docs/images/table.webp)
 
 > [!IMPORTANT]

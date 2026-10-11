@@ -1,47 +1,76 @@
 # Periodic Table 3D
 
 An interactive 3D periodic table. Click an element and fly inside it: glowing rays lead
-to the elements it bonds with, and each ray carries the compounds of that pair. Open a
-compound to see its molecule or crystal slowly rotating in 3D, with atoms labelled and
-its formula, composition and properties beside it. Select several elements to get a
-cloud of compounds that contain all of them.
+to the elements it forms compounds with, and each ray carries the compounds of that
+pair. Open a compound to see its molecule or crystal slowly rotating in 3D, with atoms
+labelled and its formula, composition, properties and sources beside it. Select several
+elements to get a cloud of compounds that contain all of them.
 
-> Status: under active development (stage 0 — foundations). See
-> [docs/agent/PROGRESS.md](docs/agent/PROGRESS.md).
+**Live demo:** https://vik753.github.io/periodic-3d/ (interface in Ukrainian, Russian
+and English).
 
-## Highlights
+## Features
 
-- One WebGL canvas for the whole app; every transition is a smooth camera flight.
-- Fast by design: precomputed dataset, instanced rendering, strict performance budgets.
-- Real chemistry: molecules from PubChem 3D, crystals from Materials Project and COD,
-  names in Ukrainian, Russian and English from Wikidata.
-- Two data modes: a static snapshot (free hosting on GitHub Pages) and a live
-  FastAPI + PostgreSQL/pgvector backend.
+- 3D table of 118 elements; a camera flight into the element shows its Bohr model or
+  its simple substance in 3D (O₂, bcc iron, graphite).
+- Red rays to partner elements; ray thickness shows the number of shared compounds.
+  Drag along a ray to walk through the compounds of the pair, most famous first.
+- Compound card: 3D molecule or crystal fragment, atom labels, formula, composition,
+  molar mass, classes, description, similar compounds and per-record sources.
+- Several elements → a cloud of compounds that contain all of them (or only them);
+  extra elements light up in cyan.
+- Search by formula or name in UA/RU/EN; every scene has its own URL.
+- Similar elements and compounds from a vector model (PPMI + SVD, pgvector).
+- Keyboard access to all elements, reduced-motion support, adaptive rendering quality.
+
+## Dataset
+
+About 27 000 compounds that have a Wikipedia article in English, Russian or Ukrainian
+(selection rules: [ADR 0004](docs/adr/0004-data-sources-and-selection.md)). 3D models:
+PubChem conformers, crystals from Materials Project, RDKit for the rest; salts and
+hydrates are shown as ions side by side. Each dataset version is a GitHub release
+(`data-<version>`); `data/DATASET` says which one the site uses.
 
 ## Architecture
 
 ```text
 sources ──► pipeline (Python, offline) ──► dataset ──┬─► PostgreSQL + pgvector ──► FastAPI ──┐
 PubChem, Materials Project,                           │                                       ├─► CDN ──► web (React + R3F)
-COD, Wikidata, Wikipedia                              └─► static export (JSON) ───────────────┘
+Wikidata, Wikipedia                                   └─► static export (JSON) ───────────────┘
 ```
 
 | Part | Stack |
 | --- | --- |
-| `apps/web` | React 19, TypeScript, Vite, three.js, React Three Fiber, drei, zustand, TanStack Query |
-| `apps/api` | Python 3.12, FastAPI, SQLAlchemy 2 (async), asyncpg, Alembic, PostgreSQL 17 + pgvector |
-| `pipeline` | Python 3.12, RDKit, pymatgen, polars, Typer |
-| CI/CD | GitHub Actions, GitHub Pages (demo) |
+| `apps/web` | React 19, TypeScript, Vite, three.js, React Three Fiber, drei, zustand, TanStack Query, i18next, Tailwind CSS |
+| `apps/api` | Python 3.12, FastAPI, SQLAlchemy 2 (async), asyncpg, Alembic, PostgreSQL 17 + pgvector, pg_trgm |
+| `pipeline` | Python 3.12, httpx, tenacity, RDKit, spglib, numpy, Typer |
+| CI/CD | GitHub Actions (checks, data builds, screenshots, load and speed tests), GitHub Pages |
 
-Design decisions are recorded in [docs/adr](docs/adr). The full plan is in
+Design decisions are recorded in [docs/adr](docs/adr); the plan is in
 [docs/plan.md](docs/plan.md).
+
+## Run it
+
+- Demo: nothing to do — every push to `main` rebuilds and deploys the site.
+- Own server (Docker Compose), managed cloud services or local development: see
+  [docs/DEPLOY.md](docs/DEPLOY.md).
+
+## Performance budgets
+
+| Metric | Budget | Measured (CI) |
+| --- | --- | --- |
+| Initial JavaScript (gzip) | ≤ 400 KB | ≈ 380 KB |
+| LCP on 4G (9 Mbit/s, 170 ms) | ≤ 2.5 s | ≈ 0.9 s desktop, ≈ 1.1 s phone (CPU ×4) |
+| Draw calls per frame | ≤ 100 | 3–12 |
+| 3D structure file (gzip), 95% of compounds | ≤ 20 KB | ≈ 1.5 KB |
+| API p95 without cache, 32 parallel requests | ≤ 300 ms | ≈ 240–290 ms |
 
 ## Data sources and licenses
 
 The source code is MIT-licensed. Chemical data keeps the licenses of its sources:
-PubChem (NIH, public data), Materials Project (CC BY 4.0), Crystallography Open
-Database (public domain), Wikidata (CC0), Wikipedia (CC BY-SA). Details:
-[docs/data-sources.md](docs/data-sources.md).
+Wikidata (CC0), Wikipedia (CC BY-SA 4.0), PubChem (NIH, public domain), Materials
+Project (CC BY 4.0). GNoME data (CC BY-NC) is excluded. The site's About page and
+[docs/data-sources.md](docs/data-sources.md) list the details.
 
 ## License
 

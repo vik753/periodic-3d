@@ -1,13 +1,13 @@
 {
   "base": "https://vik753.github.io/periodic-3d/",
   "set": "quick",
-  "time": "2026-10-11T14:03:12.253Z",
+  "time": "2026-10-11T14:23:18.758Z",
   "shots": [
     {
       "name": "table",
       "path": "",
       "ok": true,
-      "ms": 6134,
+      "ms": 6906,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -21,7 +21,7 @@
       "name": "element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 8252,
+      "ms": 8371,
       "stats": {
         "calls": 10,
         "triangles": 195204,
@@ -37,7 +37,7 @@
       "name": "element-o-rays",
       "path": "e/O",
       "ok": true,
-      "ms": 9215,
+      "ms": 8314,
       "stats": {
         "calls": 8,
         "triangles": 165044,
@@ -53,7 +53,7 @@
       "name": "walk-fe-o",
       "path": "e/Fe/O",
       "ok": true,
-      "ms": 9864,
+      "ms": 9435,
       "stats": {
         "calls": 9,
         "triangles": 210672,
@@ -69,7 +69,7 @@
       "name": "walk-fe-o-predicted",
       "path": "e/Fe/O/predicted",
       "ok": true,
-      "ms": 13486,
+      "ms": 13716,
       "stats": {
         "calls": 11,
         "triangles": 281184,
@@ -85,7 +85,7 @@
       "name": "set-fe-o",
       "path": "set/Fe-O",
       "ok": true,
-      "ms": 7669,
+      "ms": 8462,
       "stats": {
         "calls": 4,
         "triangles": 105440,
@@ -101,7 +101,7 @@
       "name": "compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 9097,
+      "ms": 8067,
       "stats": {
         "calls": 5,
         "triangles": 117108,
@@ -117,7 +117,7 @@
       "name": "material-gdy3f12",
       "path": "m/df6697e2c1",
       "ok": true,
-      "ms": 8030,
+      "ms": 7875,
       "stats": {
         "calls": 5,
         "triangles": 85860,

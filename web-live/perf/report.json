@@ -1,41 +1,41 @@
 {
   "base": "https://vik753.github.io/periodic-3d/",
-  "time": "2026-10-11T14:04:31.916Z",
+  "time": "2026-10-11T14:24:38.207Z",
   "network": "4G 9 Mbit/s, 170 ms RTT",
   "profiles": [
     {
       "name": "desktop-4g",
       "cpuSlowdown": 1,
-      "lcpMs": 888,
-      "readyMs": 1939,
-      "scriptKB": 395,
+      "lcpMs": 904,
+      "readyMs": 2213,
+      "scriptKB": 396,
       "totalKB": 552,
       "samples": [
         {
-          "lcp": 1096,
-          "domContentLoaded": 822.1000000000058,
-          "load": 822.2999999999884,
+          "lcp": 1088,
+          "domContentLoaded": 837,
+          "load": 837.2999999999884,
           "calls": 3,
-          "ready": 2163,
-          "scriptKB": 395,
+          "ready": 2244,
+          "scriptKB": 396,
           "totalKB": 552
         },
         {
-          "lcp": 888,
-          "domContentLoaded": 816.3999999999942,
-          "load": 816.7000000000116,
+          "lcp": 896,
+          "domContentLoaded": 823.7000000000116,
+          "load": 823.9000000000233,
           "calls": 3,
-          "ready": 1918,
-          "scriptKB": 395,
+          "ready": 2213,
+          "scriptKB": 396,
           "totalKB": 552
         },
         {
-          "lcp": 884,
-          "domContentLoaded": 816.6999999999825,
-          "load": 816.8999999999942,
+          "lcp": 904,
+          "domContentLoaded": 823.1000000000058,
+          "load": 823.3999999999942,
           "calls": 3,
-          "ready": 1939,
-          "scriptKB": 395,
+          "ready": 1904,
+          "scriptKB": 396,
           "totalKB": 552
         }
       ]
@@ -43,36 +43,36 @@
     {
       "name": "phone-4g",
       "cpuSlowdown": 4,
-      "lcpMs": 1184,
-      "readyMs": 2767,
-      "scriptKB": 395,
+      "lcpMs": 1172,
+      "readyMs": 2771,
+      "scriptKB": 396,
       "totalKB": 552,
       "samples": [
         {
-          "lcp": 1192,
-          "domContentLoaded": 972.6000000000058,
-          "load": 974,
+          "lcp": 1176,
+          "domContentLoaded": 974,
+          "load": 974.6999999999825,
           "calls": 3,
-          "ready": 2610,
-          "scriptKB": 395,
+          "ready": 2824,
+          "scriptKB": 396,
           "totalKB": 552
         },
         {
-          "lcp": 1152,
-          "domContentLoaded": 959.3000000000175,
-          "load": 959.5,
+          "lcp": 1148,
+          "domContentLoaded": 964.5,
+          "load": 965,
           "calls": 3,
-          "ready": 2767,
-          "scriptKB": 395,
+          "ready": 2745,
+          "scriptKB": 396,
           "totalKB": 552
         },
         {
-          "lcp": 1184,
-          "domContentLoaded": 982,
-          "load": 982.3000000000175,
+          "lcp": 1172,
+          "domContentLoaded": 978.8000000000175,
+          "load": 979.8000000000175,
           "calls": 3,
-          "ready": 2834,
-          "scriptKB": 395,
+          "ready": 2771,
+          "scriptKB": 396,
           "totalKB": 552
         }
       ]

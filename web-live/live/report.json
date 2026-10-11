@@ -1,0 +1,133 @@
+{
+  "base": "https://vik753.github.io/periodic-3d/",
+  "set": "quick",
+  "time": "2026-10-11T11:51:25.879Z",
+  "shots": [
+    {
+      "name": "table",
+      "path": "",
+      "ok": true,
+      "ms": 5678,
+      "stats": {
+        "calls": 3,
+        "triangles": 69620,
+        "scene": "table",
+        "ready": true,
+        "url": "/periodic-3d/"
+      },
+      "console": []
+    },
+    {
+      "name": "element-fe",
+      "path": "e/Fe",
+      "ok": true,
+      "ms": 7542,
+      "stats": {
+        "calls": 10,
+        "triangles": 195204,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "name": "element-o-rays",
+      "path": "e/O",
+      "ok": true,
+      "ms": 7954,
+      "stats": {
+        "calls": 8,
+        "triangles": 165044,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/O"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "name": "walk-fe-o",
+      "path": "e/Fe/O",
+      "ok": true,
+      "ms": 8785,
+      "stats": {
+        "calls": 9,
+        "triangles": 210672,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "name": "walk-fe-o-predicted",
+      "path": "e/Fe/O/predicted",
+      "ok": true,
+      "ms": 10823,
+      "stats": {
+        "calls": 11,
+        "triangles": 281184,
+        "scene": "element",
+        "ready": true,
+        "url": "/periodic-3d/e/Fe/O/predicted"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "name": "set-fe-o",
+      "path": "set/Fe-O",
+      "ok": true,
+      "ms": 7530,
+      "stats": {
+        "calls": 4,
+        "triangles": 105440,
+        "scene": "set",
+        "ready": true,
+        "url": "/periodic-3d/set/Fe-O"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "name": "compound-hematite",
+      "path": "c/Q103223",
+      "ok": true,
+      "ms": 7617,
+      "stats": {
+        "calls": 5,
+        "triangles": 117108,
+        "scene": "compound",
+        "ready": true,
+        "url": "/periodic-3d/c/Q103223"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "name": "material-gdy3f12",
+      "path": "m/df6697e2c1",
+      "ok": true,
+      "ms": 7261,
+      "stats": {
+        "calls": 5,
+        "triangles": 85860,
+        "scene": "material",
+        "ready": true,
+        "url": "/periodic-3d/m/df6697e2c1"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    }
+  ]
+}

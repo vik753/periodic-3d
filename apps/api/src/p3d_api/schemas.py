@@ -257,7 +257,8 @@ class Material(Schema):
     density: float | None = None  # g/cm³
     formation_energy: float | None = None
     decomposition_energy: float | None = None
-    r2scan_decomposition_energy: float | None = None
+    # to_camel would write "r2ScanDecompositionEnergy"; keep the pipeline's key.
+    r2scan_decomposition_energy: float | None = Field(default=None, alias="r2scanDecompositionEnergy")
     bandgap: float | None = None  # eV
     dimensionality: str | None = None
     structure: MaterialStructure

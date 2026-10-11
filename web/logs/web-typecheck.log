@@ -1,8 +1,9 @@
 $ npm run typecheck
-started: 2026-10-11T14:13:55Z
+started: 2026-10-11T14:35:15Z
 
 > @periodic-3d/web@0.1.0 typecheck
 > tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit
 
-finished: 2026-10-11T14:14:02Z
-exit code: 0
+src/three/CompoundCloud.tsx(165,20): error TS6133: 'entry' is declared but its value is never read.
+finished: 2026-10-11T14:35:21Z
+exit code: 2

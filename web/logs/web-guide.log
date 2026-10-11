@@ -1,5 +1,5 @@
 $ bash ../../tools/ci/fetch-guide.sh dist/guide
-started: 2026-10-11T14:14:25Z
+started: 2026-10-11T14:35:47Z
 fetch-guide: no guide video (data/GUIDE)
-finished: 2026-10-11T14:14:25Z
+finished: 2026-10-11T14:35:48Z
 exit code: 0

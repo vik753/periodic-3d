@@ -13,7 +13,7 @@ interface Result {
   path: string;
   title: string;
   subtitle: string;
-  kind: 'element' | 'compound';
+  kind: 'element' | 'compound' | 'material';
 }
 
 function matchElements(elements: ElementSummary[], query: string, language: string): ElementSummary[] {
@@ -65,6 +65,11 @@ export function Search() {
       subtitle: pickName(element.names, language),
       kind: 'element',
     }));
+    // A GNoME id (10 hex characters) opens the predicted material's card.
+    const id = query.trim().toLowerCase();
+    if (/^[0-9a-f]{10}$/.test(id)) {
+      found.push({ key: `m-${id}`, path: `/m/${id}`, title: id, subtitle: t('material.kind'), kind: 'material' });
+    }
     for (const entry of searchIndex(index.data ?? [], query, 10)) {
       found.push({
         key: `c-${entry.id}`,
@@ -75,7 +80,7 @@ export function Search() {
       });
     }
     return found;
-  }, [query, elements.data, index.data, i18n.language]);
+  }, [query, elements.data, index.data, i18n.language, t]);
 
   const go = (result: Result | undefined) => {
     if (!result) return;
@@ -150,7 +155,15 @@ export function Search() {
                 position === active ? 'bg-white/10' : ''
               }`}
             >
-              <span className={`font-display font-semibold ${result.kind === 'element' ? 'min-w-[2rem] text-gold' : 'min-w-[4rem]'}`}>
+              <span
+                className={`font-display font-semibold ${
+                  result.kind === 'element'
+                    ? 'min-w-[2rem] text-gold'
+                    : result.kind === 'material'
+                      ? 'min-w-[4rem] text-violet'
+                      : 'min-w-[4rem]'
+                }`}
+              >
                 {result.title}
               </span>
               <span className="truncate text-sm text-muted">{result.subtitle}</span>

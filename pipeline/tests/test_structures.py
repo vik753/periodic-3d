@@ -78,6 +78,8 @@ def test_iron_fragment_is_a_block_of_cells_with_one_cell_frame() -> None:
     assert structure is not None
     # 2×2×2 cells: 3³ corner atoms + 2³ body centres.
     assert len(structure["atoms"]) == 27 + 8
+    # Only the nearest shell: each body centre bonds to its 8 corners, corners not to each other.
+    assert len(structure["bonds"]) == 8 * 8
     assert structure["cell"] == [[a, 0, 0], [0, a, 0], [0, 0, a]]
     assert composition(structure) == {"Fe": 2.0}
 

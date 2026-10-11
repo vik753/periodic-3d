@@ -299,14 +299,25 @@ def _bond_cutoffs(elements: list[str]) -> np.ndarray:
     return np.asarray(cutoffs, float)
 
 
+METAL_SHELL = 1.12  # metals and alloys: only the nearest-neighbour shell is drawn
+
+
 def crystal_bonds(cart: np.ndarray, elements: list[str]) -> list[list[float]]:
-    """Distance-based bonds. Metal–metal bonds are skipped in compounds with anions."""
+    """Distance-based bonds. Metal–metal bonds are skipped in compounds with anions.
+
+    In metals and alloys every atom touches the second shell too (bcc iron: 2.48 Å and
+    2.87 Å); drawing both hides the lattice, so only the nearest shell is kept.
+    """
     count = len(elements)
     if count < 2:
         return []
     cutoffs = _bond_cutoffs(elements)
     deltas = cart[:, None, :] - cart[None, :, :]
     distances = np.sqrt((deltas**2).sum(axis=-1))
+    if not any(element in NONMETALS for element in elements):
+        nearest = distances[distances > 0.4]
+        if nearest.size:
+            cutoffs = np.minimum(cutoffs, float(nearest.min()) * METAL_SHELL)
     candidates: list[tuple[float, int, int]] = []
     for i in range(count):
         for j in range(i + 1, count):

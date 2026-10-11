@@ -89,7 +89,7 @@ export function Dust() {
             p.z += sin(uTime * 0.15 + aSeed * 29.0) * 0.6;
             vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
             // Sizes in CSS pixels: 2–4 px motes next to the table, specks in deep space.
-            gl_PointSize = max(aSize * (95.0 / max(-mvPosition.z, 1.0)), 1.2) * uPixelRatio;
+            gl_PointSize = max(aSize * (115.0 / max(-mvPosition.z, 1.0)), 1.4) * uPixelRatio;
             gl_Position = projectionMatrix * mvPosition;
             // Fade at the top and bottom of the loop so no mote pops in or out.
             float edge = wrapped / uHeight;

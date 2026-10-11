@@ -190,7 +190,12 @@ export function Rays({
     () => buildRayCurves(origin, partners, transform, bend),
     [origin, partners, transform, bend],
   );
-  const geometry = useMemo(() => rayGeometry(curves, (ray) => 0.01 + 0.032 * ray.weight, SEGMENTS), [curves]);
+  // Predicted rays are thinner and fainter: they accompany the known ones, not drown them.
+  const thickness = predicted ? 0.022 : 0.032;
+  const geometry = useMemo(
+    () => rayGeometry(curves, (ray) => 0.008 + thickness * ray.weight, SEGMENTS),
+    [curves, thickness],
+  );
   const hitGeometry = useMemo(() => rayGeometry(curves, () => HIT_RADIUS, 24), [curves]);
   const color = predicted ? VIOLET_COLOR : RAY_COLOR;
   const material = useMemo(() => createRayMaterial(false, color), [color]);
@@ -232,7 +237,8 @@ export function Rays({
     const grow = reducedMotion ? 1.05 : age.current < GROW_DELAY_S ? 0 : damp(uniforms.uGrow!.value as number, 1.05, 2.6, dt);
     uniforms.uGrow!.value = grow;
     uniforms.uHover!.value = highlightedIndex;
-    uniforms.uOpacity!.value = damp(uniforms.uOpacity!.value as number, dimmed ? 0.3 : 1, 4, dt);
+    const opacity = (dimmed ? 0.3 : 1) * (predicted ? 0.55 : 1);
+    uniforms.uOpacity!.value = damp(uniforms.uOpacity!.value as number, opacity, 4, dt);
     const halo = haloMaterial.uniforms;
     halo.uOpacity!.value = uniforms.uOpacity!.value;
     halo.uTime!.value = uniforms.uTime!.value;

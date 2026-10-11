@@ -9,7 +9,16 @@ import { ELEMENTS } from '../data/periodic';
 import { isTouchFirst } from '../lib/device';
 import { useAppStore } from '../state/store';
 import type { AtlasEntry } from './labelAtlas';
-import { atlasCell, createLabelAtlas, createLabelMaterial, drawLabelAtlas, DISPLAY_FONT, TEXT_FONT } from './labelAtlas';
+import {
+  atlasCell,
+  buildLabelSdf,
+  createLabelAtlas,
+  createLabelMaterial,
+  DISPLAY_FONT,
+  drawLabelAtlas,
+  emptyLabelSdf,
+  TEXT_FONT,
+} from './labelAtlas';
 import type { TableTransform } from './layout';
 import { magnifyScale, TABLE_AT_REST, TILE, TILE_DEPTH, tileMatrix, tilePosition } from './layout';
 import { RAY_COLOR } from './colors';
@@ -145,7 +154,8 @@ export function PeriodicTable3D({
   );
 
   const atlas = useMemo(() => createLabelAtlas(), []);
-  const labelMaterial = useMemo(() => createLabelMaterial(atlas), [atlas]);
+  const emptySdf = useMemo(() => emptyLabelSdf(), []);
+  const labelMaterial = useMemo(() => createLabelMaterial(atlas, emptySdf), [atlas, emptySdf]);
 
   // Animated per-tile state: current scale and lift towards the viewer.
   const animation = useRef({
@@ -162,15 +172,33 @@ export function PeriodicTable3D({
       document.fonts.load(`600 46px ${DISPLAY_FONT}`),
       document.fonts.load(`500 21px ${TEXT_FONT}`),
     ]).catch(() => undefined);
-    void fontsReady.then(() => {
-      if (cancelled) return;
-      drawLabelAtlas(atlas, entries);
-      invalidate();
-    });
+    const uniforms = labelMaterial.uniforms;
+    void fontsReady
+      .then(() => {
+        if (cancelled) return null;
+        drawLabelAtlas(atlas, entries);
+        // Until the new distance field is ready the bitmap draws every zoom level.
+        uniforms.uSdfReady!.value = 0;
+        invalidate();
+        return buildLabelSdf(entries, () => cancelled);
+      })
+      .then((sdf) => {
+        if (!sdf) return;
+        if (cancelled) {
+          sdf.dispose();
+          return;
+        }
+        const previous = uniforms.uSdf!.value as THREE.Texture;
+        uniforms.uSdf!.value = sdf;
+        uniforms.uSdfReady!.value = 1;
+        if (previous !== emptySdf) previous.dispose();
+        invalidate();
+      })
+      .catch(() => undefined); // no distance field: the bitmap stays
     return () => {
       cancelled = true;
     };
-  }, [atlas, names, invalidate]);
+  }, [atlas, emptySdf, labelMaterial, names, invalidate]);
 
   // Initial matrices and colours.
   useLayoutEffect(() => {

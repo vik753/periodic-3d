@@ -40,6 +40,41 @@ const shots = [
     },
   },
   {
+    // The closest zoom: the letters must stay sharp (distance-field labels).
+    name: 'table-closeup-pm',
+    path: '',
+    viewport: desktop,
+    dpr: 2,
+    wait: 3000,
+    act: async (page) => {
+      await page.waitForTimeout(2500); // the distance field builds in a worker
+      for (let step = 0; step < 6; step += 1) {
+        const point = await page.evaluate(() => window.__p3d?.project?.('Pm') ?? null);
+        if (!point) return;
+        await page.mouse.move(point.x, point.y, { steps: 2 });
+        await page.mouse.wheel(0, -400);
+        await page.waitForTimeout(350);
+      }
+    },
+  },
+  {
+    // Three chosen elements, then the pointer on another tile: the bar stays at the bottom.
+    name: 'table-selection-hover',
+    path: '',
+    viewport: desktop,
+    wait: 1200,
+    act: async (page) => {
+      await page.getByRole('button', { name: 'Вибрати кілька' }).click();
+      for (const symbol of ['Ta', 'S', 'Pd']) {
+        const point = await page.evaluate((s) => window.__p3d?.project?.(s) ?? null, symbol);
+        if (point) await page.mouse.click(point.x, point.y);
+        await page.waitForTimeout(250);
+      }
+      const point = await page.evaluate(() => window.__p3d?.project?.('Fe') ?? null);
+      if (point) await page.mouse.move(point.x, point.y, { steps: 4 });
+    },
+  },
+  {
     name: 'phone-table-tap-fe',
     path: '',
     viewport: phone,

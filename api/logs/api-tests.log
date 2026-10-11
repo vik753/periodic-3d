@@ -1,29 +1,6 @@
 $ uv run pytest -q
-started: 2026-10-11T07:59:36Z
-...........................F..............                               [100%]
-=================================== FAILURES ===================================
-_____________________________ test_material_shard ______________________________
-
-client = <httpx.AsyncClient object at 0x7f1ec72ee3c0>
-
-    async def test_material_shard(client: Any) -> None:
-        body = await get(client, "/api/v1/materials/shard/AAAA")
-        assert body["version"] == GNOME
-        assert body["prefix"] == "aaaa"
-        assert [material["id"] for material in body["materials"]] == ["aaaa000001", "aaaa000002"]
-        hematite = body["materials"][0]
-        assert hematite["formula"] == "Fe2O3"
-        assert hematite["composition"] == {"O": 3, "Fe": 2}
-        assert hematite["elements"] == ["O", "Fe"]
-        assert hematite["spaceGroup"] == "R-3c"
-        assert hematite["decompositionEnergy"] == -0.012
->       assert hematite["r2scanDecompositionEnergy"] == -0.02
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       KeyError: 'r2scanDecompositionEnergy'
-
-tests/test_api.py:284: KeyError
-=========================== short test summary info ============================
-FAILED tests/test_api.py::test_material_shard - KeyError: 'r2scanDecompositionEnergy'
-1 failed, 41 passed in 3.65s
-finished: 2026-10-11T07:59:40Z
-exit code: 1
+started: 2026-10-11T08:07:11Z
+..........................................                               [100%]
+42 passed in 3.69s
+finished: 2026-10-11T08:07:15Z
+exit code: 0

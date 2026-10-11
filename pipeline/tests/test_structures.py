@@ -105,6 +105,17 @@ def test_molecule_from_smiles_places_salt_parts_side_by_side() -> None:
 
 
 @pytest.mark.skipif(importlib.util.find_spec("rdkit") is None, reason="RDKit is not installed")
+def test_molecule_from_smiles_survives_rdkit_errors(monkeypatch: pytest.MonkeyPatch) -> None:
+    from p3d_pipeline import structures
+
+    def broken(*_: object, **__: object) -> None:
+        raise RuntimeError("Invariant Violation: bad lower bound")
+
+    monkeypatch.setattr(structures, "_embed", broken)
+    assert molecule_from_smiles("CCO") is None
+
+
+@pytest.mark.skipif(importlib.util.find_spec("rdkit") is None, reason="RDKit is not installed")
 def test_molecule_from_smiles_rejects_too_many_parts() -> None:
     assert molecule_from_smiles(".".join(["O"] * 17)) is None
 

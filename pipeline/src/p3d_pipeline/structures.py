@@ -162,8 +162,17 @@ def molecule_from_smiles(smiles: str, *, seed: int = 42, max_atoms: int = 400) -
 
     Salts and hydrates (multi-part SMILES, "CC(=O)[O-].[Na+]") are embedded part by
     part and placed side by side (assemble_fragments). Falls back to a flat 2D layout
-    when 3D embedding fails. Returns None when RDKit cannot parse the input.
+    when 3D embedding fails. Returns None when RDKit cannot parse or embed the input:
+    for odd inputs RDKit raises RuntimeError ("Invariant Violation"), and one bad
+    record must not stop a build of 27 000 compounds.
     """
+    try:
+        return _molecule_from_smiles(smiles, seed=seed, max_atoms=max_atoms)
+    except Exception:
+        return None
+
+
+def _molecule_from_smiles(smiles: str, *, seed: int, max_atoms: int) -> Structure | None:
     try:
         from rdkit import Chem, RDLogger
     except ImportError:

@@ -20,6 +20,7 @@ import re
 import time
 from collections import Counter, defaultdict
 from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures.process import BrokenProcessPool
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from itertools import combinations
@@ -317,17 +318,40 @@ def structure_methods(compound: Compound, wants_crystal: bool) -> list[str]:
 PUBCHEM_3D_BUDGET_S = 40 * 60
 
 
+EMBED_CHUNK = 25
+MAX_POOL_RESTARTS = 20
+
+
 def embed_all(smiles: list[str]) -> dict[str, Structure | None]:
-    """RDKit 3D embedding in parallel processes (a few thousand molecules)."""
+    """RDKit 3D embedding in parallel processes (thousands of molecules).
+
+    If RDKit crashes a worker process, the pool breaks: the chunk that was running is
+    skipped (no 3D for those molecules) and a new pool continues with the rest.
+    """
     if not smiles:
         return {}
     started = time.monotonic()
     workers = max(1, (os.cpu_count() or 2))
     log.info("RDKit: embedding %d molecules on %d processes", len(smiles), workers)
-    with ProcessPoolExecutor(max_workers=workers) as pool:
-        structures = list(pool.map(molecule_from_smiles, smiles, chunksize=25))
+    results: dict[str, Structure | None] = {}
+    remaining = list(smiles)
+    for _ in range(MAX_POOL_RESTARTS):
+        try:
+            with ProcessPoolExecutor(max_workers=workers) as pool:
+                embedded = pool.map(molecule_from_smiles, remaining, chunksize=EMBED_CHUNK)
+                for item, structure in zip(remaining, embedded, strict=True):
+                    results[item] = structure
+        except BrokenProcessPool:
+            done = [item for item in remaining if item in results]
+            skipped = [item for item in remaining if item not in results][:EMBED_CHUNK]
+            log.warning("RDKit: a worker crashed; skipping %d molecules after %d done", len(skipped), len(done))
+            results.update(dict.fromkeys(skipped))
+        remaining = [item for item in remaining if item not in results]
+        if not remaining:
+            break
+    results.update(dict.fromkeys(remaining))
     log.info("RDKit: done in %.0f s", time.monotonic() - started)
-    return dict(zip(smiles, structures, strict=True))
+    return results
 
 
 @dataclass

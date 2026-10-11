@@ -9,6 +9,7 @@ from typing import Annotated
 
 import typer
 
+from . import gnome
 from .build import Options, run
 
 app = typer.Typer(add_completion=False, help="Periodic Table 3D data pipeline.")
@@ -45,6 +46,21 @@ def build(
         structures=structures,
     )
     typer.echo(run(options))
+
+
+@app.command("gnome")
+def gnome_layer(
+    out: Annotated[Path, typer.Option(help="Output directory for GNoME layers.")] = Path("../data/gnome"),
+    cache: Annotated[Path, typer.Option(help="Cache directory for downloaded files.")] = Path("../data/cache"),
+    version: Annotated[str, typer.Option(help="Layer version; default is today's date.")] = "",
+    limit: Annotated[int, typer.Option(help="Keep the first N materials (0 = all).")] = 0,
+) -> None:
+    """Build the GNoME layer of predicted crystals (ADR 0007) and print its directory."""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    options = gnome.GnomeOptions(
+        out_dir=out, cache_dir=cache, version=version or datetime.now(UTC).strftime("%Y.%m.%d"), limit=limit
+    )
+    typer.echo(gnome.run(options))
 
 
 if __name__ == "__main__":

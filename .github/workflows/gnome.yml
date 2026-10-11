@@ -1,0 +1,115 @@
+name: gnome
+
+# Builds the GNoME layer of predicted crystals (ADR 0007). A manual run builds all
+# materials and can publish a release that the site switches to (data/GNOME); pushes to
+# the GNoME code build the first 2 000 materials for quick feedback.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Keep the first N materials (0 = all)"
+        type: string
+        default: "0"
+      release:
+        description: "Publish the layer as a GitHub release and switch the site to it"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "pipeline/src/p3d_pipeline/gnome.py"
+      - ".github/workflows/gnome.yml"
+
+permissions:
+  contents: write
+  actions: write # start the ci workflow after a new release
+
+concurrency:
+  group: gnome
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: pipeline
+    env:
+      RUN: ../tools/ci/run.sh
+      LIMIT: ${{ github.event_name == 'push' && '2000' || inputs.limit }}
+      RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: bash $RUN gnome-install bash ../tools/ci/uv-sync.sh
+
+      - name: Tests
+        run: bash $RUN gnome-tests uv run pytest -q tests/test_gnome.py
+
+      # The source files are large (≈ 630 MB) and change rarely: one fixed cache entry.
+      - name: Restore source files
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/gnome-cache
+          key: gnome-source-2024-08-21
+
+      - name: Build the layer
+        id: build
+        run: |
+          VERSION="$(date -u +%Y.%m.%d)-r${GITHUB_RUN_NUMBER}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          bash $RUN gnome-build uv run p3d-pipeline gnome --out ../data/gnome --cache ../data/gnome-cache \
+            --version "$VERSION" --limit "$LIMIT"
+          test -s "../data/gnome/$VERSION/materials.jsonl"
+          tar -czf "../data/gnome-$VERSION.tar.gz" -C ../data/gnome "$VERSION"
+          ls -la ../data
+          du -sh "../data/gnome/$VERSION"/*
+
+      - name: Save source files
+        if: always() && steps.cache.outputs.cache-hit != 'true' && steps.build.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: data/gnome-cache
+          key: gnome-source-2024-08-21
+
+      - name: Publish report to ci-results
+        if: steps.build.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/gnome
+          cp "../data/gnome/$VERSION/report.md" "../data/gnome/$VERSION/manifest.json" out/gnome/
+          size=$(stat -c %s "../data/gnome-$VERSION.tar.gz")
+          if [ "$size" -lt 25000000 ]; then cp "../data/gnome-$VERSION.tar.gz" out/gnome/gnome.tar.gz; fi
+          echo "$VERSION" > out/gnome/VERSION
+          bash ../tools/ci/publish-results.sh out/gnome gnome/latest "ci: gnome layer $VERSION"
+
+      - name: Publish release and switch the site to it
+        if: steps.build.outcome == 'success' && env.RELEASE == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "gnome-$VERSION" "../data/gnome-$VERSION.tar.gz" \
+            --title "GNoME layer $VERSION" --notes-file "../data/gnome/$VERSION/report.md" --latest=false
+          mkdir -p ../data
+          echo "release:gnome-$VERSION" > ../data/GNOME
+          bash ../tools/ci/commit-back.sh "chore(data): use GNoME layer $VERSION [skip ci]" ../data/GNOME
+          gh workflow run ci.yml --ref main
+
+      - name: Publish logs
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/run
+          cp -R out/logs out/run/ 2>/dev/null || true
+          bash ../tools/ci/publish-results.sh out/run gnome/run "ci: gnome run ${GITHUB_SHA::7}"

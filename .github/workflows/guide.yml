@@ -25,6 +25,10 @@ on:
         description: "Publish the videos and switch the site to them"
         type: boolean
         default: false
+      from_run:
+        description: "Publish the videos of this earlier run instead of recording (run ID)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -48,7 +52,7 @@ jobs:
         working-directory: apps/web
     env:
       RUN: ../../tools/ci/run.sh
-      LANG_ON: ${{ contains(inputs.languages, matrix.lang) }}
+      LANG_ON: ${{ inputs.from_run == '' && contains(inputs.languages, matrix.lang) }}
     steps:
       - uses: actions/checkout@v4
         if: env.LANG_ON == 'true'
@@ -127,6 +131,9 @@ jobs:
           pattern: guide-*
           merge-multiple: true
           path: ${{ runner.temp }}/guide
+          # A reviewed earlier recording, or this run's.
+          run-id: ${{ inputs.from_run || github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release the videos and switch the site to them
         env:

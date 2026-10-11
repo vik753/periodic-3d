@@ -133,7 +133,7 @@ const timeline = [];
 let pointer = { x: viewport.width / 2, y: viewport.height / 2 };
 
 async function capture() {
-  const image = await page.screenshot({ type: 'jpeg', quality: 92 });
+  const image = await page.screenshot({ type: 'jpeg', quality: 92, timeout: 90_000 });
   await writeFile(join(framesDir, `${String(frame).padStart(6, '0')}.jpg`), image);
   frame += 1;
 }
@@ -230,9 +230,22 @@ async function moveToTile(symbol, seconds) {
   await moveTo(point.x, point.y, seconds);
 }
 
+/**
+ * Wait until an element shows, letting video time run: data arrives over the network in
+ * real time, but React Query and the app need their (frozen) timers to show it.
+ */
+async function waitVisible(locator, maxSeconds = 6) {
+  const frames = Math.round(maxSeconds * FPS);
+  for (let i = 0; i < frames; i += 1) {
+    if (await locator.isVisible().catch(() => false)) return;
+    await tick();
+  }
+  throw new Error(`not visible after ${maxSeconds} s: ${locator}`);
+}
+
 /** Move the pointer onto an element of the page and click it. */
 async function press(locator, seconds = 0.7) {
-  await locator.waitFor({ state: 'visible', timeout: 20_000 });
+  await waitVisible(locator);
   const box = await locator.boundingBox();
   if (!box) throw new Error('no box');
   await moveTo(box.x + box.width / 2, box.y + box.height / 2, seconds);
@@ -240,6 +253,8 @@ async function press(locator, seconds = 0.7) {
 }
 
 const t = (key) => page.evaluate((k) => window.__p3d?.t?.(k) ?? k, key);
+/** "All" must not match "Contain all": labels that start with the text. */
+const startsWith = (text) => new RegExp(`^${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i');
 
 async function waitReady() {
   for (let i = 0; i < 300; i += 1) {
@@ -298,9 +313,9 @@ const scenes = [
       await click();
       await hold(3.2);
       await caption(TEXT.substance);
-      await press(page.getByRole('radio', { name: await t('element.viewSubstance') }));
+      await press(page.getByRole('radio', { name: await t('element.viewSubstance') }).first());
       await hold(2.6);
-      await press(page.getByRole('radio', { name: await t('element.viewAtom') }), 0.5);
+      await press(page.getByRole('radio', { name: await t('element.viewAtom') }).first(), 0.5);
       await hold(1);
     },
   ],
@@ -361,17 +376,17 @@ const scenes = [
       await page.keyboard.up('Shift');
       await hold(1);
       await caption(TEXT.cloud);
-      await press(page.getByRole('link', { name: await t('selection.show') }));
+      await press(page.getByRole('link', { name: await t('selection.show') }).first());
       await hold(3.5);
       await moveTo(viewport.width * 0.38, viewport.height * 0.45, 1);
       await hold(1.5);
       await caption(TEXT.filter);
-      await press(page.getByRole('radio', { name: await t('cloud.group_mineral') }));
+      await press(page.getByRole('radio', { name: startsWith(await t('cloud.group_mineral')) }));
       await hold(2.2);
-      await press(page.getByRole('radio', { name: await t('cloud.group_all') }), 0.5);
+      await press(page.getByRole('radio', { name: startsWith(await t('cloud.group_all')) }), 0.5);
       await hold(0.8);
       await caption(TEXT.predicted);
-      await press(page.getByRole('button', { name: await t('cloud.showPredicted') }));
+      await press(page.getByRole('button', { name: await t('cloud.showPredicted') }).first());
       await hold(3);
     },
   ],
@@ -384,7 +399,7 @@ const scenes = [
       await moveToTile('Li', 0.9);
       await click();
       await hold(3);
-      await press(page.getByRole('button', { name: await t('predicted.show') }));
+      await press(page.getByRole('button', { name: await t('predicted.show') }).first());
       await hold(2.5);
       const partner = page.locator('a[href$="/predicted"]').first();
       await press(partner);
@@ -429,11 +444,30 @@ const scenes = [
   ],
 ];
 
+/** The first screenshot of a fresh page can take long in software WebGL: take it now. */
+async function warmUp() {
+  let done = false;
+  const ticker = (async () => {
+    while (!done) {
+      await page.clock.runFor(DT);
+      await page.waitForTimeout(150);
+    }
+  })();
+  try {
+    await page.screenshot({ type: 'jpeg', timeout: 180_000 });
+  } finally {
+    done = true;
+    await ticker;
+  }
+}
+
 const started = Date.now();
 await page.goto(base, { waitUntil: 'domcontentloaded' });
 await waitReady();
 await settle(4); // fonts, label atlas, distance field (worker), dataset
 await page.mouse.move(pointer.x, pointer.y);
+await warmUp();
+console.log(`warm-up done in ${Math.round((Date.now() - started) / 1000)} s`);
 
 for (const [name, run] of scenes) {
   if (only.size && !only.has(name)) continue;
@@ -443,7 +477,14 @@ for (const [name, run] of scenes) {
     await run();
   } catch (error) {
     errors.push(`scene ${name}: ${error instanceof Error ? error.message : String(error)}`);
-    await capture();
+    // A failed scene must not leave a title card or a caption over the next ones.
+    await page.evaluate(() => {
+      window.__guide?.title(null);
+      window.__guide?.caption(null);
+      window.__guide?.hidePointer(false);
+    });
+    await page.keyboard.up('Shift').catch(() => undefined);
+    await hold(0.5);
   }
   timeline.push({ scene: name, from: from / FPS, to: frame / FPS, seconds: Math.round((Date.now() - sceneStarted) / 1000) });
   console.log(`${name}: ${((frame - from) / FPS).toFixed(1)} s of video, ${Math.round((Date.now() - sceneStarted) / 1000)} s to record`);

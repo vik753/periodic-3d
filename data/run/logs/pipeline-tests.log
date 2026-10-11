@@ -1,6 +1,7 @@
 $ uv run pytest -q
-started: 2026-10-11T07:42:40Z
-....................................................................     [100%]
+started: 2026-10-11T09:18:49Z
+........................................................................ [ 96%]
+...                                                                      [100%]
 =============================== warnings summary ===============================
 tests/test_structures.py::test_rock_salt_fragment_from_conventional_cell
 tests/test_structures.py::test_iron_fragment_is_a_block_of_cells_with_one_cell_frame
@@ -9,6 +10,6 @@ tests/test_structures.py::test_crystal_fragment_recovers_cubic_iron_from_a_noisy
     _set_no_error()
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-68 passed, 3 warnings in 0.99s
-finished: 2026-10-11T07:42:41Z
+75 passed, 3 warnings in 0.92s
+finished: 2026-10-11T09:18:50Z
 exit code: 0

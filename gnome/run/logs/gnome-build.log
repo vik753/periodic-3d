@@ -1,10 +1,10 @@
-$ uv run p3d-pipeline gnome --out ../data/gnome --cache ../data/gnome-cache --version 2026.10.11-r1 --limit 2000
-started: 2026-10-11T07:42:40Z
-2026-10-11 07:42:42,690 INFO p3d.gnome: GNoME gnome_data/stable_materials_summary.csv: 151452777 bytes in 1 s
-2026-10-11 07:42:45,217 INFO p3d.gnome: GNoME summary: 554054 materials
-2026-10-11 07:42:45,739 INFO p3d.gnome: GNoME gnome_data/stable_materials_r2scan.csv: 22004293 bytes in 0 s
-2026-10-11 07:42:49,504 INFO p3d.gnome: GNoME gnome_data/by_id.zip: 455074116 bytes in 3 s
-2026-10-11 07:42:52,575 INFO p3d.gnome: GNoME layer ../data/gnome/2026.10.11-r1: 2000 materials in 11 s
-../data/gnome/2026.10.11-r1
-finished: 2026-10-11T07:42:52Z
+$ uv run p3d-pipeline gnome --out ../data/gnome --cache ../data/gnome-cache --version 2026.10.11-r2 --limit 0
+started: 2026-10-11T07:47:03Z
+2026-10-11 07:47:04,498 INFO p3d.gnome: GNoME gnome_data/stable_materials_summary.csv: cached (151452777 bytes)
+2026-10-11 07:47:07,464 INFO p3d.gnome: GNoME summary: 554054 materials
+2026-10-11 07:47:07,572 INFO p3d.gnome: GNoME gnome_data/stable_materials_r2scan.csv: cached (22004293 bytes)
+2026-10-11 07:47:08,380 INFO p3d.gnome: GNoME gnome_data/by_id.zip: cached (455074116 bytes)
+2026-10-11 07:49:59,697 INFO p3d.gnome: GNoME layer ../data/gnome/2026.10.11-r2: 554054 materials in 175 s
+../data/gnome/2026.10.11-r2
+finished: 2026-10-11T07:50:00Z
 exit code: 0

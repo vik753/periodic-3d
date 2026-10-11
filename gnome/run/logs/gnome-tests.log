@@ -1,6 +1,6 @@
 $ uv run pytest -q tests/test_gnome.py
-started: 2026-10-11T07:42:39Z
+started: 2026-10-11T07:46:58Z
 .....                                                                    [100%]
-5 passed in 0.08s
-finished: 2026-10-11T07:42:40Z
+5 passed in 0.10s
+finished: 2026-10-11T07:46:59Z
 exit code: 0

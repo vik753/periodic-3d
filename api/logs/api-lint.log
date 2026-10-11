@@ -1,6 +1,6 @@
 $ bash -c uv run ruff check src tests && uv run ruff format --check src tests
-started: 2026-10-11T13:40:22Z
+started: 2026-10-11T13:42:56Z
 All checks passed!
 25 files already formatted
-finished: 2026-10-11T13:40:23Z
+finished: 2026-10-11T13:42:56Z
 exit code: 0

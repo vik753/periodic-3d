@@ -29,6 +29,7 @@ DEFAULT_RATES: dict[str, float] = {
     "qlever.cs.uni-freiburg.de": 1.0,
     "query.wikidata.org": 1.0,
     "optimade.materialsproject.org": 3.0,
+    "api.materialsproject.org": 4.0,
     "en.wikipedia.org": 10.0,
     "ru.wikipedia.org": 10.0,
     "uk.wikipedia.org": 10.0,
@@ -127,6 +128,7 @@ class Fetcher:
         params: Mapping[str, str] | None = None,
         *,
         accept: str | None = None,
+        headers: Mapping[str, str] | None = None,
         use_cache: bool = True,
         cache_only: bool = False,
         attempts: int = 10,
@@ -135,6 +137,8 @@ class Fetcher:
 
         cache_only: answer from the disk cache or return None without asking the host
         (used when a host has throttled us; the next run fills the gap).
+        headers: extra request headers (an API key). They are not part of the cache key
+        and never reach the cache or the logs.
         """
         path = self._cache_path(url, params)
         missing = path.with_suffix(".missing")
@@ -147,7 +151,7 @@ class Fetcher:
         if cache_only:
             self.stats["skipped_offline"] += 1
             return None
-        body = self._fetch_with_retries(url, params, accept, attempts)
+        body = self._fetch_with_retries(url, params, accept, attempts, headers)
         path.parent.mkdir(parents=True, exist_ok=True)
         if body is None:
             missing.touch()
@@ -158,7 +162,12 @@ class Fetcher:
         return body
 
     def _fetch_with_retries(
-        self, url: str, params: Mapping[str, str] | None, accept: str | None, attempts: int
+        self,
+        url: str,
+        params: Mapping[str, str] | None,
+        accept: str | None,
+        attempts: int,
+        headers: Mapping[str, str] | None = None,
     ) -> bytes | None:
         """Retry transient errors with exponential back-off (5 s, 15 s, 45 s, then 120 s)."""
         retrying = Retrying(
@@ -167,13 +176,20 @@ class Fetcher:
             stop=stop_after_attempt(attempts),
             reraise=True,
         )
-        body: bytes | None = retrying(self._fetch, url, params, accept)
+        body: bytes | None = retrying(self._fetch, url, params, accept, headers)
         return body
 
-    def _fetch(self, url: str, params: Mapping[str, str] | None, accept: str | None) -> bytes | None:
+    def _fetch(
+        self,
+        url: str,
+        params: Mapping[str, str] | None,
+        accept: str | None,
+        extra_headers: Mapping[str, str] | None = None,
+    ) -> bytes | None:
         host = urlparse(url).hostname or ""
         self._throttle(host)
         headers = {"Accept": accept} if accept else {}
+        headers.update(extra_headers or {})
         response = self.client.get(url, params=params, headers=headers)
         status = response.status_code
         pause = throttle_pause(response.headers.get("X-Throttling-Control"))

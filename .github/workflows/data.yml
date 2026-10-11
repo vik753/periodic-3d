@@ -86,6 +86,8 @@ jobs:
         id: build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Materials Project API (Q.2: experimental or computed crystal). Optional.
+          MP_API_KEY: ${{ secrets.MP_API_KEY }}
         run: |
           VERSION="$(date -u +%Y.%m.%d)-r${GITHUB_RUN_NUMBER}"
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"

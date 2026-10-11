@@ -148,6 +148,9 @@ def test_best_candidate_prefers_long_standing_entries() -> None:
     best = best_candidate(options)
     assert best is not None and best.id == "mp-48"  # within the window, the oldest id wins
     assert best_candidate([]) is None
+    # With the MP API marks, an experimental structure wins even above the window (Q.2).
+    marked = best_candidate(options, {"mp-66"})
+    assert marked is not None and marked.id == "mp-66"
 
 
 def test_select_compounds_skips_giant_formulas_and_finds_smiles() -> None:

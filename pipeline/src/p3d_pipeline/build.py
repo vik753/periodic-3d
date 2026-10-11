@@ -54,7 +54,7 @@ from .formula import (
 )
 from .http import Fetcher
 from .quality import FormulaCheck, Verdict, check_formula, has_isotopes, molar_mass, plain_formula
-from .sources import commons, optimade, pubchem, wikidata, wikipedia
+from .sources import commons, mp_api, optimade, pubchem, wikidata, wikipedia
 from .structures import Structure, composition, crystal_fragment, finalize, molecule_from_smiles, parse_sdf
 
 log = logging.getLogger("p3d.build")
@@ -395,6 +395,7 @@ class StructureResult:
     structure: Structure
     source: str
     ref: str | None
+    origin: str | None = None  # crystals: "experimental" (ICSD) or "computed" (MP API, Q.2)
 
 
 def assign_structures(
@@ -440,13 +441,22 @@ def assign_structures(
     }
     log.info("OPTIMADE candidates for %d formulas", len(crystal_formulas))
     candidates = optimade.candidates(fetcher, crystal_formulas)
+    # Q.2: which candidates match an experimental record (needs MP_API_KEY).
+    origins = mp_api.origins(
+        fetcher,
+        [c.id for options in candidates.values() for c in options]
+        + [compound.mp_hint for compound in compounds if compound.mp_hint]
+        + list(ALLOTROPE_STRUCTURES.values()),
+    )
+    experimental = {identifier for identifier, origin in origins.items() if origin.experimental}
+    stats["mp_api_origins"] = len(origins)
     chosen: dict[str, str] = {}
     for compound in compounds:
         if compound.id in ALLOTROPE_STRUCTURES:
             chosen[compound.id] = ALLOTROPE_STRUCTURES[compound.id]
         elif compound.mp_hint:
             chosen[compound.id] = compound.mp_hint
-        elif compound.reduced and (best := optimade.best_candidate(candidates.get(compound.reduced, []))):
+        elif compound.reduced and (best := optimade.best_candidate(candidates.get(compound.reduced, []), experimental)):
             chosen[compound.id] = best.id
     log.info("OPTIMADE structures for %d materials", len(set(chosen.values())))
     crystals = optimade.structures(fetcher, set(chosen.values()))
@@ -488,7 +498,11 @@ def assign_structures(
                 stats["rejected_crystal_units"] += 1
                 continue
             source = {"pubchem3d": "pubchem", "rdkit": "rdkit", "crystal": "materialsproject"}[method]
-            results[compound.id] = StructureResult(structure=structure, source=source, ref=ref)
+            origin = None
+            if method == "crystal" and ref in origins:
+                origin = "experimental" if origins[ref].experimental else "computed"
+                stats[f"crystal_{origin}"] += 1
+            results[compound.id] = StructureResult(structure=structure, source=source, ref=ref, origin=origin)
             stats[f"structure_{method}_{structure['kind']}"] += 1
             break
         else:
@@ -506,8 +520,12 @@ def element_substances(elements: list[dict[str, Any]], fetcher: Fetcher) -> dict
         if element["symbol"] not in MOLECULAR_ELEMENTS and element["symbol"] not in NOBLE_GASES
     ]
     candidates = optimade.candidates(fetcher, crystal_symbols)
+    origins = mp_api.origins(fetcher, [c.id for options in candidates.values() for c in options])
+    experimental = {identifier for identifier, origin in origins.items() if origin.experimental}
     chosen = {
-        symbol: best.id for symbol in crystal_symbols if (best := optimade.best_candidate(candidates.get(symbol, [])))
+        symbol: best.id
+        for symbol in crystal_symbols
+        if (best := optimade.best_candidate(candidates.get(symbol, []), experimental))
     }
     chosen["C"] = "mp-48"  # graphite: the standard state of carbon
     crystals = optimade.structures(fetcher, set(chosen.values()))
@@ -530,7 +548,9 @@ def element_substances(elements: list[dict[str, Any]], fetcher: Fetcher) -> dict
                 attributes.get("species_at_sites") or [],
             )
             if structure:
-                results[symbol] = StructureResult(structure, "materialsproject", chosen[symbol])
+                origin = origins.get(chosen[symbol])
+                mark = None if origin is None else ("experimental" if origin.experimental else "computed")
+                results[symbol] = StructureResult(structure, "materialsproject", chosen[symbol], mark)
     return results
 
 
@@ -581,6 +601,7 @@ def _structure_meta(result: StructureResult) -> dict[str, Any]:
         "ref": result.ref,
         "atoms": len(result.structure["atoms"]),
         "license": LICENSES[result.source],
+        **({"origin": result.origin} if result.origin else {}),
     }
 
 

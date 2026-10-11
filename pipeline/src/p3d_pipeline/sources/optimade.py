@@ -103,23 +103,28 @@ def _mp_number(identifier: str) -> int:
     return int(digits) if digits.isdigit() else 10**9
 
 
-def best_candidate(options: list[Candidate]) -> Candidate | None:
-    """The most stable structure, preferring long-standing Materials Project entries.
+def best_candidate(options: list[Candidate], experimental: frozenset[str] | set[str] | None = None) -> Candidate | None:
+    """The structure to show for a known compound.
 
-    Among structures within STABILITY_WINDOW of the most stable one, the lowest MP id
-    wins. Old ids come from known experimental structures (ICSD); recent ids include
-    machine-generated candidates such as GNoME (CC BY-NC), which the project excludes
-    (ADR 0004). OPTIMADE does not report the origin, so this is the practical guard.
+    1. A structure that matches an experimental record (ICSD; MP API, `experimental`
+       ids) wins over one that exists only in calculations.
+    2. Then the most stable: structures within STABILITY_WINDOW of the most stable one
+       count as equally good.
+    3. Then the lowest MP id: old ids come from known experimental structures; recent
+       ids include machine-generated candidates such as GNoME (CC BY-NC), which the
+       known-compound layer excludes (ADR 0004). Without the MP API key this rule and
+       the stability are the whole guard, as before.
     """
     if not options:
         return None
     energies = [c.energy_above_hull for c in options if c.energy_above_hull is not None]
     floor = min(energies) if energies else None
+    known = experimental or frozenset()
 
-    def key(c: Candidate) -> tuple[int, int, int, str]:
+    def key(c: Candidate) -> tuple[int, int, int, int, str]:
         energy = c.energy_above_hull
         near = floor is not None and energy is not None and energy <= floor + STABILITY_WINDOW
-        return (0 if near else 1, _mp_number(c.id), c.nsites, c.id)
+        return (0 if c.id in known else 1, 0 if near else 1, _mp_number(c.id), c.nsites, c.id)
 
     return min(options, key=key)
 

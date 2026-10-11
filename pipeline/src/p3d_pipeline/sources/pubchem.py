@@ -88,6 +88,9 @@ def _sdf_cid(record: str) -> int | None:
     return None
 
 
+MEMO_3D = "pubchem-3d"
+
+
 def conformers_3d(
     fetcher: Fetcher,
     cids: Iterable[int],
@@ -104,6 +107,15 @@ def conformers_3d(
     result: dict[int, str] = {}
     started = time.monotonic()
     state = {"failures": 0, "offline": False}
+    # Per-CID memory: a batch of 10 CIDs shifts when one CID joins or leaves the dataset,
+    # and the URL cache then misses every later batch. "" means "PubChem has no 3D".
+    pending: list[int] = []
+    for cid in sorted(set(cids)):
+        remembered = fetcher.memo_get(MEMO_3D, str(cid))
+        if remembered is None:
+            pending.append(cid)
+        elif remembered:
+            result[cid] = remembered
 
     def fetch(batch: list[int]) -> None:
         ids = ",".join(map(str, batch))
@@ -131,15 +143,23 @@ def conformers_3d(
                 middle = len(batch) // 2
                 fetch(batch[:middle])
                 fetch(batch[middle:])
+            elif len(batch) == 1 and not state["offline"]:
+                fetcher.memo_put(MEMO_3D, str(batch[0]), "")
             return
+        found: set[int] = set()
         for record in split_sdf(body.decode("utf-8", errors="replace")):
             cid = _sdf_cid(record)
             if cid is None and len(batch) == 1:
                 cid = batch[0]
             if cid is not None:
                 result[cid] = record
+                found.add(cid)
+                fetcher.memo_put(MEMO_3D, str(cid), record)
+        for cid in batch:
+            if cid not in found:
+                fetcher.memo_put(MEMO_3D, str(cid), "")
 
-    batches = list(_chunks(sorted(set(cids)), SDF_BATCH))
+    batches = list(_chunks(pending, SDF_BATCH))
     for number, batch in enumerate(batches, start=1):
         if number % 200 == 0:
             log.info("  3D batches: %d/%d, %d records, %s", number, len(batches), len(result), dict(fetcher.stats))

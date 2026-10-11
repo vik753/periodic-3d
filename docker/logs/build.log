@@ -10,299 +10,294 @@
 #3 transferring dockerfile: 796B done
 #3 DONE 0.0s
 
-#4 [api internal] load metadata for docker.io/library/python:3.12-slim
-#4 ...
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
 
-#5 [auth] library/python:pull token for registry-1.docker.io
+#5 [auth] library/nginx:pull token for registry-1.docker.io
 #5 DONE 0.0s
 
-#6 [auth] library/node:pull token for registry-1.docker.io
+#6 [auth] library/python:pull token for registry-1.docker.io
 #6 DONE 0.0s
 
-#7 [auth] library/nginx:pull token for registry-1.docker.io
-#7 DONE 0.0s
+#7 [web internal] load metadata for docker.io/library/node:22-alpine
+#7 DONE 0.8s
 
-#8 [api internal] load metadata for ghcr.io/astral-sh/uv:0.8
-#8 ...
+#8 [web internal] load metadata for docker.io/library/nginx:1.27-alpine
+#8 DONE 0.8s
 
-#4 [api internal] load metadata for docker.io/library/python:3.12-slim
-#4 DONE 0.7s
+#9 [api internal] load metadata for docker.io/library/python:3.12-slim
+#9 DONE 0.8s
 
-#9 [web internal] load metadata for docker.io/library/nginx:1.27-alpine
-#9 DONE 0.7s
-
-#8 [api internal] load metadata for ghcr.io/astral-sh/uv:0.8
-#8 DONE 0.7s
-
-#10 [api internal] load .dockerignore
-#10 transferring context: 106B done
+#10 [web internal] load .dockerignore
+#10 transferring context: 93B done
 #10 DONE 0.0s
 
-#11 [web internal] load metadata for docker.io/library/node:22-alpine
-#11 DONE 0.8s
+#11 [web internal] load build context
+#11 transferring context: 466.95kB 0.0s done
+#11 DONE 0.0s
 
-#12 [web internal] load .dockerignore
-#12 transferring context: 93B done
-#12 DONE 0.0s
+#12 [web build 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#12 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 done
+#12 sha256:7c3b093add7c43400ee83b815ab2cda98794a10045bcf76ce9bb2f89b97cbc5c 6.48kB / 6.48kB done
+#12 sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 6.41kB / 6.41kB done
+#12 sha256:2c752226d477b4a886378baa95b9af252be59301b725fdb0b7e15208131505a8 1.72kB / 1.72kB done
+#12 ...
 
-#13 [api internal] load build context
-#13 transferring context: 380.63kB 0.0s done
-#13 DONE 0.0s
+#13 [api internal] load metadata for ghcr.io/astral-sh/uv:0.8
+#13 DONE 1.1s
 
-#14 [web internal] load build context
-#14 transferring context: 462.77kB 0.0s done
+#14 [api internal] load .dockerignore
+#14 transferring context: 106B done
 #14 DONE 0.0s
 
-#15 [api base 1/8] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
-#15 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 done
-#15 sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe 1.75kB / 1.75kB done
-#15 sha256:df18428df8a0f9189c84e7424d214b4c50092af1f9dca5842a00c41c39bda316 5.66kB / 5.66kB done
-#15 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 11.53MB / 29.84MB 0.1s
-#15 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0B / 1.29MB 0.1s
-#15 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0B / 12.12MB 0.1s
-#15 sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 10.37kB / 10.37kB done
-#15 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 29.84MB / 29.84MB 0.2s done
-#15 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 1.29MB / 1.29MB 0.1s done
-#15 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 8.39MB / 12.12MB 0.2s
-#15 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e
-#15 sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 0B / 249B 0.2s
-#15 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 12.12MB / 12.12MB 0.2s done
-#15 sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 249B / 249B 0.2s done
-#15 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 1.5s done
-#15 extracting sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0.1s
-#15 extracting sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0.5s done
-#15 ...
+#15 [api internal] load build context
+#15 transferring context: 381.11kB done
+#15 DONE 0.0s
 
-#16 [api] FROM ghcr.io/astral-sh/uv:0.8@sha256:1d31be550ff927957472b2a491dc3de1ea9b5c2d319a9cea5b6a48021e2990a6
-#16 resolve ghcr.io/astral-sh/uv:0.8@sha256:1d31be550ff927957472b2a491dc3de1ea9b5c2d319a9cea5b6a48021e2990a6 0.0s done
-#16 sha256:1d31be550ff927957472b2a491dc3de1ea9b5c2d319a9cea5b6a48021e2990a6 2.19kB / 2.19kB done
-#16 sha256:aa49a668339c61efa77057114bf6d58c3d69b4a6bdd2a4f1aacac70b408d6187 669B / 669B done
-#16 sha256:6b7573d87eafacd3848a1a7c5428aacce812158bbc0739fc1e5b4ee42056b451 1.30kB / 1.30kB done
-#16 sha256:1c42db65d01cc760dc164f7b0d0779e565d93842e9205d6820dec445bcf21f76 21.67MB / 21.67MB 0.7s done
-#16 sha256:97d6507e23d1f71d6eb0f9ca518c4abd014f3e0e5ca66d3ac62f6b1403fa946a 95B / 95B 0.3s done
-#16 extracting sha256:1c42db65d01cc760dc164f7b0d0779e565d93842e9205d6820dec445bcf21f76 0.6s done
-#16 extracting sha256:97d6507e23d1f71d6eb0f9ca518c4abd014f3e0e5ca66d3ac62f6b1403fa946a done
-#16 DONE 4.1s
+#16 [web stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#16 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 done
+#16 sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 10.33kB / 10.33kB done
+#16 sha256:62223d644fa234c3a1cc785ee14242ec47a77364226f1c811d2f669f96dc2ac8 2.50kB / 2.50kB done
+#16 sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 3.64MB / 3.64MB 0.2s done
+#16 sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 1.79MB / 1.79MB 0.3s done
+#16 sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 629B / 629B 0.2s done
+#16 sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea 10.79kB / 10.79kB done
+#16 extracting sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 0.1s done
+#16 sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 1.21kB / 1.21kB 0.4s done
+#16 sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 1.40kB / 1.40kB 0.4s done
+#16 sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 955B / 955B 0.3s done
+#16 sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 402B / 402B 0.3s done
+#16 extracting sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 0.0s done
+#16 sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 0B / 15.52MB 0.4s
+#16 sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 6.29MB / 15.52MB 0.6s
+#16 sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 15.52MB / 15.52MB 0.8s
+#16 sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 15.52MB / 15.52MB 1.3s done
+#16 extracting sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 done
+#16 ...
 
-#15 [api base 1/8] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
-#15 extracting sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4
-#15 ...
+#17 [api] FROM ghcr.io/astral-sh/uv:0.8@sha256:1d31be550ff927957472b2a491dc3de1ea9b5c2d319a9cea5b6a48021e2990a6
+#17 resolve ghcr.io/astral-sh/uv:0.8@sha256:1d31be550ff927957472b2a491dc3de1ea9b5c2d319a9cea5b6a48021e2990a6 done
+#17 sha256:1d31be550ff927957472b2a491dc3de1ea9b5c2d319a9cea5b6a48021e2990a6 2.19kB / 2.19kB done
+#17 sha256:aa49a668339c61efa77057114bf6d58c3d69b4a6bdd2a4f1aacac70b408d6187 669B / 669B done
+#17 sha256:6b7573d87eafacd3848a1a7c5428aacce812158bbc0739fc1e5b4ee42056b451 1.30kB / 1.30kB done
+#17 sha256:1c42db65d01cc760dc164f7b0d0779e565d93842e9205d6820dec445bcf21f76 21.67MB / 21.67MB 1.7s done
+#17 sha256:97d6507e23d1f71d6eb0f9ca518c4abd014f3e0e5ca66d3ac62f6b1403fa946a 95B / 95B 1.4s done
+#17 extracting sha256:1c42db65d01cc760dc164f7b0d0779e565d93842e9205d6820dec445bcf21f76 0.9s done
+#17 extracting sha256:97d6507e23d1f71d6eb0f9ca518c4abd014f3e0e5ca66d3ac62f6b1403fa946a done
+#17 DONE 3.6s
 
-#17 [web build 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
-#17 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 done
-#17 sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 6.41kB / 6.41kB done
-#17 sha256:2c752226d477b4a886378baa95b9af252be59301b725fdb0b7e15208131505a8 1.72kB / 1.72kB done
-#17 sha256:7c3b093add7c43400ee83b815ab2cda98794a10045bcf76ce9bb2f89b97cbc5c 6.48kB / 6.48kB done
-#17 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 55.59MB / 55.59MB 1.3s done
-#17 sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 1.26MB / 1.26MB 0.8s done
-#17 sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 447B / 447B 1.2s done
-#17 extracting sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 2.2s done
-#17 extracting sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 0.1s done
-#17 extracting sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 done
-#17 DONE 4.2s
+#16 [web stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#16 extracting sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 done
+#16 extracting sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 done
+#16 extracting sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 done
+#16 extracting sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 done
+#16 extracting sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 0.1s
+#16 extracting sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 0.5s done
+#16 DONE 4.6s
 
-#18 [web build 2/6] WORKDIR /app
-#18 DONE 0.0s
+#18 [api base 1/8] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#18 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 done
+#18 sha256:df18428df8a0f9189c84e7424d214b4c50092af1f9dca5842a00c41c39bda316 5.66kB / 5.66kB done
+#18 sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 10.37kB / 10.37kB done
+#18 sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe 1.75kB / 1.75kB done
+#18 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 29.84MB / 29.84MB 1.7s done
+#18 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 1.29MB / 1.29MB 1.7s done
+#18 sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 249B / 249B 2.7s done
+#18 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 12.12MB / 12.12MB 2.7s done
+#18 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 2.4s
+#18 ...
 
-#19 [web build 3/6] COPY package.json package-lock.json ./
+#19 [web stage-1 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
 #19 DONE 0.0s
 
-#15 [api base 1/8] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
-#15 ...
+#18 [api base 1/8] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#18 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 2.5s done
+#18 extracting sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8
+#18 ...
 
-#20 [web stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
-#20 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.0s done
-#20 sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea 10.79kB / 10.79kB done
-#20 sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 10.33kB / 10.33kB done
-#20 sha256:62223d644fa234c3a1cc785ee14242ec47a77364226f1c811d2f669f96dc2ac8 2.50kB / 2.50kB done
-#20 sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 3.64MB / 3.64MB 0.3s done
-#20 extracting sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 0.1s done
-#20 sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 1.79MB / 1.79MB 0.3s done
-#20 sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 955B / 955B 0.4s done
-#20 sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 629B / 629B 0.4s done
-#20 sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 402B / 402B 0.5s done
-#20 extracting sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 0.0s done
-#20 sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 1.21kB / 1.21kB 0.5s done
-#20 sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 1.40kB / 1.40kB 0.5s done
-#20 sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 15.52MB / 15.52MB 0.6s done
-#20 extracting sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 done
-#20 extracting sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 done
-#20 extracting sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 done
-#20 extracting sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 done
-#20 extracting sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 done
-#20 extracting sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 0.4s done
-#20 DONE 4.7s
+#12 [web build 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#12 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 55.59MB / 55.59MB 1.3s done
+#12 sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 1.26MB / 1.26MB 1.3s done
+#12 sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 447B / 447B 1.4s done
+#12 extracting sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 3.2s done
+#12 extracting sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 0.1s done
+#12 extracting sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 done
+#12 DONE 4.8s
 
-#21 [web stage-1 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+#20 [web build 2/6] WORKDIR /app
+#20 DONE 0.0s
+
+#21 [web build 3/6] COPY package.json package-lock.json ./
 #21 DONE 0.0s
 
-#15 [api base 1/8] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
-#15 extracting sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0.7s done
-#15 extracting sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 done
-#15 DONE 4.8s
+#18 [api base 1/8] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#18 extracting sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0.2s done
+#18 extracting sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0.1s
+#18 extracting sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0.6s done
+#18 extracting sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813
+#18 extracting sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 done
+#18 DONE 5.3s
 
-#22 [web build 4/6] RUN npm ci --no-audit --no-fund
-#22 ...
+#22 [api base 2/8] COPY --from=ghcr.io/astral-sh/uv:0.8 /uv /usr/local/bin/uv
+#22 DONE 0.0s
 
-#23 [api base 2/8] COPY --from=ghcr.io/astral-sh/uv:0.8 /uv /usr/local/bin/uv
+#23 [api base 3/8] WORKDIR /app
 #23 DONE 0.0s
 
-#24 [api base 3/8] WORKDIR /app
+#24 [api base 4/8] COPY pyproject.toml uv.lock README.md ./
 #24 DONE 0.0s
 
-#25 [api base 4/8] COPY pyproject.toml uv.lock README.md ./
-#25 DONE 0.0s
+#25 [api base 5/8] RUN uv sync --frozen --no-dev --no-install-project
+#25 0.328 Using CPython 3.12.15 interpreter at: /usr/local/bin/python3
+#25 0.328 Creating virtual environment at: .venv
+#25 0.435 Downloading pygments (1.2MiB)
+#25 0.436 Downloading asyncpg (3.6MiB)
+#25 0.437 Downloading uvloop (4.3MiB)
+#25 0.438 Downloading sqlalchemy (4.5MiB)
+#25 0.439 Downloading pydantic-core (2.1MiB)
+#25 0.715  Downloading pydantic-core
+#25 0.803  Downloading asyncpg
+#25 0.817  Downloading uvloop
+#25 0.886  Downloading sqlalchemy
+#25 0.905  Downloading pygments
+#25 0.905 Prepared 32 packages in 564ms
+#25 1.059 Installed 32 packages in 152ms
+#25 3.493 Bytecode compiled 1435 files in 2.43s
+#25 3.493  + alembic==1.20.0
+#25 3.493  + annotated-doc==0.0.5
+#25 3.493  + annotated-types==0.8.0
+#25 3.493  + anyio==4.15.1
+#25 3.493  + asyncpg==0.32.0
+#25 3.493  + click==8.5.0
+#25 3.493  + fastapi==0.143.0
+#25 3.493  + greenlet==3.5.6
+#25 3.493  + h11==0.16.0
+#25 3.493  + httptools==0.9.0
+#25 3.493  + idna==3.20
+#25 3.493  + mako==1.4.3
+#25 3.493  + markdown-it-py==4.2.0
+#25 3.493  + markupsafe==3.0.4
+#25 3.493  + mdurl==0.1.2
+#25 3.493  + opentelemetry-api==1.45.1
+#25 3.493  + pydantic==2.14.0
+#25 3.493  + pydantic-core==2.50.0
+#25 3.493  + pygments==2.21.0
+#25 3.493  + python-dotenv==1.2.4
+#25 3.493  + pyyaml==6.0.3
+#25 3.496  + rich==15.0.0
+#25 3.497  + shellingham==1.5.4
+#25 3.497  + sqlalchemy==2.1.4
+#25 3.497  + starlette==1.7.0
+#25 3.497  + typer==0.27.3
+#25 3.497  + typing-extensions==4.16.0
+#25 3.498  + typing-inspection==0.4.4
+#25 3.498  + uvicorn==0.54.0
+#25 3.498  + uvloop==0.23.0
+#25 3.498  + watchfiles==1.3.0
+#25 3.498  + websockets==17.2
+#25 DONE 4.0s
 
-#26 [api base 5/8] RUN uv sync --frozen --no-dev --no-install-project
-#26 0.313 Using CPython 3.12.15 interpreter at: /usr/local/bin/python3
-#26 0.313 Creating virtual environment at: .venv
-#26 0.349 Downloading asyncpg (3.6MiB)
-#26 0.350 Downloading pydantic-core (2.1MiB)
-#26 0.350 Downloading pygments (1.2MiB)
-#26 0.363 Downloading uvloop (4.3MiB)
-#26 0.363 Downloading sqlalchemy (4.5MiB)
-#26 0.682  Downloading pydantic-core
-#26 0.707  Downloading asyncpg
-#26 0.722  Downloading uvloop
-#26 0.768  Downloading sqlalchemy
-#26 0.770  Downloading pygments
-#26 0.771 Prepared 32 packages in 448ms
-#26 0.840 Installed 32 packages in 68ms
-#26 3.230 Bytecode compiled 1435 files in 2.39s
-#26 3.230  + alembic==1.20.0
-#26 3.230  + annotated-doc==0.0.5
-#26 3.230  + annotated-types==0.8.0
-#26 3.230  + anyio==4.15.1
-#26 3.230  + asyncpg==0.32.0
-#26 3.230  + click==8.5.0
-#26 3.230  + fastapi==0.143.0
-#26 3.230  + greenlet==3.5.6
-#26 3.230  + h11==0.16.0
-#26 3.230  + httptools==0.9.0
-#26 3.230  + idna==3.20
-#26 3.230  + mako==1.4.3
-#26 3.231  + markdown-it-py==4.2.0
-#26 3.231  + markupsafe==3.0.4
-#26 3.231  + mdurl==0.1.2
-#26 3.231  + opentelemetry-api==1.45.1
-#26 3.231  + pydantic==2.14.0
-#26 3.231  + pydantic-core==2.50.0
-#26 3.231  + pygments==2.21.0
-#26 3.231  + python-dotenv==1.2.4
-#26 3.231  + pyyaml==6.0.3
-#26 3.231  + rich==15.0.0
-#26 3.231  + shellingham==1.5.4
-#26 3.231  + sqlalchemy==2.1.4
-#26 3.231  + starlette==1.7.0
-#26 3.231  + typer==0.27.3
-#26 3.231  + typing-extensions==4.16.0
-#26 3.231  + typing-inspection==0.4.4
-#26 3.231  + uvicorn==0.54.0
-#26 3.231  + uvloop==0.23.0
-#26 3.231  + watchfiles==1.3.0
-#26 3.231  + websockets==17.2
-#26 DONE 3.7s
-
-#22 [web build 4/6] RUN npm ci --no-audit --no-fund
-#22 2.242 npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
-#22 ...
+#26 [web build 4/6] RUN npm ci --no-audit --no-fund
+#26 2.113 npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+#26 ...
 
 #27 [api base 6/8] COPY src ./src
-#27 DONE 0.1s
+#27 DONE 0.2s
 
 #28 [api base 7/8] RUN uv sync --frozen --no-dev
-#28 0.358    Building p3d-api @ file:///app
-#28 1.534       Built p3d-api @ file:///app
-#28 1.536 Prepared 1 package in 1.17s
-#28 1.543 Installed 1 package in 6ms
-#28 1.951 Bytecode compiled 1435 files in 407ms
-#28 1.951  + p3d-api==0.1.0 (from file:///app)
-#28 DONE 2.4s
+#28 0.394    Building p3d-api @ file:///app
+#28 1.817       Built p3d-api @ file:///app
+#28 1.819 Prepared 1 package in 1.42s
+#28 1.826 Installed 1 package in 7ms
+#28 2.290 Bytecode compiled 1435 files in 463ms
+#28 2.290  + p3d-api==0.1.0 (from file:///app)
+#28 DONE 2.8s
 
-#22 [web build 4/6] RUN npm ci --no-audit --no-fund
-#22 6.718 npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
-#22 ...
+#26 [web build 4/6] RUN npm ci --no-audit --no-fund
+#26 6.714 npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+#26 ...
 
 #29 [api base 8/8] RUN useradd --system --uid 10001 api
-#29 0.143 useradd warning: api's uid 10001 is greater than SYS_UID_MAX 999
+#29 0.145 useradd warning: api's uid 10001 is greater than SYS_UID_MAX 999
 #29 DONE 0.2s
+
+#26 [web build 4/6] RUN npm ci --no-audit --no-fund
+#26 7.977 
+#26 7.977 added 330 packages in 8s
+#26 7.978 npm notice
+#26 7.978 npm notice New major version of npm available! 10.9.9 -> 12.2.0
+#26 7.978 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+#26 7.978 npm notice To update run: npm install -g npm@12.2.0
+#26 7.978 npm notice
+#26 DONE 8.2s
 
 #30 [api] exporting to image
 #30 exporting layers
 #30 ...
 
-#22 [web build 4/6] RUN npm ci --no-audit --no-fund
-#22 8.275 
-#22 8.275 added 330 packages in 8s
-#22 8.276 npm notice
-#22 8.276 npm notice New major version of npm available! 10.9.9 -> 12.2.0
-#22 8.276 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
-#22 8.276 npm notice To update run: npm install -g npm@12.2.0
-#22 8.276 npm notice
-#22 DONE 8.4s
-
 #31 [web build 5/6] COPY . .
-#31 DONE 0.0s
+#31 DONE 0.1s
 
 #32 [web build 6/6] RUN npm run build
-#32 0.275 
-#32 0.275 > @periodic-3d/web@0.1.0 build
-#32 0.275 > vite build
-#32 0.275 
+#32 0.446 
+#32 0.446 > @periodic-3d/web@0.1.0 build
+#32 0.446 > vite build
+#32 0.446 
+#32 1.091 vite v7.3.7 building client environment for production...
+#32 1.208 transforming...
 #32 ...
 
 #30 [api] exporting to image
-#30 exporting layers 1.6s done
-#30 writing image sha256:8f1f0c5a4d4f7263bff79d8aafb33199c52f4a32c0b407c2b09eab3fb0c2e371 done
+#30 exporting layers 2.0s done
+#30 writing image sha256:43c8bcdeeb6622866db24fdf82c79c3b172d43490edad25e5fd0944dc7055a4f done
 #30 naming to docker.io/library/periodic-3d-api done
-#30 DONE 1.6s
+#30 DONE 2.0s
 
 #33 [api] resolving provenance for metadata file
 #33 DONE 0.0s
 
 #32 [web build 6/6] RUN npm run build
-#32 0.657 vite v7.3.7 building client environment for production...
-#32 0.740 transforming...
-#32 6.642 ✓ 708 modules transformed.
-#32 6.999 rendering chunks...
-#32 7.231 computing gzip size...
-#32 7.254 dist/index.html                                                   0.93 kB │ gzip:   0.47 kB
-#32 7.254 dist/assets/unbounded-vietnamese-wght-normal-rat7GD3o.woff2      13.88 kB
-#32 7.254 dist/assets/golos-text-cyrillic-ext-wght-normal-hICkpzq7.woff2   17.51 kB
-#32 7.255 dist/assets/golos-text-latin-ext-wght-normal-B-I5lbAQ.woff2      19.18 kB
-#32 7.255 dist/assets/golos-text-cyrillic-wght-normal-mKek_fSS.woff2       22.03 kB
-#32 7.255 dist/assets/unbounded-cyrillic-wght-normal-C627f1f8.woff2        31.42 kB
-#32 7.255 dist/assets/golos-text-latin-wght-normal-BS5oQT7X.woff2          37.92 kB
-#32 7.255 dist/assets/unbounded-latin-wght-normal-D5afBTBx.woff2           50.90 kB
-#32 7.255 dist/assets/unbounded-latin-ext-wght-normal-D6H-S6MW.woff2      118.35 kB
-#32 7.255 dist/assets/index-ztV5lyQR.css                                   32.03 kB │ gzip:   8.47 kB
-#32 7.255 dist/assets/PhotoFigure-BfJv6EB4.js                               0.87 kB │ gzip:   0.51 kB
-#32 7.255 dist/assets/glow-IVh7SLwZ.js                                      1.21 kB │ gzip:   0.59 kB
-#32 7.255 dist/assets/CompositionView-DsHyQZ_X.js                           2.22 kB │ gzip:   1.08 kB
-#32 7.255 dist/assets/AtomModel-BxFfPV-S.js                                 2.58 kB │ gzip:   1.29 kB
-#32 7.255 dist/assets/AboutPanel-DDHfJsMh.js                                3.14 kB │ gzip:   1.22 kB
-#32 7.255 dist/assets/SetPanel-BowI4CcG.js                                  4.01 kB │ gzip:   1.51 kB
-#32 7.255 dist/assets/CompoundCloud-B4Meq6Xz.js                             4.42 kB │ gzip:   2.16 kB
-#32 7.255 dist/assets/CompoundPanel-BQoYwY3t.js                             5.09 kB │ gzip:   1.83 kB
-#32 7.255 dist/assets/RayWalk-DT3Y5EgK.js                                   5.40 kB │ gzip:   2.56 kB
-#32 7.255 dist/assets/StructureView-xN5-xMJy.js                             5.51 kB │ gzip:   2.45 kB
-#32 7.255 dist/assets/Rays-DVllx2u7.js                                      5.81 kB │ gzip:   2.57 kB
-#32 7.255 dist/assets/ElementPanel-D0lu6b1S.js                              8.46 kB │ gzip:   2.63 kB
-#32 7.255 dist/assets/index-BUxvYvnm.js                                   143.64 kB │ gzip:  48.02 kB
-#32 7.255 dist/assets/r3f-Dbt88TEr.js                                     228.52 kB │ gzip:  68.99 kB
-#32 7.255 dist/assets/react-B7ulV_JK.js                                   264.90 kB │ gzip:  84.67 kB
-#32 7.256 dist/assets/three-DRTLlGa_.js                                   724.28 kB │ gzip: 188.46 kB
-#32 7.256 ✓ built in 6.57s
-#32 DONE 7.3s
+#32 6.968 ✓ 708 modules transformed.
+#32 7.367 rendering chunks...
+#32 7.581 computing gzip size...
+#32 7.606 dist/index.html                                                   0.93 kB │ gzip:   0.47 kB
+#32 7.606 dist/assets/unbounded-vietnamese-wght-normal-rat7GD3o.woff2      13.88 kB
+#32 7.606 dist/assets/golos-text-cyrillic-ext-wght-normal-hICkpzq7.woff2   17.51 kB
+#32 7.606 dist/assets/golos-text-latin-ext-wght-normal-B-I5lbAQ.woff2      19.18 kB
+#32 7.607 dist/assets/golos-text-cyrillic-wght-normal-mKek_fSS.woff2       22.03 kB
+#32 7.607 dist/assets/unbounded-cyrillic-wght-normal-C627f1f8.woff2        31.42 kB
+#32 7.607 dist/assets/golos-text-latin-wght-normal-BS5oQT7X.woff2          37.92 kB
+#32 7.607 dist/assets/unbounded-latin-wght-normal-D5afBTBx.woff2           50.90 kB
+#32 7.607 dist/assets/unbounded-latin-ext-wght-normal-D6H-S6MW.woff2      118.35 kB
+#32 7.607 dist/assets/index-DvJdgY8N.css                                   33.57 kB │ gzip:   8.65 kB
+#32 7.607 dist/assets/PhotoFigure-BfJv6EB4.js                               0.87 kB │ gzip:   0.51 kB
+#32 7.607 dist/assets/glow-IVh7SLwZ.js                                      1.21 kB │ gzip:   0.59 kB
+#32 7.607 dist/assets/CompositionView-Rt19RoP-.js                           2.22 kB │ gzip:   1.08 kB
+#32 7.607 dist/assets/AtomModel-CdCm9Pa3.js                                 2.58 kB │ gzip:   1.29 kB
+#32 7.607 dist/assets/AboutPanel-B4u2t8L3.js                                3.14 kB │ gzip:   1.22 kB
+#32 7.607 dist/assets/CompoundCloud-CmToLNWF.js                             4.42 kB │ gzip:   2.16 kB
+#32 7.607 dist/assets/SetPanel-BX-mzwOK.js                                  4.60 kB │ gzip:   1.64 kB
+#32 7.607 dist/assets/CompoundPanel-DPM40cVj.js                             5.09 kB │ gzip:   1.82 kB
+#32 7.607 dist/assets/RayWalk-DNDACjxS.js                                   5.40 kB │ gzip:   2.56 kB
+#32 7.607 dist/assets/StructureView-DPJRsyIm.js                             5.51 kB │ gzip:   2.44 kB
+#32 7.607 dist/assets/Rays-DX8Fvks9.js                                      5.81 kB │ gzip:   2.57 kB
+#32 7.607 dist/assets/ElementPanel-uBBhAfXJ.js                              8.46 kB │ gzip:   2.63 kB
+#32 7.607 dist/assets/index-x-spbtwo.js                                   144.57 kB │ gzip:  48.35 kB
+#32 7.607 dist/assets/r3f-Dbt88TEr.js                                     228.52 kB │ gzip:  68.99 kB
+#32 7.607 dist/assets/react-B7ulV_JK.js                                   264.90 kB │ gzip:  84.67 kB
+#32 7.607 dist/assets/three-DRTLlGa_.js                                   724.28 kB │ gzip: 188.46 kB
+#32 7.608 ✓ built in 6.47s
+#32 DONE 7.8s
 
 #34 [web stage-1 3/3] COPY --from=build /app/dist /usr/share/nginx/html
 #34 DONE 0.0s
 
 #35 [web] exporting to image
-#35 exporting layers 0.1s done
-#35 writing image sha256:780783c7db3841a9ada88037e3eafe936655de6b3cf46961770751d9cc61938a done
+#35 exporting layers
+#35 exporting layers 0.6s done
+#35 writing image sha256:3d64b2336195f8c1d5d2983caba895983bb2da9c48ee12639f2cabaf83159e9e done
 #35 naming to docker.io/library/periodic-3d-web done
-#35 DONE 0.1s
+#35 DONE 0.6s
 
 #36 [web] resolving provenance for metadata file
 #36 DONE 0.0s

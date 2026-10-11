@@ -162,7 +162,7 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
     const dt = Math.min(delta, 0.05);
     if (!reducedMotion && focusIndex < 0) group.rotation.y += dt * 0.05;
     const matrix = new THREE.Matrix4();
-    items.forEach((entry, index) => {
+    items.forEach((_, index) => {
       const target = targetSize(index, hoverIndex);
       sizes.current[index] = damp(sizes.current[index]!, target, 7, dt);
       const radius = ORB_RADIUS * sizes.current[index]!;

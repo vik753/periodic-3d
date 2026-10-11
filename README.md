@@ -13,6 +13,11 @@ desktop browser and on a phone. The interface speaks Ukrainian, Russian and Engl
 
 ![The table on the home screen](docs/images/table.webp)
 
+> [!IMPORTANT]
+> **The data is checked.** Formulas, masses and structures come from open scientific
+> databases and are cross-checked between independent sources before each release.
+> See [How we make sure the data is right](#how-we-make-sure-the-data-is-right).
+
 ## Contents
 
 - [Guide for new visitors](#guide-for-new-visitors)
@@ -26,6 +31,7 @@ desktop browser and on a phone. The interface speaks Ukrainian, Russian and Engl
   - [8. Links, language and keyboard](#8-links-language-and-keyboard)
   - [9. On a phone](#9-on-a-phone)
   - [10. Questions and problems](#10-questions-and-problems)
+- [**How we make sure the data is right**](#how-we-make-sure-the-data-is-right)
 - [Dataset](#dataset)
 - [For developers](#for-developers)
 - [Data sources and licenses](#data-sources-and-licenses)
@@ -190,6 +196,89 @@ instead of flying, and the dust and the atoms stop moving.
 - **The data looks wrong.** Open the card and press **Report an error**.
 - **Where does the data come from?** The **How to use** button at the top opens the page
   with the dataset version, the sources and their licenses.
+
+## How we make sure the data is right
+
+> [!IMPORTANT]
+> The site does not invent chemistry. Every formula, mass and structure comes from open
+> scientific databases. Each compound is checked against several independent sources, and
+> a new dataset goes live only after a set of well-known substances comes out right. Every
+> card names its sources and their licenses, and anyone can report an error in one click.
+
+### Where the data comes from
+
+| Source | What we take | License |
+| --- | --- | --- |
+| [Wikidata](https://www.wikidata.org) | the list of compounds, formulas, names in three languages, classes, SMILES, links to PubChem and Materials Project | CC0 |
+| [PubChem](https://pubchem.ncbi.nlm.nih.gov) (US National Institutes of Health) | formula, molar mass, IUPAC name, 3D shapes of molecules | public domain |
+| [Materials Project](https://materialsproject.org) | crystal structures, and whether a structure was measured in a lab (ICSD records) | CC BY 4.0 |
+| [Wikipedia](https://www.wikipedia.org) | descriptions | CC BY-SA 4.0 |
+| [Wikimedia Commons](https://commons.wikimedia.org) | photos, with author and license under each | per photo |
+| [RDKit](https://www.rdkit.org) | 3D models computed from SMILES when PubChem has none | BSD |
+| [GNoME](https://github.com/google-deepmind/materials_discovery) (Google DeepMind) | predicted crystals: a separate violet layer | CC BY-NC 4.0 |
+
+### How we check it
+
+Every dataset goes through the same checks. The numbers below are for the dataset that the
+site uses now (`data-2026.10.11-r39`).
+
+1. **Only notable substances.** A compound gets in when it has a Wikipedia article in
+   English, Ukrainian or Russian: 27 202 compounds.
+2. **Three independent records per compound.** We compare the Wikidata formula, the
+   PubChem formula and the formula that follows from the structure (SMILES). When two of
+   them agree, the third one is the error.
+
+   | Result | Compounds |
+   | --- | --- |
+   | Wikidata and PubChem agree | 22 647 |
+   | No PubChem record (the mass comes from the formula) | 4 227 |
+   | They disagree and no third source decides: the card shows both formulas | 222 |
+   | The PubChem link led to another substance: removed | 62 |
+   | The Wikidata formula was wrong: fixed | 28 |
+   | PubChem describes the hydrate or the anhydrous form: the Wikidata formula stays | 12 |
+   | Same proportions, other size (a dimer record) | 3 |
+   | Isotopes (D, T, ¹⁸F): PubChem's notation is used | 1 |
+
+3. **Careful fixes.** We change a formula only for plain organic molecules and for obvious
+   typos. Salts, complexes and inorganic compounds keep their formula, and the card shows
+   the conflict instead. Our first rules were too bold: they "fixed" 239 formulas, among
+   them correct salts and complexes. Stricter rules left 28 real fixes.
+4. **The mass says where it comes from.** It is PubChem's value, or it is computed from
+   the formula with standard atomic weights; the card says which.
+5. **Every 3D model must match its formula,** atom by atom. The build rejected 26 PubChem
+   shapes, 97 RDKit models and 85 crystal cells that did not fit their compound.
+6. **Measured before computed.** For crystals we prefer structures that were measured in a
+   lab: 4 181 crystals come from experiment (ICSD), 504 exist only in calculations, and the
+   card says so. This rule replaced the computed structure of 154 compounds (FeO, BeO, CuO,
+   V₂O₅, hydroxyapatite…) with a measured one.
+7. **A golden set guards each release.** 19 well-known substances (water, benzene,
+   caffeine, sulfuric acid, sodium chloride, diamond, graphite, quartz, hematite…) must
+   have the right formula, the mass within 0.3%, the right kind of 3D model and the right
+   cell shape. If one fails, the dataset is not published. Now: 19 of 19.
+8. **Known and predicted never mix.** GNoME materials are always violet and marked
+   "predicted by computation, not confirmed by experiment".
+9. **Everything is on record.** Each dataset is a versioned GitHub release with a full
+   report that lists every fix and every removed link.
+
+### Errors we found and fixed
+
+| Where | What was wrong | What we did |
+| --- | --- | --- |
+| Wikidata | Potassium chlorate written as KCIO₃: a capital I instead of l, which reads as carbon and iodine | KClO₃ |
+| Wikidata | Soman, a nerve agent, without its phosphorus: C₇H₁₆FO₂ | C₇H₁₆FO₂P |
+| Wikidata | 1,5-pentanediol two hydrogens short: C₅H₁₀O₂ | C₅H₁₂O₂ |
+| Wikidata | 2-aminopyridine as C₄H₅N₃ | C₅H₆N₂ |
+| Wikidata → PubChem | Indigo linked to indigo carmine, a sodium salt of another dye | link removed |
+| Wikidata → PubChem | Strontium bromide linked to an organic compound, C₁₂H₁₇N | link removed |
+| Wikidata → PubChem | Pyridinium chlorochromate linked to C₁₃H₁₈S | link removed |
+| Materials Project API | The API switched to letter IDs (`mp-aaaaaaco` is `mp-66`, diamond), so no crystal got its "measured / computed" mark | we decode both forms; a test keeps it so |
+
+In total: 28 formulas fixed, 62 wrong links removed, 222 conflicts shown openly.
+
+### Found an error?
+
+Open the card and press **Report an error**. It opens a ready GitHub issue with the record
+number; write what is wrong and, if you can, add a link to a source.
 
 ## Dataset
 

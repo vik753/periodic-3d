@@ -44,3 +44,4 @@ started: 2026-10-10T23:06:06Z
 2026-10-10 23:49:56,647 INFO p3d.build:   structures: 24000/27237 (21 s)
 2026-10-10 23:50:03,276 INFO p3d.build:   structures: 26000/27237 (28 s)
 2026-10-10 23:50:07,822 INFO p3d.build: Wikipedia en extracts for 23893 articles
+2026-10-11 00:12:39,449 INFO p3d.build: Wikipedia ru extracts for 9781 articles

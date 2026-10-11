@@ -28,6 +28,12 @@ const SOURCES = [
     license: 'CC BY-SA, CC BY, CC0',
     role: 'about.srcCommons',
   },
+  {
+    name: 'GNoME (Google DeepMind)',
+    url: 'https://github.com/google-deepmind/materials_discovery',
+    license: 'CC BY-NC 4.0',
+    role: 'about.srcGnome',
+  },
 ] as const;
 
 const HOW_TO = ['about.how1', 'about.how2', 'about.how3', 'about.how4', 'about.how5'] as const;
@@ -81,6 +87,9 @@ export function AboutPanel() {
               <Row term={t('about.structures')}>{formatCount(counts.structures, language)}</Row>
             )}
             {counts.pairs != null && <Row term={t('about.pairs')}>{formatCount(counts.pairs, language)}</Row>}
+            {meta.data.gnome?.counts.materials != null && (
+              <Row term={t('about.predicted')}>{formatCount(meta.data.gnome.counts.materials, language)}</Row>
+            )}
             {created && !Number.isNaN(created.getTime()) && (
               <Row term={t('about.built')}>{created.toLocaleDateString(language)}</Row>
             )}
@@ -109,6 +118,11 @@ export function AboutPanel() {
         </ul>
         <p className="mt-3 text-xs leading-relaxed text-muted">{t('about.perRecord')}</p>
         <p className="mt-1 text-xs leading-relaxed text-muted">{t('about.gnome')}</p>
+        {meta.data?.gnome?.citation && (
+          <p className="mt-1 text-xs leading-relaxed text-muted">
+            {t('about.cite')}: {meta.data.gnome.citation}
+          </p>
+        )}
       </Section>
 
       <Section title={t('about.codeTitle')}>

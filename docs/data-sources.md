@@ -13,8 +13,16 @@
 | [RDKit](https://www.rdkit.org/) (программа, BSD) | 3D-модели, рассчитанные по SMILES, если в PubChem нет 3D | Результат расчёта; исходные SMILES — PubChem или Wikidata | «Рассчитано RDKit по SMILES» |
 | [Crystallography Open Database](https://www.crystallography.net/) | Не используем: OPTIMADE у COD отвечает 501 | Общественное достояние | — |
 
-Не используем: набор GNoME в Materials Project (CC BY-NC 4.0, только некоммерческое
-использование).
+| [GNoME](https://github.com/google-deepmind/materials_discovery) (Google DeepMind) | Слой «Предсказанные материалы»: 554 054 кристалла, их ячейки и расчётные свойства | CC BY-NC 4.0 — только некоммерческое использование | Фиолетовая пометка «предсказано расчётом», источник, лицензия и цитата в карточке материала и на странице «О проекте» |
+
+GNoME — отдельный слой (ADR 0007). Его материалы никогда не смешиваются с известными
+соединениями: у них свой адрес (`/m/<id>`), свой цвет и пометка. Для известных
+соединений GNoME по-прежнему исключён из выбора кристалла (ADR 0004). Пока сайт
+показывает данные GNoME, он остаётся некоммерческим: без рекламы и платного доступа.
+
+Цитата GNoME: A. Merchant, S. Batzner, S. S. Schoenholz, M. Aykol, G. Cheon,
+E. D. Cubuk. «Scaling deep learning for materials discovery». Nature 624, 80–85 (2023).
+https://doi.org/10.1038/s41586-023-06735-9
 
 Цитата Materials Project: A. Jain, S. P. Ong, G. Hautier et al. «The Materials Project:
 A materials genome approach to accelerating materials innovation». APL Materials 1,

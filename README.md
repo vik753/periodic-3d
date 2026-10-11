@@ -22,6 +22,11 @@ and English).
 - Search by formula or name in UA/RU/EN; every scene has its own URL.
 - Similar elements and compounds from a vector model (PPMI + SVD, pgvector).
 - Photos of substances and elements from Wikimedia Commons, with author and license.
+- Predicted materials: 554 054 crystals that the GNoME neural network (Google DeepMind)
+  proposed and DFT found stable. They form a separate violet layer: violet rays and walks
+  next to the red ones, violet orbs in the cloud, and a card with the 3D unit cell and the
+  computed properties at `/m/<id>`. Each is marked "predicted by computation, not
+  confirmed by experiment".
 - The cloud can be filtered: all, organic, inorganic or minerals.
 - Keyboard access to all elements, reduced-motion support, adaptive rendering quality.
 
@@ -32,6 +37,11 @@ and English).
 have a 3D model: PubChem conformers, crystals from Materials Project, RDKit for the rest;
 salts and hydrates are shown as ions side by side. Each dataset version is a GitHub release
 (`data-<version>`); `data/DATASET` says which one the site uses.
+
+The predicted layer is a separate build (`p3d-pipeline gnome`, workflow `gnome`): a
+release `gnome-<version>` that `data/GNOME` points to. The browser loads one small file
+per material card (about 8 materials, under 3 KB gzip) and builds the unit cell itself
+([ADR 0007](docs/adr/0007-gnome-layer.md)).
 
 ## Architecture
 
@@ -46,7 +56,7 @@ Wikidata, Wikipedia                                   └─► static export (J
 | `apps/web` | React 19, TypeScript, Vite, three.js, React Three Fiber, drei, zustand, TanStack Query, i18next, Tailwind CSS |
 | `apps/api` | Python 3.12, FastAPI, SQLAlchemy 2 (async), asyncpg, Alembic, PostgreSQL 17 + pgvector, pg_trgm |
 | `pipeline` | Python 3.12, httpx, tenacity, RDKit, spglib, numpy, Typer |
-| CI/CD | GitHub Actions (checks, data builds, screenshots, load and speed tests), GitHub Pages |
+| CI/CD | GitHub Actions (checks, data builds, screenshots, load and speed tests), GitHub Pages (artifact deploy) |
 
 Design decisions are recorded in [docs/adr](docs/adr); the plan is in
 [docs/plan.md](docs/plan.md).
@@ -71,9 +81,14 @@ Design decisions are recorded in [docs/adr](docs/adr); the plan is in
 
 The source code is MIT-licensed. Chemical data keeps the licenses of its sources:
 Wikidata (CC0), Wikipedia (CC BY-SA 4.0), PubChem (NIH, public domain), Materials
-Project (CC BY 4.0), Wikimedia Commons (license per photo). GNoME data (CC BY-NC) is
-excluded. The site's About page and
-[docs/data-sources.md](docs/data-sources.md) list the details.
+Project (CC BY 4.0), Wikimedia Commons (license per photo), GNoME by Google DeepMind
+(CC BY-NC 4.0). The site's About page and [docs/data-sources.md](docs/data-sources.md)
+list the details.
+
+**Non-commercial.** The layer of predicted materials comes from GNoME under CC BY-NC 4.0.
+While the site shows it, the site stays free and non-commercial: no ads, no paid access.
+Citation: A. Merchant et al., "Scaling deep learning for materials discovery", Nature 624,
+80–85 (2023), https://doi.org/10.1038/s41586-023-06735-9.
 
 ## License
 

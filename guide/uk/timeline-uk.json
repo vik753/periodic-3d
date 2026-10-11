@@ -1,158 +1,163 @@
 {
   "lang": "uk",
   "fps": 30,
-  "frames": 2557,
-  "seconds": 85.23333333333333,
-  "recordSeconds": 1667,
+  "frames": 3153,
+  "seconds": 105.1,
+  "recordSeconds": 1831,
   "errors": [
-    "scene intro: page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n",
-    "scene card: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Відкрити картку' }).or(getByRole('link', { name: 'Відкрити картку' })).first() to be visible\n",
-    "scene select: locator.waitFor: Error: strict mode violation: getByRole('radio', { name: 'Усі' }) resolved to 2 elements:\n    1) <button role=\"radio\" type=\"button\" aria-checked=\"true\" class=\"rounded-full px-3 py-1 text-sm transition-colors bg-text font-semibold text-ink\">Містять усі</button> aka getByRole('radio', { name: 'Містять усі' })\n    2) <button role=\"radio\" type=\"button\" aria-checked=\"false\" class=\"rounded-full px-2.5 py-1 text-xs ring-1 transition-colors text-muted ring-rim hover:text-text\">…</button> aka getByRole('radio', { name: 'Усі 319' })\n\nCall log:\n  - waiting for getByRole('radio', { name: 'Усі' }) to be visible\n",
-    "scene violet: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator('a[href$=\"/predicted\"]').first() to be visible\n",
+    "scene violet: not visible after 6 s: getByRole('button', { name: 'Показати фіолетові промені' }).first()",
     "Failed to load resource: the server responded with a status of 404 ()"
   ],
   "timeline": [
     {
       "scene": "intro",
       "from": 0,
-      "to": 0.03333333333333333,
-      "seconds": 37
+      "to": 3.6,
+      "seconds": 82
     },
     {
-      "at": 0.4,
+      "at": 3.966666666666667,
       "caption": "Наведіть курсор на елемент: плитка збільшується, а внизу з’являється картка."
     },
     {
       "scene": "hover",
-      "from": 0.03333333333333333,
-      "to": 7.3,
-      "seconds": 127
+      "from": 3.6,
+      "to": 10.866666666666667,
+      "seconds": 87
     },
     {
-      "at": 7.666666666666667,
+      "at": 11.233333333333333,
       "caption": "Коліщатко миші наближає таблицю до елемента під курсором."
     },
     {
-      "at": 10.933333333333334,
+      "at": 14.5,
       "caption": "Навіть зблизька написи на плитках лишаються чіткими."
     },
     {
       "scene": "zoom",
-      "from": 7.3,
-      "to": 15.133333333333333,
-      "seconds": 145
+      "from": 10.866666666666667,
+      "to": 18.7,
+      "seconds": 97
     },
     {
-      "at": 15.5,
+      "at": 19.066666666666666,
       "caption": "Натисніть на елемент: камера влітає всередину."
     },
     {
-      "at": 19.966666666666665,
+      "at": 23.533333333333335,
       "caption": "Перемикач <b>Речовина в 3D</b> показує просту речовину: кристал заліза."
     },
     {
       "scene": "element",
-      "from": 15.133333333333333,
-      "to": 24.966666666666665,
-      "seconds": 190
+      "from": 18.7,
+      "to": 28.533333333333335,
+      "seconds": 158
     },
     {
-      "at": 25.333333333333332,
+      "at": 28.9,
       "caption": "Червоні промені ведуть до елементів, з якими утворюються сполуки. Товстий промінь — багато сполук."
     },
     {
       "scene": "rays",
-      "from": 24.966666666666665,
-      "to": 31.133333333333333,
-      "seconds": 126
+      "from": 28.533333333333335,
+      "to": 34.7,
+      "seconds": 108
     },
     {
-      "at": 31.5,
+      "at": 35.06666666666667,
       "caption": "Натисніть на промінь або плитку партнера: сполуки пари стають у ряд, найвідоміші — першими."
     },
     {
-      "at": 35.86666666666667,
+      "at": 39.43333333333333,
       "caption": "Крутіть коліщатко або тягніть уздовж променя: від сполуки до сполуки."
     },
     {
       "scene": "walk",
-      "from": 31.133333333333333,
-      "to": 39.666666666666664,
-      "seconds": 170
+      "from": 34.7,
+      "to": 43.233333333333334,
+      "seconds": 181
     },
     {
-      "at": 40.03333333333333,
+      "at": 43.6,
       "caption": "Картка сполуки: 3D-модель, формула, склад, маса, опис і джерела."
     },
     {
-      "scene": "card",
-      "from": 39.666666666666664,
-      "to": 40.06666666666667,
-      "seconds": 27
+      "at": 47.766666666666666,
+      "caption": "Тягніть модель, щоб обернути її."
     },
     {
-      "at": 40.43333333333333,
+      "scene": "card",
+      "from": 43.233333333333334,
+      "to": 51.233333333333334,
+      "seconds": 170
+    },
+    {
+      "at": 51.6,
       "caption": "<b>До таблиці</b>, клавіша <kbd>Esc</kbd> або клік по порожньому місцю — назад до таблиці."
     },
     {
       "scene": "back",
-      "from": 40.06666666666667,
-      "to": 44.233333333333334,
-      "seconds": 87
+      "from": 51.233333333333334,
+      "to": 55.4,
+      "seconds": 77
     },
     {
-      "at": 44.6,
+      "at": 55.766666666666666,
       "caption": "<kbd>Shift</kbd> + клік вибирає кілька елементів. На телефоні — кнопка <b>Вибрати кілька</b>."
     },
     {
-      "at": 48.766666666666666,
+      "at": 59.93333333333333,
       "caption": "<b>Показати сполуки</b>: хмара сполук, у яких є всі вибрані елементи. Одна куля — одна сполука."
     },
     {
-      "at": 55.93333333333333,
+      "at": 67.1,
       "caption": "Фільтр залишає лише органічні, неорганічні речовини або мінерали."
     },
     {
-      "scene": "select",
-      "from": 44.233333333333334,
-      "to": 58.96666666666667,
-      "seconds": 247
+      "at": 71.86666666666666,
+      "caption": "Фіолетові кулі — передбачені матеріали GNoME. Їх знайшов розрахунок, не експеримент."
     },
     {
-      "at": 59.333333333333336,
+      "scene": "select",
+      "from": 55.4,
+      "to": 75.66666666666667,
+      "seconds": 293
+    },
+    {
+      "at": 76.03333333333333,
       "caption": "Усередині елемента кнопка <b>Показати фіолетові промені</b> відкриває передбачені матеріали."
     },
     {
       "scene": "violet",
-      "from": 58.96666666666667,
-      "to": 69.46666666666667,
-      "seconds": 202
+      "from": 75.66666666666667,
+      "to": 89.33333333333333,
+      "seconds": 247
     },
     {
-      "at": 69.83333333333333,
+      "at": 89.7,
       "caption": "Пошук: клавіша <kbd>/</kbd>, потім символ, формула або назва трьома мовами."
     },
     {
       "scene": "search",
-      "from": 69.46666666666667,
-      "to": 76.4,
-      "seconds": 138
+      "from": 89.33333333333333,
+      "to": 96.26666666666667,
+      "seconds": 137
     },
     {
-      "at": 76.76666666666667,
+      "at": 96.63333333333334,
       "caption": "Кнопка <b>Як користуватися</b> — коротка інструкція, джерела даних і це відео."
     },
     {
       "scene": "about",
-      "from": 76.4,
-      "to": 81.43333333333334,
-      "seconds": 111
+      "from": 96.26666666666667,
+      "to": 101.3,
+      "seconds": 96
     },
     {
       "scene": "outro",
-      "from": 81.43333333333334,
-      "to": 85.23333333333333,
-      "seconds": 52
+      "from": 101.3,
+      "to": 105.1,
+      "seconds": 54
     }
   ]
 }

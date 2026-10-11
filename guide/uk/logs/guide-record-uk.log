@@ -1,40 +1,21 @@
 $ node scripts/guide-video.mjs
-started: 2026-10-11T14:24:31Z
-intro: 0.0 s of video, 37 s to record
-hover: 7.3 s of video, 127 s to record
-zoom: 7.8 s of video, 145 s to record
-element: 9.8 s of video, 190 s to record
-rays: 6.2 s of video, 126 s to record
-walk: 8.5 s of video, 170 s to record
-card: 0.4 s of video, 27 s to record
-back: 4.2 s of video, 87 s to record
-select: 14.7 s of video, 247 s to record
-violet: 10.5 s of video, 202 s to record
-search: 6.9 s of video, 138 s to record
-about: 5.0 s of video, 111 s to record
-outro: 3.8 s of video, 52 s to record
-2557 frames (85.2 s), 5 errors
-  scene intro: page.screenshot: Timeout 30000ms exceeded.
-Call log:
-  - taking page screenshot
-  - waiting for fonts to load...
-  - fonts loaded
-
-  scene card: locator.waitFor: Timeout 20000ms exceeded.
-Call log:
-  - waiting for getByRole('button', { name: 'Відкрити картку' }).or(getByRole('link', { name: 'Відкрити картку' })).first() to be visible
-
-  scene select: locator.waitFor: Error: strict mode violation: getByRole('radio', { name: 'Усі' }) resolved to 2 elements:
-    1) <button role="radio" type="button" aria-checked="true" class="rounded-full px-3 py-1 text-sm transition-colors bg-text font-semibold text-ink">Містять усі</button> aka getByRole('radio', { name: 'Містять усі' })
-    2) <button role="radio" type="button" aria-checked="false" class="rounded-full px-2.5 py-1 text-xs ring-1 transition-colors text-muted ring-rim hover:text-text">…</button> aka getByRole('radio', { name: 'Усі 319' })
-
-Call log:
-  - waiting for getByRole('radio', { name: 'Усі' }) to be visible
-
-  scene violet: locator.waitFor: Timeout 20000ms exceeded.
-Call log:
-  - waiting for locator('a[href$="/predicted"]').first() to be visible
-
+started: 2026-10-11T15:16:57Z
+warm-up done in 43 s
+intro: 3.6 s of video, 82 s to record
+hover: 7.3 s of video, 87 s to record
+zoom: 7.8 s of video, 97 s to record
+element: 9.8 s of video, 158 s to record
+rays: 6.2 s of video, 108 s to record
+walk: 8.5 s of video, 181 s to record
+card: 8.0 s of video, 170 s to record
+back: 4.2 s of video, 77 s to record
+select: 20.3 s of video, 293 s to record
+violet: 13.7 s of video, 247 s to record
+search: 6.9 s of video, 137 s to record
+about: 5.0 s of video, 96 s to record
+outro: 3.8 s of video, 54 s to record
+3153 frames (105.1 s), 2 errors
+  scene violet: not visible after 6 s: getByRole('button', { name: 'Показати фіолетові промені' }).first()
   Failed to load resource: the server responded with a status of 404 ()
-finished: 2026-10-11T14:52:19Z
+finished: 2026-10-11T15:47:29Z
 exit code: 0

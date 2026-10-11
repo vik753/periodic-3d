@@ -1,6 +1,6 @@
 $ uv run pytest -q
-started: 2026-10-11T11:14:24Z
+started: 2026-10-11T11:22:58Z
 ..........................................                               [100%]
-42 passed in 3.66s
-finished: 2026-10-11T11:14:29Z
+42 passed in 2.94s
+finished: 2026-10-11T11:23:02Z
 exit code: 0

@@ -1,16 +1,16 @@
 $ npm run screenshot
-started: 2026-10-11T15:14:01Z
+started: 2026-10-11T17:23:22Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 6501ms calls=3 url=/periodic-3d/
-ok   element-fe 8175ms calls=10 url=/periodic-3d/e/Fe
-ok   element-o-rays 8189ms calls=8 url=/periodic-3d/e/O
-ok   walk-fe-o 10162ms calls=9 url=/periodic-3d/e/Fe/O
-ok   walk-fe-o-predicted 12549ms calls=11 url=/periodic-3d/e/Fe/O/predicted
-ok   set-fe-o 8130ms calls=4 url=/periodic-3d/set/Fe-O
-ok   compound-hematite 8609ms calls=5 url=/periodic-3d/c/Q103223
-ok   material-gdy3f12 8512ms calls=5 url=/periodic-3d/m/df6697e2c1
-finished: 2026-10-11T15:15:20Z
+ok   table 5852ms calls=3 url=/periodic-3d/
+ok   element-fe 8062ms calls=10 url=/periodic-3d/e/Fe
+ok   element-o-rays 8281ms calls=8 url=/periodic-3d/e/O
+ok   walk-fe-o 9221ms calls=9 url=/periodic-3d/e/Fe/O
+ok   walk-fe-o-predicted 13527ms calls=11 url=/periodic-3d/e/Fe/O/predicted
+ok   set-fe-o 7600ms calls=4 url=/periodic-3d/set/Fe-O
+ok   compound-hematite 8115ms calls=5 url=/periodic-3d/c/Q103223
+ok   material-gdy3f12 8066ms calls=5 url=/periodic-3d/m/df6697e2c1
+finished: 2026-10-11T17:24:38Z
 exit code: 0

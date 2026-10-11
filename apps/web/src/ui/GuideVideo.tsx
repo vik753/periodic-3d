@@ -100,7 +100,18 @@ function GuideOverlay({ src, poster, onClose }: { src: string; poster?: string; 
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    videoRef.current?.focus();
+    const video = videoRef.current;
+    if (!video) return;
+    video.focus();
+    // Start with the music. Without a click (a link that opens the video) browsers may
+    // refuse sound: then start muted; the volume button in the controls turns it on.
+    video.play().catch(() => {
+      video.muted = true;
+      void video.play().catch(() => undefined);
+    });
+  }, []);
+
+  useEffect(() => {
     // Capture phase: Esc closes the video and goes no further (the page would go home).
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
@@ -141,8 +152,6 @@ function GuideOverlay({ src, poster, onClose }: { src: string; poster?: string; 
           src={src}
           poster={poster}
           controls
-          autoPlay
-          muted // the video has no sound; muted video may start by itself in every browser
           playsInline
           preload="metadata"
           className="aspect-video w-full rounded-2xl bg-black shadow-2xl ring-1 ring-rim"

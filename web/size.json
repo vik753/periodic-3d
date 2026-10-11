@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 380.4,
+  "initialJsGzipKb": 380.3,
   "withinBudget": true,
   "rows": [
     {
@@ -22,75 +22,75 @@
       "initial": true
     },
     {
-      "file": "assets/index-b2xNcwn2.js",
-      "kb": 141.2,
-      "gzipKb": 47.2,
+      "file": "assets/index-B_rzwZmI.js",
+      "kb": 140.9,
+      "gzipKb": 47.1,
       "initial": true
     },
     {
-      "file": "assets/index-CX0Zs8qO.css",
-      "kb": 32.9,
+      "file": "assets/index-D0UvjksC.css",
+      "kb": 32.8,
       "gzipKb": 8.4,
       "initial": true
     },
     {
-      "file": "assets/ElementPanel-CkbGeH61.js",
+      "file": "assets/ElementPanel-VZ8WBTUC.js",
       "kb": 8.3,
       "gzipKb": 2.6,
       "initial": false
     },
     {
-      "file": "assets/RayWalk-CZpZWCk5.js",
+      "file": "assets/RayWalk-DQII6gvI.js",
       "kb": 5.3,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/Rays-DhR6dBbQ.js",
+      "file": "assets/Rays-DQN6CsJc.js",
       "kb": 5.7,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/StructureView-DEEjQZRp.js",
+      "file": "assets/StructureView-DCvGbXvc.js",
       "kb": 5.4,
       "gzipKb": 2.4,
       "initial": false
     },
     {
-      "file": "assets/CompoundCloud-D3pQlxLN.js",
+      "file": "assets/CompoundCloud-CXuYeRPb.js",
       "kb": 4.3,
       "gzipKb": 2.1,
       "initial": false
     },
     {
-      "file": "assets/CompoundPanel-BJyeSpek.js",
-      "kb": 5,
+      "file": "assets/CompoundPanel-EhKs7wBO.js",
+      "kb": 5.1,
       "gzipKb": 1.8,
       "initial": false
     },
     {
-      "file": "assets/SetPanel-BC7u_zV1.js",
+      "file": "assets/SetPanel-B864BQoZ.js",
       "kb": 4.5,
       "gzipKb": 1.6,
       "initial": false
     },
     {
-      "file": "assets/AtomModel-CCcw2NY5.js",
+      "file": "assets/AtomModel-CljqQUo6.js",
       "kb": 2.5,
       "gzipKb": 1.3,
       "initial": false
     },
     {
-      "file": "assets/AboutPanel-BrNwLTeN.js",
+      "file": "assets/AboutPanel-DlbxbiXg.js",
       "kb": 3.1,
       "gzipKb": 1.2,
       "initial": false
     },
     {
-      "file": "assets/CompositionView-_wXiTvyK.js",
-      "kb": 2.2,
-      "gzipKb": 1.1,
+      "file": "assets/CompositionView-AlJ232as.js",
+      "kb": 1.9,
+      "gzipKb": 1,
       "initial": false
     },
     {

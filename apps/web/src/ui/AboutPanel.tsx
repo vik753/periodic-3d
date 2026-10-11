@@ -6,6 +6,7 @@ import { useMeta } from '../data/hooks';
 import { markAboutSeen } from '../lib/visits';
 import { useAppStore } from '../state/store';
 import { formatCount } from './format';
+import { GuideVideoButton } from './GuideVideo';
 import { BackButton, Panel, Row, Section } from './Panel';
 
 const REPOSITORY_URL = 'https://github.com/vik753/periodic-3d';
@@ -67,6 +68,7 @@ export function AboutPanel() {
       <BackButton />
       <h1 className="font-display text-2xl font-semibold leading-tight tracking-tight">{t('about.title')}</h1>
       <p className="mt-3 text-sm leading-relaxed text-text/90">{t('about.intro')}</p>
+      <GuideVideoButton />
 
       <Section title={t('about.howTitle')}>
         <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-text/90 marker:text-muted">

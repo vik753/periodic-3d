@@ -256,6 +256,14 @@ const resources = {
         elements: 'Елементи таблиці',
         elementsHint: 'Перелік елементів для клавіатури: Tab — далі, Enter — відкрити елемент.',
       },
+      guide: {
+        watch: 'Дивитися відео',
+        length: 'Усі можливості сайту за {{count}} хв',
+        hint: 'Усі можливості сайту',
+        title: 'Як користуватися сайтом',
+        close: 'Закрити',
+        download: 'Завантажити відео',
+      },
       about: {
         title: 'Про проєкт',
         open: 'Про проєкт і джерела даних',
@@ -515,6 +523,14 @@ const resources = {
         elements: 'Элементы таблицы',
         elementsHint: 'Список элементов для клавиатуры: Tab — дальше, Enter — открыть элемент.',
       },
+      guide: {
+        watch: 'Смотреть видео',
+        length: 'Все возможности сайта за {{count}} мин',
+        hint: 'Все возможности сайта',
+        title: 'Как пользоваться сайтом',
+        close: 'Закрыть',
+        download: 'Скачать видео',
+      },
       about: {
         title: 'О проекте',
         open: 'О проекте и источниках данных',
@@ -763,6 +779,14 @@ const resources = {
         elements: 'Table elements',
         elementsHint: 'Element list for the keyboard: Tab moves on, Enter opens the element.',
       },
+      guide: {
+        watch: 'Watch the video',
+        length: 'Every feature in {{count}} min',
+        hint: 'Every feature of the site',
+        title: 'How to use the site',
+        close: 'Close',
+        download: 'Download the video',
+      },
       about: {
         title: 'About',
         open: 'About the project and data sources',
@@ -814,5 +838,8 @@ i18n.on('languageChanged', (language) => {
   document.documentElement.lang = language;
 });
 document.documentElement.lang = i18n.language;
+
+// The guide video script finds buttons by their labels in the current language.
+window.__p3d = { ...window.__p3d, t: (key: string) => String(i18n.t(key as never)) };
 
 export default i18n;

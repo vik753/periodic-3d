@@ -59,6 +59,8 @@ declare global {
       /** Current pixel ratio after adaptive quality steps. */
       dpr?: number;
       project?: (symbol: string) => { x: number; y: number } | null;
+      /** Interface text by key in the current language (for the guide video script). */
+      t?: (key: string) => string;
     };
   }
 }

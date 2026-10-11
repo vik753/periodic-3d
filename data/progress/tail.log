@@ -20,3 +20,12 @@ started: 2026-10-11T09:21:04Z
 2026-10-11 09:24:39,028 INFO p3d.pubchem:   3D batches: 1000/1678, 9988 records, {'cache_hit': 844, 'fetched': 399}
 2026-10-11 09:26:23,303 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/449520,449673,450173,450503,451388,451448,451668,451706,452548,452705/SDF
 2026-10-11 09:28:33,634 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/469782,470999,471002,471161,472169,472172,472335,473368,474540,474541/SDF
+2026-10-11 09:31:08,993 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/493570,493591,494627,496993,498379,501133,501254,502272,503737,512877/SDF
+2026-10-11 09:32:52,553 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/513197,513472,517826,517827,518779,519050,519324,519335,519482,519533/SDF
+2026-10-11 09:34:36,191 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/519663,519935,520217,520300,520682,520752,520892,520911,521128,521261/SDF
+2026-10-11 09:34:36,191 WARNING p3d.pubchem: PubChem 3D: 3 failures in a row, continuing from the cache only
+2026-10-11 09:34:36,196 INFO p3d.pubchem:   3D batches: 1200/1678, 10038 records, {'cache_hit': 844, 'fetched': 404, 'retry_429': 23, 'failed_batches': 5, 'skipped_offline': 190}
+2026-10-11 09:34:36,201 INFO p3d.pubchem:   3D batches: 1400/1678, 10038 records, {'cache_hit': 844, 'fetched': 404, 'retry_429': 23, 'failed_batches': 5, 'skipped_offline': 390}
+2026-10-11 09:34:36,218 INFO p3d.pubchem:   3D batches: 1600/1678, 10528 records, {'cache_hit': 893, 'fetched': 404, 'retry_429': 23, 'failed_batches': 5, 'skipped_offline': 541}
+2026-10-11 09:34:36,220 INFO p3d.build: PubChem 3D: 10528 records in 810 s
+2026-10-11 09:34:36,243 INFO p3d.build: RDKit: embedding 13065 molecules on 4 processes

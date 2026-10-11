@@ -1,11 +1,11 @@
 $ uv run p3d-api migrate
-started: 2026-10-11T09:19:09Z
-2026-10-11 09:19:10,359 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
-2026-10-11 09:19:10,359 INFO alembic.runtime.migration: Will assume transactional DDL.
-2026-10-11 09:19:10,366 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
-2026-10-11 09:19:10,377 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Search: normalized text per compound with a trigram index (pg_trgm).
-2026-10-11 09:19:10,385 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Vectors: 16-dimensional embeddings of elements and compounds (pgvector).
-2026-10-11 09:19:10,403 INFO alembic.runtime.migration: Running upgrade 0003 -> 0004, GNoME layer: predicted materials and their element pairs (ADR 0007).
+started: 2026-10-11T09:32:02Z
+2026-10-11 09:32:02,724 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
+2026-10-11 09:32:02,724 INFO alembic.runtime.migration: Will assume transactional DDL.
+2026-10-11 09:32:02,734 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
+2026-10-11 09:32:02,750 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Search: normalized text per compound with a trigram index (pg_trgm).
+2026-10-11 09:32:02,760 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Vectors: 16-dimensional embeddings of elements and compounds (pgvector).
+2026-10-11 09:32:02,780 INFO alembic.runtime.migration: Running upgrade 0003 -> 0004, GNoME layer: predicted materials and their element pairs (ADR 0007).
 schema is up to date
-finished: 2026-10-11T09:19:10Z
+finished: 2026-10-11T09:32:02Z
 exit code: 0

@@ -1,5 +1,5 @@
 $ uv run p3d-api export-static out/static-data
-started: 2026-10-10T23:48:57Z
-exported 2026.10.10-r10: 173 files, 0.3 MB
-finished: 2026-10-10T23:48:58Z
+started: 2026-10-11T03:20:31Z
+exported 2026.10.11-r13: 173 files, 0.4 MB
+finished: 2026-10-11T03:20:33Z
 exit code: 0

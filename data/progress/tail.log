@@ -25,3 +25,20 @@ started: 2026-10-11T05:29:57Z
 2026-10-11 05:41:01,330 INFO p3d.build: RDKit: embedding 8153 molecules on 4 processes
 2026-10-11 05:49:16,062 INFO p3d.build: RDKit: done in 495 s
 2026-10-11 05:49:16,226 INFO p3d.build: OPTIMADE candidates for 10790 formulas
+2026-10-11 05:52:39,854 INFO p3d.build: OPTIMADE structures for 4489 materials
+2026-10-11 05:53:46,438 INFO p3d.build: Assigning structures for 27202 compounds
+2026-10-11 05:53:48,406 INFO p3d.build:   structures: 2000/27202 (2 s)
+2026-10-11 05:53:49,706 INFO p3d.build:   structures: 4000/27202 (3 s)
+2026-10-11 05:53:50,976 INFO p3d.build:   structures: 6000/27202 (5 s)
+2026-10-11 05:53:52,415 INFO p3d.build:   structures: 8000/27202 (6 s)
+2026-10-11 05:53:53,722 INFO p3d.build:   structures: 10000/27202 (7 s)
+2026-10-11 05:53:54,872 INFO p3d.build:   structures: 12000/27202 (8 s)
+2026-10-11 05:53:56,361 INFO p3d.build:   structures: 14000/27202 (10 s)
+2026-10-11 05:53:57,395 INFO p3d.build:   structures: 16000/27202 (11 s)
+2026-10-11 05:53:58,406 INFO p3d.build:   structures: 18000/27202 (12 s)
+2026-10-11 05:53:59,226 INFO p3d.build:   structures: 20000/27202 (13 s)
+2026-10-11 05:54:00,013 INFO p3d.build:   structures: 22000/27202 (14 s)
+2026-10-11 05:54:00,830 INFO p3d.build:   structures: 24000/27202 (14 s)
+2026-10-11 05:54:04,469 INFO p3d.build:   structures: 26000/27202 (18 s)
+2026-10-11 05:54:06,899 INFO p3d.build: Wikipedia en extracts for 23859 articles
+2026-10-11 05:54:07,118 INFO p3d.wikipedia: Wikipedia en: 48 of 23859 titles remembered

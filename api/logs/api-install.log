@@ -1,28 +1,28 @@
 $ bash ../../tools/ci/uv-sync.sh
-started: 2026-10-11T17:30:00Z
+started: 2026-10-11T19:53:04Z
 Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
 Creating virtual environment at: .venv
-Resolved 48 packages in 0.68ms
+Resolved 48 packages in 0.65ms
    Building p3d-api @ file:///home/runner/work/periodic-3d/periodic-3d/apps/api
-Downloading pydantic-core (2.1MiB)
-Downloading ast-serialize (1.3MiB)
-Downloading pygments (1.2MiB)
-Downloading asyncpg (3.6MiB)
-Downloading mypy (14.8MiB)
 Downloading sqlalchemy (4.5MiB)
 Downloading ruff (9.9MiB)
 Downloading uvloop (4.3MiB)
- Downloaded ast-serialize
+Downloading pydantic-core (2.1MiB)
+Downloading asyncpg (3.6MiB)
+Downloading pygments (1.2MiB)
+Downloading ast-serialize (1.3MiB)
+Downloading mypy (14.8MiB)
  Downloaded pygments
+ Downloaded ast-serialize
  Downloaded pydantic-core
  Downloaded asyncpg
- Downloaded uvloop
  Downloaded sqlalchemy
+ Downloaded uvloop
  Downloaded ruff
- Downloaded mypy
       Built p3d-api @ file:///home/runner/work/periodic-3d/periodic-3d/apps/api
-Prepared 47 packages in 452ms
-Installed 47 packages in 39ms
+ Downloaded mypy
+Prepared 47 packages in 542ms
+Installed 47 packages in 36ms
  + alembic==1.20.0
  + annotated-doc==0.0.5
  + annotated-types==0.8.0
@@ -70,5 +70,5 @@ Installed 47 packages in 39ms
  + uvloop==0.23.0
  + watchfiles==1.3.0
  + websockets==17.2
-finished: 2026-10-11T17:30:01Z
+finished: 2026-10-11T19:53:05Z
 exit code: 0

@@ -84,36 +84,47 @@ function useLingeringHover(delayMs = 350): number | null {
   return hoveredZ ?? shown;
 }
 
+/**
+ * The chosen elements and the way to their shared compounds. It sits at the very bottom
+ * of the screen: the hover card and the hint appear above it, so the buttons never move
+ * under the pointer. The buttons are 40 px high: easy to hit with a mouse or a finger.
+ */
+function SelectionBar({ selection }: { selection: readonly number[] }) {
+  const { t } = useTranslation();
+  const clearSelection = useAppStore((state) => state.clearSelection);
+  const symbols = selection.map((z) => ELEMENTS[z - 1]?.symbol);
+  return (
+    <div className="rise-in pointer-events-auto flex w-full items-center gap-2 rounded-full bg-panel py-2 pl-5 pr-2 ring-1 ring-gold/40 backdrop-blur-md sm:w-auto sm:gap-3">
+      <p className="min-w-0 flex-1 truncate text-sm sm:flex-none">
+        {t('selection.count', { count: selection.length })}{' '}
+        <span className="font-display font-medium text-gold">{symbols.join(' ')}</span>
+      </p>
+      <Link
+        to={`/set/${symbols.join('-')}`}
+        className="shrink-0 rounded-full bg-gold px-4 py-2.5 text-sm font-semibold leading-5 text-ink transition-colors hover:bg-text"
+      >
+        {t('selection.show')}
+      </Link>
+      <button
+        type="button"
+        onClick={clearSelection}
+        className="shrink-0 rounded-full px-4 py-2.5 text-sm leading-5 text-muted ring-1 ring-rim transition-colors hover:text-text"
+      >
+        {t('selection.clear')}
+      </button>
+    </div>
+  );
+}
+
 function TableHint() {
   const { t } = useTranslation();
   const hoveredZ = useLingeringHover();
   const selection = useAppStore((state) => state.selection);
-  const clearSelection = useAppStore((state) => state.clearSelection);
   const selectMode = useAppStore((state) => state.selectMode);
   const setSelectMode = useAppStore((state) => state.setSelectMode);
+  // The column grows upwards from the bottom edge: what appears on hover goes on top.
   return (
-    <div className="pointer-events-none fixed inset-x-3 bottom-3 z-10 flex flex-col items-start gap-2 sm:left-5 sm:right-auto sm:bottom-5 sm:max-w-md">
-      {selection.length > 0 && (
-        <div className="pointer-events-auto flex items-center gap-3 rounded-full bg-panel py-1.5 pl-4 pr-1.5 ring-1 ring-gold/40 backdrop-blur-md">
-          <span className="text-sm">{t('selection.count', { count: selection.length })}</span>
-          <span className="font-display text-sm font-medium text-gold">
-            {selection.map((z) => ELEMENTS[z - 1]?.symbol).join(' ')}
-          </span>
-          <Link
-            to={`/set/${selection.map((z) => ELEMENTS[z - 1]?.symbol).join('-')}`}
-            className="rounded-full bg-gold px-3 py-1 text-xs font-semibold text-ink transition-colors hover:bg-text"
-          >
-            {t('selection.show')}
-          </Link>
-          <button
-            type="button"
-            onClick={clearSelection}
-            className="rounded-full px-3 py-1 text-xs text-muted ring-1 ring-rim hover:text-text"
-          >
-            {t('selection.clear')}
-          </button>
-        </div>
-      )}
+    <div className="pointer-events-none fixed inset-x-3 bottom-3 z-10 flex flex-col items-start gap-2 sm:left-5 sm:right-auto sm:bottom-5 sm:max-w-xl">
       {hoveredZ != null && <TilePreview z={hoveredZ} />}
       <div className="flex flex-wrap items-center gap-2">
         <button
@@ -130,6 +141,7 @@ function TableHint() {
           {t(selectMode ? 'hint.select' : isTouchFirst() ? 'hint.tableTouch' : 'hint.table')}
         </p>
       </div>
+      {selection.length > 0 && <SelectionBar selection={selection} />}
     </div>
   );
 }

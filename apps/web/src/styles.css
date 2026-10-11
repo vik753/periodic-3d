@@ -147,10 +147,23 @@ canvas {
   }
 }
 
+/* The selection bar rises from the bottom edge when the first element is chosen. */
+.rise-in {
+  animation: rise-in 0.25s ease-out both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .glow-button::before,
   .glow-button::after,
-  .to-table-in {
+  .to-table-in,
+  .rise-in {
     animation: none;
   }
 }

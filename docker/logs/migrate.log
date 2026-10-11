@@ -1,7 +1,7 @@
  Container periodic-3d-db-1  Running
-2026-10-11 04:13:15,182 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
-2026-10-11 04:13:15,182 INFO alembic.runtime.migration: Will assume transactional DDL.
-2026-10-11 04:13:15,193 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
-2026-10-11 04:13:15,207 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Search: normalized text per compound with a trigram index (pg_trgm).
-2026-10-11 04:13:15,217 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Vectors: 16-dimensional embeddings of elements and compounds (pgvector).
+2026-10-11 04:42:24,821 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
+2026-10-11 04:42:24,821 INFO alembic.runtime.migration: Will assume transactional DDL.
+2026-10-11 04:42:24,831 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
+2026-10-11 04:42:24,844 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Search: normalized text per compound with a trigram index (pg_trgm).
+2026-10-11 04:42:24,853 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Vectors: 16-dimensional embeddings of elements and compounds (pgvector).
 schema is up to date

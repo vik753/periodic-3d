@@ -58,13 +58,19 @@ def test_check_formula_verdicts() -> None:
     assert soman
     smiles = "CC(C(C)(C)C)OP(C)(=O)F"
     assert check_formula("C₇H₁₆FO₂", soman, "C7H16FO2P", smiles).verdict == Verdict.WIKIDATA_FIXED
-    # PubChem points to the anhydrous salt; the SMILES agrees with the hydrate formula.
+    # PubChem points to the anhydrous salt: a hydrate difference, the Wikidata formula stays.
     borax = parse_formula("Na2B4O7·10H2O")
     assert borax
-    hydrate_smiles = "B1(O[B-]2(OB(O[B-](O1)(O2)O)O)O)O.O.O.O.O.O.O.O.O.[Na+].[Na+]"
-    verdict = check_formula("Na₂B₄O₇·10H₂O", borax, "B4Na2O7", hydrate_smiles).verdict
-    assert verdict in (Verdict.PUBCHEM_DROPPED, Verdict.DISAGREE)
-    assert check_formula("Na₂B₄O₇·10H₂O", borax, "B4Na2O7", None).verdict == Verdict.DISAGREE
+    assert check_formula("Na₂B₄O₇·10H₂O", borax, "B4Na2O7", None).verdict == Verdict.HYDRATE
+    # PubChem keeps the hydrate: not an error, the Wikidata formula stays.
+    ascorbate = parse_formula("C12H14CaO12")
+    assert ascorbate
+    assert check_formula("CaC₁₂H₁₄O₁₂", ascorbate, "C12H18CaO14", None).verdict == Verdict.HYDRATE
+    # A dye without its chloride in PubChem: the SMILES (copied from PubChem) is no proof.
+    rhodamine = parse_formula("C28H31ClN2O3")
+    assert rhodamine
+    cation_smiles = "CCNc1cc2[o+]c3cc(NCC)c(C)cc3c(-c3ccccc3C(=O)OCC)c2cc1C"
+    assert check_formula("C₂₈H₃₁ClN2O₃", rhodamine, "C28H31N2O3", cation_smiles).verdict == Verdict.DISAGREE
     # A dimer record: same proportions.
     dimer = parse_formula("C10H10Cl2V")
     assert dimer
@@ -83,8 +89,9 @@ def test_reconcile_fixes_wikidata_drops_pubchem_and_sets_mass() -> None:
     chlorate = _compound("Q1", "KCIO₃", cid=6426, pubchem={"formula": "ClKO3", "mass": 122.55, "iupac": "x"})
     water = _compound("Q283", "H₂O", cid=962, pubchem={"formula": "H2O", "mass": 18.015})
     borax = _compound("Q5", "Na₂B₄O₇·10H₂O", cid=10219853, pubchem={"formula": "B4Na2O7", "mass": 201.2})
+    dye = _compound("Q6", "C₂₈H₃₁ClN₂O₃", cid=13806, pubchem={"formula": "C28H31N2O3", "mass": 443.6})
     salt = _compound("Q2314", "NaCl")
-    report: QualityReport = reconcile_formulas([chlorate, water, borax, salt], MASSES, ELECTRONEGATIVITY)
+    report: QualityReport = reconcile_formulas([chlorate, water, borax, dye, salt], MASSES, ELECTRONEGATIVITY)
 
     assert chlorate.counts == {"K": 1.0, "Cl": 1.0, "O": 3.0}
     assert chlorate.formula == "KClO₃"
@@ -94,10 +101,14 @@ def test_reconcile_fixes_wikidata_drops_pubchem_and_sets_mass() -> None:
     assert (water.mass, water.mass_source) == (18.015, "pubchem")
     assert water.quality == {}
 
-    # Borax without a SMILES: both formulas shown, no PubChem details, no mass.
-    assert borax.quality == {"pubchemFormula": "B4Na2O7"}
-    assert borax.mass is None
-    assert borax.pubchem == {"formula": "B4Na2O7"}
+    # Borax: PubChem has the anhydrous salt; the decahydrate formula and its mass stay.
+    assert borax.quality == {}
+    assert (borax.mass, borax.mass_source) == (381.363, "formula")
+
+    # A dye that PubChem lists without its chloride: both formulas shown, no PubChem details.
+    assert dye.quality == {"pubchemFormula": "C28H31N2O3"}
+    assert dye.mass is None
+    assert dye.pubchem == {"formula": "C28H31N2O3"}
 
     # No PubChem record: the mass comes from the formula.
     assert salt.mass_source == "formula"
@@ -105,6 +116,7 @@ def test_reconcile_fixes_wikidata_drops_pubchem_and_sets_mass() -> None:
 
     assert report.verdicts[Verdict.WIKIDATA_FIXED] == 1
     assert report.verdicts[Verdict.DISAGREE] == 1
+    assert report.verdicts[Verdict.HYDRATE] == 1
     assert report.examples[Verdict.WIKIDATA_FIXED][0].startswith("Q1 KClO₃")
 
 
@@ -131,3 +143,21 @@ def test_golden_check_reports_each_problem() -> None:
     assert check(salt, salt_card, {"cell": [[5.6, 0, 0], [0, 5.6, 0], [0, 0, 7]]}) == [
         "Q2314 Sodium chloride: unit cell is other instead of cubic"
     ]
+
+
+def test_plausible_fix_rules() -> None:
+    from p3d_pipeline.quality import plausible_fix, water_difference
+
+    def counts(text: str) -> dict[str, float]:
+        value = parse_formula(text)
+        assert value
+        return value
+
+    assert plausible_fix(counts("C5H10O2"), counts("C5H12O2"))  # 1,5-pentanediol: two H missing
+    assert plausible_fix(counts("C7H16FO2"), counts("C7H16FO2P"))  # soman: phosphorus missing
+    assert not plausible_fix(counts("C6H13BO2"), counts("C6H12BO2"))  # one H: a charge or radical form
+    assert not plausible_fix(counts("C8H12Mo2O8"), counts("C8H16Mo2O8"))  # a metal complex
+    assert not plausible_fix(counts("UC"), counts("CH4U"))  # inorganic
+    assert not plausible_fix(counts("C28H31ClN2O3"), counts("C28H31N2O3"))  # chloride would vanish
+    assert water_difference(counts("C12H18CaO14"), counts("C12H14CaO12")) == 2
+    assert water_difference(counts("C12H18CaO14"), counts("C12H14CaO13")) is None

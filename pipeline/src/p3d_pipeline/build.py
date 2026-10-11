@@ -602,6 +602,7 @@ def attach_pubchem(compounds: list[Compound], fetcher: Fetcher) -> list[int]:
 
 
 QUALITY_EXAMPLES = 40
+SHOWN_AS_IS = (Verdict.SCALED, Verdict.HYDRATE)  # report examples without a change to the card
 
 
 @dataclass
@@ -663,7 +664,7 @@ def reconcile_formulas(
         if note and len(report.examples[check.verdict]) < QUALITY_EXAMPLES:
             name = compound.names.get("en") or compound.names.get("ru") or ""
             report.examples[check.verdict].append(f"{compound.id} {compound.formula} — {name}: {note}")
-        elif check.verdict == Verdict.SCALED and len(report.examples[check.verdict]) < QUALITY_EXAMPLES:
+        elif check.verdict in SHOWN_AS_IS and len(report.examples[check.verdict]) < QUALITY_EXAMPLES:
             report.examples[check.verdict].append(
                 f"{compound.id} {compound.formula}: PubChem {plain_formula(check.pubchem or {})}"
             )
@@ -707,6 +708,7 @@ VERDICT_TITLES = {
     Verdict.NO_PUBCHEM: "нет записи PubChem",
     Verdict.ISOTOPES: "изотопы (D, T, ¹⁸F): верим PubChem",
     Verdict.SCALED: "те же пропорции, другой размер",
+    Verdict.HYDRATE: "PubChem описывает гидрат или безводную форму — формула Wikidata, масса по ней",
     Verdict.WIKIDATA_FIXED: "ошибка в формуле Wikidata — исправлена",
     Verdict.PUBCHEM_DROPPED: "ссылка на PubChem ведёт к другому веществу — убрана",
     Verdict.DISAGREE: "расходятся, третьего мнения нет — показаны обе формулы",
@@ -720,7 +722,7 @@ def quality_lines(quality: QualityReport | None) -> list[str]:
     lines = ["", "## Перекрёстная проверка формул (Wikidata, PubChem, SMILES)", ""]
     lines += ["| Итог | Соединений |", "| --- | --- |"]
     lines += [f"| {VERDICT_TITLES.get(Verdict(key), key)} | {count} |" for key, count in quality.verdicts.most_common()]
-    for verdict in (Verdict.WIKIDATA_FIXED, Verdict.PUBCHEM_DROPPED, Verdict.DISAGREE, Verdict.SCALED):
+    for verdict in (Verdict.WIKIDATA_FIXED, Verdict.PUBCHEM_DROPPED, Verdict.DISAGREE, Verdict.HYDRATE, Verdict.SCALED):
         examples = quality.examples.get(verdict, [])
         if examples:
             lines += ["", f"### {VERDICT_TITLES[verdict]}", ""] + [f"- {line}" for line in examples]

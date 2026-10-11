@@ -1,38 +1,10 @@
 $ npm run screenshot
-started: 2026-10-11T07:34:38Z
+started: 2026-10-11T07:46:10Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3954ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 5448ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 7522ms calls=11 url=/periodic-3d/e/Fe
-ok   search-fe 3718ms calls=3 url=/periodic-3d/
-ok   element-fe 7993ms calls=11 url=/periodic-3d/e/Fe
-ok   element-u 7278ms calls=14 url=/periodic-3d/e/U
-ok   element-fe-substance 9981ms calls=8 url=/periodic-3d/e/Fe
-ok   element-c-substance 9140ms calls=8 url=/periodic-3d/e/C
-ok   element-o-rays 7902ms calls=9 url=/periodic-3d/e/O
-ok   walk-fe-o 8726ms calls=10 url=/periodic-3d/e/Fe/O
-ok   walk-fe-o-step3 11905ms calls=10 url=/periodic-3d/e/Fe/O
-ok   phone-walk-fe-o 10491ms calls=8 url=/periodic-3d/e/Fe/O
-ok   phone-element-o-rays 7875ms calls=9 url=/periodic-3d/e/O
-ok   set-fe-o 7727ms calls=5 url=/periodic-3d/set/Fe-O
-ok   set-o 7740ms calls=5 url=/periodic-3d/set/O
-ok   phone-set-fe-o 7335ms calls=5 url=/periodic-3d/set/Fe-O
-ok   compound-hematite 7994ms calls=6 url=/periodic-3d/c/Q103223
-ok   compound-water 7550ms calls=5 url=/periodic-3d/c/Q283
-ok   compound-ozone-ru 7670ms calls=5 url=/periodic-3d/c/Q36933
-ok   compound-glucose 7690ms calls=5 url=/periodic-3d/c/Q37525
-ok   compound-sodium-acetate 7704ms calls=5 url=/periodic-3d/c/Q339940
-ok   compound-no-3d 8084ms calls=5 url=/periodic-3d/c/Q483269
-ok   about 5297ms calls=3 url=/periodic-3d/about
-ok   keyboard-index 3857ms calls=3 url=/periodic-3d/
-ok   phone-about 4236ms calls=3 url=/periodic-3d/about
-ok   molecule-benzene 7114ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 7594ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3766ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 7296ms calls=11 url=/periodic-3d/e/Fe
-ok   phone-compound-hematite 7574ms calls=6 url=/periodic-3d/c/Q103223
-finished: 2026-10-11T07:38:39Z
-exit code: 0
+ok   table 4184ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 4634ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 8075ms calls=11 url=/periodic-3d/e/Fe
+ok   search-fe 3902ms calls=3 url=/periodic-3d/

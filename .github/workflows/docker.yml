@@ -84,13 +84,24 @@ jobs:
             2>&1 | tee out/logs/db-load-full.log
           curl -sf http://localhost:8080/api/v1/meta | tee out/logs/meta-full.json
           echo
-          bash tools/ci/load-test.sh 150 \
-            "http://localhost:8080/api/v1/elements/O" \
-            "http://localhost:8080/api/v1/compounds/Q283" \
-            "http://localhost:8080/api/v1/pairs/H-O" \
-            "http://localhost:8080/api/v1/compounds?elements=C,H&mode=contains" \
-            "http://localhost:8080/api/v1/compounds?elements=Fe,O&mode=only" \
-            "http://localhost:8080/api/v1/search?q=%D0%BA%D0%B8%D1%81%D0%BB%D0%BE%D1%82%D0%B0" | tee out/logs/load-full.log
+          urls=(
+            "http://localhost:8080/api/v1/elements/O"
+            "http://localhost:8080/api/v1/compounds/Q283"
+            "http://localhost:8080/api/v1/pairs/H-O"
+            "http://localhost:8080/api/v1/compounds?elements=C,H&mode=contains"
+            "http://localhost:8080/api/v1/compounds?elements=Fe,O&mode=only"
+            "http://localhost:8080/api/v1/search?q=%D0%BA%D0%B8%D1%81%D0%BB%D0%BE%D1%82%D0%B0"
+          )
+          {
+            echo "# 32 parallel requests (a busy server; the load generator shares the 4 CPUs)"
+            bash tools/ci/load-test.sh 150 "${urls[@]}"
+            echo "# 4 parallel requests, each endpoint alone"
+            CONCURRENCY=4 PER_URL=1 bash tools/ci/load-test.sh 50 "${urls[@]}"
+          } | tee out/logs/load-full.log
+          # Query plans of the heaviest statements, for tuning.
+          $COMPOSE exec -T db psql -U p3d -d p3d -c "EXPLAIN ANALYZE SELECT id FROM compounds
+            WHERE embedding IS NOT NULL ORDER BY embedding <=> (SELECT embedding FROM compounds WHERE id = 'Q283')
+            LIMIT 8" > out/logs/plan-similar.txt 2>&1 || true
 
       - name: Container logs
         if: always()

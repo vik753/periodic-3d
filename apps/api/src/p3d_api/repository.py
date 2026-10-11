@@ -40,6 +40,7 @@ from .vector import cosine_distance
 TOP_COMPOUNDS = 12
 SIMILAR_ELEMENTS = 6
 SIMILAR_COMPOUNDS = 8
+SIMILAR_CANDIDATES = 40  # pgvector's default hnsw.ef_search: an index scan returns at most 40 rows
 # Vectors of rare elements are noise (curium sits next to carbon: both meet only C, H, N, O).
 # An element takes part in similarity only with at least this share of all compounds
 # (about 54 of 27 000), and a neighbour needs at least this cosine similarity.
@@ -240,15 +241,21 @@ class Repository:
         ]
 
     async def similar_compounds(self, compound_id: str) -> list[CompoundSummary]:
-        """Compounds with the closest vectors: similar elements in similar proportions."""
+        """Compounds with the closest vectors: similar elements in similar proportions.
+
+        The HNSW index answers only "ORDER BY distance LIMIT k". It returns the nearest
+        SIMILAR_CANDIDATES; among near-equal distances the more famous compounds win.
+        """
         target = select(CompoundRow.embedding).where(CompoundRow.id == compound_id).scalar_subquery()
-        distance = cosine_distance(CompoundRow.embedding, target)
-        return await self._summaries(
-            select(*_SUMMARY_COLUMNS)
-            .where(CompoundRow.id != compound_id, CompoundRow.embedding.is_not(None), distance.is_not(None))
-            .order_by(distance, CompoundRow.fame.desc(), CompoundRow.id)
-            .limit(SIMILAR_COMPOUNDS)
+        distance = cosine_distance(CompoundRow.embedding, target).label("distance")
+        rows = (
+            await self.session.execute(select(*_SUMMARY_COLUMNS, distance).order_by(distance).limit(SIMILAR_CANDIDATES))
+        ).all()
+        ranked = sorted(
+            (row for row in rows if row.id != compound_id and row.distance is not None),
+            key=lambda row: (round(float(row.distance), 3), -row.fame, row.id),
         )
+        return [_summary(row) for row in ranked[:SIMILAR_COMPOUNDS]]
 
     async def compound(self, compound_id: str) -> CompoundDetail | None:
         version = await self.version()

@@ -1,12 +1,12 @@
 $ uv run p3d-api migrate
-started: 2026-10-11T14:59:33Z
-2026-10-11 14:59:33,581 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
-2026-10-11 14:59:33,582 INFO alembic.runtime.migration: Will assume transactional DDL.
-2026-10-11 14:59:33,592 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
-2026-10-11 14:59:33,607 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Search: normalized text per compound with a trigram index (pg_trgm).
-2026-10-11 14:59:33,618 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Vectors: 16-dimensional embeddings of elements and compounds (pgvector).
-2026-10-11 14:59:33,639 INFO alembic.runtime.migration: Running upgrade 0003 -> 0004, GNoME layer: predicted materials and their element pairs (ADR 0007).
-2026-10-11 14:59:33,650 INFO alembic.runtime.migration: Running upgrade 0004 -> 0005, Per-element lists of predicted materials, built at load time (ADR 0007).
+started: 2026-10-11T16:54:17Z
+2026-10-11 16:54:17,732 INFO alembic.runtime.migration: Context impl PostgresqlImpl.
+2026-10-11 16:54:17,732 INFO alembic.runtime.migration: Will assume transactional DDL.
+2026-10-11 16:54:17,740 INFO alembic.runtime.migration: Running upgrade  -> 0001, Initial schema: dataset, elements, compounds, pairs, classes.
+2026-10-11 16:54:17,751 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Search: normalized text per compound with a trigram index (pg_trgm).
+2026-10-11 16:54:17,761 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Vectors: 16-dimensional embeddings of elements and compounds (pgvector).
+2026-10-11 16:54:17,775 INFO alembic.runtime.migration: Running upgrade 0003 -> 0004, GNoME layer: predicted materials and their element pairs (ADR 0007).
+2026-10-11 16:54:17,783 INFO alembic.runtime.migration: Running upgrade 0004 -> 0005, Per-element lists of predicted materials, built at load time (ADR 0007).
 schema is up to date
-finished: 2026-10-11T14:59:33Z
+finished: 2026-10-11T16:54:17Z
 exit code: 0

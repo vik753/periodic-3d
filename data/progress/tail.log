@@ -22,3 +22,11 @@ started: 2026-10-11T03:56:43Z
 2026-10-11 04:00:05,059 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +0.0 s per request
 2026-10-11 04:00:28,406 INFO p3d.pubchem:   3D batches: 1000/1678, 9990 records, {'cache_hit': 985, 'fetched': 257}
 2026-10-11 04:05:17,568 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5283137,5283141,5283155,5283157,5283159,5283344,5283349,5283387,5283630,5283634/SDF
+2026-10-11 04:07:01,264 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5283640,5283646,5283731,5283734,5283820,5284329,5284371,5284402,5284433,5284447/SDF
+2026-10-11 04:08:44,958 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5284462,5284499,5284506,5284513,5284514,5284516,5284517,5284529,5284533,5284535/SDF
+2026-10-11 04:08:44,958 WARNING p3d.pubchem: PubChem 3D: 3 failures in a row, continuing from the cache only
+2026-10-11 04:08:44,960 INFO p3d.pubchem:   3D batches: 1200/1678, 11420 records, {'cache_hit': 985, 'fetched': 400, 'retry_429': 16, 'failed_batches': 3, 'skipped_offline': 54}
+2026-10-11 04:08:44,967 INFO p3d.pubchem:   3D batches: 1400/1678, 11420 records, {'cache_hit': 985, 'fetched': 400, 'retry_429': 16, 'failed_batches': 3, 'skipped_offline': 254}
+2026-10-11 04:08:44,974 INFO p3d.pubchem:   3D batches: 1600/1678, 11420 records, {'cache_hit': 985, 'fetched': 400, 'retry_429': 16, 'failed_batches': 3, 'skipped_offline': 454}
+2026-10-11 04:08:44,977 INFO p3d.build: PubChem 3D: 11420 records in 720 s
+2026-10-11 04:08:44,999 INFO p3d.build: RDKit: embedding 12183 molecules on 4 processes

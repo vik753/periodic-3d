@@ -37,7 +37,7 @@ const TEXT = {
     open: 'Натисніть на елемент: камера влітає всередину.',
     substance: 'Перемикач <b>Речовина в 3D</b> показує просту речовину: кристал заліза.',
     rays: 'Червоні промені ведуть до елементів, з якими утворюються сполуки. Товстий промінь — багато сполук.',
-    walk: 'Натисніть на промінь або плитку партнера: сполуки пари стають у ряд, найвідоміші — першими.',
+    walk: 'Натисніть на промінь, плитку партнера або символ у панелі: сполуки пари стають у ряд, найвідоміші — першими.',
     walkMove: 'Крутіть коліщатко або тягніть уздовж променя: від сполуки до сполуки.',
     card: 'Картка сполуки: 3D-модель, формула, склад, маса, опис і джерела.',
     rotate: 'Тягніть модель, щоб обернути її.',
@@ -61,7 +61,7 @@ const TEXT = {
     open: 'Нажмите на элемент: камера влетает внутрь.',
     substance: 'Переключатель <b>Вещество в 3D</b> показывает простое вещество: кристалл железа.',
     rays: 'Красные лучи ведут к элементам, с которыми образуются соединения. Толстый луч — много соединений.',
-    walk: 'Нажмите на луч или плитку партнёра: соединения пары встают в ряд, самые известные — первыми.',
+    walk: 'Нажмите на луч, плитку партнёра или символ в панели: соединения пары встают в ряд, самые известные — первыми.',
     walkMove: 'Крутите колесо или тяните вдоль луча: от соединения к соединению.',
     card: 'Карточка соединения: 3D-модель, формула, состав, масса, описание и источники.',
     rotate: 'Тяните модель, чтобы повернуть её.',
@@ -85,7 +85,7 @@ const TEXT = {
     open: 'Click an element: the camera flies inside.',
     substance: 'The <b>Substance in 3D</b> switch shows the simple substance: the iron crystal.',
     rays: 'Red rays lead to the elements it forms compounds with. A thick ray means many compounds.',
-    walk: 'Click a ray or a partner tile: the compounds of the pair line up, the best known first.',
+    walk: 'Click a ray, a partner tile or a symbol in the panel: the compounds of the pair line up, the best known first.',
     walkMove: 'Scroll or drag along the ray to move from compound to compound.',
     card: 'The compound card: 3D model, formula, composition, mass, description and sources.',
     rotate: 'Drag the model to turn it.',
@@ -245,11 +245,17 @@ async function waitVisible(locator, maxSeconds = 6) {
 
 /** Move the pointer onto an element of the page and click it. */
 async function press(locator, seconds = 0.7) {
+  await pointAt(locator, seconds);
+  await click();
+}
+
+/** Move the pointer onto an element of the page (scrolled into view first). */
+async function pointAt(locator, seconds = 0.7) {
   await waitVisible(locator);
+  await locator.scrollIntoViewIfNeeded().catch(() => undefined);
   const box = await locator.boundingBox();
   if (!box) throw new Error('no box');
   await moveTo(box.x + box.width / 2, box.y + box.height / 2, seconds);
-  await click();
 }
 
 const t = (key) => page.evaluate((k) => window.__p3d?.t?.(k) ?? k, key);
@@ -323,18 +329,20 @@ const scenes = [
     'rays',
     async () => {
       await caption(TEXT.rays);
-      await moveToTile('O', 1.2);
-      await hold(2.2);
-      await moveToTile('S', 0.8);
+      await moveToTile('Cl', 1.2);
       await hold(1.6);
+      // The partner chips in the panel light up their rays too.
+      await pointAt(page.locator('a[href$="/e/Fe/O"]').first(), 1);
+      await hold(1.6);
+      await pointAt(page.locator('a[href$="/e/Fe/S"]').first(), 0.6);
+      await hold(1.2);
     },
   ],
   [
     'walk',
     async () => {
       await caption(TEXT.walk);
-      await moveToTile('O', 0.9);
-      await click();
+      await press(page.locator('a[href$="/e/Fe/O"]').first(), 0.6);
       await hold(3);
       await caption(TEXT.walkMove);
       await moveTo(viewport.width * 0.4, viewport.height * 0.5, 0.6);
@@ -399,7 +407,11 @@ const scenes = [
       await moveToTile('Li', 0.9);
       await click();
       await hold(3);
-      await press(page.getByRole('button', { name: await t('predicted.show') }).first());
+      const show = page.getByRole('button', { name: await t('predicted.show') }).first();
+      const hide = page.getByRole('button', { name: await t('predicted.hide') }).first();
+      await waitVisible(show.or(hide).first(), 8);
+      if (await show.isVisible()) await press(show);
+      else await pointAt(hide);
       await hold(2.5);
       const partner = page.locator('a[href$="/predicted"]').first();
       await press(partner);

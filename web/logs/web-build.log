@@ -1,5 +1,5 @@
 $ npm run build
-started: 2026-10-11T07:54:07Z
+started: 2026-10-11T08:04:40Z
 
 > @periodic-3d/web@0.1.0 build
 > vite build
@@ -35,6 +35,6 @@ computing gzip size...
 [2mdist/[22m[2massets/[22m[36mr3f-BQlR8-_p.js                                     [39m[1m[2m228.54 kB[22m[1m[22m[2m │ gzip:  69.00 kB[22m
 [2mdist/[22m[2massets/[22m[36mreact-B7ulV_JK.js                                   [39m[1m[2m264.90 kB[22m[1m[22m[2m │ gzip:  84.67 kB[22m
 [2mdist/[22m[2massets/[22m[36mthree-DVDdbfxe.js                                   [39m[1m[2m724.29 kB[22m[1m[22m[2m │ gzip: 188.46 kB[22m
-[32m✓ built in 3.66s[39m
-finished: 2026-10-11T07:54:11Z
+[32m✓ built in 4.60s[39m
+finished: 2026-10-11T08:04:45Z
 exit code: 0

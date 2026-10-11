@@ -1,40 +1,14 @@
 $ npm run screenshot
-started: 2026-10-11T07:54:31Z
+started: 2026-10-11T08:05:17Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3803ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 4556ms calls=3 url=/periodic-3d/
-ok   table-zoom-fe 4555ms calls=3 url=/periodic-3d/
-ok   phone-table-tap-fe 3752ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 6547ms calls=11 url=/periodic-3d/e/Fe
-ok   search-fe 3645ms calls=3 url=/periodic-3d/
-ok   element-fe 6367ms calls=11 url=/periodic-3d/e/Fe
-ok   element-u 6443ms calls=14 url=/periodic-3d/e/U
-ok   element-fe-substance 8470ms calls=8 url=/periodic-3d/e/Fe
-ok   element-c-substance 8673ms calls=8 url=/periodic-3d/e/C
-ok   element-o-rays 7561ms calls=9 url=/periodic-3d/e/O
-ok   walk-fe-o 8522ms calls=10 url=/periodic-3d/e/Fe/O
-ok   walk-fe-o-step3 10735ms calls=10 url=/periodic-3d/e/Fe/O
-ok   phone-walk-fe-o 7989ms calls=8 url=/periodic-3d/e/Fe/O
-ok   phone-element-o-rays 7409ms calls=9 url=/periodic-3d/e/O
-ok   set-fe-o 7016ms calls=5 url=/periodic-3d/set/Fe-O
-ok   set-o 7063ms calls=5 url=/periodic-3d/set/O
-ok   phone-set-fe-o 6846ms calls=5 url=/periodic-3d/set/Fe-O
-ok   compound-hematite 7008ms calls=6 url=/periodic-3d/c/Q103223
-ok   compound-water 6893ms calls=5 url=/periodic-3d/c/Q283
-ok   compound-ozone-ru 7070ms calls=5 url=/periodic-3d/c/Q36933
-ok   compound-glucose 7011ms calls=5 url=/periodic-3d/c/Q37525
-ok   compound-sodium-acetate 6882ms calls=5 url=/periodic-3d/c/Q339940
-ok   compound-no-3d 6817ms calls=5 url=/periodic-3d/c/Q483269
-ok   about 4017ms calls=3 url=/periodic-3d/about
-ok   keyboard-index 3747ms calls=3 url=/periodic-3d/
-ok   phone-about 3912ms calls=3 url=/periodic-3d/about
-ok   molecule-benzene 6312ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 6395ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3702ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 6530ms calls=11 url=/periodic-3d/e/Fe
-ok   phone-compound-hematite 6724ms calls=6 url=/periodic-3d/c/Q103223
-finished: 2026-10-11T07:58:09Z
-exit code: 0
+ok   table 3904ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 5260ms calls=3 url=/periodic-3d/
+ok   table-zoom-fe 4663ms calls=3 url=/periodic-3d/
+ok   phone-table-tap-fe 3794ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 7108ms calls=11 url=/periodic-3d/e/Fe
+ok   search-fe 3677ms calls=3 url=/periodic-3d/
+ok   element-fe 6990ms calls=11 url=/periodic-3d/e/Fe
+ok   element-u 6973ms calls=14 url=/periodic-3d/e/U

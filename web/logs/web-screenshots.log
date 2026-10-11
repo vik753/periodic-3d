@@ -1,18 +1,11 @@
 $ npm run screenshot
-started: 2026-10-11T03:23:42Z
+started: 2026-10-11T03:26:49Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 3771ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 4219ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 6521ms calls=11 url=/periodic-3d/e/Fe
-ok   search-fe 3553ms calls=3 url=/periodic-3d/
-ok   element-fe 6492ms calls=11 url=/periodic-3d/e/Fe
-ok   element-u 6588ms calls=12 url=/periodic-3d/e/U
-ok   element-fe-substance 8316ms calls=8 url=/periodic-3d/e/Fe
-ok   element-o-rays 7279ms calls=9 url=/periodic-3d/e/O
-ok   walk-fe-o 7701ms calls=10 url=/periodic-3d/e/Fe/O
-ok   walk-fe-o-step3 10530ms calls=10 url=/periodic-3d/e/Fe/O
-ok   phone-walk-fe-o 7996ms calls=8 url=/periodic-3d/e/Fe/O
-ok   phone-element-o-rays 7449ms calls=9 url=/periodic-3d/e/O
+ok   table 3977ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 6204ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 7757ms calls=11 url=/periodic-3d/e/Fe
+ok   search-fe 3688ms calls=3 url=/periodic-3d/
+ok   element-fe 8252ms calls=11 url=/periodic-3d/e/Fe

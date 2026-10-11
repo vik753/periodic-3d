@@ -61,18 +61,32 @@ export function CompositionView({ parts, position, elementName }: CompositionVie
               <mesh geometry={sphere} scale={radius}>
                 <meshStandardMaterial color={atomColor(part.symbol)} roughness={0.35} metalness={0.05} />
               </mesh>
-              <Html position={[0, -radius - 0.25, 0]} center distanceFactor={9} zIndexRange={[15, 0]} pointerEvents="none">
+              <Html
+                position={[0, -radius - 0.25, 0]}
+                center
+                distanceFactor={9}
+                zIndexRange={[15, 0]}
+                pointerEvents="none"
+              >
                 <div className="pointer-events-none whitespace-nowrap rounded-full bg-panel/70 px-2.5 py-0.5 text-xs ring-1 ring-rim backdrop-blur-sm">
                   <span className="font-display font-semibold">{part.symbol}</span>
                   <span className="ml-1 tabular-nums">× {formatCount(part.count, i18n.language)}</span>
-                  {elementName?.(part.symbol) ? <span className="ml-1.5 text-muted">{elementName(part.symbol)}</span> : null}
+                  {elementName?.(part.symbol) ? (
+                    <span className="ml-1.5 text-muted">{elementName(part.symbol)}</span>
+                  ) : null}
                 </div>
               </Html>
             </group>
           );
         })}
       </group>
-      <Html position={[0, -ring - Math.max(...radii) - 0.9, 0]} center distanceFactor={9} zIndexRange={[15, 0]} pointerEvents="none">
+      <Html
+        position={[0, -ring - Math.max(...radii) - 0.9, 0]}
+        center
+        distanceFactor={9}
+        zIndexRange={[15, 0]}
+        pointerEvents="none"
+      >
         <p className="pointer-events-none max-w-[16rem] text-center text-xs leading-snug text-muted">
           {t('compound.compositionOnly')}
         </p>

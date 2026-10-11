@@ -1,12 +1,13 @@
 import { lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 import { ELEMENTS } from '../data/periodic';
 import { useAppStore } from '../state/store';
 import { Panel, Skeleton } from './Panel';
 
 // Panels load with their scene; the table needs only the hint below.
+const AboutPanel = lazy(() => import('./AboutPanel').then((module) => ({ default: module.AboutPanel })));
 const CompoundPanel = lazy(() => import('./CompoundPanel').then((module) => ({ default: module.CompoundPanel })));
 const ElementPanel = lazy(() => import('./ElementPanel').then((module) => ({ default: module.ElementPanel })));
 const SetPanel = lazy(() => import('./SetPanel').then((module) => ({ default: module.SetPanel })));
@@ -69,6 +70,8 @@ function TableHint() {
 
 function ScenePanel() {
   const scene = useAppStore((state) => state.scene);
+  const location = useLocation();
+  if (location.pathname === '/about') return <AboutPanel />;
   if (scene.kind === 'element')
     return <ElementPanel key={`${scene.symbol}/${scene.partner ?? ''}`} symbol={scene.symbol} partner={scene.partner} />;
   if (scene.kind === 'compound') return <CompoundPanel key={scene.id} id={scene.id} />;

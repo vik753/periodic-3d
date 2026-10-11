@@ -59,6 +59,16 @@ const shots = [
       await page.getByRole('radio', { name: 'Речовина в 3D' }).click();
     },
   },
+  {
+    name: 'element-c-substance',
+    path: 'e/C',
+    viewport: desktop,
+    wait: 3500,
+    act: async (page) => {
+      await page.waitForTimeout(1500);
+      await page.getByRole('radio', { name: 'Речовина в 3D' }).click();
+    },
+  },
   { name: 'element-o-rays', path: 'e/O', viewport: desktop, quick: true, wait: 4500 },
   { name: 'walk-fe-o', path: 'e/Fe/O', viewport: desktop, quick: true, wait: 5000 },
   {
@@ -82,6 +92,11 @@ const shots = [
   { name: 'compound-hematite', path: 'c/Q103223', viewport: desktop, quick: true, wait: 4000 },
   { name: 'compound-water', path: 'c/Q283', viewport: desktop, wait: 4000 },
   { name: 'compound-ozone-ru', path: 'c/Q36933', viewport: desktop, wait: 4000, lang: 'ru' },
+  { name: 'compound-glucose', path: 'c/Q37525', viewport: desktop, wait: 4000 },
+  { name: 'compound-sodium-acetate', path: 'c/Q339940', viewport: desktop, wait: 4000 },
+  { name: 'compound-no-3d', path: 'c/Q483269', viewport: desktop, wait: 4000 },
+  { name: 'about', path: 'about', viewport: desktop, wait: 2000 },
+  { name: 'phone-about', path: 'about', viewport: phone, dpr: 2, wait: 2000 },
   { name: 'molecule-benzene', path: 'c/demo-benzene', viewport: desktop, wait: 3500 },
   { name: 'crystal-nacl', path: 'c/demo-nacl', viewport: desktop, wait: 3500 },
   { name: 'phone-table', path: '', viewport: phone, dpr: 2 },

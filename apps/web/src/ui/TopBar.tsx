@@ -60,24 +60,34 @@ export function TopBar() {
       >
         <Search />
       </div>
-      <div
-        role="group"
-        aria-label={t('lang.label')}
-        className="pointer-events-auto flex shrink-0 gap-0.5 rounded-full bg-panel p-1 ring-1 ring-rim backdrop-blur-md"
-      >
-        {LANGUAGES.map((language) => (
-          <button
-            key={language}
-            type="button"
-            onClick={() => changeLanguage(language)}
-            aria-pressed={i18n.language === language}
-            className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
-              i18n.language === language ? 'bg-text text-ink' : 'text-muted hover:text-text'
-            }`}
-          >
-            {LANGUAGE_LABELS[language]}
-          </button>
-        ))}
+      <div className="pointer-events-auto flex shrink-0 items-center gap-2">
+        <Link
+          to="/about"
+          aria-label={t('about.open')}
+          title={t('about.open')}
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-panel font-display text-sm font-semibold text-muted ring-1 ring-rim backdrop-blur-md transition-colors hover:text-text"
+        >
+          i
+        </Link>
+        <div
+          role="group"
+          aria-label={t('lang.label')}
+          className="pointer-events-auto flex shrink-0 gap-0.5 rounded-full bg-panel p-1 ring-1 ring-rim backdrop-blur-md"
+        >
+          {LANGUAGES.map((language) => (
+            <button
+              key={language}
+              type="button"
+              onClick={() => changeLanguage(language)}
+              aria-pressed={i18n.language === language}
+              className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
+                i18n.language === language ? 'bg-text text-ink' : 'text-muted hover:text-text'
+              }`}
+            >
+              {LANGUAGE_LABELS[language]}
+            </button>
+          ))}
+        </div>
       </div>
     </header>
   );

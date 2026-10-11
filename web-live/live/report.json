@@ -1,13 +1,13 @@
 {
   "base": "https://vik753.github.io/periodic-3d/",
   "set": "quick",
-  "time": "2026-10-11T08:18:18.383Z",
+  "time": "2026-10-11T08:34:28.204Z",
   "shots": [
     {
       "name": "table",
       "path": "",
       "ok": true,
-      "ms": 4438,
+      "ms": 5664,
       "stats": {
         "calls": 3,
         "triangles": 69620,
@@ -21,9 +21,9 @@
       "name": "element-fe",
       "path": "e/Fe",
       "ok": true,
-      "ms": 8993,
+      "ms": 7615,
       "stats": {
-        "calls": 11,
+        "calls": 10,
         "triangles": 195204,
         "scene": "element",
         "ready": true,
@@ -37,9 +37,9 @@
       "name": "element-o-rays",
       "path": "e/O",
       "ok": true,
-      "ms": 8537,
+      "ms": 7882,
       "stats": {
-        "calls": 9,
+        "calls": 8,
         "triangles": 165044,
         "scene": "element",
         "ready": true,
@@ -53,9 +53,9 @@
       "name": "walk-fe-o",
       "path": "e/Fe/O",
       "ok": true,
-      "ms": 9986,
+      "ms": 8700,
       "stats": {
-        "calls": 10,
+        "calls": 9,
         "triangles": 210672,
         "scene": "element",
         "ready": true,
@@ -69,9 +69,9 @@
       "name": "set-fe-o",
       "path": "set/Fe-O",
       "ok": true,
-      "ms": 8096,
+      "ms": 7717,
       "stats": {
-        "calls": 5,
+        "calls": 4,
         "triangles": 105440,
         "scene": "set",
         "ready": true,
@@ -85,13 +85,29 @@
       "name": "compound-hematite",
       "path": "c/Q103223",
       "ok": true,
-      "ms": 9564,
+      "ms": 7883,
       "stats": {
-        "calls": 6,
+        "calls": 5,
         "triangles": 117108,
         "scene": "compound",
         "ready": true,
         "url": "/periodic-3d/c/Q103223"
+      },
+      "console": [
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "name": "material-gdy3f12",
+      "path": "m/df6697e2c1",
+      "ok": true,
+      "ms": 7306,
+      "stats": {
+        "calls": 5,
+        "triangles": 85860,
+        "scene": "material",
+        "ready": true,
+        "url": "/periodic-3d/m/df6697e2c1"
       },
       "console": [
         "[error] Failed to load resource: the server responded with a status of 404 ()"

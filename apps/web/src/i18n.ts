@@ -97,6 +97,8 @@ const resources = {
       compound: {
         molecule: 'Молекула',
         crystal: 'Фрагмент кристалічної ґратки',
+        originExperimental: 'Структура з експерименту (ICSD)',
+        originComputed: 'Лише розрахункова структура',
         flat: 'Плоска схема',
         composition: 'Склад',
         atoms: 'атомів',
@@ -354,6 +356,8 @@ const resources = {
       compound: {
         molecule: 'Молекула',
         crystal: 'Фрагмент кристаллической решётки',
+        originExperimental: 'Структура из эксперимента (ICSD)',
+        originComputed: 'Только расчётная структура',
         flat: 'Плоская схема',
         composition: 'Состав',
         atoms: 'атомов',
@@ -609,6 +613,8 @@ const resources = {
       compound: {
         molecule: 'Molecule',
         crystal: 'Crystal lattice fragment',
+        originExperimental: 'Structure from experiment (ICSD)',
+        originComputed: 'Computed structure only',
         flat: 'Flat diagram',
         composition: 'Composition',
         atoms: 'atoms',

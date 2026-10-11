@@ -54,6 +54,8 @@ export interface StructureInfo {
   ref: string | null;
   atoms: number;
   license: string;
+  /** Crystals: matches an experimental record (ICSD) or comes from calculation only. */
+  origin?: 'experimental' | 'computed' | null;
 }
 
 export interface Substance {

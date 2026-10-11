@@ -295,6 +295,11 @@ function SubstanceSection({ data }: { data: ElementDetail }) {
         {pickName(substance.names, language, pickName(data.names, language))}
         <span className="text-muted"> — {t(`compound.${substance.info.kind}`).toLowerCase()}</span>
       </p>
+      {substance.info.kind === 'crystal' && substance.info.origin && (
+        <p className="mt-0.5 text-xs text-muted">
+          {t(substance.info.origin === 'experimental' ? 'compound.originExperimental' : 'compound.originComputed')}
+        </p>
+      )}
       <div role="radiogroup" aria-label={t('element.view')} className="mt-2 inline-flex rounded-full bg-white/5 p-1 ring-1 ring-rim">
         {(['atom', 'substance'] as const).map((value) => (
           <button

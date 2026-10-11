@@ -69,6 +69,9 @@ class StructureInfo(Schema):
     ref: str | None = None
     atoms: int
     license: str
+    # Crystals from Materials Project: "experimental" (matches an ICSD record) or
+    # "computed" (calculation only). Absent when unknown (Q.2).
+    origin: Literal["experimental", "computed"] | None = None
 
 
 class Substance(Schema):

@@ -113,6 +113,7 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
   const description = localDescription ?? compound.descriptions.en;
   const classes = compound.classes.filter((item) => !GENERIC_CLASSES.has(item.qid) && Object.keys(item.names).length > 0);
   const kind = compound.structureInfo?.kind;
+  const origin = compound.structureInfo?.origin;
 
   return (
     <Panel label={`${compound.formula} ${name}`}>
@@ -120,6 +121,11 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
       <p className="font-display text-4xl font-semibold leading-none tracking-tight">{compound.formula}</p>
       {name && <h1 className="mt-3 text-xl font-medium leading-snug">{name}</h1>}
       <p className="mt-1 text-sm text-muted">{kind ? t(`compound.${kind}`) : t('compound.noStructure')}</p>
+      {kind === 'crystal' && origin && (
+        <p className="mt-0.5 text-xs text-muted">
+          {t(origin === 'experimental' ? 'compound.originExperimental' : 'compound.originComputed')}
+        </p>
+      )}
 
       {description && (
         <div className="mt-4">

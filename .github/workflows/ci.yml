@@ -154,6 +154,11 @@ jobs:
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    outputs:
+      # branch: published to gh-pages; workflow: artifact uploaded for the pages job; none
+      deployed: >-
+        ${{ steps.deploy.outcome == 'success' && 'branch' ||
+        (steps.upload.outcome == 'success' && 'workflow' || 'none') }}
     permissions:
       contents: write
       pages: read # publishing mode (gh-pages branch or workflow artifact)
@@ -241,18 +246,20 @@ jobs:
         run: |
           bash ../../tools/ci/commit-back.sh "chore(web): update package-lock.json [skip ci]" package-lock.json
 
-      - name: Deploy demo to GitHub Pages
+      # Two ways to publish (ADR 0007). "workflow": Pages serves this workflow's artifact, the
+      # full site with predicted materials. Otherwise: the gh-pages branch, known compounds only.
+      - name: Deploy demo to the gh-pages branch
         id: deploy
         if: >-
           github.ref == 'refs/heads/main' &&
+          steps.pages.outputs.mode != 'workflow' &&
           steps.typecheck.outcome == 'success' &&
           steps.lint.outcome == 'success' &&
           steps.test.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # The predicted materials (≈ 470 MB, ADR 0007) go only with the artifact deploy:
-          # the gh-pages branch gets the known compounds.
+          # The predicted materials (≈ 470 MB) do not go into a git branch.
           gnome="$(jq -r '.gnome.version // empty' dist/data/meta.json 2>/dev/null || true)"
           if [ -n "$gnome" ]; then
             rm -rf "dist/data/$gnome"
@@ -261,18 +268,25 @@ jobs:
           fi
           bash $RUN web-deploy bash ../../tools/ci/deploy-pages.sh dist
 
-      - name: Check the live demo
-        if: steps.deploy.outcome == 'success'
-        continue-on-error: true
-        timeout-minutes: 10
+      - name: Prepare the site artifact
+        id: artifact
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          steps.pages.outputs.mode == 'workflow' &&
+          steps.typecheck.outcome == 'success' &&
+          steps.lint.outcome == 'success' &&
+          steps.test.outcome == 'success'
         run: |
-          sleep 75
-          code=$(curl -s -o /dev/null -w '%{http_code}' https://vik753.github.io/periodic-3d/)
-          echo "live status: $code" | tee out/logs/live-status.log
-          SCREENSHOT_BASE=https://vik753.github.io/periodic-3d/ SCREENSHOT_OUT=out/live SCREENSHOT_SET=quick \
-            bash $RUN web-live-screenshots npm run screenshot
-          # Budgets on a throttled 4G network: LCP, JavaScript size, time to the 3D table.
-          PERF_BASE=https://vik753.github.io/periodic-3d/ PERF_OUT=out/perf bash $RUN web-perf npm run perf
+          # GitHub Pages has no SPA fallback: serve the app for unknown paths too.
+          cp dist/index.html dist/404.html
+          echo "site: $(du -sh dist | cut -f1), $(find dist -type f | wc -l) files" | tee out/logs/site-artifact.log
+
+      - name: Upload the site for GitHub Pages
+        id: upload
+        if: steps.artifact.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
 
       - name: Publish results
         if: always()
@@ -284,7 +298,8 @@ jobs:
           {"typecheck": "${{ steps.typecheck.outcome }}", "lint": "${{ steps.lint.outcome }}",
            "test": "${{ steps.test.outcome }}", "build": "${{ steps.build.outcome }}",
            "size": "${{ steps.size.outcome }}", "screenshots": "${{ steps.screenshots.outcome }}",
-           "data": "${{ steps.data.outcome }}", "deploy": "${{ steps.deploy.outcome }}"}
+           "data": "${{ steps.data.outcome }}", "pages": "${{ steps.pages.outputs.mode }}",
+           "deploy": "${{ steps.deploy.outcome }}", "upload": "${{ steps.upload.outcome }}"}
           EOF
           bash ../../tools/ci/publish-results.sh out web "ci: web results for ${GITHUB_SHA::7}"
 
@@ -294,3 +309,71 @@ jobs:
           steps.lint.outcome != 'success' ||
           steps.test.outcome != 'success'
         run: exit 1
+
+  pages:
+    name: pages
+    needs: web
+    if: ${{ !cancelled() && needs.web.outputs.deployed == 'workflow' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the artifact to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  live:
+    name: live demo
+    needs: [web, pages]
+    if: >-
+      ${{ !cancelled() && (needs.web.outputs.deployed == 'branch' ||
+      (needs.web.outputs.deployed == 'workflow' && needs.pages.result == 'success')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: apps/web
+    env:
+      RUN: ../../tools/ci/run.sh
+      SITE: https://vik753.github.io/periodic-3d/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: |
+          bash $RUN live-install bash ../../tools/ci/npm-install.sh
+          npx playwright install --with-deps chromium > out/logs/playwright-install.log 2>&1 || true
+
+      - name: Check the live demo
+        id: check
+        continue-on-error: true
+        timeout-minutes: 12
+        run: |
+          # The branch deploy starts a Pages build (about a minute); the artifact deploy is live at once.
+          if [ "${{ needs.web.outputs.deployed }}" = "branch" ]; then sleep 75; else sleep 10; fi
+          code=$(curl -s -o /dev/null -w '%{http_code}' "$SITE")
+          echo "live status: $code (${{ needs.web.outputs.deployed }})" | tee out/logs/live-status.log
+          SCREENSHOT_BASE="$SITE" SCREENSHOT_OUT=out/live SCREENSHOT_SET=quick \
+            bash $RUN web-live-screenshots npm run screenshot
+          # Budgets on a throttled 4G network: LCP, JavaScript size, time to the 3D table.
+          PERF_BASE="$SITE" PERF_OUT=out/perf bash $RUN web-perf npm run perf
+
+      - name: Publish results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out
+          echo '{"deployed": "${{ needs.web.outputs.deployed }}", "check": "${{ steps.check.outcome }}"}' \
+            > out/summary.json
+          bash ../../tools/ci/publish-results.sh out web-live "ci: live demo results for ${GITHUB_SHA::7}"

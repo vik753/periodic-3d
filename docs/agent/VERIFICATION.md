@@ -2,7 +2,7 @@
 
 Дата: 2026-10-11. Набор данных: `data-2026.10.11-r25` (полный, с фото). Проверка идёт по плану
 (docs/plan.md): функции MVP, бюджеты скорости, данные и лицензии. Доказательства — файлы
-в ветке `ci-results`: `web/screenshots/*.png`, `web/perf/report.json`, `web/size.json`,
+в ветке `ci-results`: `web/screenshots/*.png`, `web-live/perf/report.json` (раньше `web/perf`), `web/size.json`,
 `docker/logs/load-full.log`, `data/latest/report.md`.
 
 ## Функции MVP

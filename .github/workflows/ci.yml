@@ -225,6 +225,13 @@ jobs:
           cat dist/data/meta.json
           mkdir -p out/logs && du -sh dist | tee out/logs/site-size.log
 
+      - name: Add the guide video to the site
+        if: steps.data.outcome == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash $RUN web-guide bash ../../tools/ci/fetch-guide.sh dist/guide
+
       - name: Pages publishing mode
         id: pages
         if: github.ref == 'refs/heads/main'

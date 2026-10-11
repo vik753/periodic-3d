@@ -1,0 +1,154 @@
+name: guide
+
+# Records the "How to use" video on the live site, one video per interface language.
+# The page runs on a frozen clock and every frame is a screenshot, so the video is
+# smooth although the runner has no GPU (apps/web/scripts/guide-video.mjs).
+# With "release", the videos become a GitHub release that data/GUIDE points to, and
+# the next site build serves them from guide/.
+
+on:
+  workflow_dispatch:
+    inputs:
+      languages:
+        description: "Languages to record (uk,ru,en)"
+        type: string
+        default: "uk,ru,en"
+      only:
+        description: "Scenes to record (comma-separated, empty = the whole tour)"
+        type: string
+        default: ""
+      fps:
+        description: "Frames per second"
+        type: string
+        default: "30"
+      release:
+        description: "Publish the videos and switch the site to them"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write # start the ci workflow after a release
+
+concurrency:
+  group: guide
+  cancel-in-progress: false
+
+jobs:
+  record:
+    name: record ${{ matrix.lang }}
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [uk, ru, en]
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    defaults:
+      run:
+        working-directory: apps/web
+    env:
+      RUN: ../../tools/ci/run.sh
+      LANG_ON: ${{ contains(inputs.languages, matrix.lang) }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.LANG_ON == 'true'
+      - uses: actions/setup-node@v4
+        if: env.LANG_ON == 'true'
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        if: env.LANG_ON == 'true'
+        run: |
+          bash $RUN guide-install bash ../../tools/ci/npm-install.sh
+          npx playwright install --with-deps chromium > out/logs/playwright-install.log 2>&1 || true
+
+      - name: Record frames
+        id: record
+        if: env.LANG_ON == 'true'
+        env:
+          GUIDE_LANG: ${{ matrix.lang }}
+          GUIDE_ONLY: ${{ inputs.only }}
+          GUIDE_FPS: ${{ inputs.fps }}
+          GUIDE_OUT: ${{ runner.temp }}/guide/${{ matrix.lang }}
+        run: bash $RUN guide-record-${{ matrix.lang }} node scripts/guide-video.mjs
+
+      - name: Encode the video
+        id: encode
+        if: env.LANG_ON == 'true' && steps.record.outcome == 'success'
+        env:
+          L: ${{ matrix.lang }}
+          FPS: ${{ inputs.fps }}
+        run: |
+          src="$RUNNER_TEMP/guide/$L"
+          command -v ffmpeg > /dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+          mkdir -p out/guide
+          # H.264 + faststart plays in every browser and starts before the download ends.
+          ffmpeg -hide_banner -loglevel warning -y -framerate "$FPS" -i "$src/frames/%06d.jpg" \
+            -c:v libx264 -preset slow -crf 22 -pix_fmt yuv420p -movflags +faststart \
+            "out/guide/guide-$L.mp4"
+          # Poster: the title card.
+          ffmpeg -hide_banner -loglevel warning -y -ss 2 -i "out/guide/guide-$L.mp4" -frames:v 1 -q:v 3 "out/guide/guide-$L.jpg"
+          cp "$src/timeline.json" "out/guide/timeline-$L.json"
+          # Contact frames every 4 s for review.
+          mkdir -p "out/guide/frames-$L"
+          ffmpeg -hide_banner -loglevel warning -y -i "out/guide/guide-$L.mp4" -vf "fps=1/4,scale=960:-2" -q:v 4 "out/guide/frames-$L/%03d.jpg"
+          ls -la out/guide
+          du -sh out/guide
+
+      - uses: actions/upload-artifact@v4
+        if: env.LANG_ON == 'true' && steps.encode.outcome == 'success'
+        with:
+          name: guide-${{ matrix.lang }}
+          path: |
+            apps/web/out/guide/guide-${{ matrix.lang }}.mp4
+            apps/web/out/guide/guide-${{ matrix.lang }}.jpg
+            apps/web/out/guide/timeline-${{ matrix.lang }}.json
+          retention-days: 14
+
+      - name: Publish results
+        if: always() && env.LANG_ON == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/guide out/logs
+          cp -R out/logs out/guide/ 2>/dev/null || true
+          bash ../../tools/ci/publish-results.sh out/guide "guide/${{ matrix.lang }}" "ci: guide ${{ matrix.lang }} ${GITHUB_SHA::7}"
+
+  publish:
+    needs: record
+    if: inputs.release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: guide-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/guide
+
+      - name: Release the videos and switch the site to them
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          dir="$RUNNER_TEMP/guide"
+          ls -la "$dir"
+          version="$(date -u +%Y.%m.%d)-r${GITHUB_RUN_NUMBER}"
+          python3 - "$dir" "$version" <<'PY'
+          import json, pathlib, sys
+          folder, version = pathlib.Path(sys.argv[1]), sys.argv[2]
+          videos = {}
+          for video in sorted(folder.glob("guide-*.mp4")):
+              lang = video.stem.removeprefix("guide-")
+              timeline = json.loads((folder / f"timeline-{lang}.json").read_text())
+              videos[lang] = {"src": video.name, "poster": f"guide-{lang}.jpg", "seconds": round(timeline["seconds"])}
+          (folder / "manifest.json").write_text(json.dumps({"version": version, "videos": videos}, ensure_ascii=False))
+          print(json.dumps(videos, indent=2))
+          PY
+          gh release create "guide-$version" "$dir"/guide-*.mp4 "$dir"/guide-*.jpg "$dir/manifest.json" \
+            --title "Guide video $version" --notes "How to use the site: one video per interface language." --latest=false
+          echo "release:guide-$version" > data/GUIDE
+          bash tools/ci/commit-back.sh "chore(site): use guide video $version [skip ci]" data/GUIDE
+          # A push made with GITHUB_TOKEN starts no workflow; a dispatch does.
+          gh workflow run ci.yml --ref main

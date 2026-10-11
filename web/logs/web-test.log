@@ -1,5 +1,5 @@
 $ npm test
-started: 2026-10-11T08:12:29Z
+started: 2026-10-11T08:26:41Z
 
 > @periodic-3d/web@0.1.0 test
 > vitest run
@@ -7,20 +7,22 @@ started: 2026-10-11T08:12:29Z
 
 [1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/periodic-3d/periodic-3d/apps/web[39m
 
- [32m✓[39m src/three/composition.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m src/data/compoundIndex.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/three/quality.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
- [32m✓[39m src/three/zoom.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
- [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 46[2mms[22m[39m
- [32m✓[39m src/data/chemistry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
- [32m✓[39m src/data/source.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
- [32m✓[39m src/three/layout.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+ [32m✓[39m src/data/crystal.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/data/compoundIndex.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/three/quality.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/three/composition.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/three/zoom.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/data/chemistry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m src/data/source.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/lib/route.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/three/layout.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
 
-[2m Test Files [22m [1m[32m9 passed[39m[22m[90m (9)[39m
-[2m      Tests [22m [1m[32m33 passed[39m[22m[90m (33)[39m
-[2m   Start at [22m 08:12:29
-[2m   Duration [22m 1.80s[2m (transform 209ms, setup 0ms, collect 409ms, tests 82ms, environment 2.72s, prepare 547ms)[22m
+[2m Test Files [22m [1m[32m11 passed[39m[22m[90m (11)[39m
+[2m      Tests [22m [1m[32m41 passed[39m[22m[90m (41)[39m
+[2m   Start at [22m 08:26:41
+[2m   Duration [22m 3.88s[2m (transform 331ms, setup 0ms, collect 639ms, tests 115ms, environment 6.07s, prepare 1.41s)[22m
 
-finished: 2026-10-11T08:12:31Z
+finished: 2026-10-11T08:26:45Z
 exit code: 0

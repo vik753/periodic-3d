@@ -90,6 +90,27 @@ class Fetcher:
         key = hashlib.sha256(key_source.encode("utf-8")).hexdigest()
         return self.cache_dir / key[:2] / key
 
+    def _memo_path(self, namespace: str, key: str) -> Path:
+        digest = hashlib.sha256(f"{namespace}|{key}".encode()).hexdigest()
+        return self.cache_dir / "memo" / namespace / digest[:2] / digest
+
+    def memo_get(self, namespace: str, key: str) -> str | None:
+        """A small value remembered by key (None: never stored).
+
+        Batched requests cache badly by URL: one title more or less shifts every batch.
+        Per-item values survive changes in the batch layout.
+        """
+        path = self._memo_path(namespace, key)
+        if not path.exists():
+            return None
+        self.stats["memo_hit"] += 1
+        return path.read_text(encoding="utf-8")
+
+    def memo_put(self, namespace: str, key: str, value: str) -> None:
+        path = self._memo_path(namespace, key)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(value, encoding="utf-8")
+
     def _throttle(self, host: str) -> None:
         interval = 1.0 / self.rates.get(host, FALLBACK_RATE) + self._pause.get(host, 0.0)
         last = self._last_request.get(host)

@@ -1,0 +1,41 @@
+name: probe-gnome
+
+# Measures the GNoME dataset (sizes, counts, structure encoding) before the GNoME layer
+# is built. Results go to the ci-results branch under probe-gnome/.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/probe/gnome_probe.py"
+      - ".github/workflows/probe-gnome.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-gnome
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run probe
+        run: |
+          df -h . | tail -1
+          bash tools/ci/run.sh probe-gnome python tools/probe/gnome_probe.py out/probe-gnome
+      - name: Publish results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/probe-gnome
+          cp -R out/logs out/probe-gnome/logs 2>/dev/null || true
+          bash tools/ci/publish-results.sh out/probe-gnome probe-gnome "ci: gnome probe for ${GITHUB_SHA::7}"

@@ -51,7 +51,7 @@ from .formula import (
     same_proportions,
 )
 from .http import Fetcher
-from .sources import optimade, pubchem, wikidata, wikipedia
+from .sources import commons, optimade, pubchem, wikidata, wikipedia
 from .structures import Structure, composition, crystal_fragment, finalize, molecule_from_smiles, parse_sdf
 
 log = logging.getLogger("p3d.build")
@@ -73,6 +73,7 @@ LICENSES = {
     "wikidata": "CC0, Wikidata",
     "wikipedia": "CC BY-SA 4.0, Wikipedia",
     "rdkit": "Computed with RDKit from SMILES (PubChem, Wikidata)",
+    "commons": "Wikimedia Commons, license per photo",
 }
 
 
@@ -100,6 +101,8 @@ class Compound:
     mp_hint: str | None
     charged: bool = False
     wikidata_smiles: str | None = None
+    image: str | None = None  # Commons file name (Wikidata P18)
+    photo: dict[str, str] | None = None
     descriptions: dict[str, str] = field(default_factory=dict)
     pubchem: dict[str, Any] = field(default_factory=dict)
     structure: dict[str, Any] | None = None
@@ -253,6 +256,7 @@ def select_compounds(
             mp_hint=min(record.mp_ids) if record.mp_ids else None,
             charged=has_net_charge(raw_formula),
             wikidata_smiles=record.best_smiles or REPRESENTATIVE_SMILES.get(record.qid),
+            image=min(record.images) if record.images else None,
         )
         if compound.single_atom and compound.id not in ALLOTROPE_STRUCTURES:
             continue
@@ -505,6 +509,22 @@ def fetch_descriptions(compounds: list[Compound], fetcher: Fetcher) -> None:
             by_title[title].descriptions[language] = _trim(text)
 
 
+def fetch_photos(
+    compounds: list[Compound], elements: list[dict[str, Any]], element_images: dict[int, str], fetcher: Fetcher
+) -> None:
+    """Photos with author and license from Wikimedia Commons for compounds and elements."""
+    names = [compound.image for compound in compounds if compound.image] + list(element_images.values())
+    log.info("Commons photos for %d files", len(set(names)))
+    found = commons.photos(fetcher, names)
+    for compound in compounds:
+        if compound.image and compound.image in found:
+            compound.photo = found[compound.image].as_json()
+    for element in elements:
+        name = element_images.get(element["z"])
+        if name and name in found:
+            element["photo"] = found[name].as_json()
+
+
 def build_pairs(compounds: list[Compound]) -> list[dict[str, Any]]:
     """Element pairs with their compounds, most famous first (compounds are pre-sorted)."""
     pairs: dict[tuple[int, int], list[str]] = defaultdict(list)
@@ -549,6 +569,7 @@ def compound_card(compound: Compound) -> dict[str, Any]:
         "iupac": compound.pubchem.get("iupac"),
         "classes": compound.classes,
         "structure": compound.structure,
+        **({"photo": compound.photo} if compound.photo else {}),
     }
 
 
@@ -582,6 +603,8 @@ def write_report(
         f"EN {sum(1 for c in compounds if 'en' in c.descriptions)}.",
         f"- С названием: RU {sum(1 for c in compounds if 'ru' in c.names)}, "
         f"UK {sum(1 for c in compounds if 'uk' in c.names)}, EN {sum(1 for c in compounds if 'en' in c.names)}.",
+        f"- С фото: соединений {sum(1 for c in compounds if c.photo)}, "
+        f"элементов {sum(1 for e in elements if e.get('photo'))}.",
         f"- Пар элементов: {len(pairs)}.",
         f"- Элементов без соединений: {', '.join(missing_elements) or 'нет'}.",
         f"- Структуры больше {STRUCTURE_MAX_BYTES} байт: {len(oversized)} {oversized[:10]}.",
@@ -657,6 +680,7 @@ def run(options: Options) -> Path:
 
         if options.descriptions:
             fetch_descriptions(compounds, fetcher)
+            fetch_photos(compounds, elements, wikidata.fetch_element_images(fetcher), fetcher)
 
         pairs = build_pairs(compounds)
         fetch_stats = fetcher.stats

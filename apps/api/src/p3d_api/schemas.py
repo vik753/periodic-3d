@@ -87,6 +87,16 @@ class SimilarElement(Schema):
     score: float
 
 
+class Photo(Schema):
+    """A photo from Wikimedia Commons with its attribution (shown under the photo)."""
+
+    url: str
+    page: str
+    license: str
+    author: str | None = None
+    license_url: str | None = None
+
+
 class ElementDetail(Schema):
     version: str
     z: int
@@ -113,6 +123,7 @@ class ElementDetail(Schema):
     partners: list[Partner]
     top_compounds: list[CompoundSummary]
     similar: list[SimilarElement] = Field(default_factory=list)
+    photo: Photo | None = None
 
 
 class ClassRef(Schema):
@@ -121,7 +132,7 @@ class ClassRef(Schema):
 
 
 class Source(Schema):
-    role: Literal["identity", "description", "properties", "structure"]
+    role: Literal["identity", "description", "properties", "structure", "photo"]
     name: str
     url: str | None = None
     license: str
@@ -148,6 +159,7 @@ class CompoundDetail(Schema):
     structure: dict[str, Any] | None = None
     sources: list[Source]
     similar: list[CompoundSummary] = Field(default_factory=list)
+    photo: Photo | None = None
 
 
 class ElementRef(Schema):

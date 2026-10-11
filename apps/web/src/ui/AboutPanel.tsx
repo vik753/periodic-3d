@@ -21,6 +21,12 @@ const SOURCES = [
   },
   { name: 'Materials Project', url: 'https://materialsproject.org', license: 'CC BY 4.0', role: 'about.srcMaterials' },
   { name: 'RDKit', url: 'https://www.rdkit.org', license: 'BSD-3-Clause', role: 'about.srcRdkit' },
+  {
+    name: 'Wikimedia Commons',
+    url: 'https://commons.wikimedia.org',
+    license: 'CC BY-SA, CC BY, CC0',
+    role: 'about.srcCommons',
+  },
 ] as const;
 
 const HOW_TO = ['about.how1', 'about.how2', 'about.how3', 'about.how4'] as const;

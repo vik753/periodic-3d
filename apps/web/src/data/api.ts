@@ -64,6 +64,17 @@ export interface CompoundSummary {
   kind: StructureKind | null;
 }
 
+/** A photo from Wikimedia Commons with its attribution. */
+export interface Photo {
+  /** Thumbnail, 640 px wide. */
+  url: string;
+  /** File page on Commons: author, license, full size. */
+  page: string;
+  license: string;
+  author?: string | null;
+  licenseUrl?: string | null;
+}
+
 export interface SimilarElement {
   z: number;
   symbol: string;
@@ -98,6 +109,7 @@ export interface ElementDetail {
   topCompounds: CompoundSummary[];
   /** Elements with similar partners (vector model); empty for older datasets. */
   similar?: SimilarElement[];
+  photo?: Photo | null;
 }
 
 export interface ClassRef {
@@ -106,7 +118,7 @@ export interface ClassRef {
 }
 
 export interface Source {
-  role: 'identity' | 'description' | 'properties' | 'structure';
+  role: 'identity' | 'description' | 'properties' | 'structure' | 'photo';
   name: string;
   url: string | null;
   license: string;
@@ -134,6 +146,7 @@ export interface CompoundDetail {
   sources: Source[];
   /** Compounds with similar elements in similar proportions (vector model). */
   similar?: CompoundSummary[];
+  photo?: Photo | null;
 }
 
 export interface ElementRef {

@@ -32,6 +32,7 @@ DEFAULT_RATES: dict[str, float] = {
     "en.wikipedia.org": 10.0,
     "ru.wikipedia.org": 10.0,
     "uk.wikipedia.org": 10.0,
+    "commons.wikimedia.org": 5.0,
 }
 FALLBACK_RATE = 2.0
 

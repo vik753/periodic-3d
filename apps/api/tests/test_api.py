@@ -52,6 +52,8 @@ async def test_element_detail(client: Any) -> None:
     assert body["substance"]["info"]["kind"] == "crystal"
     assert body["substance"]["names"]["uk"] == "залізо"
     assert len(body["substance"]["structure"]["atoms"]) == 9
+    assert body["photo"]["license"] == "CC BY 3.0"
+    assert body["photo"]["page"].startswith("https://commons.wikimedia.org/wiki/File:")
 
 
 async def test_element_partners_and_top_compounds_are_sorted(client: Any) -> None:
@@ -84,6 +86,23 @@ async def test_compound(client: Any) -> None:
     assert {"description", "properties", "structure"} <= set(roles)
     wikipedia = [source["url"] for source in body["sources"] if source["role"] == "description"]
     assert "https://ru.wikipedia.org/wiki/%D0%92%D0%BE%D0%B4%D0%B0" in wikipedia
+
+
+async def test_compound_photo_with_attribution(client: Any) -> None:
+    body = await get(client, "/api/v1/compounds/Q103223")
+    assert body["photo"]["author"] == "Rob Lavinsky"
+    assert body["photo"]["licenseUrl"] == "https://creativecommons.org/licenses/by-sa/3.0"
+    photo_sources = [source for source in body["sources"] if source["role"] == "photo"]
+    assert photo_sources == [
+        {
+            "role": "photo",
+            "name": "Wikimedia Commons",
+            "url": "https://commons.wikimedia.org/wiki/File:Hematite.jpg",
+            "license": "CC BY-SA 3.0",
+        }
+    ]
+    water = await get(client, "/api/v1/compounds/Q283")
+    assert water["photo"] is None
 
 
 async def test_compound_with_missing_structure_file(client: Any) -> None:

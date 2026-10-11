@@ -12,6 +12,7 @@ import { pairPath } from '../data/source';
 import { useAppStore } from '../state/store';
 import { formatNumber } from './format';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
+import { PhotoFigure } from './PhotoFigure';
 
 const PARTNERS_SHOWN = 18;
 
@@ -255,6 +256,10 @@ export function ElementPanel({ symbol, partner }: { symbol: string; partner?: st
       {detail.isPending && <Skeleton lines={3} />}
 
       {data?.substance && <SubstanceSection data={data} />}
+
+      {data?.photo && (
+        <PhotoFigure photo={data.photo} alt={pickName(data.substanceNames, language, name)} />
+      )}
 
       {data && data.partners.length > 0 && <Partners element={cell} partners={data.partners} />}
 

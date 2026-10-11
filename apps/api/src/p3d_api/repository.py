@@ -389,4 +389,9 @@ def compound_sources(card: dict[str, Any], *, has_structure: bool) -> list[Sourc
         else:
             name, url = "RDKit", None
         sources.append(Source(role="structure", name=name, url=url, license=str(info.get("license", ""))))
+    photo = card.get("photo")
+    if photo:
+        sources.append(
+            Source(role="photo", name="Wikimedia Commons", url=photo.get("page"), license=str(photo.get("license", "")))
+        )
     return sources

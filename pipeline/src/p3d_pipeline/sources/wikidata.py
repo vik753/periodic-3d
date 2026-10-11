@@ -54,6 +54,32 @@ class ElementLabels:
     labels: dict[str, str] = field(default_factory=dict)
 
 
+def commons_file_name(value: str) -> str:
+    """'http://commons.wikimedia.org/wiki/Special:FilePath/Iron%20cube.jpg' → 'Iron cube.jpg'."""
+    return unquote(value.rsplit("/", 1)[-1]).replace("_", " ")
+
+
+def fetch_element_images(fetcher: Fetcher) -> dict[int, str]:
+    """Photo of each element (P18), by atomic number. Empty when the query fails."""
+    try:
+        rows = sparql(
+            fetcher,
+            """SELECT ?z ?image WHERE {
+              ?item wdt:P31 wd:Q11344 ; wdt:P1086 ?z ; wdt:P18 ?image .
+            }""",
+        )
+    except Exception as error:
+        log.warning("Wikidata element images skipped: %s", error)
+        return {}
+    images: dict[int, str] = {}
+    for row in rows:
+        z = round(float(row["z"]))
+        name = commons_file_name(row["image"])
+        if 1 <= z <= 118 and (z not in images or name < images[z]):
+            images[z] = name
+    return images
+
+
 def fetch_element_labels(fetcher: Fetcher) -> dict[int, ElementLabels]:
     rows = sparql(
         fetcher,
@@ -87,6 +113,7 @@ class CompoundRecord:
     mp_ids: set[str] = field(default_factory=set)
     smiles: set[str] = field(default_factory=set)  # isomeric (P2017)
     canonical_smiles: set[str] = field(default_factory=set)  # P233
+    images: set[str] = field(default_factory=set)  # Commons file names (P18)
 
     @property
     def best_smiles(self) -> str | None:
@@ -145,8 +172,9 @@ def fetch_compounds(fetcher: Fetcher) -> dict[str, CompoundRecord]:
         "mp": "wdt:P9902",
         "smiles": "wdt:P2017",
         "canonical_smiles": "wdt:P233",
+        "image": "wdt:P18",
     }
-    optional = {"smiles", "canonical_smiles"}  # added later: an outage must not stop a build from the cache
+    optional = {"smiles", "canonical_smiles", "image"}  # added later: an outage must not stop a build from the cache
     for kind, predicate in identifier_queries.items():
         query = f"""SELECT DISTINCT ?item ?value WHERE {{
               ?item wdt:P274 ?formula ; {predicate} ?value . {_HAS_ARTICLE}
@@ -175,6 +203,8 @@ def fetch_compounds(fetcher: Fetcher) -> dict[str, CompoundRecord]:
                 target.smiles.add(value)
             elif kind == "canonical_smiles":
                 target.canonical_smiles.add(value)
+            elif kind == "image":
+                target.images.add(commons_file_name(value))
     return records
 
 

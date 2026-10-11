@@ -9,6 +9,7 @@
 | [Materials Project](https://materialsproject.org/) | Кристаллические структуры (OPTIMADE) | CC BY 4.0 | Ссылка на материал MP и цитата проекта |
 | [Wikidata](https://www.wikidata.org/) | Список соединений, связка идентификаторов, названия RU/UK/EN, классы, SMILES (если нет в PubChem), число статей | CC0 | Ссылка на запись Wikidata |
 | [Википедия](https://www.wikipedia.org/) (RU/UK/EN) | Короткие описания | CC BY-SA 4.0 | Ссылка на статью и лицензию |
+| [Wikimedia Commons](https://commons.wikimedia.org/) | Фото веществ и элементов (ссылка из Wikidata, P18) | Своя у каждого фото: CC BY-SA, CC BY, CC0, общественное достояние | Автор, лицензия и ссылка на файл — под фото |
 | [RDKit](https://www.rdkit.org/) (программа, BSD) | 3D-модели, рассчитанные по SMILES, если в PubChem нет 3D | Результат расчёта; исходные SMILES — PubChem или Wikidata | «Рассчитано RDKit по SMILES» |
 | [Crystallography Open Database](https://www.crystallography.net/) | Не используем: OPTIMADE у COD отвечает 501 | Общественное достояние | — |
 

@@ -9,6 +9,7 @@ import { useCompound, useElements } from '../data/hooks';
 import { NotFoundError } from '../data/source';
 import { formatCharge, formatCount, formatNumber, formulaOrder } from './format';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
+import { PhotoFigure } from './PhotoFigure';
 
 /** Wikidata classes too generic to show ("type of chemical entity"). */
 const GENERIC_CLASSES = new Set(['Q113145171', 'Q111360549']);
@@ -18,6 +19,7 @@ const ROLE_KEYS: Record<Source['role'], string> = {
   description: 'compound.roleDescription',
   properties: 'compound.roleProperties',
   structure: 'compound.roleStructure',
+  photo: 'compound.rolePhoto',
 };
 
 function Composition({ compound }: { compound: CompoundDetail }) {
@@ -93,6 +95,8 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
           )}
         </div>
       )}
+
+      {compound.photo && <PhotoFigure photo={compound.photo} alt={name || compound.formula} />}
 
       <Composition compound={compound} />
 

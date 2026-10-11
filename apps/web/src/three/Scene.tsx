@@ -194,10 +194,11 @@ function PanelAwareViewOffset() {
   const size = useThree((state) => state.size);
   const invalidate = useThree((state) => state.invalidate);
   const sceneKind = useAppStore((state) => state.scene.kind);
+  const pagePanel = useAppStore((state) => state.pagePanel);
   const current = useRef({ x: 0, y: 0, width: 0, height: 0 });
 
   const target =
-    sceneKind === 'table'
+    sceneKind === 'table' && !pagePanel
       ? { x: 0, y: 0 }
       : size.width >= SIDE_PANEL_MIN_WIDTH
         ? { x: 180, y: 0 }

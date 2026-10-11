@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { useMeta } from '../data/hooks';
+import { useAppStore } from '../state/store';
 import { formatCount } from './format';
 import { BackButton, Panel, Row, Section } from './Panel';
 
@@ -29,6 +30,12 @@ export function AboutPanel() {
   const navigate = useNavigate();
   const meta = useMeta();
   const language = i18n.language;
+
+  const setPagePanel = useAppStore((state) => state.setPagePanel);
+  useEffect(() => {
+    setPagePanel(true);
+    return () => setPagePanel(false);
+  }, [setPagePanel]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {

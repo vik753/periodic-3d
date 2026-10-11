@@ -30,11 +30,14 @@ interface AppState {
   cloudFocus: string | null;
   /** Element scene: the Bohr atom or the 3D simple substance (O₂, bcc iron…). */
   elementView: 'atom' | 'substance';
+  /** A page panel (About) covers part of the table scene; the 3D view shifts away. */
+  pagePanel: boolean;
   setScene: (scene: SceneRoute) => void;
   setHoveredZ: (z: number | null) => void;
   toggleSelection: (z: number) => void;
   clearSelection: () => void;
   setSelectMode: (on: boolean) => void;
+  setPagePanel: (open: boolean) => void;
   setNavigate: (navigate: Navigate) => void;
   setHoveredAtom: (index: number | null) => void;
   setHoveredPartner: (z: number | null) => void;
@@ -57,6 +60,7 @@ export const useAppStore = create<AppState>((set) => ({
   cloudHover: null,
   cloudFocus: null,
   elementView: 'atom',
+  pagePanel: false,
   navigate: () => undefined,
   setScene: (scene) =>
     set((state) => ({
@@ -83,6 +87,7 @@ export const useAppStore = create<AppState>((set) => ({
     })),
   clearSelection: () => set({ selection: [], selectMode: false }),
   setSelectMode: (selectMode) => set({ selectMode }),
+  setPagePanel: (pagePanel) => set({ pagePanel }),
   setNavigate: (navigate) => set({ navigate }),
   setHoveredAtom: (hoveredAtom) => set({ hoveredAtom }),
   setHoveredPartner: (hoveredPartner) => set({ hoveredPartner }),

@@ -159,5 +159,7 @@ def test_plausible_fix_rules() -> None:
     assert not plausible_fix(counts("C8H12Mo2O8"), counts("C8H16Mo2O8"))  # a metal complex
     assert not plausible_fix(counts("UC"), counts("CH4U"))  # inorganic
     assert not plausible_fix(counts("C28H31ClN2O3"), counts("C28H31N2O3"))  # chloride would vanish
+    assert not plausible_fix(counts("C11H15N5O3"), counts("C11H16ClN5O3"))  # a hydrochloride
+    assert plausible_fix(counts("C14H21O7"), counts("C14H28O7"))  # 21-crown-7: hydrogens only
     assert water_difference(counts("C12H18CaO14"), counts("C12H14CaO12")) == 2
     assert water_difference(counts("C12H18CaO14"), counts("C12H14CaO13")) is None

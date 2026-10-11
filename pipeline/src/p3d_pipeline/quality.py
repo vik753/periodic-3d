@@ -83,9 +83,11 @@ def plausible_fix(wikidata: ElementCounts, pubchem: ElementCounts) -> bool:
     Wikidata SMILES are often copied from PubChem, so "two sources agree" is weaker
     than it looks. PubChem also writes salts, ions and complexes its own way: a dye
     without its chloride (rhodamine 6G), acetylacetonate with protonated ligands,
-    inorganic species with extra hydrogens (UC → CH₄U). The fix is taken only for plain
-    organic molecules, when no element disappears, and when the hydrogen count differs
-    by more than one (±1 H is usually a charge or radical form, not an error).
+    inorganic species with extra hydrogens (UC → CH₄U), salts as their acid adducts
+    (a hydrochloride). The fix is taken only for plain organic molecules, when no
+    element disappears, when PubChem does not simply add a group of several elements,
+    and when the hydrogen count differs by more than one (±1 H is usually a charge or
+    radical form, not an error).
     """
     elements = set(wikidata) | set(pubchem)
     if not {"C", "H"} <= set(wikidata) or not {"C", "H"} <= set(pubchem):
@@ -94,9 +96,14 @@ def plausible_fix(wikidata: ElementCounts, pubchem: ElementCounts) -> bool:
         return False
     if not set(wikidata) <= set(pubchem):
         return False
-    others = [key for key in elements if key != "H" and abs(wikidata.get(key, 0) - pubchem.get(key, 0)) > 1e-6]
-    hydrogen = abs(wikidata.get("H", 0) - pubchem.get("H", 0))
-    return bool(others) or hydrogen >= 2 - 1e-6
+    delta = {key: pubchem.get(key, 0.0) - wikidata.get(key, 0.0) for key in elements}
+    added = [key for key, value in delta.items() if value > 1e-6]
+    # PubChem's record is the Wikidata molecule plus a group of several elements: a salt
+    # or an adduct (a hydrochloride, a mesylate, a pyridine complex), not a typo.
+    if all(value > -1e-6 for value in delta.values()) and len(added) >= 2:
+        return False
+    others = [key for key in elements if key != "H" and abs(delta[key]) > 1e-6]
+    return bool(others) or abs(delta.get("H", 0.0)) >= 2 - 1e-6
 
 
 def check_formula(

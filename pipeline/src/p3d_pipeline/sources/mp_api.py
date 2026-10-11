@@ -38,6 +38,21 @@ class Origin:
         return not self.theoretical
 
 
+def legacy_id(identifier: str) -> str:
+    """The numeric form of a Materials Project id: "mp-aaaaaaco" → "mp-66".
+
+    The MP API answers with the new alphabetical ids (base 26, a = 0, padded with a);
+    OPTIMADE and Wikidata use the numeric ones. A numeric id stays as it is.
+    """
+    prefix, _, suffix = identifier.rpartition("-")
+    if not prefix or not suffix.isascii() or not suffix.isalpha() or not suffix.islower():
+        return identifier
+    number = 0
+    for letter in suffix:
+        number = number * 26 + (ord(letter) - ord("a"))
+    return f"{prefix}-{number}"
+
+
 def api_key() -> str | None:
     return os.environ.get("MP_API_KEY", "").strip() or None
 
@@ -68,6 +83,6 @@ def origins(fetcher: Fetcher, ids: Iterable[str]) -> dict[str, Origin]:
                 continue
             database_ids = document.get("database_IDs") or {}
             icsd = tuple(str(value) for value in database_ids.get("icsd", []) or [])
-            result[str(identifier)] = Origin(theoretical=bool(document.get("theoretical", True)), icsd=icsd)
+            result[legacy_id(str(identifier))] = Origin(theoretical=bool(document.get("theoretical", True)), icsd=icsd)
     log.info("MP API: origin of %d of %d structures", len(result), len(unique))
     return result

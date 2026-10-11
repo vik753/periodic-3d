@@ -19,7 +19,8 @@ class FakeFetcher:
     def get(self, url: str, params: dict[str, str], **kwargs: Any) -> bytes:
         self.calls.append({"url": url, "params": params, **kwargs})
         data = [
-            {"material_id": "mp-22862", "theoretical": False, "database_IDs": {"icsd": ["icsd-18189"]}},
+            # The API answers with the new alphabetical ids.
+            {"material_id": "mp-aaaabhvi", "theoretical": False, "database_IDs": {"icsd": ["icsd-18189"]}},
             {"material_id": "mp-9999999", "theoretical": True, "database_IDs": {}},
         ]
         return json.dumps({"data": data}).encode()
@@ -42,3 +43,11 @@ def test_origins_send_the_key_in_a_header_only(monkeypatch: pytest.MonkeyPatch, 
     assert call["headers"] == {"X-API-KEY": "secret-key"}
     assert "secret-key" not in json.dumps(call["params"]) and "secret-key" not in call["url"]
     assert call["params"]["material_ids"] == "mp-22862,mp-9999999"
+
+
+def test_legacy_id() -> None:
+    assert mp_api.legacy_id("mp-aaaaaaco") == "mp-66"  # diamond
+    assert mp_api.legacy_id("mp-aaaaaabw") == "mp-48"  # graphite
+    assert mp_api.legacy_id("mp-149") == "mp-149"
+    assert mp_api.legacy_id("mvc-aaaaaaab") == "mvc-1"
+    assert mp_api.legacy_id("agm002") == "agm002"

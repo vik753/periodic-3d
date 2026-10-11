@@ -169,11 +169,12 @@ async def read_material_shard(prefix: str, repo: Repo) -> MaterialShard:
     response_model=MaterialList,
     summary="All predicted materials that contain an element, simplest and most stable first",
 )
-async def read_materials_by_element(symbol: str, repo: Repo) -> MaterialList:
-    result = await repo.materials_by_element(symbol)
-    if result is None:
+async def read_materials_by_element(symbol: str, repo: Repo) -> Response:
+    # Prepared at load time (up to 83 000 rows): sent as text, without re-validation.
+    body = await repo.materials_by_element(symbol)
+    if body is None:
         raise HTTPException(status_code=404, detail=f"no predicted materials with: {symbol}")
-    return result
+    return Response(content=body, media_type="application/json")
 
 
 def _etag_matches(header: str | None, etag: str) -> bool:

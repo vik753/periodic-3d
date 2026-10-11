@@ -7,6 +7,7 @@ and small lookup tables for its lifetime.
 from __future__ import annotations
 
 import base64
+import json
 import struct
 from collections.abc import AsyncIterator
 from typing import Any, Literal
@@ -24,6 +25,7 @@ from .models import (
     DatasetRow,
     ElementRow,
     GnomeLayerRow,
+    MaterialListRow,
     MaterialPairRow,
     MaterialRow,
     PairRow,
@@ -40,7 +42,6 @@ from .schemas import (
     ElementSummary,
     GnomeInfo,
     Material,
-    MaterialList,
     MaterialPairs,
     MaterialShard,
     Meta,
@@ -453,27 +454,19 @@ class Repository:
             version=layer[0], prefix=shard, materials=[material_from_row(row.data, row.structure) for row in rows]
         )
 
-    async def materials_by_element(self, symbol: str) -> MaterialList | None:
-        """All materials with the element: fewer elements first, then the most stable."""
+    async def materials_by_element(self, symbol: str) -> str | None:
+        """All materials with the element as JSON text (MaterialList): fewer elements first,
+        then the most stable. The rows were built at load time; the text goes out as is.
+        """
         layer = await self.gnome()
         if layer is None:
             return None
         symbol = normalize_symbol(symbol)
-        total = int((layer[1].get("elements") or {}).get(symbol, 0))
-        if total == 0:
+        row = await self.session.get(MaterialListRow, symbol)
+        if row is None or row.total == 0:
             return None
-        rows = await self.session.execute(
-            select(MaterialRow.id, MaterialRow.formula, MaterialRow.decomposition)
-            .where(MaterialRow.elements.contains([symbol]))
-            .order_by(MaterialRow.element_count, MaterialRow.decomposition.asc().nulls_last(), MaterialRow.id)
-        )
-        return MaterialList(
-            version=layer[0],
-            symbol=symbol,
-            total=total,
-            fields=MATERIAL_LIST_FIELDS,
-            rows=[[row.id, row.formula, row.decomposition] for row in rows],
-        )
+        head = {"version": layer[0], "symbol": symbol, "total": row.total, "fields": MATERIAL_LIST_FIELDS}
+        return json.dumps(head, separators=(",", ":"))[:-1] + ',"rows":' + row.rows + "}"
 
     async def material_pairs(self) -> MaterialPairs | None:
         layer = await self.gnome()

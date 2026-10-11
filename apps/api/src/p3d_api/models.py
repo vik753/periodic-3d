@@ -121,3 +121,18 @@ class MaterialPairRow(Base):
     a: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=False)
     b: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=False)
     count: Mapped[int] = mapped_column(Integer)
+
+
+class MaterialListRow(Base):
+    """Every material with one element, ready to send: computed once at load time.
+
+    rows is a compact JSON array of [id, formula, decompositionEnergy], fewer elements
+    first, then the most stable. Iron alone has 25 000 materials: sorting them for
+    each request took 0.4 s; reading this row takes milliseconds.
+    """
+
+    __tablename__ = "material_lists"
+
+    symbol: Mapped[str] = mapped_column(String(3), primary_key=True)
+    total: Mapped[int] = mapped_column(Integer)
+    rows: Mapped[str] = mapped_column(Text)

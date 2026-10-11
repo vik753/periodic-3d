@@ -28,6 +28,7 @@ from .models import (
     DatasetRow,
     ElementRow,
     GnomeLayerRow,
+    MaterialListRow,
     MaterialPairRow,
     MaterialRow,
     PairRow,
@@ -209,6 +210,20 @@ async def load_dataset(engine: AsyncEngine, root: Path) -> LoadReport:
     )
 
 
+# One element's materials as [id, formula, decomposition]: fewer elements first, then the
+# most stable (the order of the walk along a ray and of the cloud).
+MATERIAL_LIST_SQL = text(
+    """
+    SELECT json_agg(
+        json_build_array(id, formula, decomposition)
+        ORDER BY element_count, decomposition ASC NULLS LAST, id
+    )::text
+    FROM materials
+    WHERE elements @> ARRAY[CAST(:symbol AS varchar)]
+    """
+)
+
+
 def gnome_version(manifest: dict[str, Any]) -> str:
     """Layer name, also the release tag and the static directory: gnome-<build version>."""
     return f"{GNOME_KIND}-{manifest['version']}"
@@ -247,16 +262,24 @@ async def load_gnome(engine: AsyncEngine, root: Path) -> GnomeLoadReport:
 
     stats: Counter[str] = Counter()
     async with engine.begin() as connection:
-        for table in (MaterialPairRow, MaterialRow, GnomeLayerRow):
+        for table in (MaterialListRow, MaterialPairRow, MaterialRow, GnomeLayerRow):
             await connection.execute(delete(table))
         for batch in _batches(_material_rows(root, stats), MATERIAL_BATCH):
             await connection.execute(insert(MaterialRow), batch)
+        for symbol in element_counts:
+            raw = (await connection.execute(MATERIAL_LIST_SQL, {"symbol": symbol})).scalar()
+            rows = json.loads(raw) if raw else []
+            await connection.execute(
+                insert(MaterialListRow),
+                [{"symbol": symbol, "total": len(rows), "rows": json.dumps(rows, separators=(",", ":"))}],
+            )
         pair_rows = [{"a": a, "b": b, "count": count} for a, b, count in pairs]
         for start in range(0, len(pair_rows), BATCH):
             await connection.execute(insert(MaterialPairRow), pair_rows[start : start + BATCH])
         await connection.execute(insert(GnomeLayerRow), [{"version": version, "manifest": stored}])
         await connection.execute(text("ANALYZE materials"))
         await connection.execute(text("ANALYZE material_pairs"))
+        await connection.execute(text("ANALYZE material_lists"))
 
     return GnomeLoadReport(
         version=version, materials=stats["materials"], pairs=len(pair_rows), elements=len(element_counts)

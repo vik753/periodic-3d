@@ -39,9 +39,10 @@ class ExportReport:
     material_bytes: int = 0
 
 
-def _write(path: Path, model: BaseModel, report: ExportReport) -> None:
+def _write(path: Path, model: BaseModel | str, report: ExportReport) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    data = model.model_dump_json(by_alias=True).encode("utf-8")
+    text = model if isinstance(model, str) else model.model_dump_json(by_alias=True)
+    data = text.encode("utf-8")
     path.write_bytes(data)
     report.files += 1
     report.bytes += len(data)

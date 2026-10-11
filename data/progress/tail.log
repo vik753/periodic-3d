@@ -27,3 +27,7 @@ started: 2026-10-11T10:32:08Z
 2026-10-11 10:56:35,471 INFO p3d.build: RDKit: 20 molecules remembered, embedding 9499 on 4 processes
 2026-10-11 10:58:41,245 INFO p3d.build:   RDKit: 2000/9499 (126 s)
 2026-10-11 11:01:23,055 INFO p3d.build:   RDKit: 4000/9499 (288 s)
+2026-10-11 11:06:51,587 INFO p3d.build:   RDKit: 6000/9499 (616 s)
+2026-10-11 11:07:04,034 INFO p3d.build:   RDKit: 8000/9499 (629 s)
+2026-10-11 11:07:04,113 INFO p3d.build: RDKit: done in 629 s
+2026-10-11 11:07:04,332 INFO p3d.build: OPTIMADE candidates for 11802 formulas

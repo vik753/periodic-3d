@@ -1,4 +1,4 @@
-# Отчёт о наборе данных 2026.10.11-r37
+# Отчёт о наборе данных 2026.10.11-r38
 
 - Соединений: 49; с 3D-структурой: 45.
 - С описанием: RU 29, UK 26, EN 47.
@@ -7,12 +7,14 @@
 - Пар элементов: 3.
 - Элементов без соединений: He, Li, Be, B, C, N, F, Ne, Na, Mg, Al, Si, P, S, Cl, Ar, K, Ca, Sc, Ti, V, Cr, Mn, Co, Ni, Cu, Zn, Ga, Ge, As, Se, Br, Kr, Rb, Sr, Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd, In, Sn, Sb, Te, I, Xe, Cs, Ba, La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg, Tl, Pb, Bi, Po, At, Rn, Fr, Ra, Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No, Lr, Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn, Nh, Fl, Mc, Lv, Ts, Og.
 - Структуры больше 80000 байт: 0 [].
-- Время сборки: 2 с.
+- Время сборки: 3 с.
 
 ## Источники структур
 
 | Метрика | Значение |
 | --- | --- |
+| crystal_computed | 4 |
+| crystal_experimental | 12 |
 | mp_api_origins | 162 |
 | pubchem_3d_available | 17 |
 | rdkit_embedded | 18 |
@@ -35,7 +37,8 @@
 
 | Метрика | Значение |
 | --- | --- |
-| cache_hit | 39 |
+| cache_hit | 34 |
+| fetched | 5 |
 | memo_hit | 268 |
 
 ## Топ-40 классов Wikidata

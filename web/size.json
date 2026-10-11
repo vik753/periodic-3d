@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 386.6,
+  "initialJsGzipKb": 388.7,
   "withinBudget": true,
   "rows": [
     {
@@ -22,79 +22,79 @@
       "initial": true
     },
     {
-      "file": "assets/index-UVbABgVN.js",
-      "kb": 159.7,
-      "gzipKb": 53.4,
+      "file": "assets/index-D3XvTvnF.js",
+      "kb": 167.6,
+      "gzipKb": 55.5,
       "initial": true
     },
     {
-      "file": "assets/index-CCnhHXoE.css",
-      "kb": 35.4,
-      "gzipKb": 9,
+      "file": "assets/index-DfK1C4xf.css",
+      "kb": 36.9,
+      "gzipKb": 9.2,
       "initial": true
     },
     {
-      "file": "assets/ElementPanel-CJqQ8b6O.js",
-      "kb": 8.3,
+      "file": "assets/ElementPanel-B566PE6Y.js",
+      "kb": 12.1,
+      "gzipKb": 3.3,
+      "initial": false
+    },
+    {
+      "file": "assets/RayWalk-DyW3iLsu.js",
+      "kb": 5.4,
       "gzipKb": 2.6,
       "initial": false
     },
     {
-      "file": "assets/RayWalk-D5Q7ewRC.js",
-      "kb": 5.3,
-      "gzipKb": 2.5,
+      "file": "assets/Rays-CN76sW76.js",
+      "kb": 5.9,
+      "gzipKb": 2.6,
       "initial": false
     },
     {
-      "file": "assets/Rays-DgnVEYoE.js",
-      "kb": 5.7,
-      "gzipKb": 2.5,
-      "initial": false
-    },
-    {
-      "file": "assets/StructureView-DAEBE-mb.js",
+      "file": "assets/StructureView-2RMayehr.js",
       "kb": 5.4,
       "gzipKb": 2.4,
       "initial": false
     },
     {
-      "file": "assets/CompoundCloud-DnHAIRHp.js",
-      "kb": 4.3,
-      "gzipKb": 2.1,
+      "file": "assets/CompoundCloud-4y2wLG_c.js",
+      "kb": 4.4,
+      "gzipKb": 2.2,
       "initial": false
     },
     {
-      "file": "assets/CompoundPanel-C3rE5OrD.js",
+      "file": "assets/SetPanel-DqetYdEE.js",
+      "kb": 6.2,
+      "gzipKb": 2,
+      "initial": false
+    },
+    {
+      "file": "assets/CompoundPanel-Brn59EmP.js",
       "kb": 5.1,
       "gzipKb": 1.8,
       "initial": false
     },
     {
-      "file": "assets/MaterialPanel-C0ZLETv0.js",
+      "file": "assets/MaterialPanel-PiL-dSxh.js",
       "kb": 5,
       "gzipKb": 1.8,
       "initial": false
     },
     {
-      "file": "assets/SetPanel-bHML3Ee3.js",
-      "kb": 4.5,
-      "gzipKb": 1.6,
-      "initial": false
-    },
-    {
-      "file": "assets/AtomModel-D9MyTQ7Q.js",
+      "file": "assets/AtomModel-BFoUZ4AO.js",
       "kb": 2.6,
       "gzipKb": 1.3,
       "initial": false
     },
     {
-      "file": "assets/AboutPanel-BgvpU-zj.js",
+      "file": "assets/AboutPanel-DB9gjXZM.js",
       "kb": 3.1,
       "gzipKb": 1.2,
       "initial": false
     },
     {
-      "file": "assets/CompositionView-DjPSQUYV.js",
+      "file": "assets/CompositionView-D62sK__C.js",
       "kb": 2,
       "gzipKb": 1,
       "initial": false

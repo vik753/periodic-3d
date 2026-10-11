@@ -1,21 +1,26 @@
 $ node scripts/guide-video.mjs
-started: 2026-10-11T15:16:54Z
-warm-up done in 77 s
-intro: 3.6 s of video, 101 s to record
-hover: 7.3 s of video, 117 s to record
-zoom: 7.8 s of video, 129 s to record
-element: 9.8 s of video, 217 s to record
-rays: 6.2 s of video, 144 s to record
-walk: 8.5 s of video, 237 s to record
-card: 8.0 s of video, 222 s to record
-back: 4.2 s of video, 103 s to record
-select: 20.3 s of video, 387 s to record
-violet: 13.7 s of video, 334 s to record
+started: 2026-10-11T15:58:52Z
+warm-up done in 72 s
+intro: 0.5 s of video, 97 s to record
+hover: 7.3 s of video, 103 s to record
+zoom: 7.8 s of video, 114 s to record
+element: 9.8 s of video, 196 s to record
+rays: 7.6 s of video, 153 s to record
+walk: 8.2 s of video, 214 s to record
+card: 8.0 s of video, 207 s to record
+back: 4.2 s of video, 78 s to record
+select: 20.3 s of video, 324 s to record
+violet: 18.8 s of video, 664 s to record
 search: 7.1 s of video, 189 s to record
-about: 5.0 s of video, 127 s to record
-outro: 3.8 s of video, 69 s to record
-3157 frames (105.2 s), 2 errors
-  scene violet: not visible after 6 s: getByRole('button', { name: 'Show the violet rays' }).first()
+about: 5.0 s of video, 110 s to record
+outro: 3.8 s of video, 52 s to record
+3252 frames (108.4 s), 2 errors
+  scene intro: page.screenshot: Timeout 90000ms exceeded.
+Call log:
+  - taking page screenshot
+  - waiting for fonts to load...
+  - fonts loaded
+
   Failed to load resource: the server responded with a status of 404 ()
-finished: 2026-10-11T15:57:48Z
+finished: 2026-10-11T16:41:46Z
 exit code: 0

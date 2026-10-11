@@ -1,5 +1,5 @@
 $ npm run size
-started: 2026-10-11T03:46:54Z
+started: 2026-10-11T03:57:46Z
 
 > @periodic-3d/web@0.1.0 size
 > node scripts/size-report.mjs
@@ -21,5 +21,5 @@ started: 2026-10-11T03:46:54Z
       1.1 KB gz  assets/CompositionView-XC_GKnSs.js
       0.6 KB gz  assets/glow-IVh7SLwZ.js
 initial JS (gzip): 379.9 KB / budget 400 KB
-finished: 2026-10-11T03:46:54Z
+finished: 2026-10-11T03:57:46Z
 exit code: 0

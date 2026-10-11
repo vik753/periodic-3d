@@ -1,10 +1,10 @@
 $ npm run perf
-started: 2026-10-11T03:44:41Z
+started: 2026-10-11T03:53:14Z
 
 > @periodic-3d/web@0.1.0 perf
 > node scripts/perf.mjs
 
-desktop-4g: LCP 872 ms, 3D ready 2024 ms, JS 384 KB, all 539 KB (median of 3)
-phone-4g: LCP 1136 ms, 3D ready 2126 ms, JS 384 KB, all 539 KB (median of 3)
-finished: 2026-10-11T03:45:03Z
+desktop-4g: LCP 880 ms, 3D ready 1760 ms, JS 384 KB, all 539 KB (median of 3)
+phone-4g: LCP 1156 ms, 3D ready 2196 ms, JS 384 KB, all 539 KB (median of 3)
+finished: 2026-10-11T03:53:37Z
 exit code: 0

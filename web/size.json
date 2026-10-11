@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 379.8,
+  "initialJsGzipKb": 379.9,
   "withinBudget": true,
   "rows": [
     {
@@ -22,9 +22,9 @@
       "initial": true
     },
     {
-      "file": "assets/index-thdLplir.js",
-      "kb": 139.5,
-      "gzipKb": 46.6,
+      "file": "assets/index-BHuAwq-g.js",
+      "kb": 139.6,
+      "gzipKb": 46.7,
       "initial": true
     },
     {
@@ -34,61 +34,61 @@
       "initial": true
     },
     {
-      "file": "assets/ElementPanel-Ds8rSTBy.js",
+      "file": "assets/ElementPanel-CTOK589K.js",
       "kb": 8.2,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/RayWalk-nI4cAXHR.js",
+      "file": "assets/RayWalk-CgTXmwd0.js",
       "kb": 5.3,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/Rays-DpmkUM4r.js",
+      "file": "assets/Rays-Cjt49bj7.js",
       "kb": 5.7,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/StructureView-C7cwaoIq.js",
+      "file": "assets/StructureView-CFSm4OKY.js",
       "kb": 5.4,
       "gzipKb": 2.4,
       "initial": false
     },
     {
-      "file": "assets/CompoundCloud-Dh2xPFrg.js",
+      "file": "assets/CompoundCloud-C4P1pAuC.js",
       "kb": 4.3,
       "gzipKb": 2.1,
       "initial": false
     },
     {
-      "file": "assets/CompoundPanel-Ce1hoFBg.js",
+      "file": "assets/CompoundPanel-CAvgzWPg.js",
       "kb": 4.9,
       "gzipKb": 1.7,
       "initial": false
     },
     {
-      "file": "assets/SetPanel-D4kw6JbN.js",
+      "file": "assets/SetPanel-CTv3frqK.js",
       "kb": 3.9,
       "gzipKb": 1.5,
       "initial": false
     },
     {
-      "file": "assets/AtomModel-Z5mSVPna.js",
+      "file": "assets/AtomModel-wj-_xuA6.js",
       "kb": 2.5,
       "gzipKb": 1.3,
       "initial": false
     },
     {
-      "file": "assets/AboutPanel-hsUc2s0R.js",
+      "file": "assets/AboutPanel-tIqMSERN.js",
       "kb": 2.9,
-      "gzipKb": 1.1,
+      "gzipKb": 1.2,
       "initial": false
     },
     {
-      "file": "assets/CompositionView-CNM0bMbC.js",
+      "file": "assets/CompositionView-XC_GKnSs.js",
       "kb": 2.2,
       "gzipKb": 1.1,
       "initial": false

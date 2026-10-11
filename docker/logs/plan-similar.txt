@@ -1,13 +1,13 @@
                                                                     QUERY PLAN                                                                    
 --------------------------------------------------------------------------------------------------------------------------------------------------
- Limit  (cost=90.05..97.08 rows=8 width=17) (actual time=0.816..0.838 rows=8 loops=1)
+ Limit  (cost=89.96..96.98 rows=8 width=17) (actual time=0.738..0.753 rows=8 loops=1)
    InitPlan 1
-     ->  Index Scan using compounds_pkey on compounds compounds_1  (cost=0.29..8.30 rows=1 width=69) (actual time=0.032..0.033 rows=1 loops=1)
+     ->  Index Scan using compounds_pkey on compounds compounds_1  (cost=0.29..8.30 rows=1 width=69) (actual time=0.033..0.033 rows=1 loops=1)
            Index Cond: ((id)::text = 'Q283'::text)
-   ->  Index Scan using ix_compounds_embedding on compounds  (cost=81.74..23992.03 rows=27196 width=17) (actual time=0.815..0.836 rows=8 loops=1)
+   ->  Index Scan using ix_compounds_embedding on compounds  (cost=81.65..23968.03 rows=27196 width=17) (actual time=0.737..0.751 rows=8 loops=1)
          Order By: (embedding <=> (InitPlan 1).col1)
          Filter: (embedding IS NOT NULL)
- Planning Time: 0.957 ms
- Execution Time: 0.890 ms
+ Planning Time: 0.932 ms
+ Execution Time: 0.798 ms
 (9 rows)
 

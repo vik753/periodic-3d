@@ -40,6 +40,11 @@ from .vector import cosine_distance
 TOP_COMPOUNDS = 12
 SIMILAR_ELEMENTS = 6
 SIMILAR_COMPOUNDS = 8
+# Vectors of rare elements are noise (curium sits next to carbon: both meet only C, H, N, O).
+# An element takes part in similarity only with at least this share of all compounds
+# (about 54 of 27 000), and a neighbour needs at least this cosine similarity.
+SIMILAR_MIN_SHARE = 0.002
+SIMILAR_MIN_SCORE = 0.3
 QUERY_LIMIT_MAX = 200
 INDEX_FIELDS = ["id", "formula", "elements", "fame", "kind", "names", "flags"]
 # Bits of the "flags" index column (filters in the browser).
@@ -204,13 +209,27 @@ class Repository:
             }
         )
 
+    async def compound_total(self) -> int:
+        await self.version()
+        counts = (self._manifest or {}).get("counts", {})
+        return int(counts.get("compounds", 0))
+
     async def similar_elements(self, z: int) -> list[SimilarElement]:
-        """Elements with the closest vectors (cosine distance, pgvector)."""
+        """Elements with the closest vectors (cosine distance, pgvector); common elements only."""
+        min_count = max(1, round(await self.compound_total() * SIMILAR_MIN_SHARE))
+        own_count = await self.session.scalar(select(ElementRow.compound_count).where(ElementRow.z == z))
+        if own_count is None or own_count < min_count:
+            return []
         target = select(ElementRow.embedding).where(ElementRow.z == z).scalar_subquery()
         distance = cosine_distance(ElementRow.embedding, target).label("distance")
         rows = await self.session.execute(
             select(ElementRow.z, ElementRow.symbol, distance)
-            .where(ElementRow.z != z, ElementRow.embedding.is_not(None))
+            .where(
+                ElementRow.z != z,
+                ElementRow.embedding.is_not(None),
+                ElementRow.compound_count >= min_count,
+                distance <= 1 - SIMILAR_MIN_SCORE,
+            )
             .order_by(distance, ElementRow.z)
             .limit(SIMILAR_ELEMENTS)
         )

@@ -231,7 +231,8 @@ async def test_search_escapes_wildcards(client: Any) -> None:
 
 async def test_similar_elements_from_vectors(client: Any) -> None:
     body = await get(client, "/api/v1/elements/Fe")
-    assert [item["symbol"] for item in body["similar"]] == ["O", "H"]
+    # H has score 0 with Fe: below SIMILAR_MIN_SCORE, so it is not a neighbour.
+    assert [item["symbol"] for item in body["similar"]] == ["O"]
     assert abs(body["similar"][0]["score"] - 0.6) < 0.01
 
 

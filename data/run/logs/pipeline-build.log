@@ -1,22 +1,22 @@
-$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.11-r13 --only-elements H,O,Fe --limit 60 --descriptions
-started: 2026-10-11T01:45:02Z
-2026-10-11 01:45:02,898 INFO p3d.build: Elements
-2026-10-11 01:45:02,902 INFO p3d.build: Compounds from Wikidata
-2026-10-11 01:45:04,028 INFO p3d.build: Selected 49 compounds
-2026-10-11 01:45:04,028 INFO p3d.build: Class labels
-2026-10-11 01:45:04,029 INFO p3d.build: PubChem properties for 34 CIDs
-2026-10-11 01:45:04,029 INFO p3d.build: PubChem 3D conformers for 17 of 34 CIDs
-2026-10-11 01:45:04,029 INFO p3d.build: PubChem 3D: 17 records in 0 s
-2026-10-11 01:45:04,030 INFO p3d.build: RDKit: embedding 11 molecules on 4 processes
-2026-10-11 01:45:04,138 INFO p3d.build: RDKit: done in 0 s
-2026-10-11 01:45:04,139 INFO p3d.build: OPTIMADE candidates for 17 formulas
-2026-10-11 01:45:04,142 INFO p3d.build: OPTIMADE structures for 11 materials
-2026-10-11 01:45:04,142 INFO p3d.build: Assigning structures for 49 compounds
-2026-10-11 01:45:04,694 INFO p3d.build: Wikipedia en extracts for 48 articles
-2026-10-11 01:45:04,695 INFO p3d.build: Wikipedia ru extracts for 29 articles
-2026-10-11 01:45:04,696 INFO p3d.build: Wikipedia uk extracts for 26 articles
-2026-10-11 01:45:04,698 INFO p3d.build: Vectors
-2026-10-11 01:45:04,704 INFO p3d.build: Dataset ../data/build/2026.10.11-r13 written in 2 s
-../data/build/2026.10.11-r13
-finished: 2026-10-11T01:45:04Z
+$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.11-r14 --only-elements H,O,Fe --limit 60 --descriptions
+started: 2026-10-11T03:20:08Z
+2026-10-11 03:20:08,376 INFO p3d.build: Elements
+2026-10-11 03:20:08,380 INFO p3d.build: Compounds from Wikidata
+2026-10-11 03:20:29,433 INFO p3d.build: Selected 49 compounds
+2026-10-11 03:20:29,433 INFO p3d.build: Class labels
+2026-10-11 03:20:29,433 INFO p3d.build: PubChem properties for 34 CIDs
+2026-10-11 03:20:29,434 INFO p3d.build: PubChem 3D conformers for 17 of 34 CIDs
+2026-10-11 03:20:29,434 INFO p3d.build: PubChem 3D: 17 records in 0 s
+2026-10-11 03:20:29,434 INFO p3d.build: RDKit: embedding 20 molecules on 4 processes
+2026-10-11 03:20:29,558 INFO p3d.build: RDKit: done in 0 s
+2026-10-11 03:20:29,559 INFO p3d.build: OPTIMADE candidates for 17 formulas
+2026-10-11 03:20:29,561 INFO p3d.build: OPTIMADE structures for 11 materials
+2026-10-11 03:20:29,562 INFO p3d.build: Assigning structures for 49 compounds
+2026-10-11 03:20:30,110 INFO p3d.build: Wikipedia en extracts for 48 articles
+2026-10-11 03:20:30,112 INFO p3d.build: Wikipedia ru extracts for 29 articles
+2026-10-11 03:20:30,112 INFO p3d.build: Wikipedia uk extracts for 26 articles
+2026-10-11 03:20:30,115 INFO p3d.build: Vectors
+2026-10-11 03:20:30,120 INFO p3d.build: Dataset ../data/build/2026.10.11-r14 written in 22 s
+../data/build/2026.10.11-r14
+finished: 2026-10-11T03:20:30Z
 exit code: 0

@@ -1,21 +1,20 @@
 $ node scripts/guide-video.mjs
-started: 2026-10-11T15:16:59Z
-warm-up done in 42 s
-intro: 3.6 s of video, 108 s to record
-hover: 7.3 s of video, 108 s to record
-zoom: 7.8 s of video, 119 s to record
-element: 9.8 s of video, 205 s to record
-rays: 6.2 s of video, 140 s to record
-walk: 8.5 s of video, 226 s to record
-card: 8.0 s of video, 211 s to record
-back: 4.2 s of video, 94 s to record
-select: 20.3 s of video, 377 s to record
-violet: 13.7 s of video, 320 s to record
-search: 6.9 s of video, 175 s to record
-about: 5.0 s of video, 118 s to record
+started: 2026-10-11T15:58:51Z
+warm-up done in 51 s
+intro: 3.6 s of video, 120 s to record
+hover: 7.3 s of video, 115 s to record
+zoom: 7.8 s of video, 128 s to record
+element: 9.8 s of video, 226 s to record
+rays: 7.6 s of video, 179 s to record
+walk: 8.2 s of video, 241 s to record
+card: 8.0 s of video, 230 s to record
+back: 4.2 s of video, 86 s to record
+select: 20.3 s of video, 382 s to record
+violet: 18.8 s of video, 723 s to record
+search: 6.9 s of video, 206 s to record
+about: 5.0 s of video, 125 s to record
 outro: 3.8 s of video, 69 s to record
-3153 frames (105.1 s), 2 errors
-  scene violet: not visible after 6 s: getByRole('button', { name: 'Показать фиолетовые лучи' }).first()
+3341 frames (111.4 s), 1 errors
   Failed to load resource: the server responded with a status of 404 ()
-finished: 2026-10-11T15:55:33Z
+finished: 2026-10-11T16:46:53Z
 exit code: 0

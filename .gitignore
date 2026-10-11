@@ -20,6 +20,8 @@ test-results/
 data/raw/
 data/build/
 data/cache/
+data/*.tar.gz
+apps/web/public/data/
 
 # Environment and secrets
 .env

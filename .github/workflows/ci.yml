@@ -237,12 +237,15 @@ jobs:
       - name: Check the live demo
         if: steps.deploy.outcome == 'success'
         continue-on-error: true
+        timeout-minutes: 10
         run: |
           sleep 75
           code=$(curl -s -o /dev/null -w '%{http_code}' https://vik753.github.io/periodic-3d/)
           echo "live status: $code" | tee out/logs/live-status.log
           SCREENSHOT_BASE=https://vik753.github.io/periodic-3d/ SCREENSHOT_OUT=out/live SCREENSHOT_SET=quick \
             bash $RUN web-live-screenshots npm run screenshot
+          # Budgets on a throttled 4G network: LCP, JavaScript size, time to the 3D table.
+          PERF_BASE=https://vik753.github.io/periodic-3d/ PERF_OUT=out/perf bash $RUN web-perf npm run perf
 
       - name: Publish results
         if: always()

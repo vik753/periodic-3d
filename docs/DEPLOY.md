@@ -1,12 +1,13 @@
 # Запуск и деплой
 
-Документ описывает три способа запустить проект. Выберите один.
+Документ описывает три способа запустить проект и локальную разработку. Выберите нужный.
 
 | Способ | Что получаете | Цена | Сложность |
 | --- | --- | --- | --- |
 | A. GitHub Pages (уже работает) | Сайт со статическими данными | Бесплатно | Ничего делать не нужно |
 | B. Свой сервер + Docker Compose | Сайт + живой API + PostgreSQL | VPS от ~5 $/мес | Средняя |
 | C. Облачные сервисы без своего сервера | То же, что B | Бесплатные тарифы на старте | Средняя |
+| D. Локальная разработка | Сайт на своём компьютере | Бесплатно | Средняя |
 
 Части проекта:
 
@@ -190,6 +191,56 @@ docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm api p3
 
 ---
 
+## D. Локальная разработка
+
+**Цель.** Менять код сайта и сразу видеть результат на своём компьютере.
+
+**Требования.** Node.js 22, Docker с Docker Compose, Git.
+
+**Команды.**
+
+```bash
+git clone https://github.com/vik753/periodic-3d.git
+cd periodic-3d
+cp infra/.env.example infra/.env
+# 1. База и API (шаги 2–4 способа B): контейнеры db, api, web и данные в базе.
+docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
+docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm api p3d-api migrate
+mkdir -p data
+gh release download "$(sed 's/^release://' data/DATASET)" --repo vik753/periodic-3d \
+  --pattern 'dataset-*.tar.gz' --output data/dataset.tar.gz
+docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm -v "$PWD/data:/data" api \
+  p3d-api load /data/dataset.tar.gz
+# 2. Сайт в режиме разработки, данные из локального API.
+cd apps/web
+npm ci
+VITE_DATA_MODE=api VITE_API_URL=http://localhost:8080/api/v1 npm run dev
+```
+
+**Пояснение.** Vite открывает сайт на `http://localhost:5173/` и
+перезагружает его при каждом сохранении файла. Без API можно работать со статикой:
+выгрузите ответы API в папку `public/data` и запустите `npm run dev` без переменных.
+
+```bash
+docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm \
+  -v "$PWD/apps/web/public:/out" api p3d-api export-static /out/data
+```
+
+**Проверки перед push** (то же делает CI):
+
+```bash
+cd apps/web && npm run typecheck && npm run lint && npm test && npm run build
+# Тестам API нужна отдельная PostgreSQL с pgvector (порт 5433, чтобы не мешать другим базам):
+docker run -d --name p3d-test -e POSTGRES_PASSWORD=test -p 5433:5432 pgvector/pgvector:pg17
+cd ../api && uv sync && uv run ruff check src tests && uv run ruff format --check src tests
+uv run mypy && TEST_DATABASE_URL=postgresql://postgres:test@localhost:5433/postgres uv run pytest -q
+cd ../../pipeline && uv sync && uv run ruff check src tests && uv run mypy && uv run pytest -q
+```
+
+**Ожидаемый результат.** Сайт работает локально; все проверки зелёные.
+
+---
+
 ## Мониторинг
 
 - `GET /health` — `{"status":"ok","version":"…"}`. Подключите бесплатный монитор
@@ -202,5 +253,6 @@ docker compose -f infra/docker-compose.yml --env-file infra/.env run --rm api p3
 
 Код — MIT. Данные сохраняют лицензии источников: Wikidata (CC0), Википедия
 (CC BY-SA 4.0), PubChem (открытые данные NIH), Materials Project (CC BY 4.0). Карточка
-каждого соединения показывает источники со ссылками и лицензиями. Подробности —
-[docs/data-sources.md](data-sources.md).
+каждого соединения показывает источники со ссылками и лицензиями. Страница «О проекте»
+(`/about`, кнопка «i» вверху справа) перечисляет все источники. Данные GNoME
+(CC BY-NC) не используются. Подробности — [docs/data-sources.md](data-sources.md).

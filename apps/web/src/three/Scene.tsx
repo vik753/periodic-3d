@@ -20,9 +20,11 @@ import type { ControlsRef } from './CameraDirector';
 import { CAMERA_FOV, CameraDirector, cloudOverviewPose, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import type { CloudLabel } from './CompoundCloud';
 import type { CompositionPart } from './composition';
+import { AdaptiveQuality } from './AdaptiveQuality';
 import { Dust } from './Dust';
 import { backdropTable, CLOUD_CENTER, recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
+import { maxQualityLevel, pixelRatioFor } from './quality';
 import type { RayLabel } from './Rays';
 import type { BeadLabel } from './RayWalk';
 import { damp } from './useKeepRendering';
@@ -43,6 +45,8 @@ declare global {
       calls?: number;
       triangles?: number;
       scene?: string;
+      /** Current pixel ratio after adaptive quality steps. */
+      dpr?: number;
       project?: (symbol: string) => { x: number; y: number } | null;
     };
   }
@@ -261,7 +265,7 @@ function RenderStats() {
 
 export function Scene() {
   const controls = useRef<ControlsRef>(null);
-  const dpr = useMemo(() => Math.min(window.devicePixelRatio || 1, 1.75), []);
+  const dpr = useMemo(() => pixelRatioFor(maxQualityLevel(window.devicePixelRatio || 1)), []);
   const { t, i18n } = useTranslation();
 
   // Data hooks run here, outside the Canvas, and reach the 3D tree as props.
@@ -356,6 +360,7 @@ export function Scene() {
       <CameraControls ref={controls} makeDefault smoothTime={0.55} draggingSmoothTime={0.12} />
       <CameraDirector controls={controls} />
       <PanelAwareViewOffset />
+      <AdaptiveQuality />
       <Dust />
       <ElementWorld
         controls={controls}

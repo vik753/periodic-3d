@@ -96,6 +96,14 @@ const shots = [
   { name: 'compound-sodium-acetate', path: 'c/Q339940', viewport: desktop, wait: 4000 },
   { name: 'compound-no-3d', path: 'c/Q483269', viewport: desktop, wait: 4000 },
   { name: 'about', path: 'about', viewport: desktop, wait: 2000 },
+  {
+    name: 'keyboard-index',
+    path: '',
+    viewport: desktop,
+    act: async (page) => {
+      await page.getByRole('navigation', { name: 'Елементи таблиці' }).getByRole('link').nth(25).focus();
+    },
+  },
   { name: 'phone-about', path: 'about', viewport: phone, dpr: 2, wait: 2000 },
   { name: 'molecule-benzene', path: 'c/demo-benzene', viewport: desktop, wait: 3500 },
   { name: 'crystal-nacl', path: 'c/demo-nacl', viewport: desktop, wait: 3500 },

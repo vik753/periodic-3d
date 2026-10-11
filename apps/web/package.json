@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "screenshot": "node scripts/screenshot.mjs",
-    "size": "node scripts/size-report.mjs"
+    "size": "node scripts/size-report.mjs",
+    "perf": "node scripts/perf.mjs"
   },
   "dependencies": {
     "@fontsource-variable/golos-text": "^5.2.0",

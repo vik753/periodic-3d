@@ -156,6 +156,10 @@ const resources = {
         demo: 'Демо-дані: набір даних ще не опубліковано.',
         error: 'Не вдалося завантажити дані. Перевірте з’єднання.',
       },
+      a11y: {
+        elements: 'Елементи таблиці',
+        elementsHint: 'Перелік елементів для клавіатури: Tab — далі, Enter — відкрити елемент.',
+      },
       about: {
         title: 'Про проєкт',
         open: 'Про проєкт і джерела даних',
@@ -307,6 +311,10 @@ const resources = {
         demo: 'Демо-данные: набор данных ещё не опубликован.',
         error: 'Не удалось загрузить данные. Проверьте соединение.',
       },
+      a11y: {
+        elements: 'Элементы таблицы',
+        elementsHint: 'Список элементов для клавиатуры: Tab — дальше, Enter — открыть элемент.',
+      },
       about: {
         title: 'О проекте',
         open: 'О проекте и источниках данных',
@@ -451,6 +459,10 @@ const resources = {
         loading: 'Loading…',
         demo: 'Demo data: the dataset is not published yet.',
         error: 'Could not load the data. Check the connection.',
+      },
+      a11y: {
+        elements: 'Table elements',
+        elementsHint: 'Element list for the keyboard: Tab moves on, Enter opens the element.',
       },
       about: {
         title: 'About',

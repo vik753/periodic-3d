@@ -4,6 +4,7 @@ import * as THREE from 'three';
 
 import { approximateMassNumber, shellsOf } from '../data/periodic';
 import type { Vec3 } from '../data/structure';
+import { ClickGuard } from './ClickGuard';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
 
 const MAX_NUCLEONS = 72;
@@ -135,6 +136,7 @@ export function AtomModel({ z, position }: AtomModelProps) {
 
   return (
     <group ref={groupRef} position={position}>
+      <ClickGuard radius={shellRadius(Math.max(shells.length - 1, 0)) + ELECTRON_RADIUS * 3} />
       <instancedMesh ref={nucleusRef} args={[sphere, nucleusMaterial, nucleonCount]} />
       {ringGeometries.map((geometry, index) => (
         <lineLoop key={index} geometry={geometry} material={ringMaterial} quaternion={shellRotations[index]!} />

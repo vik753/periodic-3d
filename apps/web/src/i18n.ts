@@ -37,7 +37,13 @@ const resources = {
   uk: {
     translation: {
       app: { title: 'Таблиця Менделєєва 3D', short: 'Таблиця 3D' },
-      nav: { table: 'Таблиця', back: 'Назад', breadcrumbs: 'Де ви зараз' },
+      nav: {
+        table: 'Таблиця',
+        toTable: 'До таблиці',
+        toTableTitle: 'Повернутися до таблиці. Також: Esc або клік по порожньому місцю.',
+        back: 'Назад',
+        breadcrumbs: 'Де ви зараз',
+      },
       lang: { label: 'Мова інтерфейсу' },
       category: {
         'alkali-metal': 'Лужний метал',
@@ -175,6 +181,8 @@ const resources = {
       about: {
         title: 'Про проєкт',
         open: 'Про проєкт і джерела даних',
+        button: 'Як користуватися',
+        buttonShort: 'Довідка',
         intro:
           'Інтерактивна 3D-таблиця Менделєєва. Оберіть елемент — і побачите, з якими елементами він утворює сполуки. Кожна сполука має картку з формулою, складом, описом і 3D-моделлю молекули або кристала.',
         howTitle: 'Як користуватися',
@@ -182,6 +190,7 @@ const resources = {
         how2: 'Клацніть промінь і тягніть уздовж нього: сполуки пари йдуть від найвідоміших.',
         how3: 'Shift або Ctrl + клацання (на телефоні — режим вибору) обирає кілька елементів: з’явиться хмара сполук, що містять їх усі.',
         how4: 'Пошук знаходить сполуку за формулою або назвою українською, російською чи англійською.',
+        how5: 'Повернутися до таблиці: кнопка «До таблиці» вгорі, клавіша Esc або клік по порожньому місцю сцени.',
         dataTitle: 'Набір даних',
         version: 'Версія',
         compounds: 'Сполук',
@@ -205,7 +214,13 @@ const resources = {
   ru: {
     translation: {
       app: { title: 'Таблица Менделеева 3D', short: 'Таблица 3D' },
-      nav: { table: 'Таблица', back: 'Назад', breadcrumbs: 'Где вы сейчас' },
+      nav: {
+        table: 'Таблица',
+        toTable: 'К таблице',
+        toTableTitle: 'Вернуться к таблице. Также: Esc или клик по пустому месту.',
+        back: 'Назад',
+        breadcrumbs: 'Где вы сейчас',
+      },
       lang: { label: 'Язык интерфейса' },
       category: {
         'alkali-metal': 'Щелочной металл',
@@ -343,6 +358,8 @@ const resources = {
       about: {
         title: 'О проекте',
         open: 'О проекте и источниках данных',
+        button: 'Как пользоваться',
+        buttonShort: 'Справка',
         intro:
           'Интерактивная 3D-таблица Менделеева. Выберите элемент — и увидите, с какими элементами он образует соединения. У каждого соединения есть карточка с формулой, составом, описанием и 3D-моделью молекулы или кристалла.',
         howTitle: 'Как пользоваться',
@@ -350,6 +367,7 @@ const resources = {
         how2: 'Щёлкните луч и тяните вдоль него: соединения пары идут от самых известных.',
         how3: 'Shift или Ctrl + щелчок (на телефоне — режим выбора) выбирает несколько элементов: появится облако соединений, где есть они все.',
         how4: 'Поиск находит соединение по формуле или названию на украинском, русском или английском.',
+        how5: 'Вернуться к таблице: кнопка «К таблице» вверху, клавиша Esc или клик по пустому месту сцены.',
         dataTitle: 'Набор данных',
         version: 'Версия',
         compounds: 'Соединений',
@@ -373,7 +391,13 @@ const resources = {
   en: {
     translation: {
       app: { title: 'Periodic Table 3D', short: 'Table 3D' },
-      nav: { table: 'Table', back: 'Back', breadcrumbs: 'Where you are' },
+      nav: {
+        table: 'Table',
+        toTable: 'To the table',
+        toTableTitle: 'Back to the table. Also: Esc or a click on empty space.',
+        back: 'Back',
+        breadcrumbs: 'Where you are',
+      },
       lang: { label: 'Interface language' },
       category: {
         'alkali-metal': 'Alkali metal',
@@ -505,6 +529,8 @@ const resources = {
       about: {
         title: 'About',
         open: 'About the project and data sources',
+        button: 'How to use',
+        buttonShort: 'Help',
         intro:
           'An interactive 3D periodic table. Pick an element to see which elements it forms compounds with. Every compound has a card with its formula, composition, description and a 3D model of the molecule or crystal.',
         howTitle: 'How to use',
@@ -512,6 +538,7 @@ const resources = {
         how2: 'Click a ray and drag along it: the compounds of the pair come most famous first.',
         how3: 'Shift or Ctrl + click (select mode on phones) picks several elements and shows a cloud of compounds that contain them all.',
         how4: 'Search finds a compound by formula or by name in Ukrainian, Russian or English.',
+        how5: 'Back to the table: the “To the table” button at the top, the Esc key or a click on empty space.',
         dataTitle: 'Dataset',
         version: 'Version',
         compounds: 'Compounds',

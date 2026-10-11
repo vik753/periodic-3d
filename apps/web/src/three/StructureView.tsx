@@ -8,6 +8,7 @@ import { atomColor, covalentRadius } from '../data/chemistry';
 import type { StructureData, Vec3 } from '../data/structure';
 import { boundingRadius, centroid } from '../data/structure';
 import { useAppStore } from '../state/store';
+import { ClickGuard } from './ClickGuard';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
 
 /** The structure is scaled so its bounding sphere has this radius in world units. */
@@ -226,6 +227,7 @@ export function StructureView({
 
   return (
     <group ref={groupRef} position={position}>
+      <ClickGuard radius={fitRadius * 1.08} />
       <instancedMesh
         ref={atomsRef}
         args={[sphere, atomMaterial, data.atoms.length]}

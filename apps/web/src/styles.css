@@ -51,3 +51,104 @@ canvas {
     animation-duration: 0.01ms !important;
   }
 }
+
+/*
+ * "How to use" button: a light runs around its edge and a soft halo breathes, so a
+ * first-time visitor notices it. After the first visit the glow stays, but still.
+ */
+@property --glow-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.glow-button {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-button::before,
+.glow-button::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* The edge: a conic gradient visible only in a 1.5 px ring around the button. */
+.glow-button::before {
+  inset: -1.5px;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgb(255 200 87 / 0.2),
+    rgb(255 200 87 / 0.95) 60deg,
+    rgb(98 210 255 / 0.85) 120deg,
+    rgb(255 200 87 / 0.2) 190deg,
+    rgb(255 200 87 / 0.2)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: glow-turn 3.6s linear infinite;
+}
+
+/* The halo behind the button. */
+.glow-button::after {
+  inset: -3px;
+  z-index: -1;
+  box-shadow:
+    0 0 14px 2px rgb(255 200 87 / 0.38),
+    0 0 28px 6px rgb(98 210 255 / 0.12);
+  animation: glow-breathe 2.8s ease-in-out infinite alternate;
+}
+
+.glow-button[data-calm='true']::before {
+  animation: none;
+  background: rgb(255 200 87 / 0.45);
+}
+
+.glow-button[data-calm='true']::after {
+  animation: none;
+  opacity: 0.4;
+}
+
+@keyframes glow-turn {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+@keyframes glow-breathe {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* "To the table" slides in when the visitor leaves the table. */
+.to-table-in {
+  animation: to-table-in 0.35s ease-out both;
+}
+
+@keyframes to-table-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-button::before,
+  .glow-button::after,
+  .to-table-in {
+    animation: none;
+  }
+}

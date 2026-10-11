@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { useMeta } from '../data/hooks';
+import { markAboutSeen } from '../lib/visits';
 import { useAppStore } from '../state/store';
 import { formatCount } from './format';
 import { BackButton, Panel, Row, Section } from './Panel';
@@ -29,7 +30,7 @@ const SOURCES = [
   },
 ] as const;
 
-const HOW_TO = ['about.how1', 'about.how2', 'about.how3', 'about.how4'] as const;
+const HOW_TO = ['about.how1', 'about.how2', 'about.how3', 'about.how4', 'about.how5'] as const;
 
 export function AboutPanel() {
   const { t, i18n } = useTranslation();
@@ -40,6 +41,7 @@ export function AboutPanel() {
   const setPagePanel = useAppStore((state) => state.setPagePanel);
   useEffect(() => {
     setPagePanel(true);
+    markAboutSeen();
     return () => setPagePanel(false);
   }, [setPagePanel]);
 

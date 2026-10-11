@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import { atomColor } from '../data/chemistry';
 import type { Vec3 } from '../data/structure';
 import { formatCount } from '../ui/format';
+import { ClickGuard } from './ClickGuard';
 import type { CompositionPart } from './composition';
 import { partRadius, ringPositions, ringRadius } from './composition';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
@@ -53,6 +54,7 @@ export function CompositionView({ parts, position, elementName }: CompositionVie
   return (
     <group position={position} scale={fit}>
       <group ref={groupRef}>
+        <ClickGuard radius={ring + Math.max(...radii, 0) + 0.2} />
         {parts.map((part, index) => {
           const radius = radii[index] ?? partRadius(part.count);
           const at = positions[index] ?? [0, 0, 0];

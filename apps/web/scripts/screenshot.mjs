@@ -71,6 +71,17 @@ const shots = [
     },
   },
   { name: 'element-fe', path: 'e/Fe', viewport: desktop, quick: true, wait: 3500 },
+  {
+    // A click on empty space leads home: the report's stats must say scene=table.
+    name: 'element-fe-empty-click',
+    path: 'e/Fe',
+    viewport: desktop,
+    wait: 2500,
+    act: async (page) => {
+      await page.waitForTimeout(2500);
+      await page.mouse.click(120, 820);
+    },
+  },
   { name: 'element-u', path: 'e/U', viewport: desktop, wait: 3500 },
   {
     name: 'element-fe-substance',

@@ -354,9 +354,12 @@ export function Scene() {
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       aria-label="3D scene"
       onPointerMissed={() => {
-        // A tap on empty space closes the magnified tile (touch screens).
-        const { scene, hoveredZ, setHoveredZ } = useAppStore.getState();
-        if (scene.kind === 'table' && hoveredZ != null) setHoveredZ(null);
+        // A click on empty space (no tile, ray, bead or model; drags do not count) leads
+        // home: from any scene back to the table, and it closes the About page. On the
+        // table itself it closes the magnified tile (touch screens).
+        const { scene, pagePanel, hoveredZ, setHoveredZ, navigate } = useAppStore.getState();
+        if (scene.kind !== 'table' || pagePanel) navigate('/');
+        else if (hoveredZ != null) setHoveredZ(null);
       }}
     >
       <color attach="background" args={['#070b1a']} />

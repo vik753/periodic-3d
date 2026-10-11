@@ -1,5 +1,5 @@
 $ npm run size
-started: 2026-10-11T04:39:39Z
+started: 2026-10-11T04:43:18Z
 
 > @periodic-3d/web@0.1.0 size
 > node scripts/size-report.mjs
@@ -7,19 +7,20 @@ started: 2026-10-11T04:39:39Z
 *   183.5 KB gz  assets/three-DRTLlGa_.js
 *    82.5 KB gz  assets/react-B7ulV_JK.js
 *    67.2 KB gz  assets/r3f-53utwJi1.js
-*    46.7 KB gz  assets/index-BHuAwq-g.js
-*     8.2 KB gz  assets/index-BPlk6uLN.css
-      2.5 KB gz  assets/ElementPanel-CTOK589K.js
-      2.5 KB gz  assets/RayWalk-CgTXmwd0.js
-      2.5 KB gz  assets/Rays-Cjt49bj7.js
-      2.4 KB gz  assets/StructureView-CFSm4OKY.js
-      2.1 KB gz  assets/CompoundCloud-C4P1pAuC.js
-      1.7 KB gz  assets/CompoundPanel-CAvgzWPg.js
-      1.5 KB gz  assets/SetPanel-CTv3frqK.js
-      1.3 KB gz  assets/AtomModel-wj-_xuA6.js
-      1.2 KB gz  assets/AboutPanel-tIqMSERN.js
-      1.1 KB gz  assets/CompositionView-XC_GKnSs.js
+*    46.9 KB gz  assets/index-Bx7kr11V.js
+*     8.2 KB gz  assets/index-DOWSm1qp.css
+      2.6 KB gz  assets/ElementPanel-ByiQK-fy.js
+      2.5 KB gz  assets/RayWalk-DANOVffK.js
+      2.5 KB gz  assets/Rays-BEPOEdeF.js
+      2.4 KB gz  assets/StructureView-DC02fgFx.js
+      2.1 KB gz  assets/CompoundCloud-DkHwLT6s.js
+      1.8 KB gz  assets/CompoundPanel-x9DAJeCg.js
+      1.5 KB gz  assets/SetPanel-BZ2FHDbd.js
+      1.3 KB gz  assets/AtomModel-nQE-8m34.js
+      1.2 KB gz  assets/AboutPanel-Bqgn3b07.js
+      1.1 KB gz  assets/CompositionView-CM8Efs8L.js
       0.6 KB gz  assets/glow-IVh7SLwZ.js
-initial JS (gzip): 379.9 KB / budget 400 KB
-finished: 2026-10-11T04:39:40Z
+      0.5 KB gz  assets/PhotoFigure-BfJv6EB4.js
+initial JS (gzip): 380.1 KB / budget 400 KB
+finished: 2026-10-11T04:43:18Z
 exit code: 0

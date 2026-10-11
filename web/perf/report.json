@@ -1,0 +1,81 @@
+{
+  "base": "https://vik753.github.io/periodic-3d/",
+  "time": "2026-10-11T04:48:58.094Z",
+  "network": "4G 9 Mbit/s, 170 ms RTT",
+  "profiles": [
+    {
+      "name": "desktop-4g",
+      "cpuSlowdown": 1,
+      "lcpMs": 844,
+      "readyMs": 1731,
+      "scriptKB": 384,
+      "totalKB": 539,
+      "samples": [
+        {
+          "lcp": 916,
+          "domContentLoaded": 808.8999999999651,
+          "load": 809.1999999999534,
+          "calls": 3,
+          "ready": 1802,
+          "scriptKB": 384,
+          "totalKB": 539
+        },
+        {
+          "lcp": 844,
+          "domContentLoaded": 804.9000000000233,
+          "load": 805.2000000000116,
+          "calls": 3,
+          "ready": 1711,
+          "scriptKB": 384,
+          "totalKB": 539
+        },
+        {
+          "lcp": 844,
+          "domContentLoaded": 806.2000000000116,
+          "load": 806.5,
+          "calls": 3,
+          "ready": 1731,
+          "scriptKB": 384,
+          "totalKB": 539
+        }
+      ]
+    },
+    {
+      "name": "phone-4g",
+      "cpuSlowdown": 4,
+      "lcpMs": 1040,
+      "readyMs": 1871,
+      "scriptKB": 384,
+      "totalKB": 539,
+      "samples": [
+        {
+          "lcp": 1040,
+          "domContentLoaded": 901.5,
+          "load": 902.0999999999767,
+          "calls": 3,
+          "ready": 1866,
+          "scriptKB": 384,
+          "totalKB": 539
+        },
+        {
+          "lcp": 1036,
+          "domContentLoaded": 902.1000000000349,
+          "load": 902.9000000000233,
+          "calls": 3,
+          "ready": 1871,
+          "scriptKB": 384,
+          "totalKB": 539
+        },
+        {
+          "lcp": 1044,
+          "domContentLoaded": 912.2000000000116,
+          "load": 912.7000000000116,
+          "calls": 3,
+          "ready": 1879,
+          "scriptKB": 384,
+          "totalKB": 539
+        }
+      ]
+    }
+  ]
+}

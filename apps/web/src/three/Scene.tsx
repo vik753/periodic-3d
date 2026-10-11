@@ -24,6 +24,7 @@ import { AdaptiveQuality } from './AdaptiveQuality';
 import { Dust } from './Dust';
 import { backdropTable, CLOUD_CENTER, recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
+import { TableZoom } from './TableZoom';
 import { maxQualityLevel, pixelRatioFor } from './quality';
 import type { RayLabel } from './Rays';
 import type { BeadLabel } from './RayWalk';
@@ -352,6 +353,11 @@ export function Scene() {
       camera={{ position: [0, 0, 26], fov: CAMERA_FOV, near: 0.1, far: 400 }}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       aria-label="3D scene"
+      onPointerMissed={() => {
+        // A tap on empty space closes the magnified tile (touch screens).
+        const { scene, hoveredZ, setHoveredZ } = useAppStore.getState();
+        if (scene.kind === 'table' && hoveredZ != null) setHoveredZ(null);
+      }}
     >
       <color attach="background" args={['#070b1a']} />
       <fog attach="fog" args={['#070b1a', 34, 95]} />
@@ -360,6 +366,7 @@ export function Scene() {
       <directionalLight position={[-12, -6, 10]} intensity={0.5} color="#8fa2ff" />
       <CameraControls ref={controls} makeDefault smoothTime={0.55} draggingSmoothTime={0.12} />
       <CameraDirector controls={controls} />
+      <TableZoom controls={controls} />
       <PanelAwareViewOffset />
       <AdaptiveQuality />
       <Dust />

@@ -44,7 +44,14 @@ export function cloudOverviewPose(width: number, height: number): Pose {
   return { position: [x, y + distance * 0.12, z + distance], target: [x, y, z] };
 }
 
-function tablePose(aspect: number): Pose {
+/** Scene flights are slow and smooth; wheel steps (TableZoom) set their own smoothing. */
+const FLIGHT_SMOOTH_TIME = 0.55;
+/** Table: as close as one tile filling about half the screen height. */
+export const TABLE_MIN_DISTANCE = 2.4;
+/** Touch pinch on the table: faster than the default, so one pinch reaches one tile. */
+const TABLE_PINCH_SPEED = 1.6;
+
+export function tablePose(aspect: number): Pose {
   const distance = tableFitDistance(aspect, CAMERA_FOV);
   // A slight low angle shows the depth of the curved table without cropping its edges.
   return { position: [0, -distance * 0.09, distance], target: [0, -0.1, 0] };
@@ -72,6 +79,9 @@ export function CameraDirector({ controls }: { controls: RefObject<ControlsRef |
     previousKind.current = scene.kind;
 
     // Free orbit while flying; the table view gets gentle limits afterwards.
+    control.smoothTime = FLIGHT_SMOOTH_TIME;
+    control.dollyToCursor = scene.kind === 'table';
+    control.dollySpeed = scene.kind === 'table' ? TABLE_PINCH_SPEED : 1;
     control.minPolarAngle = 0;
     control.maxPolarAngle = Math.PI;
     control.minAzimuthAngle = -Infinity;
@@ -97,8 +107,9 @@ export function CameraDirector({ controls }: { controls: RefObject<ControlsRef |
       control.maxDistance = Math.max(24, distance * 1.6);
     } else {
       pose = tablePose(aspect);
-      control.minDistance = 6;
-      control.maxDistance = pose.position[2] * 1.8;
+      control.minDistance = TABLE_MIN_DISTANCE;
+      // Zooming out further than the whole table only shrinks it: stop just beyond the fit.
+      control.maxDistance = Math.hypot(pose.position[1] - pose.target[1], pose.position[2] - pose.target[2]) * 1.06;
     }
 
     void control.setLookAt(...pose.position, ...pose.target, animate).then(() => {

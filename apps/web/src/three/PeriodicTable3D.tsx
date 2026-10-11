@@ -1,16 +1,17 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
 import type { Category } from '../data/periodic';
 import { ELEMENTS } from '../data/periodic';
+import { isTouchFirst } from '../lib/device';
 import { useAppStore } from '../state/store';
 import type { AtlasEntry } from './labelAtlas';
 import { atlasCell, createLabelAtlas, createLabelMaterial, drawLabelAtlas, DISPLAY_FONT, TEXT_FONT } from './labelAtlas';
 import type { TableTransform } from './layout';
-import { TABLE_AT_REST, TILE, TILE_DEPTH, tileMatrix, tilePosition } from './layout';
+import { magnifyScale, TABLE_AT_REST, TILE, TILE_DEPTH, tileMatrix, tilePosition } from './layout';
 import { RAY_COLOR } from './colors';
 import { damp } from './useKeepRendering';
 
@@ -86,6 +87,8 @@ export function PeriodicTable3D({
   const tilesRef = useRef<THREE.InstancedMesh>(null);
   const labelsRef = useRef<THREE.InstancedMesh>(null);
   const invalidate = useThree((state) => state.invalidate);
+  const camera = useThree((state) => state.camera);
+  const viewport = useThree((state) => state.size);
 
   const scene = useAppStore((state) => state.scene);
   const hoveredZ = useAppStore((state) => state.hoveredZ);
@@ -121,6 +124,26 @@ export function PeriodicTable3D({
     geometry.setAttribute('aAlpha', new THREE.InstancedBufferAttribute(new Float32Array(COUNT).fill(1), 1));
     return geometry;
   }, []);
+  // Picking uses the tiles at rest: a magnified tile must not cover its neighbours for the pointer.
+  const pickMesh = useMemo(() => {
+    const mesh = new THREE.InstancedMesh(tileGeometry, tileMaterial, COUNT);
+    const matrix = new THREE.Matrix4();
+    positions.forEach((position, index) => mesh.setMatrixAt(index, tileMatrix(position, matrix)));
+    mesh.computeBoundingSphere();
+    return mesh;
+  }, [positions, tileGeometry, tileMaterial]);
+  const pickRaycast = useCallback(
+    (raycaster: THREE.Raycaster, intersects: THREE.Intersection[]) => {
+      const tiles = tilesRef.current;
+      if (!tiles) return;
+      pickMesh.matrixWorld.copy(tiles.matrixWorld);
+      const found: THREE.Intersection[] = [];
+      pickMesh.raycast(raycaster, found);
+      for (const hit of found) intersects.push({ ...hit, object: tiles });
+    },
+    [pickMesh],
+  );
+
   const atlas = useMemo(() => createLabelAtlas(), []);
   const labelMaterial = useMemo(() => createLabelMaterial(atlas), [atlas]);
 
@@ -237,12 +260,23 @@ export function PeriodicTable3D({
     tileMaterial.depthWrite = state.opacity > 0.5;
     labelMaterial.uniforms.uOpacity!.value = state.opacity < 1 ? state.opacity * 0.6 : 1;
 
+    // Magnification of the hovered tile: big enough to read, whatever the zoom.
+    let hoverScale = 1.1;
+    if (pickable && hoveredZ != null && group && camera instanceof THREE.PerspectiveCamera) {
+      const tile = positions[hoveredZ - 1]!;
+      const world = new THREE.Vector3(...tile).applyMatrix4(group.matrixWorld);
+      const distance = Math.max(0.5, camera.position.distanceTo(world));
+      const unitsTall = 2 * distance * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+      hoverScale = magnifyScale((viewport.height / unitsTall) * group.scale.x);
+    }
+
     for (let index = 0; index < COUNT; index += 1) {
       const z = index + 1;
       const isHover = pickable && hoveredZ === z;
       const isSelected = selection.includes(z);
-      const targetScale = activeZ === z ? 0.001 : isHover ? 1.1 : isSelected ? 1.05 : 1;
-      const targetLift = isHover ? 0.32 : isSelected ? 0.18 : 0;
+      const targetScale = activeZ === z ? 0.001 : isHover ? hoverScale : isSelected ? 1.05 : 1;
+      // A magnified tile floats in front of its neighbours.
+      const targetLift = isHover ? 0.3 + 0.45 * (hoverScale - 1) : isSelected ? 0.18 : 0;
       const scale = damp(state.scale[index]!, targetScale, 14, dt);
       const lift = damp(state.lift[index]!, targetLift, 14, dt);
       if (Math.abs(scale - state.scale[index]!) > 1e-4 || Math.abs(lift - state.lift[index]!) > 1e-4) {
@@ -262,7 +296,8 @@ export function PeriodicTable3D({
   });
 
   const handleMove = (event: ThreeEvent<PointerEvent>) => {
-    if (!pickable || event.instanceId == null) return;
+    // On touch screens a tap magnifies (handleClick); dragging must not.
+    if (!pickable || event.instanceId == null || event.pointerType === 'touch') return;
     event.stopPropagation();
     const z = event.instanceId + 1;
     if (z === activeZ) return;
@@ -270,7 +305,8 @@ export function PeriodicTable3D({
     if (elementScene) setHoveredPartner(partners.has(z) ? z : null);
   };
 
-  const handleOut = () => {
+  const handleOut = (event: ThreeEvent<PointerEvent>) => {
+    if (event.pointerType === 'touch') return; // the magnified tile stays until the next tap
     if (hoveredZ != null) setHoveredZ(null);
     if (elementScene && hoveredPartner != null) setHoveredPartner(null);
   };
@@ -282,6 +318,11 @@ export function PeriodicTable3D({
     if (!cell || cell.z === activeZ) return;
     if (interactive && (event.shiftKey || event.ctrlKey || event.metaKey || useAppStore.getState().selectMode)) {
       toggleSelection(cell.z);
+      return;
+    }
+    // Touch: the first tap magnifies the tile and shows its card; a second tap opens it.
+    if (interactive && isTouchFirst() && hoveredZ !== cell.z) {
+      setHoveredZ(cell.z);
       return;
     }
     setHoveredZ(null);
@@ -304,7 +345,7 @@ export function PeriodicTable3D({
       <instancedMesh
         ref={tilesRef}
         args={[tileGeometry, tileMaterial, COUNT]}
-        raycast={pickable ? THREE.InstancedMesh.prototype.raycast : noRaycast}
+        raycast={pickable ? pickRaycast : noRaycast}
         onPointerMove={handleMove}
         onPointerOut={handleOut}
         onClick={handleClick}

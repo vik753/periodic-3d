@@ -145,3 +145,14 @@ export function tileWorldPosition(cell: Pick<ElementCell, 'col' | 'row'>, transf
   const { position, scale } = transform;
   return [position[0] + scale * x, position[1] + scale * y, position[2] + scale * (z + TILE_DEPTH / 2)];
 }
+
+/** A hovered (or tapped) tile grows until it is about this tall on screen, in CSS pixels. */
+const MAGNIFIED_PX = 132;
+const MAGNIFY_MIN = 1.2;
+const MAGNIFY_MAX = 3.4;
+
+/** Scale that makes a tile `MAGNIFIED_PX` tall, given how many pixels one world unit takes. */
+export function magnifyScale(pixelsPerUnit: number): number {
+  const tilePx = Math.max(1, pixelsPerUnit * TILE);
+  return Math.min(MAGNIFY_MAX, Math.max(MAGNIFY_MIN, MAGNIFIED_PX / tilePx));
+}

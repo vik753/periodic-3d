@@ -114,6 +114,7 @@ const resources = {
       },
       hint: {
         table: 'Натисніть на елемент, щоб зануритися в нього. Shift або Ctrl + клік — вибрати кілька й побачити їхні спільні сполуки.',
+        tableTouch: 'Торкніться елемента, щоб збільшити його; ще раз — відкрити. Два пальці — наблизити таблицю.',
         rotate: 'Тягніть, щоб обертати. Колесо або два пальці — наблизити.',
         select: 'Торкайтеся елементів, щоб додати їх до вибору.',
       },
@@ -161,6 +162,7 @@ const resources = {
         demo: 'Демо-дані: набір даних ще не опубліковано.',
         error: 'Не вдалося завантажити дані. Перевірте з’єднання.',
       },
+      preview: { open: 'Відкрити', click: 'Клацніть, щоб відкрити' },
       photo: {
         label: 'Фото',
         open: 'Відкрити фото на Wikimedia Commons',
@@ -280,6 +282,7 @@ const resources = {
       },
       hint: {
         table: 'Нажмите на элемент, чтобы погрузиться в него. Shift или Ctrl + клик — выбрать несколько и увидеть их общие соединения.',
+        tableTouch: 'Коснитесь элемента, чтобы увеличить его; ещё раз — открыть. Два пальца — приблизить таблицу.',
         rotate: 'Тяните, чтобы вращать. Колесо или два пальца — приблизить.',
         select: 'Касайтесь элементов, чтобы добавить их к выбору.',
       },
@@ -327,6 +330,7 @@ const resources = {
         demo: 'Демо-данные: набор данных ещё не опубликован.',
         error: 'Не удалось загрузить данные. Проверьте соединение.',
       },
+      preview: { open: 'Открыть', click: 'Щёлкните, чтобы открыть' },
       photo: {
         label: 'Фото',
         open: 'Открыть фото на Wikimedia Commons',
@@ -444,6 +448,7 @@ const resources = {
       },
       hint: {
         table: 'Click an element to dive in. Shift or Ctrl + click selects several to see their shared compounds.',
+        tableTouch: 'Tap an element to magnify it; tap again to open it. Pinch to zoom the table.',
         rotate: 'Drag to rotate. Scroll or pinch to zoom.',
         select: 'Tap elements to add them to the selection.',
       },
@@ -487,6 +492,7 @@ const resources = {
         demo: 'Demo data: the dataset is not published yet.',
         error: 'Could not load the data. Check the connection.',
       },
+      preview: { open: 'Open', click: 'Click to open' },
       photo: {
         label: 'Photo',
         open: 'Open the photo on Wikimedia Commons',

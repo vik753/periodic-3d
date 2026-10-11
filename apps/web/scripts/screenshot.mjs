@@ -15,7 +15,7 @@ const set = process.env.SCREENSHOT_SET ?? 'full';
 const desktop = { width: 1440, height: 900 };
 const phone = { width: 390, height: 844 };
 
-/** @type {Array<{name: string, path: string, viewport: {width: number, height: number}, dpr?: number, wait?: number, quick?: boolean, lang?: string, act?: (page: import('@playwright/test').Page) => Promise<void>}>} */
+/** @type {Array<{name: string, path: string, viewport: {width: number, height: number}, dpr?: number, wait?: number, quick?: boolean, lang?: string, touch?: boolean, act?: (page: import('@playwright/test').Page) => Promise<void>}>} */
 const shots = [
   { name: 'table', path: '', viewport: desktop, quick: true },
   {
@@ -25,6 +25,29 @@ const shots = [
     act: async (page) => {
       const point = await page.evaluate(() => window.__p3d?.project?.('Fe') ?? null);
       if (point) await page.mouse.move(point.x, point.y, { steps: 4 });
+    },
+  },
+  {
+    name: 'table-zoom-fe',
+    path: '',
+    viewport: desktop,
+    wait: 1500,
+    act: async (page) => {
+      const point = await page.evaluate(() => window.__p3d?.project?.('Fe') ?? null);
+      if (!point) return;
+      await page.mouse.move(point.x, point.y, { steps: 4 });
+      await page.mouse.wheel(0, -400); // one firm scroll towards Fe
+    },
+  },
+  {
+    name: 'phone-table-tap-fe',
+    path: '',
+    viewport: phone,
+    dpr: 2,
+    touch: true,
+    act: async (page) => {
+      const point = await page.evaluate(() => window.__p3d?.project?.('Fe') ?? null);
+      if (point) await page.touchscreen.tap(point.x, point.y);
     },
   },
   {
@@ -134,6 +157,8 @@ for (const shot of shots) {
   const context = await browser.newContext({
     viewport: shot.viewport,
     deviceScaleFactor: shot.dpr ?? 1,
+    hasTouch: shot.touch ?? false,
+    isMobile: shot.touch ?? false,
     locale: shot.lang === 'ru' ? 'ru-RU' : shot.lang === 'en' ? 'en-US' : 'uk-UA',
   });
   const page = await context.newPage();

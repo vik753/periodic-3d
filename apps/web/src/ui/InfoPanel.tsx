@@ -1,9 +1,13 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router';
 
+import { pickName } from '../data/api';
+import { useElements } from '../data/hooks';
 import { ELEMENTS } from '../data/periodic';
+import { isTouchFirst } from '../lib/device';
 import { useAppStore } from '../state/store';
+import { formatNumber } from './format';
 import { Panel, Skeleton } from './Panel';
 
 // Panels load with their scene; the table needs only the hint below.
@@ -20,8 +24,68 @@ function Loading() {
   );
 }
 
+/** Card of the magnified tile: readable facts, and on touch screens a button to open it. */
+function TilePreview({ z }: { z: number }) {
+  const { t, i18n } = useTranslation();
+  const elements = useElements();
+  const setHoveredZ = useAppStore((state) => state.setHoveredZ);
+  const cell = ELEMENTS[z - 1];
+  if (!cell) return null;
+  const summary = elements.data?.elements.find((element) => element.z === z);
+  const name = pickName(summary?.names, i18n.language);
+  const touch = isTouchFirst();
+  return (
+    <div
+      role="status"
+      className="pointer-events-auto flex w-full items-center gap-4 rounded-2xl bg-panel px-4 py-3 ring-1 ring-rim backdrop-blur-md sm:w-auto sm:min-w-[22rem]"
+    >
+      <div className="text-center">
+        <p className="text-xs tabular-nums text-muted">{z}</p>
+        <p className="font-display text-3xl font-semibold leading-none">{cell.symbol}</p>
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-base font-medium">{name || cell.symbol}</p>
+        <p className="truncate text-xs text-muted">
+          {t(`category.${cell.category}`)}
+          {summary?.mass != null && <> · {formatNumber(summary.mass, i18n.language, 3)}</>}
+        </p>
+        {summary && summary.compoundCount > 0 && (
+          <p className="truncate text-xs text-muted">{t('element.compoundCount', { count: summary.compoundCount })}</p>
+        )}
+      </div>
+      {touch ? (
+        <Link
+          to={`/e/${cell.symbol}`}
+          onClick={() => setHoveredZ(null)}
+          className="shrink-0 rounded-full bg-gold px-3 py-1.5 text-sm font-semibold text-ink"
+        >
+          {t('preview.open')}
+        </Link>
+      ) : (
+        <p className="shrink-0 text-xs text-muted">{t('preview.click')}</p>
+      )}
+    </div>
+  );
+}
+
+/** The hovered element, kept for a moment while the pointer crosses the gap between tiles. */
+function useLingeringHover(delayMs = 350): number | null {
+  const hoveredZ = useAppStore((state) => state.hoveredZ);
+  const [shown, setShown] = useState<number | null>(hoveredZ);
+  useEffect(() => {
+    if (hoveredZ != null) {
+      setShown(hoveredZ);
+      return undefined;
+    }
+    const timer = window.setTimeout(() => setShown(null), delayMs);
+    return () => window.clearTimeout(timer);
+  }, [hoveredZ, delayMs]);
+  return hoveredZ ?? shown;
+}
+
 function TableHint() {
   const { t } = useTranslation();
+  const hoveredZ = useLingeringHover();
   const selection = useAppStore((state) => state.selection);
   const clearSelection = useAppStore((state) => state.clearSelection);
   const selectMode = useAppStore((state) => state.selectMode);
@@ -49,6 +113,7 @@ function TableHint() {
           </button>
         </div>
       )}
+      {hoveredZ != null && <TilePreview z={hoveredZ} />}
       <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
@@ -61,7 +126,7 @@ function TableHint() {
           {t(selectMode ? 'selection.modeOn' : 'selection.mode')}
         </button>
         <p className="rounded-2xl bg-panel/60 px-4 py-2 text-sm text-muted backdrop-blur-sm">
-          {t(selectMode ? 'hint.select' : 'hint.table')}
+          {t(selectMode ? 'hint.select' : isTouchFirst() ? 'hint.tableTouch' : 'hint.table')}
         </p>
       </div>
     </div>

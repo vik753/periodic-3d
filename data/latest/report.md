@@ -1,24 +1,24 @@
-# Отчёт о наборе данных 2026.10.11-r13
+# Отчёт о наборе данных 2026.10.11-r14
 
-- Соединений: 49; с 3D-структурой: 42.
+- Соединений: 49; с 3D-структурой: 45.
 - С описанием: RU 29, UK 26, EN 47.
 - С названием: RU 36, UK 28, EN 49.
 - Пар элементов: 3.
 - Элементов без соединений: He, Li, Be, B, C, N, F, Ne, Na, Mg, Al, Si, P, S, Cl, Ar, K, Ca, Sc, Ti, V, Cr, Mn, Co, Ni, Cu, Zn, Ga, Ge, As, Se, Br, Kr, Rb, Sr, Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd, In, Sn, Sb, Te, I, Xe, Cs, Ba, La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg, Tl, Pb, Bi, Po, At, Rn, Fr, Ra, Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No, Lr, Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn, Nh, Fl, Mc, Lv, Ts, Og.
 - Структуры больше 80000 байт: 0 [].
-- Время сборки: 2 с.
+- Время сборки: 22 с.
 
 ## Источники структур
 
 | Метрика | Значение |
 | --- | --- |
 | pubchem_3d_available | 17 |
-| rdkit_embedded | 11 |
+| rdkit_embedded | 18 |
 | rejected_crystal_units | 3 |
 | structure_crystal_crystal | 16 |
-| structure_none | 7 |
+| structure_none | 4 |
 | structure_pubchem3d_molecule | 17 |
-| structure_rdkit_molecule | 9 |
+| structure_rdkit_molecule | 12 |
 | vectors_compounds | 49 |
 | vectors_elements | 3 |
 
@@ -27,6 +27,7 @@
 | Метрика | Значение |
 | --- | --- |
 | cache_hit | 36 |
+| fetched | 2 |
 
 ## Топ-40 классов Wikidata
 
@@ -69,7 +70,7 @@
 - FeO(OH) — Лепидокрокит (26 статей, crystal materialsproject)
 - O₃⁻ — Озониды (26 статей, molecule rdkit)
 - HD — Дейтерид водорода (22 статей, molecule rdkit)
-- H₃⁺ — Катион тригидрогена (21 статей, — )
+- H₃⁺ — Катион тригидрогена (21 статей, molecule rdkit)
 - FeO — Вюстит (20 статей, crystal materialsproject)
 - HO₂ — Гидропероксильный радикал (19 статей, molecule rdkit)
 - O₄ — Тетракислород (17 статей, — )
@@ -79,12 +80,12 @@
 - HDO — Полутяжёлая вода (14 статей, molecule pubchem)
 - H₂ — Молекулярный водород (14 статей, molecule rdkit)
 - O₂⁺ — Диоксигенил (14 статей, molecule rdkit)
-- FeO₄²⁻ — Ferrate(VI) ion (13 статей, — )
+- FeO₄²⁻ — Ferrate(VI) ion (13 статей, molecule rdkit)
 - O₃ — Циклический озон (13 статей, molecule pubchem)
 - Fe₁₀O₁₄(OH)₂ — Ферригидрит (11 статей, crystal materialsproject)
 - H₃ — Triatomic hydrogen (11 статей, — )
 - FeO(OH) — Feroxyhyte (10 статей, crystal materialsproject)
-- FeH₃O₃ — Гидроксид железа(III) (9 статей, — )
+- FeH₃O₃ — Гидроксид железа(III) (9 статей, molecule rdkit)
 - FeH₂ — Iron(II) hydride (8 статей, molecule rdkit)
 - Fe(OH)₂ — Амакинит (7 статей, crystal materialsproject)
 - H₂O₅ — Pentaoxidane (6 статей, molecule pubchem)

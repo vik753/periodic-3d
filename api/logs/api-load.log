@@ -1,5 +1,5 @@
 $ uv run p3d-api load out/dataset/dataset.tar.gz
-started: 2026-10-11T04:51:34Z
-loaded 2026.10.11-r21: 118 elements, 49 compounds (45 with 3D), 3 pairs, 5 classes
-finished: 2026-10-11T04:51:35Z
+started: 2026-10-11T05:13:09Z
+loaded 2026.10.11-r22: 118 elements, 27202 compounds (25555 with 3D), 1997 pairs, 113 classes
+finished: 2026-10-11T05:13:44Z
 exit code: 0

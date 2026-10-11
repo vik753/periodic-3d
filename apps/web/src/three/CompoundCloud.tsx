@@ -11,19 +11,25 @@ import { useAppStore } from '../state/store';
 import type { ControlsRef } from './CameraDirector';
 import { cloudOverviewPose } from './CameraDirector';
 import { createGlowMaterial, glowGeometry } from './glow';
+import { CLOUD_MAX } from './cloudLimits';
+import { VIOLET_COLOR } from './colors';
 import { CLOUD_CENTER, CLOUD_RADIUS } from './layout';
 import { StructureView } from './StructureView';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
 
-export const CLOUD_MAX = 90;
+export { CLOUD_MAX };
 const ORB_RADIUS = 0.085;
 const FOCUS_RADIUS = 0.75;
 const LABELED = 8;
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
 
-/** Colours: compounds of exactly the selected elements are gold, those with other elements cyan. */
+/**
+ * Colours: compounds of exactly the selected elements are gold, those with other elements
+ * cyan, predicted materials (GNoME) violet.
+ */
 const GOLD = new THREE.Color('#ffc857');
 const CYAN = new THREE.Color('#62d2ff');
+const VIOLET = new THREE.Color(VIOLET_COLOR);
 const WHITE = new THREE.Color('#ffffff');
 
 /**
@@ -105,7 +111,7 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
     const color = new THREE.Color();
     items.forEach((entry, index) => {
       const exact = entry.zs.every((z) => selectedSet.has(z));
-      color.copy(exact ? GOLD : CYAN);
+      color.copy(entry.predicted ? VIOLET : exact ? GOLD : CYAN);
       glow.setColorAt(index, color);
       orbs.setColorAt(index, color.lerp(WHITE, 0.45));
     });
@@ -179,7 +185,7 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
     event.stopPropagation();
     const entry = items[event.instanceId];
     if (!entry) return;
-    if (entry.id === focus) useAppStore.getState().navigate(`/c/${entry.id}`);
+    if (entry.id === focus) useAppStore.getState().navigate(entry.predicted ? `/m/${entry.id}` : `/c/${entry.id}`);
     else setFocus(entry.id);
   };
 
@@ -237,7 +243,9 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
             >
               <div
                 className={`whitespace-nowrap rounded-xl px-2.5 py-0.5 text-center backdrop-blur-md ${
-                  slot.strong ? 'bg-panel ring-1 ring-cyan/50' : 'bg-panel/40'
+                  slot.strong
+                    ? `bg-panel ring-1 ${entry?.predicted ? 'ring-violet/60' : 'ring-cyan/50'}`
+                    : 'bg-panel/40'
                 }`}
               >
                 <div className={`font-display font-semibold text-text ${slot.strong ? 'text-sm' : 'text-[11px] opacity-80'}`}>

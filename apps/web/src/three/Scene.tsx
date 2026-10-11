@@ -10,6 +10,7 @@ import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
 import { crystalFromCell } from '../data/crystal';
 import {
+  isMaterialId,
   useCompound,
   useElement,
   useElements,
@@ -24,7 +25,7 @@ import { pairPath } from '../data/source';
 import type { IndexEntry } from '../data/compoundIndex';
 import { useAppStore } from '../state/store';
 import { formulaOrder } from '../ui/format';
-import { useCloud } from '../state/useCloud';
+import { cloudEntries, useCloud } from '../state/useCloud';
 import type { ControlsRef } from './CameraDirector';
 import { CAMERA_FOV, CameraDirector, cloudOverviewPose, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import type { CloudLabel } from './CompoundCloud';
@@ -380,7 +381,19 @@ export function Scene() {
   const cloudState = useCloud();
   const cloudHover = useAppStore((state) => state.cloudHover);
   const cloudFocus = useAppStore((state) => state.cloudFocus);
-  const cloudFocusCompound = useCompound(scene.kind === 'set' ? cloudFocus : null);
+  // The orb in focus is a known compound (Wikidata id) or a predicted material (hex id).
+  const cloudFocusIsMaterial = cloudFocus != null && isMaterialId(cloudFocus);
+  const cloudFocusCompound = useCompound(scene.kind === 'set' && !cloudFocusIsMaterial ? cloudFocus : null);
+  const cloudFocusMaterial = useMaterial(scene.kind === 'set' && cloudFocusIsMaterial ? cloudFocus : null);
+  const cloudFocusStructure = useMemo(
+    () =>
+      cloudFocusIsMaterial
+        ? cloudFocusMaterial.data
+          ? crystalFromCell(cloudFocusMaterial.data.structure)
+          : null
+        : (cloudFocusCompound.data?.structure ?? null),
+    [cloudFocusIsMaterial, cloudFocusMaterial.data, cloudFocusCompound.data],
+  );
   const cloudLabel = useCallback(
     (entry: IndexEntry): CloudLabel => ({ formula: entry.formula, name: pickName(entry.names, i18n.language) }),
     [i18n.language],
@@ -388,16 +401,27 @@ export function Scene() {
   const cloud = useMemo(() => {
     const result = cloudState.result;
     if (scene.kind !== 'set' || !result) return undefined;
-    const hovered = result.items.find((entry) => entry.id === (cloudHover ?? cloudFocus));
+    // Known compounds in the core, predicted materials (violet) around them.
+    const entries = cloudEntries(result.items, cloudState.predicted?.entries ?? []);
+    const hovered = entries.find((entry) => entry.id === (cloudHover ?? cloudFocus));
     return {
-      entries: result.items,
+      entries,
       selected: cloudState.zs,
       extras: new Set(result.extras.keys()),
       strongExtras: new Set(hovered ? hovered.zs.filter((z) => !cloudState.zs.includes(z)) : []),
-      focusStructure: cloudFocusCompound.data?.structure ?? null,
+      focusStructure: cloudFocusStructure,
       labelFor: cloudLabel,
     };
-  }, [scene.kind, cloudState.result, cloudState.zs, cloudHover, cloudFocus, cloudFocusCompound.data, cloudLabel]);
+  }, [
+    scene.kind,
+    cloudState.result,
+    cloudState.predicted,
+    cloudState.zs,
+    cloudHover,
+    cloudFocus,
+    cloudFocusStructure,
+    cloudLabel,
+  ]);
 
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);

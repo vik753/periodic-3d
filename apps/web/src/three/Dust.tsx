@@ -27,6 +27,7 @@ const HEIGHT = 76;
 export function Dust() {
   const active = useAppStore((state) => state.scene.kind === 'table');
   const invalidate = useThree((state) => state.invalidate);
+  const gl = useThree((state) => state.gl);
   const pointsRef = useRef<THREE.Points>(null);
   const reducedMotion = useMemo(() => prefersReducedMotion(), []);
   const count = useMemo(() => (isTouchFirst() ? 380 : 700), []);
@@ -64,6 +65,7 @@ export function Dust() {
           uTime: { value: 0 },
           uFade: { value: 1 },
           uHeight: { value: HEIGHT },
+          uPixelRatio: { value: 1 },
           uCool: { value: new THREE.Color('#a9bcff') },
           uWarm: { value: new THREE.Color('#ffd27a') },
         },
@@ -73,6 +75,7 @@ export function Dust() {
           uniform float uTime;
           uniform float uFade;
           uniform float uHeight;
+          uniform float uPixelRatio;
           varying float vAlpha;
           varying float vWarm;
           void main() {
@@ -85,13 +88,14 @@ export function Dust() {
             p.x += sin(uTime * 0.19 + aSeed * 41.0) * (0.6 + aSeed) + sin(uTime * 0.06 + aSeed * 13.0) * 1.4;
             p.z += sin(uTime * 0.15 + aSeed * 29.0) * 0.6;
             vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
-            gl_PointSize = max(aSize * (42.0 / max(-mvPosition.z, 1.0)), 1.0);
+            // Sizes in CSS pixels: 2–4 px motes next to the table, specks in deep space.
+            gl_PointSize = max(aSize * (95.0 / max(-mvPosition.z, 1.0)), 1.2) * uPixelRatio;
             gl_Position = projectionMatrix * mvPosition;
             // Fade at the top and bottom of the loop so no mote pops in or out.
             float edge = wrapped / uHeight;
             float loopFade = smoothstep(0.0, 0.08, edge) * smoothstep(1.0, 0.92, edge);
             float twinkle = 0.72 + 0.28 * sin(uTime * (0.7 + aSeed * 1.9) + aSeed * 61.0);
-            vAlpha = uFade * loopFade * twinkle * mix(0.62, 0.34, depth);
+            vAlpha = uFade * loopFade * twinkle * mix(0.9, 0.5, depth);
             vWarm = step(0.94, aSeed);
           }
         `,
@@ -147,6 +151,7 @@ export function Dust() {
     else invalidate();
     material.uniforms.uTime!.value = time.current;
     material.uniforms.uFade!.value = fade.current;
+    material.uniforms.uPixelRatio!.value = gl.getPixelRatio();
     points.visible = fade.current > 0;
   });
 

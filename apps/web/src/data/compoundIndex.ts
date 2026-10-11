@@ -23,6 +23,8 @@ export interface IndexEntry {
   plainFormula: string;
   /** Wikidata "mineral species". */
   mineral: boolean;
+  /** A predicted material (GNoME layer), not a known compound: violet orb, opens /m/<id>. */
+  predicted?: boolean;
 }
 
 const FLAG_MINERAL = 1;

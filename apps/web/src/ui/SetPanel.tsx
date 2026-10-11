@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router';
 
 import { pickName } from '../data/api';
 import { COMPOUND_GROUPS } from '../data/compoundIndex';
-import { useElements } from '../data/hooks';
+import { useElements, useGnome } from '../data/hooks';
 import { elementByZ } from '../data/periodic';
 import { useAppStore } from '../state/store';
 import { useCloud } from '../state/useCloud';
+import { PredictedBadge } from './MaterialPanel';
 import { Panel, Section, Skeleton, StatusNote } from './Panel';
 
 const LIST_LIMIT = 60;
@@ -25,14 +26,18 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
   const focus = useAppStore((state) => state.cloudFocus);
   const setHover = useAppStore((state) => state.setCloudHover);
   const setFocus = useAppStore((state) => state.setCloudFocus);
-  const { result, isPending, unavailable } = useCloud();
+  const { result, predicted, predictedPending, isPending, unavailable } = useCloud();
+  const gnome = useGnome();
+  const showPredicted = useAppStore((state) => state.showPredicted);
+  const setShowPredicted = useAppStore((state) => state.setShowPredicted);
   const nameOf = (symbol: string) =>
     pickName(elements.data?.elements.find((element) => element.symbol === symbol)?.names, i18n.language);
 
   const extras = result
     ? [...result.extras.entries()].sort((a, b) => b[1] - a[1]).slice(0, EXTRAS_SHOWN)
     : [];
-  const focused = result?.items.find((entry) => entry.id === focus);
+  const focused = result?.items.find((entry) => entry.id === focus) ?? predicted?.entries.find((entry) => entry.id === focus);
+  const openPath = (entry: { id: string; predicted?: boolean }) => (entry.predicted ? `/m/${entry.id}` : `/c/${entry.id}`);
 
   return (
     <Panel label={t('cloud.title')}>
@@ -91,17 +96,43 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
         </div>
       )}
 
+      {gnome && (
+        <div className="mt-3">
+          <button
+            type="button"
+            aria-pressed={showPredicted}
+            onClick={() => setShowPredicted(!showPredicted)}
+            className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ring-1 transition-colors ${
+              showPredicted ? 'bg-violet/20 text-text ring-violet/70' : 'text-violet ring-violet/40 hover:bg-violet/10'
+            }`}
+          >
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-violet" />
+            {t(showPredicted ? 'cloud.hidePredicted' : 'cloud.showPredicted')}
+          </button>
+        </div>
+      )}
+
       {isPending && <Skeleton lines={5} />}
       {unavailable && <StatusNote>{t('status.demo')}</StatusNote>}
       {result && <p className="mt-3 text-sm text-muted">{t('cloud.count', { count: result.total })}</p>}
+      {predicted && <p className="text-sm text-violet">{t('rays.predicted', { count: predicted.total })}</p>}
+      {predictedPending && <Skeleton lines={1} />}
 
       {focused && (
-        <div className="mt-4 rounded-2xl bg-white/[0.04] p-3 ring-1 ring-cyan/40">
+        <div
+          className={`mt-4 rounded-2xl bg-white/[0.04] p-3 ring-1 ${focused.predicted ? 'ring-violet/50' : 'ring-cyan/40'}`}
+        >
           <p className="font-display text-2xl font-semibold leading-tight">{focused.formula}</p>
-          <p className="mt-1 text-sm">{pickName(focused.names, i18n.language)}</p>
+          {focused.predicted ? (
+            <div className="mt-2">
+              <PredictedBadge />
+            </div>
+          ) : (
+            <p className="mt-1 text-sm">{pickName(focused.names, i18n.language)}</p>
+          )}
           <div className="mt-3 flex gap-2">
             <Link
-              to={`/c/${focused.id}`}
+              to={openPath(focused)}
               className="rounded-full bg-text px-3 py-1.5 text-sm font-semibold text-ink transition-colors hover:bg-gold"
             >
               {t('rays.open')}
@@ -150,7 +181,7 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
                   type="button"
                   onMouseEnter={() => setHover(entry.id)}
                   onFocus={() => setHover(entry.id)}
-                  onClick={() => (entry.id === focus ? navigate(`/c/${entry.id}`) : setFocus(entry.id))}
+                  onClick={() => (entry.id === focus ? navigate(openPath(entry)) : setFocus(entry.id))}
                   aria-current={entry.id === focus ? 'true' : undefined}
                   className={`-mx-2 flex w-[calc(100%+1rem)] items-baseline gap-3 rounded-xl px-2 py-1.5 text-left transition-colors ${
                     entry.id === focus ? 'bg-cyan/10 ring-1 ring-cyan/50' : entry.id === hover ? 'bg-white/5' : 'hover:bg-white/5'
@@ -162,6 +193,34 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
               </li>
             ))}
           </ol>
+        </Section>
+      )}
+      {predicted && predicted.entries.length > 0 && (
+        <Section title={t('predicted.title')}>
+          <ol className="flex flex-col" onMouseLeave={() => setHover(null)}>
+            {predicted.entries.map((entry) => (
+              <li key={entry.id}>
+                <button
+                  type="button"
+                  onMouseEnter={() => setHover(entry.id)}
+                  onFocus={() => setHover(entry.id)}
+                  onClick={() => (entry.id === focus ? navigate(openPath(entry)) : setFocus(entry.id))}
+                  aria-current={entry.id === focus ? 'true' : undefined}
+                  className={`-mx-2 flex w-[calc(100%+1rem)] items-baseline gap-3 rounded-xl px-2 py-1.5 text-left transition-colors ${
+                    entry.id === focus
+                      ? 'bg-violet/12 ring-1 ring-violet/50'
+                      : entry.id === hover
+                        ? 'bg-white/5'
+                        : 'hover:bg-white/5'
+                  }`}
+                >
+                  <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 self-center rounded-full bg-violet" />
+                  <span className="min-w-0 truncate font-display text-sm font-medium">{entry.formula}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-2 text-xs leading-relaxed text-muted">{t('predicted.hint')}</p>
         </Section>
       )}
       {result && result.total === 0 && <StatusNote>{t('cloud.empty')}</StatusNote>}

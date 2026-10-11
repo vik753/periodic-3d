@@ -133,6 +133,16 @@ const shots = [
   { name: 'phone-walk-fe-o', path: 'e/Fe/O', viewport: phone, dpr: 2, wait: 5000 },
   { name: 'phone-element-o-rays', path: 'e/O', viewport: phone, dpr: 2, wait: 4500 },
   { name: 'set-fe-o', path: 'set/Fe-O', viewport: desktop, quick: true, wait: 4500 },
+  {
+    // Predicted materials join the cloud as violet orbs around the known compounds.
+    name: 'set-fe-o-predicted',
+    path: 'set/Fe-O',
+    viewport: desktop,
+    wait: 5500,
+    act: async (page) => {
+      await page.getByRole('button', { name: '+ передбачені матеріали' }).click({ timeout: 15_000 });
+    },
+  },
   { name: 'set-o', path: 'set/O', viewport: desktop, wait: 4500 },
   { name: 'phone-set-fe-o', path: 'set/Fe-O', viewport: phone, dpr: 2, wait: 4500 },
   { name: 'compound-hematite', path: 'c/Q103223', viewport: desktop, quick: true, wait: 4000 },

@@ -230,6 +230,14 @@ const resources = {
         error: 'Не вдалося завантажити дані. Перевірте з’єднання.',
       },
       preview: { open: 'Відкрити', click: 'Клацніть, щоб відкрити' },
+      report: {
+        link: 'Повідомити про помилку',
+        hint: 'відкриється задача на GitHub з номером запису.',
+        titleSuffix: 'помилка в даних',
+        page: 'Сторінка',
+        what: 'Що не так',
+        source: 'Джерело, де правильно (за можливості)',
+      },
       photo: {
         label: 'Фото',
         open: 'Відкрити фото на Wikimedia Commons',
@@ -472,6 +480,14 @@ const resources = {
         error: 'Не удалось загрузить данные. Проверьте соединение.',
       },
       preview: { open: 'Открыть', click: 'Щёлкните, чтобы открыть' },
+      report: {
+        link: 'Сообщить об ошибке',
+        hint: 'откроется задача на GitHub с номером записи.',
+        titleSuffix: 'ошибка в данных',
+        page: 'Страница',
+        what: 'Что не так',
+        source: 'Источник, где правильно (если есть)',
+      },
       photo: {
         label: 'Фото',
         open: 'Открыть фото на Wikimedia Commons',
@@ -703,6 +719,14 @@ const resources = {
         error: 'Could not load the data. Check the connection.',
       },
       preview: { open: 'Open', click: 'Click to open' },
+      report: {
+        link: 'Report an error',
+        hint: 'opens a GitHub issue with the record ID.',
+        titleSuffix: 'data error',
+        page: 'Page',
+        what: 'What is wrong',
+        source: 'A source with the right value (if any)',
+      },
       photo: {
         label: 'Photo',
         open: 'Open the photo on Wikimedia Commons',

@@ -10,6 +10,7 @@ import { NotFoundError } from '../data/source';
 import { formatCharge, formatCount, formatNumber, formulaOrder } from './format';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
+import { ReportLink } from './ReportLink';
 
 /** Wikidata classes too generic to show ("type of chemical entity", "group of isomers"…). */
 const GENERIC_CLASSES = new Set([
@@ -157,6 +158,7 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
 
       {compound.structure && <p className="mt-5 text-sm text-muted">{t('hint.rotate')}</p>}
       <Sources sources={compound.sources} />
+      <ReportLink kind="compound" id={compound.id} title={compound.formula} />
     </Panel>
   );
 }

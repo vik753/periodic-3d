@@ -14,6 +14,7 @@ import { formatNumber } from './format';
 import { PredictedBadge } from './MaterialPanel';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
+import { ReportLink } from './ReportLink';
 
 const PARTNERS_SHOWN = 18;
 
@@ -450,6 +451,7 @@ export function ElementPanel({ symbol, partner, predicted }: { symbol: string; p
         </>
       )}
       {detail.isError && !detail.unavailable && <StatusNote>{t('status.error')}</StatusNote>}
+      {data && <ReportLink kind="element" id={cell.symbol} title={name || cell.symbol} />}
     </Panel>
   );
 }

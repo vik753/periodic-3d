@@ -7,6 +7,7 @@ import { useElements, useGnome, useMaterial } from '../data/hooks';
 import { NotFoundError } from '../data/source';
 import { formatCount, formatNumber, formulaOrder } from './format';
 import { BackButton, Panel, Row, Section, Skeleton } from './Panel';
+import { ReportLink } from './ReportLink';
 
 /** Below this band gap (eV) the calculation describes a conductor. */
 const METALLIC_GAP_EV = 0.1;
@@ -173,6 +174,7 @@ function MaterialCard({ material }: { material: Material }) {
 
       <p className="mt-5 text-sm text-muted">{t('hint.rotate')}</p>
       <Attribution gnome={gnome} id={material.id} />
+      <ReportLink kind="material" id={material.id} title={material.formula} />
     </Panel>
   );
 }

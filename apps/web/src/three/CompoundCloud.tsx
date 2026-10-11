@@ -48,6 +48,19 @@ export function cloudPositions(count: number, radius = CLOUD_RADIUS): THREE.Vect
   return points;
 }
 
+/** Predicted materials (GNoME) sit on a thin shell around the known compounds: a violet halo. */
+export function shellPositions(count: number, radius: number): THREE.Vector3[] {
+  const points: THREE.Vector3[] = [];
+  for (let i = 0; i < count; i += 1) {
+    const y = 1 - (2 * (i + 0.5)) / Math.max(count, 1);
+    const ring = Math.sqrt(Math.max(0, 1 - y * y));
+    const theta = GOLDEN_ANGLE * i + 0.9;
+    const r = radius * (1 + 0.06 * Math.sin(i * 2.3));
+    points.push(new THREE.Vector3(Math.cos(theta) * ring * r, y * r * 0.8, Math.sin(theta) * ring * r));
+  }
+  return points;
+}
+
 export interface CloudLabel {
   formula: string;
   name: string;
@@ -81,7 +94,18 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
   useKeepRendering(true);
 
   const items = useMemo(() => entries.slice(0, CLOUD_MAX), [entries]);
-  const positions = useMemo(() => cloudPositions(items.length), [items.length]);
+  // Known compounds come first in `items`; predicted ones (if any) follow.
+  const knownCount = useMemo(() => items.filter((entry) => !entry.predicted).length, [items]);
+  const positions = useMemo(
+    () =>
+      knownCount === items.length
+        ? cloudPositions(items.length)
+        : [
+            ...cloudPositions(knownCount, CLOUD_RADIUS * 0.78),
+            ...shellPositions(items.length - knownCount, CLOUD_RADIUS * 1.1),
+          ],
+    [items.length, knownCount],
+  );
   const strongest = useMemo(() => Math.max(1, ...items.map((entry) => entry.fame)), [items]);
   const selectedSet = useMemo(() => new Set(selected), [selected]);
   const focusIndex = items.findIndex((entry) => entry.id === focus);

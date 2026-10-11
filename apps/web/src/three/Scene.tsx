@@ -14,10 +14,12 @@ import type { StructureData } from '../data/structure';
 import { pairPath } from '../data/source';
 import type { IndexEntry } from '../data/compoundIndex';
 import { useAppStore } from '../state/store';
+import { formulaOrder } from '../ui/format';
 import { useCloud } from '../state/useCloud';
 import type { ControlsRef } from './CameraDirector';
 import { CAMERA_FOV, CameraDirector, cloudOverviewPose, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import type { CloudLabel } from './CompoundCloud';
+import type { CompositionPart } from './composition';
 import { Dust } from './Dust';
 import { backdropTable, CLOUD_CENTER, recededTable, STAGE_POSITION, TABLE_AT_REST, tilePosition } from './layout';
 import { PeriodicTable3D } from './PeriodicTable3D';
@@ -27,6 +29,7 @@ import { damp } from './useKeepRendering';
 
 // Scene parts beyond the table load on demand: the first screen needs only the table.
 const AtomModel = lazy(() => import('./AtomModel').then((module) => ({ default: module.AtomModel })));
+const CompositionView = lazy(() => import('./CompositionView').then((module) => ({ default: module.CompositionView })));
 const CompoundCloud = lazy(() => import('./CompoundCloud').then((module) => ({ default: module.CompoundCloud })));
 const Rays = lazy(() => import('./Rays').then((module) => ({ default: module.Rays })));
 const RayWalk = lazy(() => import('./RayWalk').then((module) => ({ default: module.RayWalk })));
@@ -156,14 +159,24 @@ function ElementWorld({ controls, names, partners, substance, labelFor, walk, cl
 interface CompoundStageProps {
   id: string | null;
   structure: StructureData | null;
+  /** Composition for compounds without a 3D model (proteins, alloys, mixtures). */
+  parts: CompositionPart[] | null;
   elementName?: (symbol: string) => string | undefined;
 }
 
-function CompoundStage({ id, structure, elementName }: CompoundStageProps) {
-  if (!id || !structure) return null;
+function CompoundStage({ id, structure, parts, elementName }: CompoundStageProps) {
+  if (!id) return null;
+  if (structure) {
+    return (
+      <Suspense fallback={null}>
+        <StructureView key={id} data={structure} position={STAGE_POSITION} elementName={elementName} elementLabels />
+      </Suspense>
+    );
+  }
+  if (!parts || parts.length === 0) return null;
   return (
     <Suspense fallback={null}>
-      <StructureView key={id} data={structure} position={STAGE_POSITION} elementName={elementName} elementLabels />
+      <CompositionView key={id} parts={parts} position={STAGE_POSITION} elementName={elementName} />
     </Suspense>
   );
 }
@@ -320,6 +333,11 @@ export function Scene() {
   const compoundId = scene.kind === 'compound' ? scene.id : null;
   const compound = useCompound(compoundId);
   const structure = compoundId ? (demoCompound(compoundId)?.structure ?? compound.data?.structure ?? null) : null;
+  const parts = useMemo(() => {
+    const data = compound.data;
+    if (!data || data.structure) return null;
+    return formulaOrder(data.formula, data.elements).map((symbol) => ({ symbol, count: data.composition[symbol] ?? 0 }));
+  }, [compound.data]);
 
   return (
     <Canvas
@@ -349,7 +367,7 @@ export function Scene() {
         cloud={cloud}
         elementName={elementName}
       />
-      <CompoundStage id={compoundId} structure={structure} elementName={elementName} />
+      <CompoundStage id={compoundId} structure={structure} parts={parts} elementName={elementName} />
       <RenderStats />
     </Canvas>
   );

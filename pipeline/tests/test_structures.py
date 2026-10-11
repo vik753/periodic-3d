@@ -183,4 +183,4 @@ def test_crystal_fragment_recovers_cubic_iron_from_a_noisy_cell() -> None:
     cell = np.array(structure["cell"])
     lengths = np.linalg.norm(cell, axis=1)
     assert np.allclose(lengths, lengths[0], atol=1e-3)  # idealized to cubic
-    assert len(structure["atoms"]) == 9  # body centre + 8 corners
+    assert len(structure["atoms"]) == 27 + 8  # 2×2×2 cells: corners and body centres

@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 import type { CompoundDetail, ElementDetail, ElementList, Meta, PairDetail } from './api';
+import { registerElementColors } from './chemistry';
 import { fetchJson, metaUrl, NotFoundError, resourceUrl } from './source';
 
 /** Retry network hiccups, not missing files. */
@@ -35,7 +37,11 @@ function useDataset<T>(path: string | null) {
 }
 
 export function useElements() {
-  return useDataset<ElementList>('elements');
+  const query = useDataset<ElementList>('elements');
+  useEffect(() => {
+    if (query.data) registerElementColors(query.data.elements);
+  }, [query.data]);
+  return query;
 }
 
 export function useElement(symbol: string | null) {

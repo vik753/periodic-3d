@@ -33,8 +33,25 @@ const COVALENT_RADIUS: Readonly<Record<string, number>> = {
 const FALLBACK_COLOR = '#C8D0E0';
 const FALLBACK_RADIUS = 1.5;
 
+/**
+ * Deliberate departures from Jmol. Oxygen sits next to the red rays in most scenes;
+ * the pure #FF0D0D merged with them, a softer coral keeps it red but distinct.
+ */
+const STYLE: Readonly<Record<string, string>> = { O: '#F0564A' };
+
+/** CPK colours of all 118 elements from the dataset (fills gaps in the table above). */
+let datasetColors: Record<string, string> = {};
+
+export function registerElementColors(elements: ReadonlyArray<{ symbol: string; cpk: string | null }>): void {
+  const colors: Record<string, string> = {};
+  for (const element of elements) {
+    if (element.cpk) colors[element.symbol] = element.cpk;
+  }
+  datasetColors = colors;
+}
+
 export function atomColor(symbol: string, override?: string | null): string {
-  return override ?? CPK[symbol] ?? FALLBACK_COLOR;
+  return override ?? STYLE[symbol] ?? CPK[symbol] ?? datasetColors[symbol] ?? FALLBACK_COLOR;
 }
 
 export function covalentRadius(symbol: string): number {

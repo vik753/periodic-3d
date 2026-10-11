@@ -1,0 +1,8 @@
+$ uv run p3d-pipeline verify ../data/build/2026.10.11-r32 --report ../data/build/2026.10.11-r32/verify.md
+started: 2026-10-11T11:11:35Z
+# Золотой набор: 19 из 19 в порядке
+
+Все эталонные вещества совпали.
+
+finished: 2026-10-11T11:11:35Z
+exit code: 0

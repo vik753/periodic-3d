@@ -1,2 +1,2 @@
-requests: 900, errors: 0, concurrency: 32, rps: 114
-latency ms: p50 129.4, p95 777.4, p99 937.6, max 1168.4
+requests: 900, errors: 0, concurrency: 32, rps: 111
+latency ms: p50 135.4, p95 631.1, p99 891.3, max 1262.8

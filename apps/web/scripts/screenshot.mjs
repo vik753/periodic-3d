@@ -106,6 +106,18 @@ const shots = [
   { name: 'element-o-rays', path: 'e/O', viewport: desktop, quick: true, wait: 4500 },
   { name: 'walk-fe-o', path: 'e/Fe/O', viewport: desktop, quick: true, wait: 5000 },
   {
+    // Violet rays of predicted materials (GNoME) next to the red ones.
+    name: 'element-fe-predicted',
+    path: 'e/Fe',
+    viewport: desktop,
+    wait: 4500,
+    act: async (page) => {
+      await page.getByRole('button', { name: 'Показати фіолетові промені' }).click({ timeout: 15_000 });
+    },
+  },
+  { name: 'walk-fe-o-predicted', path: 'e/Fe/O/predicted', viewport: desktop, quick: true, wait: 6000 },
+  { name: 'phone-walk-fe-o-predicted', path: 'e/Fe/O/predicted', viewport: phone, dpr: 2, wait: 6000 },
+  {
     name: 'walk-fe-o-step3',
     path: 'e/Fe/O',
     viewport: desktop,

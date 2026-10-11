@@ -4,7 +4,7 @@ import { parseSceneRoute, scenePath } from './route';
 
 describe('scene routes', () => {
   it('parses every scene and builds the same path back', () => {
-    const paths = ['/', '/e/Fe', '/e/Fe/O', '/c/Q283', '/m/df6697e2c1', '/set/Fe-O'];
+    const paths = ['/', '/e/Fe', '/e/Fe/O', '/e/Fe/O/predicted', '/c/Q283', '/m/df6697e2c1', '/set/Fe-O'];
     for (const path of paths) expect(scenePath(parseSceneRoute(path))).toBe(path);
   });
 

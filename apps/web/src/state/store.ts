@@ -21,6 +21,10 @@ interface AppState {
   hoveredAtom: number | null;
   /** Partner element (atomic number) whose ray is under the pointer, or null. */
   hoveredPartner: number | null;
+  /** The ray under the pointer belongs to predicted materials (violet), not known compounds. */
+  hoveredPredicted: boolean;
+  /** Show the layer of predicted materials (GNoME): violet rays and cloud beads. */
+  showPredicted: boolean;
   /** Compound in focus while walking along a ray (index in the pair list). */
   walkIndex: number;
   /** Multi-element cloud: "contains at least these" or "only these" elements. */
@@ -43,7 +47,8 @@ interface AppState {
   setCloudGroup: (group: CompoundGroup) => void;
   setNavigate: (navigate: Navigate) => void;
   setHoveredAtom: (index: number | null) => void;
-  setHoveredPartner: (z: number | null) => void;
+  setHoveredPartner: (z: number | null, predicted?: boolean) => void;
+  setShowPredicted: (show: boolean) => void;
   setWalkIndex: (index: number) => void;
   setCloudMode: (mode: CloudMode) => void;
   setCloudHover: (id: string | null) => void;
@@ -58,6 +63,8 @@ export const useAppStore = create<AppState>((set) => ({
   selectMode: false,
   hoveredAtom: null,
   hoveredPartner: null,
+  hoveredPredicted: false,
+  showPredicted: false,
   walkIndex: 0,
   cloudMode: 'contains',
   cloudGroup: 'all',
@@ -95,7 +102,8 @@ export const useAppStore = create<AppState>((set) => ({
   setCloudGroup: (cloudGroup) => set({ cloudGroup, cloudFocus: null, cloudHover: null }),
   setNavigate: (navigate) => set({ navigate }),
   setHoveredAtom: (hoveredAtom) => set({ hoveredAtom }),
-  setHoveredPartner: (hoveredPartner) => set({ hoveredPartner }),
+  setHoveredPartner: (hoveredPartner, predicted = false) => set({ hoveredPartner, hoveredPredicted: predicted }),
+  setShowPredicted: (showPredicted) => set({ showPredicted }),
   setWalkIndex: (walkIndex) => set({ walkIndex }),
   setCloudMode: (cloudMode) => set({ cloudMode, cloudFocus: null }),
   setCloudHover: (cloudHover) => set({ cloudHover }),
@@ -104,5 +112,11 @@ export const useAppStore = create<AppState>((set) => ({
 }));
 
 function sameRay(a: SceneRoute, b: SceneRoute): boolean {
-  return a.kind === 'element' && b.kind === 'element' && a.symbol === b.symbol && a.partner === b.partner;
+  return (
+    a.kind === 'element' &&
+    b.kind === 'element' &&
+    a.symbol === b.symbol &&
+    a.partner === b.partner &&
+    Boolean(a.predicted) === Boolean(b.predicted)
+  );
 }

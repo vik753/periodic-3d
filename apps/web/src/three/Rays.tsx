@@ -9,7 +9,7 @@ import type { Partner } from '../data/api';
 import { elementByZ } from '../data/periodic';
 import type { Vec3 } from '../data/structure';
 import { useAppStore } from '../state/store';
-import { RAY_COLOR } from './colors';
+import { RAY_COLOR, VIOLET_COLOR } from './colors';
 import type { TableTransform } from './layout';
 import { tileWorldPosition } from './layout';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
@@ -33,8 +33,9 @@ export interface RayCurve {
 /**
  * One gently curved ray per partner: from the atom to the partner's tile on the
  * receded table. The bend turns the same way for all rays, like a slow spiral.
+ * bend −1 curves the other way: rays of predicted materials run beside the known ones.
  */
-export function buildRayCurves(origin: Vec3, partners: Partner[], transform: TableTransform): RayCurve[] {
+export function buildRayCurves(origin: Vec3, partners: Partner[], transform: TableTransform, bend = 1): RayCurve[] {
   const start = new THREE.Vector3(...origin);
   const strongest = Math.max(1, ...partners.map((partner) => partner.count));
   const curves: RayCurve[] = [];
@@ -48,7 +49,7 @@ export function buildRayCurves(origin: Vec3, partners: Partner[], transform: Tab
     const side = new THREE.Vector3(0, 0, 1).cross(direction);
     if (side.lengthSq() < 1e-6) side.set(1, 0, 0);
     side.normalize();
-    const control = start.clone().lerp(end, 0.45).addScaledVector(side, length * 0.07);
+    const control = start.clone().lerp(end, 0.45).addScaledVector(side, length * 0.07 * bend);
     const from = start.clone().addScaledVector(direction.normalize(), 0.12);
     curves.push({
       z: partner.z,
@@ -79,13 +80,13 @@ function rayGeometry(curves: RayCurve[], radius: (ray: RayCurve) => number, segm
  * Two passes share one geometry: a bright core and a wide, faint halo (the vertex shader
  * pushes the halo out along the normals). Together they read as a beam of light.
  */
-function createRayMaterial(halo: boolean): THREE.ShaderMaterial {
+function createRayMaterial(halo: boolean, color: string): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
     uniforms: {
       uTime: { value: 0 },
       uGrow: { value: 0 },
       uHover: { value: -1 },
-      uColor: { value: new THREE.Color(RAY_COLOR) },
+      uColor: { value: new THREE.Color(color) },
       uOpacity: { value: 1 },
       uExpand: { value: halo ? 0.075 : 0 },
       uHalo: { value: halo ? 1 : 0 },
@@ -168,16 +169,37 @@ interface RaysProps {
   labelFor: (partner: Partner) => RayLabel;
   /** The ray of the walk (if any) stays bright; the others fade. */
   activeZ?: number | null;
+  /** Rays of predicted materials (GNoME): violet, bent the other way, walk to /predicted. */
+  predicted?: boolean;
+  /** Another set of rays holds the walk: these step back. */
+  dimmed?: boolean;
 }
 
-export function Rays({ origin, focusSymbol, partners, transform, labelFor, activeZ = null }: RaysProps) {
-  const curves = useMemo(() => buildRayCurves(origin, partners, transform), [origin, partners, transform]);
+export function Rays({
+  origin,
+  focusSymbol,
+  partners,
+  transform,
+  labelFor,
+  activeZ = null,
+  predicted = false,
+  dimmed = false,
+}: RaysProps) {
+  const bend = predicted ? -1 : 1;
+  const curves = useMemo(
+    () => buildRayCurves(origin, partners, transform, bend),
+    [origin, partners, transform, bend],
+  );
   const geometry = useMemo(() => rayGeometry(curves, (ray) => 0.01 + 0.032 * ray.weight, SEGMENTS), [curves]);
   const hitGeometry = useMemo(() => rayGeometry(curves, () => HIT_RADIUS, 24), [curves]);
-  const material = useMemo(() => createRayMaterial(false), []);
-  const haloMaterial = useMemo(() => createRayMaterial(true), []);
+  const color = predicted ? VIOLET_COLOR : RAY_COLOR;
+  const material = useMemo(() => createRayMaterial(false, color), [color]);
+  const haloMaterial = useMemo(() => createRayMaterial(true, color), [color]);
   const hitMaterial = useMemo(() => new THREE.MeshBasicMaterial({ visible: false }), []);
-  const hoveredPartner = useAppStore((state) => state.hoveredPartner);
+  // Both sets of rays share the hover state; each reacts only to its own rays.
+  const hoveredPartner = useAppStore((state) =>
+    state.hoveredPredicted === predicted ? state.hoveredPartner : null,
+  );
   const setHoveredPartner = useAppStore((state) => state.setHoveredPartner);
   const reducedMotion = useMemo(() => prefersReducedMotion(), []);
   const age = useRef(0);
@@ -210,7 +232,9 @@ export function Rays({ origin, focusSymbol, partners, transform, labelFor, activ
     const grow = reducedMotion ? 1.05 : age.current < GROW_DELAY_S ? 0 : damp(uniforms.uGrow!.value as number, 1.05, 2.6, dt);
     uniforms.uGrow!.value = grow;
     uniforms.uHover!.value = highlightedIndex;
+    uniforms.uOpacity!.value = damp(uniforms.uOpacity!.value as number, dimmed ? 0.3 : 1, 4, dt);
     const halo = haloMaterial.uniforms;
+    halo.uOpacity!.value = uniforms.uOpacity!.value;
     halo.uTime!.value = uniforms.uTime!.value;
     halo.uGrow!.value = grow;
     halo.uHover!.value = highlightedIndex;
@@ -224,7 +248,7 @@ export function Rays({ origin, focusSymbol, partners, transform, labelFor, activ
   const onMove = (event: ThreeEvent<PointerEvent>) => {
     event.stopPropagation();
     const ray = rayAt(event);
-    if (ray && ray.z !== hoveredPartner) setHoveredPartner(ray.z);
+    if (ray && ray.z !== hoveredPartner) setHoveredPartner(ray.z, predicted);
     document.body.style.cursor = 'pointer';
   };
   const onOut = () => {
@@ -235,7 +259,7 @@ export function Rays({ origin, focusSymbol, partners, transform, labelFor, activ
     if (event.delta > 6) return;
     event.stopPropagation();
     const ray = rayAt(event);
-    if (ray) useAppStore.getState().navigate(`/e/${focusSymbol}/${ray.symbol}`);
+    if (ray) useAppStore.getState().navigate(`/e/${focusSymbol}/${ray.symbol}${predicted ? '/predicted' : ''}`);
   };
 
   const hovered = curves[highlightedIndex];
@@ -255,7 +279,11 @@ export function Rays({ origin, focusSymbol, partners, transform, labelFor, activ
         zIndexRange={[20, 0]}
         style={{ pointerEvents: 'none', visibility: label && activeZ == null ? 'visible' : 'hidden' }}
       >
-        <div className="whitespace-nowrap rounded-xl bg-panel px-3 py-1.5 text-center ring-1 ring-ray/50 backdrop-blur-md">
+        <div
+          className={`whitespace-nowrap rounded-xl bg-panel px-3 py-1.5 text-center ring-1 backdrop-blur-md ${
+            predicted ? 'ring-violet/60' : 'ring-ray/50'
+          }`}
+        >
           <div className="font-display text-sm font-semibold text-text">{label?.title}</div>
           <div className="text-xs text-muted">{label?.subtitle}</div>
         </div>

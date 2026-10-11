@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import type {
   CompoundDetail,
@@ -13,6 +13,15 @@ import type {
   PairDetail,
 } from './api';
 import { registerElementColors } from './chemistry';
+import { elementBySymbol, elementByZ } from './periodic';
+import {
+  filterMaterials,
+  materialSummary,
+  predictedCount,
+  predictedPairCount,
+  predictedPartners,
+  rarestElement,
+} from './predicted';
 import { fetchJson, metaUrl, NotFoundError, resourceUrl } from './source';
 
 /** Retry network hiccups, not missing files. */
@@ -115,4 +124,54 @@ export function useMaterialPairs(enabled = true) {
 /** Every predicted material that contains the element; loaded only when asked for. */
 export function useMaterialsByElement(symbol: string | null) {
   return useGnomeFile<MaterialList>(symbol ? `materials/by-element/${symbol}` : null);
+}
+
+/** Rays of predicted materials for an element: partners and the element's own count. */
+export function usePredictedPartners(symbol: string | null, enabled: boolean) {
+  const cell = symbol ? elementBySymbol(symbol) : undefined;
+  const pairs = useMaterialPairs(enabled && Boolean(cell));
+  const data = useMemo(
+    () =>
+      pairs.data && cell
+        ? { partners: predictedPartners(pairs.data, cell.z), count: predictedCount(pairs.data, cell.z) }
+        : undefined,
+    [pairs.data, cell],
+  );
+  return { ...pairs, data };
+}
+
+/** How many predicted beads a walk shows (RayWalk draws at most 30). */
+export const PREDICTED_WALK_SIZE = 30;
+
+/**
+ * Predicted materials of a set of elements, read from the list of its rarest element:
+ * the simplest and most stable first. A pair is a set of two.
+ */
+export function usePredictedSet(symbols: string[] | null, mode: 'contains' | 'only' = 'contains', limit = PREDICTED_WALK_SIZE) {
+  const key = symbols?.join('-') ?? '';
+  const zs = useMemo(
+    () => (key ? key.split('-').map((symbol) => elementBySymbol(symbol)?.z ?? 0).filter((z) => z > 0) : []),
+    [key],
+  );
+  const pairs = useMaterialPairs(zs.length > 0);
+  const rarest = pairs.data ? rarestElement(pairs.data, zs) : null;
+  const rarestSymbol = rarest != null ? (elementByZ(rarest)?.symbol ?? null) : null;
+  // An element without predicted materials has no list file: the set is empty.
+  const hasList = Boolean(pairs.data && rarest != null && predictedCount(pairs.data, rarest) > 0);
+  const list = useMaterialsByElement(hasList ? rarestSymbol : null);
+  const data = useMemo(() => {
+    if (!pairs.data) return undefined;
+    if (!hasList) return { total: 0, materials: [] };
+    if (!list.data) return undefined;
+    const symbolsInSet = zs.map((z) => elementByZ(z)?.symbol ?? '');
+    const rows = filterMaterials(list.data, symbolsInSet, mode);
+    const total = zs.length === 2 && mode === 'contains' ? predictedPairCount(pairs.data, zs[0]!, zs[1]!) : rows.length;
+    return { total, materials: rows.slice(0, limit).map(materialSummary) };
+  }, [pairs.data, hasList, list.data, zs, mode, limit]);
+  return {
+    data,
+    isPending: data === undefined && !pairs.isError && !list.isError && !pairs.unavailable,
+    isError: pairs.isError || list.isError,
+    unavailable: pairs.unavailable,
+  };
 }

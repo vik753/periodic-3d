@@ -9,6 +9,7 @@ import type { CompoundSummary, Partner } from '../data/api';
 import type { StructureData, Vec3 } from '../data/structure';
 import { useAppStore } from '../state/store';
 import type { ControlsRef } from './CameraDirector';
+import { VIOLET_COLOR } from './colors';
 import { createGlowMaterial, glowGeometry } from './glow';
 import type { TableTransform } from './layout';
 import { buildRayCurves } from './Rays';
@@ -49,6 +50,8 @@ interface RayWalkProps {
   focusStructure: StructureData | null;
   labelFor: (compound: CompoundSummary) => BeadLabel;
   elementName?: (symbol: string) => string | undefined;
+  /** Beads are predicted materials (GNoME): violet, on the violet ray, open /m/<id>. */
+  predicted?: boolean;
 }
 
 /**
@@ -65,6 +68,7 @@ export function RayWalk({
   focusStructure,
   labelFor,
   elementName,
+  predicted = false,
 }: RayWalkProps) {
   const camera = useThree((state) => state.camera);
   const gl = useThree((state) => state.gl);
@@ -76,7 +80,11 @@ export function RayWalk({
   const reducedMotion = useMemo(() => prefersReducedMotion(), []);
   useKeepRendering(true);
 
-  const curve = useMemo(() => buildRayCurves(origin, [partner], transform)[0]?.curve ?? null, [origin, partner, transform]);
+  const bend = predicted ? -1 : 1;
+  const curve = useMemo(
+    () => buildRayCurves(origin, [partner], transform, bend)[0]?.curve ?? null,
+    [origin, partner, transform, bend],
+  );
   const beads = useMemo(() => compounds.slice(0, MAX_BEADS), [compounds]);
   const count = beads.length;
   const index = Math.min(walkIndex, Math.max(count - 1, 0));
@@ -87,8 +95,14 @@ export function RayWalk({
 
   const sphere = useMemo(() => new THREE.SphereGeometry(1, 16, 12), []);
   const material = useMemo(
-    () => new THREE.MeshBasicMaterial({ color: '#ffd6da', transparent: true, opacity: 0.9, toneMapped: false }),
-    [],
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: predicted ? '#e6dcff' : '#ffd6da',
+        transparent: true,
+        opacity: 0.9,
+        toneMapped: false,
+      }),
+    [predicted],
   );
   const sizes = useRef<Float32Array>(new Float32Array(MAX_BEADS));
   const quad = useMemo(() => glowGeometry(), []);
@@ -225,11 +239,11 @@ export function RayWalk({
     if (!mesh || !glow) return;
     mesh.count = count;
     glow.count = count;
-    const color = new THREE.Color('#ff6b7a');
+    const color = new THREE.Color(predicted ? VIOLET_COLOR : '#ff6b7a');
     for (let i = 0; i < count; i += 1) glow.setColorAt(i, color);
     if (glow.instanceColor) glow.instanceColor.needsUpdate = true;
     sizes.current.fill(0);
-  }, [count]);
+  }, [count, predicted]);
 
   const scratch = useMemo(() => ({ matrix: new THREE.Matrix4(), a: new THREE.Vector3(), b: new THREE.Vector3() }), []);
   useFrame((_, delta) => {
@@ -269,7 +283,7 @@ export function RayWalk({
     event.stopPropagation();
     if (event.instanceId === index) {
       const compound = beads[index];
-      if (compound) useAppStore.getState().navigate(`/c/${compound.id}`);
+      if (compound) useAppStore.getState().navigate(predicted ? `/m/${compound.id}` : `/c/${compound.id}`);
     } else {
       setWalkIndex(event.instanceId);
     }
@@ -327,7 +341,7 @@ export function RayWalk({
           >
             <div
               className={`whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md ${
-                focused ? 'bg-panel ring-1 ring-ray/60' : 'bg-panel/50 opacity-70'
+                focused ? `bg-panel ring-1 ${predicted ? 'ring-violet/60' : 'ring-ray/60'}` : 'bg-panel/50 opacity-70'
               }`}
             >
               <div className={`font-display font-semibold text-text ${focused ? 'text-base' : 'text-xs'}`}>

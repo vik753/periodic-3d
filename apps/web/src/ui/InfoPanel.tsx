@@ -139,7 +139,14 @@ function ScenePanel() {
   const location = useLocation();
   if (location.pathname === '/about') return <AboutPanel />;
   if (scene.kind === 'element')
-    return <ElementPanel key={`${scene.symbol}/${scene.partner ?? ''}`} symbol={scene.symbol} partner={scene.partner} />;
+    return (
+      <ElementPanel
+        key={`${scene.symbol}/${scene.partner ?? ''}/${scene.predicted ? 'p' : ''}`}
+        symbol={scene.symbol}
+        partner={scene.partner}
+        predicted={scene.predicted}
+      />
+    );
   if (scene.kind === 'compound') return <CompoundPanel key={scene.id} id={scene.id} />;
   if (scene.kind === 'material') return <MaterialPanel key={scene.id} id={scene.id} />;
   if (scene.kind === 'set') return <SetPanel symbols={scene.symbols} />;

@@ -5,12 +5,13 @@ import { Link, useNavigate } from 'react-router';
 import type { CompoundSummary, ElementDetail, Partner } from '../data/api';
 import { pickName } from '../data/api';
 import { DEMO_COMPOUNDS } from '../data/demo';
-import { useElement, usePair } from '../data/hooks';
+import { useElement, useGnome, usePair, usePredictedPartners, usePredictedSet } from '../data/hooks';
 import type { ElementCell } from '../data/periodic';
 import { condensedConfiguration, elementBySymbol, shellsOf } from '../data/periodic';
 import { pairPath } from '../data/source';
 import { useAppStore } from '../state/store';
 import { formatNumber } from './format';
+import { PredictedBadge } from './MaterialPanel';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
 
@@ -77,6 +78,141 @@ function Partners({ element, partners }: { element: ElementCell; partners: Partn
       </ul>
       <p className="mt-2 text-xs text-muted">{t('rays.hint')}</p>
     </Section>
+  );
+}
+
+/**
+ * The layer of predicted materials for this element: how many, a switch for the violet
+ * rays and, when they show, the partners with the most predicted crystals.
+ */
+function PredictedSection({ element }: { element: ElementCell }) {
+  const { t } = useTranslation();
+  const showPredicted = useAppStore((state) => state.showPredicted);
+  const setShowPredicted = useAppStore((state) => state.setShowPredicted);
+  const hoveredPartner = useAppStore((state) => (state.hoveredPredicted ? state.hoveredPartner : null));
+  const setHoveredPartner = useAppStore((state) => state.setHoveredPartner);
+  const predicted = usePredictedPartners(element.symbol, true);
+  const count = predicted.data?.count ?? 0;
+  return (
+    <Section title={t('predicted.title')}>
+      {predicted.isPending ? (
+        <Skeleton lines={2} />
+      ) : (
+        <p className="text-sm">{count > 0 ? t('predicted.count', { count }) : t('predicted.none')}</p>
+      )}
+      {count > 0 && (
+        <button
+          type="button"
+          aria-pressed={showPredicted}
+          onClick={() => setShowPredicted(!showPredicted)}
+          className={`mt-3 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium ring-1 transition-colors ${
+            showPredicted ? 'bg-violet/20 text-text ring-violet/70' : 'text-violet ring-violet/40 hover:bg-violet/10'
+          }`}
+        >
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-violet" />
+          {t(showPredicted ? 'predicted.hide' : 'predicted.show')}
+        </button>
+      )}
+      {showPredicted && predicted.data && predicted.data.partners.length > 0 && (
+        <ul className="mt-3 flex flex-wrap gap-1.5" onMouseLeave={() => setHoveredPartner(null)}>
+          {predicted.data.partners.slice(0, PARTNERS_SHOWN).map((partner) => (
+            <li key={partner.z}>
+              <Link
+                to={`/e/${element.symbol}/${partner.symbol}/predicted`}
+                onMouseEnter={() => setHoveredPartner(partner.z, true)}
+                onFocus={() => setHoveredPartner(partner.z, true)}
+                onBlur={() => setHoveredPartner(null)}
+                className={`inline-flex items-baseline gap-1.5 rounded-full px-2.5 py-1 text-sm ring-1 transition-colors ${
+                  hoveredPartner === partner.z ? 'bg-violet/15 ring-violet/60' : 'ring-violet/30 hover:bg-violet/10'
+                }`}
+              >
+                <span className="font-display font-medium">{partner.symbol}</span>
+                <span className="text-xs tabular-nums text-muted">{partner.count}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      {count > 0 && <p className="mt-2 text-xs leading-relaxed text-muted">{t('predicted.hint')}</p>}
+    </Section>
+  );
+}
+
+/** Walking along a violet ray: predicted materials of the pair, simplest and most stable first. */
+function PredictedWalkPanel({ element, partner }: { element: ElementCell; partner: ElementCell }) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const set = usePredictedSet([element.symbol, partner.symbol]);
+  const walkIndex = useAppStore((state) => state.walkIndex);
+  const setWalkIndex = useAppStore((state) => state.setWalkIndex);
+  const listRef = useRef<HTMLOListElement>(null);
+  const materials = set.data?.materials ?? [];
+  const focus = materials[walkIndex];
+
+  useEffect(() => {
+    const item = listRef.current?.children[walkIndex] as HTMLElement | undefined;
+    item?.scrollIntoView({ block: 'nearest' });
+  }, [walkIndex]);
+
+  const title = t('rays.predictedWalkTitle', { a: element.symbol, b: partner.symbol });
+  return (
+    <Panel label={title}>
+      <button
+        type="button"
+        onClick={() => navigate(`/e/${element.symbol}`)}
+        className="mb-4 rounded-full px-3 py-1 text-sm text-muted ring-1 ring-rim transition-colors hover:text-text"
+      >
+        {t('rays.back', { symbol: element.symbol })}
+      </button>
+      <p className="font-display text-4xl font-semibold leading-none tracking-tight">
+        {element.symbol}
+        <span className="mx-2 text-violet">—</span>
+        {partner.symbol}
+      </p>
+      <h1 className="mt-3 text-lg font-medium">{title}</h1>
+      <div className="mt-2">
+        <PredictedBadge />
+      </div>
+      {set.data && (
+        <p className="mt-2 text-sm text-muted">
+          {t('rays.predicted', { count: set.data.total })}
+          {set.data.total > materials.length && (
+            <> · {t('rays.predictedShown', { shown: materials.length, total: set.data.total })}</>
+          )}
+        </p>
+      )}
+      <p className="mt-3 text-xs leading-relaxed text-muted">{t('rays.predictedWalkHint')}</p>
+      {set.isPending && <Skeleton lines={5} />}
+      {set.isError && <StatusNote>{t('status.error')}</StatusNote>}
+      <ol ref={listRef} className="mt-4 flex flex-col">
+        {materials.map((material, index) => (
+          <li key={material.id}>
+            <button
+              type="button"
+              onClick={() => (index === walkIndex ? navigate(`/m/${material.id}`) : setWalkIndex(index))}
+              aria-current={index === walkIndex ? 'true' : undefined}
+              className={`-mx-2 flex w-[calc(100%+1rem)] items-baseline gap-3 rounded-xl px-2 py-1.5 text-left transition-colors ${
+                index === walkIndex ? 'bg-violet/12 ring-1 ring-violet/50' : 'hover:bg-white/5'
+              }`}
+            >
+              <span className="w-6 shrink-0 text-right text-xs tabular-nums text-muted">{index + 1}</span>
+              <span className="min-w-0 truncate font-display text-sm font-medium">{material.formula}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+      {focus && (
+        <Link
+          to={`/m/${focus.id}`}
+          className="mt-4 inline-flex rounded-full bg-text px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-violet"
+        >
+          {t('rays.open')}: {focus.formula}
+        </Link>
+      )}
+      <p className="mt-4 text-xs leading-relaxed text-muted">
+        GNoME (Google DeepMind), CC BY-NC 4.0. {t('material.licenseNote')}
+      </p>
+    </Panel>
   );
 }
 
@@ -218,12 +354,14 @@ function ElementFacts({ cell, data }: { cell: ElementCell; data: ElementDetail |
   );
 }
 
-export function ElementPanel({ symbol, partner }: { symbol: string; partner?: string }) {
+export function ElementPanel({ symbol, partner, predicted }: { symbol: string; partner?: string; predicted?: boolean }) {
   const { t, i18n } = useTranslation();
   const cell = elementBySymbol(symbol);
   const partnerCell = partner ? elementBySymbol(partner) : undefined;
   const detail = useElement(cell ? cell.symbol : null);
+  const gnome = useGnome();
   if (!cell) return null;
+  if (partnerCell && predicted) return <PredictedWalkPanel element={cell} partner={partnerCell} />;
   if (partnerCell) return <WalkPanel element={cell} partner={partnerCell} />;
   const data = detail.data;
   const language = i18n.language;
@@ -262,6 +400,8 @@ export function ElementPanel({ symbol, partner }: { symbol: string; partner?: st
       )}
 
       {data && data.partners.length > 0 && <Partners element={cell} partners={data.partners} />}
+
+      {gnome && <PredictedSection element={cell} />}
 
       {data && data.topCompounds.length > 0 && (
         <Section title={t('element.compounds')}>

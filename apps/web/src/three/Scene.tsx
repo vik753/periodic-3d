@@ -9,7 +9,15 @@ import type { CompoundSummary, Partner } from '../data/api';
 import { pickName } from '../data/api';
 import { demoCompound } from '../data/demo';
 import { crystalFromCell } from '../data/crystal';
-import { useCompound, useElement, useElements, useMaterial, usePair } from '../data/hooks';
+import {
+  useCompound,
+  useElement,
+  useElements,
+  useMaterial,
+  usePair,
+  usePredictedPartners,
+  usePredictedSet,
+} from '../data/hooks';
 import { elementBySymbol } from '../data/periodic';
 import type { StructureData } from '../data/structure';
 import { pairPath } from '../data/source';
@@ -58,6 +66,9 @@ interface ElementWorldProps {
   controls: RefObject<ControlsRef | null>;
   names?: ReadonlyMap<number, string>;
   partners?: Partner[];
+  /** Partners among predicted materials (GNoME): violet rays, when the layer is on. */
+  predictedPartners?: Partner[];
+  predictedLabelFor: (partner: Partner) => RayLabel;
   /** 3D structure of the element's simple substance, if the dataset has one. */
   substance?: StructureData | null;
   labelFor: (partner: Partner) => RayLabel;
@@ -83,7 +94,18 @@ interface ElementWorldProps {
  * The table, and in the element scene the atom with its rays. Falling into an element
  * pushes the table far back; the rays then run from the atom to the partner tiles.
  */
-function ElementWorld({ controls, names, partners, substance, labelFor, walk, cloud, elementName }: ElementWorldProps) {
+function ElementWorld({
+  controls,
+  names,
+  partners,
+  predictedPartners,
+  predictedLabelFor,
+  substance,
+  labelFor,
+  walk,
+  cloud,
+  elementName,
+}: ElementWorldProps) {
   const scene = useAppStore((state) => state.scene);
   const elementView = useAppStore((state) => state.elementView);
   const size = useThree((state) => state.size);
@@ -103,7 +125,9 @@ function ElementWorld({ controls, names, partners, substance, labelFor, walk, cl
   const origin = useMemo(() => (cell ? tilePosition(cell) : null), [cell]);
   const partnerSet = useMemo(() => new Set((cell && partners ? partners : []).map((partner) => partner.z)), [cell, partners]);
   const activeZ = partnerSymbol ? (elementBySymbol(partnerSymbol)?.z ?? null) : null;
-  const activePartner = partners?.find((partner) => partner.z === activeZ);
+  // The walk runs along a known (red) or a predicted (violet) ray; the other set steps back.
+  const walkPredicted = scene.kind === 'element' && Boolean(scene.predicted);
+  const activePartner = (walkPredicted ? predictedPartners : partners)?.find((partner) => partner.z === activeZ);
 
   return (
     <>
@@ -141,12 +165,27 @@ function ElementWorld({ controls, names, partners, substance, labelFor, walk, cl
             partners={partners}
             transform={transform}
             labelFor={labelFor}
-            activeZ={activeZ}
+            activeZ={walkPredicted ? null : activeZ}
+            dimmed={walkPredicted && activeZ != null}
+          />
+        )}
+        {cell && origin && predictedPartners && predictedPartners.length > 0 && (
+          <Rays
+            key={`predicted-${cell.symbol}-${width}x${height}`}
+            origin={origin}
+            focusSymbol={cell.symbol}
+            partners={predictedPartners}
+            transform={transform}
+            labelFor={predictedLabelFor}
+            activeZ={walkPredicted ? activeZ : null}
+            dimmed={!walkPredicted && activeZ != null}
+            predicted
           />
         )}
         {cell && origin && activePartner && walk && (
           <RayWalk
-            key={`${cell.symbol}-${activePartner.symbol}-${width}x${height}`}
+            key={`${cell.symbol}-${activePartner.symbol}-${walkPredicted ? 'p' : 'k'}-${width}x${height}`}
+            predicted={walkPredicted}
             controls={controls}
             origin={origin}
             transform={transform}
@@ -295,23 +334,46 @@ export function Scene() {
     }),
     [elementName, t],
   );
-  // Walk along a ray: the pair and the compound in focus.
+  // Predicted materials (GNoME): violet rays when the layer is on or a predicted walk is open.
+  const showPredicted = useAppStore((state) => state.showPredicted);
+  const walkPredicted = scene.kind === 'element' && Boolean(scene.partner && scene.predicted);
+  const predicted = usePredictedPartners(
+    scene.kind === 'element' ? scene.symbol : null,
+    showPredicted || walkPredicted,
+  );
+  const predictedLabelFor = useCallback(
+    (partner: Partner): RayLabel => ({
+      title: [partner.symbol, elementName(partner.symbol)].filter(Boolean).join(' '),
+      subtitle: t('rays.predicted', { count: partner.count }),
+    }),
+    [elementName, t],
+  );
+  // Walk along a ray: the pair and the compound (or predicted material) in focus.
   const walkCell = scene.kind === 'element' && scene.partner ? elementBySymbol(scene.symbol) : undefined;
   const walkPartner = scene.kind === 'element' && scene.partner ? elementBySymbol(scene.partner) : undefined;
-  const pair = usePair(walkCell && walkPartner ? pairPath(walkCell, walkPartner) : null);
+  const pair = usePair(walkCell && walkPartner && !walkPredicted ? pairPath(walkCell, walkPartner) : null);
+  const predictedPair = usePredictedSet(walkCell && walkPartner && walkPredicted ? [walkCell.symbol, walkPartner.symbol] : null);
+  const walkCompounds = walkPredicted ? predictedPair.data?.materials : pair.data?.compounds;
   const walkIndex = useAppStore((state) => state.walkIndex);
-  const focusId = pair.data?.compounds[walkIndex]?.id ?? null;
-  const focusCompound = useCompound(focusId);
+  const focusId = walkCompounds?.[walkIndex]?.id ?? null;
+  const focusCompound = useCompound(walkPredicted ? null : focusId);
+  const focusMaterial = useMaterial(walkPredicted ? focusId : null);
+  const focusStructure = useMemo(
+    () =>
+      walkPredicted
+        ? focusMaterial.data
+          ? crystalFromCell(focusMaterial.data.structure)
+          : null
+        : (focusCompound.data?.structure ?? null),
+    [walkPredicted, focusMaterial.data, focusCompound.data],
+  );
   const beadLabel = useCallback(
     (item: CompoundSummary): BeadLabel => ({ formula: item.formula, name: pickName(item.names, i18n.language) }),
     [i18n.language],
   );
   const walk = useMemo(
-    () =>
-      pair.data
-        ? { compounds: pair.data.compounds, focusStructure: focusCompound.data?.structure ?? null, labelFor: beadLabel }
-        : undefined,
-    [pair.data, focusCompound.data, beadLabel],
+    () => (walkCompounds ? { compounds: walkCompounds, focusStructure, labelFor: beadLabel } : undefined),
+    [walkCompounds, focusStructure, beadLabel],
   );
 
   // Multi-element cloud.
@@ -386,6 +448,8 @@ export function Scene() {
         controls={controls}
         names={names}
         partners={element.data?.partners}
+        predictedPartners={showPredicted || walkPredicted ? predicted.data?.partners : undefined}
+        predictedLabelFor={predictedLabelFor}
         substance={element.data?.substance?.structure ?? null}
         labelFor={labelFor}
         walk={walk}

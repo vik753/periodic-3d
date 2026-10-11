@@ -2,3 +2,5 @@
 export const RAY_COLOR = '#ff3b4e';
 export const GOLD_COLOR = '#ffc857';
 export const CYAN_COLOR = '#62d2ff';
+/** Predicted materials (GNoME layer): rays, beads and the card badge. */
+export const VIOLET_COLOR = '#b69cff';

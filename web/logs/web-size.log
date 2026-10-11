@@ -1,30 +1,30 @@
 $ npm run size
-started: 2026-10-11T16:59:11Z
+started: 2026-10-11T17:15:57Z
 
 > @periodic-3d/web@0.1.0 size
 > node scripts/size-report.mjs
 
 *   183.5 KB gz  assets/three-BUBHTKcn.js
-*    82.6 KB gz  assets/react-dAOiIDMQ.js
-*    67.2 KB gz  assets/r3f-CHldKRQJ.js
-*    59.8 KB gz  assets/index-zo2_GVFp.js
+*    82.9 KB gz  assets/react-DhKm9lbL.js
+*    67.2 KB gz  assets/r3f-R3fzmp4S.js
+*    59.8 KB gz  assets/index-aQuYkteK.js
 *     9.7 KB gz  assets/index-Brlo5SJ3.css
-      3.4 KB gz  assets/ElementPanel-Bxm5WAtU.js
-      2.7 KB gz  assets/Rays-VzYWGyIo.js
-      2.6 KB gz  assets/CompoundCloud-C5uDspQK.js
-      2.6 KB gz  assets/RayWalk-CWRoasbe.js
-      2.5 KB gz  assets/StructureView-C8U2jjaY.js
-      2.4 KB gz  assets/AboutPanel-DlOonxDv.js
-      2.1 KB gz  assets/CompoundPanel-BLzwE1rB.js
-        2 KB gz  assets/SetPanel-CRBAya4l.js
-      1.8 KB gz  assets/MaterialPanel-7Vsfil6I.js
-      1.3 KB gz  assets/AtomModel-DI7ecb7z.js
-        1 KB gz  assets/CompositionView-uevx6cXb.js
+      3.4 KB gz  assets/ElementPanel-BO-gKnFV.js
+      2.7 KB gz  assets/Rays-N3X1AmHs.js
+      2.6 KB gz  assets/CompoundCloud-BEo-5fmE.js
+      2.6 KB gz  assets/RayWalk-DxUrbQaK.js
+      2.5 KB gz  assets/AboutPanel-BsxBt6VR.js
+      2.5 KB gz  assets/StructureView-FzXrtgVH.js
+      2.1 KB gz  assets/CompoundPanel-DDa0jl78.js
+        2 KB gz  assets/SetPanel-ze6N-IA5.js
+      1.8 KB gz  assets/MaterialPanel-CUBYMR7f.js
+      1.3 KB gz  assets/AtomModel-DVAm89Ka.js
+        1 KB gz  assets/CompositionView-RdCdVgZH.js
       0.7 KB gz  assets/labelSdf.worker-Cp34YTQc.js
       0.6 KB gz  assets/glow-Dql_eXPH.js
-      0.5 KB gz  assets/PhotoFigure-B5dKdHTG.js
-      0.5 KB gz  assets/ReportLink-DJW6L4kn.js
-      0.2 KB gz  assets/ClickGuard-BwZUAtFo.js
-initial JS (gzip): 393.1 KB / budget 400 KB
-finished: 2026-10-11T16:59:11Z
+      0.5 KB gz  assets/PhotoFigure-D1qeNU6m.js
+      0.5 KB gz  assets/ReportLink-jl9FV95p.js
+      0.2 KB gz  assets/ClickGuard-B-C_HKgR.js
+initial JS (gzip): 393.4 KB / budget 400 KB
+finished: 2026-10-11T17:15:57Z
 exit code: 0

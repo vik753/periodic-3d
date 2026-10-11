@@ -91,6 +91,9 @@ jobs:
           ffmpeg -hide_banner -loglevel warning -y -framerate "$FPS" -i "$src/frames/%06d.jpg" \
             -c:v libx264 -preset slow -crf 22 -pix_fmt yuv420p -movflags +faststart \
             "out/guide/guide-$L.mp4"
+          # Calm space music, generated from code (tools/guide/music.py).
+          python3 -m pip install --quiet --break-system-packages numpy scipy
+          bash ../../tools/ci/guide-music.sh "out/guide/guide-$L.mp4" "out/guide/guide-$L.mp4"
           # Poster: the title card.
           ffmpeg -hide_banner -loglevel warning -y -ss 2 -i "out/guide/guide-$L.mp4" -frames:v 1 -q:v 3 "out/guide/guide-$L.jpg"
           cp "$src/timeline.json" "out/guide/timeline-$L.json"
@@ -134,6 +137,14 @@ jobs:
           # A reviewed earlier recording, or this run's.
           run-id: ${{ inputs.from_run || github.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add music to videos without sound
+        run: |
+          command -v ffmpeg > /dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+          python3 -m pip install --quiet --break-system-packages numpy scipy
+          for video in "$RUNNER_TEMP"/guide/guide-*.mp4; do
+            bash tools/ci/guide-music.sh "$video" "$video"
+          done
 
       - name: Release the videos and switch the site to them
         env:

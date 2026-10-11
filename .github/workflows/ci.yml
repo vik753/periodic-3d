@@ -11,6 +11,8 @@ on:
       # The guide video recorder runs in its own workflow (guide.yml).
       - "apps/web/scripts/guide-*"
       - ".github/workflows/guide.yml"
+      - "tools/guide/**"
+      - "tools/ci/guide-*"
   pull_request:
   workflow_dispatch:
 

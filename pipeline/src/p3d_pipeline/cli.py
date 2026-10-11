@@ -11,6 +11,7 @@ import typer
 
 from . import gnome
 from .build import Options, run
+from .golden import GOLDEN, verify
 
 app = typer.Typer(add_completion=False, help="Periodic Table 3D data pipeline.")
 
@@ -46,6 +47,23 @@ def build(
         structures=structures,
     )
     typer.echo(run(options))
+
+
+@app.command("verify")
+def verify_command(
+    dataset: Annotated[Path, typer.Argument(exists=True, help="Dataset directory (with compounds.jsonl).")],
+    report: Annotated[Path | None, typer.Option(help="Write the result as Markdown here.")] = None,
+) -> None:
+    """Check a built dataset against the golden set of reference substances (Q.3)."""
+    problems = verify(dataset)
+    lines = [f"# Золотой набор: {len(GOLDEN) - len({p.split()[0] for p in problems})} из {len(GOLDEN)} в порядке", ""]
+    lines += [f"- {problem}" for problem in problems] or ["Все эталонные вещества совпали."]
+    text = "\n".join(lines) + "\n"
+    if report:
+        report.write_text(text, encoding="utf-8")
+    typer.echo(text)
+    if problems:
+        raise typer.Exit(code=1)
 
 
 @app.command("gnome")

@@ -82,6 +82,29 @@ function Sources({ sources }: { sources: Source[] }) {
   );
 }
 
+/** What the cross-check of sources found (Q.1): a fixed formula or a disagreement. */
+function QualityNote({ compound }: { compound: CompoundDetail }) {
+  const { t } = useTranslation();
+  const quality = compound.quality;
+  if (!quality) return null;
+  const lines = [
+    quality.wikidataFormula && t('quality.wikidataFixed', { formula: quality.wikidataFormula }),
+    quality.pubchemFormula && t('quality.pubchemFormula', { formula: quality.pubchemFormula }),
+    quality.pubchemDropped && t('quality.pubchemDropped', { cid: quality.pubchemDropped }),
+  ].filter(Boolean);
+  if (lines.length === 0) return null;
+  return (
+    <div className="mt-4 rounded-2xl bg-gold/[0.07] p-3 ring-1 ring-gold/30">
+      <p className="text-xs font-semibold text-gold">{t('quality.title')}</p>
+      {lines.map((line) => (
+        <p key={String(line)} className="mt-1 text-xs leading-relaxed text-text/85">
+          {line}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 function RealCompound({ compound }: { compound: CompoundDetail }) {
   const { t, i18n } = useTranslation();
   const language = i18n.language;
@@ -111,10 +134,13 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
 
       <Composition compound={compound} />
 
+      <QualityNote compound={compound} />
+
       <dl className="mt-4">
         {compound.mass != null && (
           <Row term={t('compound.mass')}>
             {formatNumber(compound.mass, language, 3)} {t('compound.unitMass')}
+            {compound.massSource === 'formula' && <span className="block text-xs text-muted">{t('compound.massFormula')}</span>}
           </Row>
         )}
         {compound.charge !== 0 && <Row term={t('compound.charge')}>{formatCharge(compound.charge)}</Row>}

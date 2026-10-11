@@ -109,6 +109,15 @@ jobs:
           ls -la ../data
           du -sh "../data/build/$VERSION"
 
+      # Golden set (Q.3): well-known substances must come out right, or nothing is published.
+      - name: Verify the golden set
+        id: verify
+        if: steps.build.outcome == 'success' && env.ONLY == '' && env.LIMIT == '0'
+        continue-on-error: true
+        run: |
+          bash $RUN pipeline-verify uv run p3d-pipeline verify "../data/build/$VERSION" \
+            --report "../data/build/$VERSION/verify.md"
+
       # Save even after a failed build: the next run continues from what was fetched.
       - name: Save raw-data cache
         if: always() && steps.build.outcome != 'skipped'
@@ -124,6 +133,7 @@ jobs:
         run: |
           mkdir -p out/dataset
           cp "../data/build/$VERSION/report.md" "../data/build/$VERSION/manifest.json" out/dataset/
+          cp "../data/build/$VERSION/verify.md" out/dataset/ 2>/dev/null || true
           size=$(stat -c %s "../data/dataset-$VERSION.tar.gz")
           # Small slices go to the branch whole; full datasets go to releases.
           if [ "$size" -lt 25000000 ]; then cp "../data/dataset-$VERSION.tar.gz" out/dataset/dataset.tar.gz; fi
@@ -131,7 +141,7 @@ jobs:
           bash ../tools/ci/publish-results.sh out/dataset data/latest "ci: dataset $VERSION"
 
       - name: Publish release and switch the site to it
-        if: steps.build.outcome == 'success' && env.RELEASE == 'true'
+        if: steps.build.outcome == 'success' && steps.verify.outcome == 'success' && env.RELEASE == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

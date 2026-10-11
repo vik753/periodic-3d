@@ -42,6 +42,7 @@ from .chemistry import (
 from .elements_table import SYMBOLS, UK_ELEMENT_NAMES, Z_BY_SYMBOL
 from .formula import (
     ElementCounts,
+    conventional_formula,
     display_formula,
     has_net_charge,
     hill_formula,
@@ -49,8 +50,10 @@ from .formula import (
     parse_formula,
     reduced_formula,
     same_proportions,
+    to_subscripts,
 )
 from .http import Fetcher
+from .quality import FormulaCheck, Verdict, check_formula, has_isotopes, molar_mass, plain_formula
 from .sources import commons, optimade, pubchem, wikidata, wikipedia
 from .structures import Structure, composition, crystal_fragment, finalize, molecule_from_smiles, parse_sdf
 
@@ -106,6 +109,11 @@ class Compound:
     descriptions: dict[str, str] = field(default_factory=dict)
     pubchem: dict[str, Any] = field(default_factory=dict)
     structure: dict[str, Any] | None = None
+    mass: float | None = None
+    mass_source: str | None = None  # "pubchem" or "formula"
+    # Cross-check results shown in the card (Q.1): a fixed formula, a dropped PubChem link,
+    # or the PubChem formula that disagrees with Wikidata.
+    quality: dict[str, Any] = field(default_factory=dict)
 
     @property
     def elements(self) -> list[str]:
@@ -368,14 +376,11 @@ class StructureResult:
 def assign_structures(compounds: list[Compound], fetcher: Fetcher) -> tuple[dict[str, StructureResult], Counter[str]]:
     stats: Counter[str] = Counter()
     cids = [compound.cid for compound in compounds if compound.cid]
-    log.info("PubChem properties for %d CIDs", len(cids))
-    properties = pubchem.properties(fetcher, cids)
-    for compound in compounds:
-        if compound.cid and compound.cid in properties:
-            compound.pubchem = properties[compound.cid]
 
     # Ask for 3D only where PubChem has it (CIDs without properties are tried anyway).
-    with_3d = [cid for cid in cids if properties.get(cid, {}).get("conformers3d", 1) > 0]
+    with_3d = [
+        compound.cid for compound in compounds if compound.cid and int(compound.pubchem.get("conformers3d", 1) or 0) > 0
+    ]
     log.info("PubChem 3D conformers for %d of %d CIDs", len(with_3d), len(cids))
     started = time.monotonic()
     conformers = pubchem.conformers_3d(fetcher, with_3d, budget_s=PUBCHEM_3D_BUDGET_S)
@@ -550,6 +555,86 @@ def _structure_meta(result: StructureResult) -> dict[str, Any]:
     }
 
 
+def attach_pubchem(compounds: list[Compound], fetcher: Fetcher) -> None:
+    """PubChem properties (formula, mass, SMILES, InChIKey, IUPAC name) for compounds with a CID."""
+    cids = [compound.cid for compound in compounds if compound.cid]
+    log.info("PubChem properties for %d CIDs", len(cids))
+    properties = pubchem.properties(fetcher, cids)
+    for compound in compounds:
+        if compound.cid and compound.cid in properties:
+            compound.pubchem = properties[compound.cid]
+
+
+QUALITY_EXAMPLES = 40
+
+
+@dataclass
+class QualityReport:
+    verdicts: Counter[str] = field(default_factory=Counter)
+    examples: dict[str, list[str]] = field(default_factory=lambda: defaultdict(list))
+
+
+def _formula_mass(compound: Compound, masses: dict[str, float]) -> float | None:
+    """Mass from the formula, only where it means something: whole numbers, no isotopes."""
+    if has_isotopes(compound.formula) or any(abs(value - round(value)) > 1e-6 for value in compound.counts.values()):
+        return None
+    return molar_mass(compound.counts, masses)
+
+
+def reconcile_formulas(
+    compounds: list[Compound],
+    masses: dict[str, float],
+    electronegativity: dict[str, float],
+) -> QualityReport:
+    """Cross-check Wikidata and PubChem formulas (Q.1) and settle the molar mass.
+
+    Two sources that agree win over the third: the Wikidata SMILES (or an obvious "I"
+    for "l" typo) decides between the Wikidata formula and the PubChem record.
+    """
+    report = QualityReport()
+    for compound in compounds:
+        check: FormulaCheck = check_formula(
+            compound.formula, compound.counts, compound.pubchem.get("formula"), compound.wikidata_smiles
+        )
+        report.verdicts[check.verdict] += 1
+        pubchem_mass = compound.pubchem.get("mass")
+        note = ""
+        if check.verdict in (Verdict.OK, Verdict.ISOTOPES) and pubchem_mass:
+            compound.mass, compound.mass_source = float(pubchem_mass), "pubchem"
+        elif check.verdict == Verdict.WIKIDATA_FIXED and check.pubchem:
+            old = compound.formula
+            compound.counts = dict(check.pubchem)
+            compound.formula = to_subscripts(conventional_formula(compound.counts, electronegativity))
+            compound.quality = {"wikidataFormula": old}
+            if pubchem_mass:
+                compound.mass, compound.mass_source = float(pubchem_mass), "pubchem"
+            note = f"{old} → {compound.formula}"
+        elif check.verdict == Verdict.PUBCHEM_DROPPED:
+            compound.quality = {"pubchemDropped": compound.cid}
+            note = f"CID {compound.cid}: {plain_formula(check.pubchem or {})}"
+            compound.cid = None
+            compound.pubchem = {}
+        elif check.verdict == Verdict.DISAGREE and check.pubchem:
+            # Keep the identity (Wikidata) and the PubChem link, but not PubChem's details:
+            # they may describe another substance. The card shows both formulas.
+            compound.quality = {"pubchemFormula": plain_formula(check.pubchem)}
+            compound.pubchem = {"formula": compound.pubchem.get("formula")}
+            note = f"PubChem CID {compound.cid}: {plain_formula(check.pubchem)}"
+        if compound.mass is None and check.verdict != Verdict.DISAGREE:
+            mass = _formula_mass(compound, masses)
+            if mass is not None:
+                compound.mass, compound.mass_source = mass, "formula"
+        if note and len(report.examples[check.verdict]) < QUALITY_EXAMPLES:
+            name = compound.names.get("en") or compound.names.get("ru") or ""
+            report.examples[check.verdict].append(f"{compound.id} {compound.formula} — {name}: {note}")
+        elif check.verdict == Verdict.SCALED and len(report.examples[check.verdict]) < QUALITY_EXAMPLES:
+            report.examples[check.verdict].append(
+                f"{compound.id} {compound.formula}: PubChem {plain_formula(check.pubchem or {})}"
+            )
+    log.info("Formula checks: %s", dict(report.verdicts))
+    return report
+
+
 def compound_card(compound: Compound) -> dict[str, Any]:
     return {
         "id": compound.id,
@@ -562,7 +647,8 @@ def compound_card(compound: Compound) -> dict[str, Any]:
         "articles": compound.articles,
         "fame": compound.fame,
         "pubchemCid": compound.cid,
-        "mass": compound.pubchem.get("mass"),
+        "mass": compound.mass,
+        "massSource": compound.mass_source,
         "charge": net_charge(compound.formula),
         "smiles": compound.smiles,
         "inchikey": compound.pubchem.get("inchikey"),
@@ -570,6 +656,7 @@ def compound_card(compound: Compound) -> dict[str, Any]:
         "classes": compound.classes,
         "structure": compound.structure,
         **({"photo": compound.photo} if compound.photo else {}),
+        **({"quality": compound.quality} if compound.quality else {}),
     }
 
 
@@ -577,6 +664,31 @@ def _write_json(path: Path, data: Any) -> int:
     text = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     path.write_text(text, encoding="utf-8")
     return len(text.encode("utf-8"))
+
+
+VERDICT_TITLES = {
+    Verdict.OK: "совпадают",
+    Verdict.NO_PUBCHEM: "нет записи PubChem",
+    Verdict.ISOTOPES: "изотопы (D, T, ¹⁸F): верим PubChem",
+    Verdict.SCALED: "те же пропорции, другой размер",
+    Verdict.WIKIDATA_FIXED: "ошибка в формуле Wikidata — исправлена",
+    Verdict.PUBCHEM_DROPPED: "ссылка на PubChem ведёт к другому веществу — убрана",
+    Verdict.DISAGREE: "расходятся, третьего мнения нет — показаны обе формулы",
+}
+
+
+def quality_lines(quality: QualityReport | None) -> list[str]:
+    """Report section Q.4: how the Wikidata and PubChem formulas compare, with examples."""
+    if quality is None or not quality.verdicts:
+        return []
+    lines = ["", "## Перекрёстная проверка формул (Wikidata, PubChem, SMILES)", ""]
+    lines += ["| Итог | Соединений |", "| --- | --- |"]
+    lines += [f"| {VERDICT_TITLES.get(Verdict(key), key)} | {count} |" for key, count in quality.verdicts.most_common()]
+    for verdict in (Verdict.WIKIDATA_FIXED, Verdict.PUBCHEM_DROPPED, Verdict.DISAGREE, Verdict.SCALED):
+        examples = quality.examples.get(verdict, [])
+        if examples:
+            lines += ["", f"### {VERDICT_TITLES[verdict]}", ""] + [f"- {line}" for line in examples]
+    return lines
 
 
 def write_report(
@@ -590,6 +702,7 @@ def write_report(
     seconds: float,
     classes: dict[str, dict[str, Any]] | None = None,
     neighbours: dict[str, list[tuple[str, float]]] | None = None,
+    quality: QualityReport | None = None,
 ) -> None:
     with_structure = [compound for compound in compounds if compound.structure]
     per_element = Counter(symbol for compound in compounds for symbol in compound.counts)
@@ -616,6 +729,7 @@ def write_report(
         "| --- | --- |",
     ]
     lines += [f"| {key} | {value} |" for key, value in sorted(stats.items())]
+    lines += quality_lines(quality)
     lines += ["", "## Запросы", "", "| Метрика | Значение |", "| --- | --- |"]
     lines += [f"| {key} | {value} |" for key, value in sorted(fetch_stats.items())]
     lines += ["", "## Топ-40 классов Wikidata", "", "| Класс | Название | Соединений |", "| --- | --- | --- |"]
@@ -663,6 +777,11 @@ def run(options: Options) -> Path:
 
         stats: Counter[str] = Counter()
         oversized: list[str] = []
+        quality = QualityReport()
+        if options.structures:
+            attach_pubchem(compounds, fetcher)
+        masses = {element["symbol"]: element["mass"] for element in elements if element.get("mass")}
+        quality = reconcile_formulas(compounds, masses, electronegativity)
         if options.structures:
             results, stats = assign_structures(compounds, fetcher)
             for compound in compounds:
@@ -733,6 +852,6 @@ def run(options: Options) -> Path:
         "licenses": LICENSES,
     }
     _write_json(root / "manifest.json", manifest)
-    write_report(root, compounds, elements, pairs, stats, oversized, fetch_stats, seconds, classes, neighbours)
+    write_report(root, compounds, elements, pairs, stats, oversized, fetch_stats, seconds, classes, neighbours, quality)
     log.info("Dataset %s written in %.0f s", root, seconds)
     return root

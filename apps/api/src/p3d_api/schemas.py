@@ -167,6 +167,8 @@ class CompoundDetail(Schema):
     fame: int
     pubchem_cid: int | None = None
     mass: float | None = None
+    # "pubchem": PubChem's molecular weight; "formula": computed from the formula (Q.1).
+    mass_source: Literal["pubchem", "formula"] | None = None
     charge: int = 0
     smiles: str | None = None
     inchikey: str | None = None
@@ -177,6 +179,10 @@ class CompoundDetail(Schema):
     sources: list[Source]
     similar: list[CompoundSummary] = Field(default_factory=list)
     photo: Photo | None = None
+    # Cross-check of sources (Q.1): wikidataFormula (the Wikidata formula was wrong and
+    # is fixed), pubchemFormula (PubChem disagrees, no third source decides) or
+    # pubchemDropped (the PubChem link led to another substance).
+    quality: dict[str, Any] | None = None
 
 
 class ElementRef(Schema):

@@ -117,6 +117,13 @@ const resources = {
         open: 'Відкрити картку сполуки',
         similar: 'Схожі сполуки',
         similarHint: 'Схожі елементи в схожих пропорціях (векторна модель).',
+        massFormula: 'розраховано за формулою',
+      },
+      quality: {
+        title: 'Перевірка джерел',
+        wikidataFixed: 'У Wikidata записано «{{formula}}» — це помилка. PubChem і структурна формула (SMILES) збігаються, тож показано виправлену формулу.',
+        pubchemFormula: 'PubChem для цього запису дає іншу формулу: {{formula}}. Третього джерела немає, тому показано формулу з Wikidata, а дані PubChem приховано.',
+        pubchemDropped: 'Посилання на PubChem (CID {{cid}}) вело до іншої речовини, тож його прибрано.',
       },
       material: {
         kind: 'Передбачений матеріал',
@@ -367,6 +374,13 @@ const resources = {
         open: 'Открыть карточку соединения',
         similar: 'Похожие соединения',
         similarHint: 'Похожие элементы в похожих пропорциях (векторная модель).',
+        massFormula: 'рассчитано по формуле',
+      },
+      quality: {
+        title: 'Проверка источников',
+        wikidataFixed: 'В Wikidata записано «{{formula}}» — это ошибка. PubChem и структурная формула (SMILES) совпадают, поэтому показана исправленная формула.',
+        pubchemFormula: 'PubChem для этой записи даёт другую формулу: {{formula}}. Третьего источника нет, поэтому показана формула из Wikidata, а данные PubChem скрыты.',
+        pubchemDropped: 'Ссылка на PubChem (CID {{cid}}) вела к другому веществу, поэтому она убрана.',
       },
       material: {
         kind: 'Предсказанный материал',
@@ -615,6 +629,13 @@ const resources = {
         open: 'Open the compound card',
         similar: 'Similar compounds',
         similarHint: 'Similar elements in similar proportions (vector model).',
+        massFormula: 'computed from the formula',
+      },
+      quality: {
+        title: 'Source check',
+        wikidataFixed: 'Wikidata says “{{formula}}”, which is wrong: PubChem and the structural formula (SMILES) agree, so the card shows the fixed formula.',
+        pubchemFormula: 'PubChem gives another formula for this record: {{formula}}. No third source decides, so the card shows the Wikidata formula and hides the PubChem details.',
+        pubchemDropped: 'The PubChem link (CID {{cid}}) led to another substance, so it was removed.',
       },
       material: {
         kind: 'Predicted material',

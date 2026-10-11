@@ -149,6 +149,8 @@ export interface CompoundDetail {
   fame: number;
   pubchemCid: number | null;
   mass: number | null;
+  /** "pubchem": PubChem's molecular weight; "formula": computed from the formula. */
+  massSource?: 'pubchem' | 'formula' | null;
   charge: number;
   smiles: string | null;
   inchikey: string | null;
@@ -160,6 +162,17 @@ export interface CompoundDetail {
   /** Compounds with similar elements in similar proportions (vector model). */
   similar?: CompoundSummary[];
   photo?: Photo | null;
+  /** Cross-check of the sources; absent when they agree. */
+  quality?: CompoundQuality | null;
+}
+
+export interface CompoundQuality {
+  /** The Wikidata formula was wrong (as written there); the card shows the fixed one. */
+  wikidataFormula?: string;
+  /** PubChem gives another formula and no third source decides. */
+  pubchemFormula?: string;
+  /** The PubChem link (this CID) led to another substance and was dropped. */
+  pubchemDropped?: number;
 }
 
 export interface ElementRef {

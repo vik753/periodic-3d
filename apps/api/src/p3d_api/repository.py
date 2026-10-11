@@ -41,7 +41,10 @@ TOP_COMPOUNDS = 12
 SIMILAR_ELEMENTS = 6
 SIMILAR_COMPOUNDS = 8
 QUERY_LIMIT_MAX = 200
-INDEX_FIELDS = ["id", "formula", "elements", "fame", "kind", "names"]
+INDEX_FIELDS = ["id", "formula", "elements", "fame", "kind", "names", "flags"]
+# Bits of the "flags" index column (filters in the browser).
+FLAG_MINERAL = 1
+CLASS_MINERAL_SPECIES = "Q12089225"
 
 LICENSE_WIKIDATA = "CC0 1.0"
 LICENSE_WIKIPEDIA = "CC BY-SA 4.0"
@@ -320,12 +323,23 @@ class Repository:
     async def index(self) -> CompoundIndex:
         version = await self.version()
         z_by_symbol = await self.z_by_symbol()
-        rows = await self.session.execute(select(*_SUMMARY_COLUMNS).order_by(CompoundRow.fame.desc(), CompoundRow.id))
+        classes = CompoundRow.card["classes"].label("classes")
+        rows = await self.session.execute(
+            select(*_SUMMARY_COLUMNS, classes).order_by(CompoundRow.fame.desc(), CompoundRow.id)
+        )
         return CompoundIndex(
             version=version,
             fields=INDEX_FIELDS,
             rows=[
-                [row.id, row.formula, [z_by_symbol[symbol] for symbol in row.elements], row.fame, row.kind, row.names]
+                [
+                    row.id,
+                    row.formula,
+                    [z_by_symbol[symbol] for symbol in row.elements],
+                    row.fame,
+                    row.kind,
+                    row.names,
+                    FLAG_MINERAL if CLASS_MINERAL_SPECIES in (row.classes or []) else 0,
+                ]
                 for row in rows
             ],
         )

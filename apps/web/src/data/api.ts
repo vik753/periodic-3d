@@ -162,8 +162,8 @@ export interface PairDetail {
   compounds: CompoundSummary[];
 }
 
-/** rows: [id, formula, atomic numbers, fame, kind, names] */
-export type CompoundIndexRow = [string, string, number[], number, StructureKind | null, Names];
+/** rows: [id, formula, atomic numbers, fame, kind, names, flags]; flags bit 1 = mineral (older datasets: no flags). */
+export type CompoundIndexRow = [string, string, number[], number, StructureKind | null, Names, number?];
 
 export interface CompoundIndex {
   version: string;

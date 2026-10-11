@@ -171,9 +171,12 @@ async def test_query_rejects_unknown_elements(client: Any) -> None:
 
 async def test_index(client: Any) -> None:
     body = await get(client, "/api/v1/index")
-    assert body["fields"] == ["id", "formula", "elements", "fame", "kind", "names"]
+    assert body["fields"] == ["id", "formula", "elements", "fame", "kind", "names", "flags"]
     assert body["rows"][0][:5] == ["Q283", "H₂O", [1, 8], 330, "molecule"]
     assert len(body["rows"]) == 4
+    flags = {row[0]: row[6] for row in body["rows"]}
+    assert flags["Q103223"] == 1  # hematite is a mineral
+    assert flags["Q283"] == 0
 
 
 async def test_health(client: Any) -> None:

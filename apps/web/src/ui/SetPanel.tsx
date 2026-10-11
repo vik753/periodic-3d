@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
 import { pickName } from '../data/api';
+import { COMPOUND_GROUPS } from '../data/compoundIndex';
 import { useElements } from '../data/hooks';
 import { elementByZ } from '../data/periodic';
 import { useAppStore } from '../state/store';
@@ -18,6 +19,8 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
   const elements = useElements();
   const mode = useAppStore((state) => state.cloudMode);
   const setMode = useAppStore((state) => state.setCloudMode);
+  const group = useAppStore((state) => state.cloudGroup);
+  const setGroup = useAppStore((state) => state.setCloudGroup);
   const hover = useAppStore((state) => state.cloudHover);
   const focus = useAppStore((state) => state.cloudFocus);
   const setHover = useAppStore((state) => state.setCloudHover);
@@ -66,6 +69,27 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
           </button>
         ))}
       </div>
+
+      {result && result.groups.all > 0 && (
+        <div role="radiogroup" aria-label={t('cloud.group')} className="mt-2 flex flex-wrap gap-1.5">
+          {COMPOUND_GROUPS.filter((value) => value === 'all' || value === group || result.groups[value] > 0).map(
+            (value) => (
+              <button
+                key={value}
+                type="button"
+                role="radio"
+                aria-checked={group === value}
+                onClick={() => setGroup(value)}
+                className={`rounded-full px-2.5 py-1 text-xs ring-1 transition-colors ${
+                  group === value ? 'bg-cyan/15 text-text ring-cyan/60' : 'text-muted ring-rim hover:text-text'
+                }`}
+              >
+                {t(`cloud.group_${value}`)} <span className="tabular-nums text-muted">{result.groups[value]}</span>
+              </button>
+            ),
+          )}
+        </div>
+      )}
 
       {isPending && <Skeleton lines={5} />}
       {unavailable && <StatusNote>{t('status.demo')}</StatusNote>}

@@ -19,6 +19,7 @@ export interface CloudState {
 export function useCloud(): CloudState {
   const scene = useAppStore((state) => state.scene);
   const mode = useAppStore((state) => state.cloudMode);
+  const group = useAppStore((state) => state.cloudGroup);
   const active = scene.kind === 'set';
   const key = active ? scene.symbols.join('-') : '';
   const zs = useMemo(
@@ -32,8 +33,8 @@ export function useCloud(): CloudState {
   const meta = useMeta();
   const index = useCompoundIndex(active);
   const result = useMemo(
-    () => (index.data && zs.length > 0 ? queryCloud(index.data, zs, mode) : null),
-    [index.data, zs, mode],
+    () => (index.data && zs.length > 0 ? queryCloud(index.data, zs, mode, group) : null),
+    [index.data, zs, mode, group],
   );
   return { zs, result, isPending: active && index.isPending && !meta.isError, unavailable: meta.isError };
 }

@@ -190,7 +190,7 @@ class CompoundQuery(Schema):
 class CompoundIndex(Schema):
     """Compact list of all compounds for search and selection in the browser (static mode).
 
-    rows: [id, formula, [Z…], fame, kind, names]
+    rows: [id, formula, [Z…], fame, kind, names, flags]; flags bit 1 = mineral
     """
 
     version: str

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import type { CloudMode } from '../data/compoundIndex';
+import type { CloudMode, CompoundGroup } from '../data/compoundIndex';
 import { SYMBOLS } from '../data/periodic';
 import type { SceneRoute } from '../lib/route';
 
@@ -25,6 +25,8 @@ interface AppState {
   walkIndex: number;
   /** Multi-element cloud: "contains at least these" or "only these" elements. */
   cloudMode: CloudMode;
+  /** Multi-element cloud: all compounds, or only organic, inorganic or minerals. */
+  cloudGroup: CompoundGroup;
   /** Compound under the pointer in the cloud (or its list), and the one in focus. */
   cloudHover: string | null;
   cloudFocus: string | null;
@@ -38,6 +40,7 @@ interface AppState {
   clearSelection: () => void;
   setSelectMode: (on: boolean) => void;
   setPagePanel: (open: boolean) => void;
+  setCloudGroup: (group: CompoundGroup) => void;
   setNavigate: (navigate: Navigate) => void;
   setHoveredAtom: (index: number | null) => void;
   setHoveredPartner: (z: number | null) => void;
@@ -57,6 +60,7 @@ export const useAppStore = create<AppState>((set) => ({
   hoveredPartner: null,
   walkIndex: 0,
   cloudMode: 'contains',
+  cloudGroup: 'all',
   cloudHover: null,
   cloudFocus: null,
   elementView: 'atom',
@@ -88,6 +92,7 @@ export const useAppStore = create<AppState>((set) => ({
   clearSelection: () => set({ selection: [], selectMode: false }),
   setSelectMode: (selectMode) => set({ selectMode }),
   setPagePanel: (pagePanel) => set({ pagePanel }),
+  setCloudGroup: (cloudGroup) => set({ cloudGroup, cloudFocus: null, cloudHover: null }),
   setNavigate: (navigate) => set({ navigate }),
   setHoveredAtom: (hoveredAtom) => set({ hoveredAtom }),
   setHoveredPartner: (hoveredPartner) => set({ hoveredPartner }),

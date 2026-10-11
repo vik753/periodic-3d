@@ -1,26 +1,7 @@
 $ node scripts/guide-video.mjs
-started: 2026-10-11T15:58:52Z
-warm-up done in 72 s
-intro: 0.5 s of video, 97 s to record
-hover: 7.3 s of video, 103 s to record
-zoom: 7.8 s of video, 114 s to record
-element: 9.8 s of video, 196 s to record
-rays: 7.6 s of video, 153 s to record
-walk: 8.2 s of video, 214 s to record
-card: 8.0 s of video, 207 s to record
-back: 4.2 s of video, 78 s to record
-select: 20.3 s of video, 324 s to record
-violet: 18.8 s of video, 664 s to record
-search: 7.1 s of video, 189 s to record
-about: 5.0 s of video, 110 s to record
-outro: 3.8 s of video, 52 s to record
-3252 frames (108.4 s), 2 errors
-  scene intro: page.screenshot: Timeout 90000ms exceeded.
-Call log:
-  - taking page screenshot
-  - waiting for fonts to load...
-  - fonts loaded
-
-  Failed to load resource: the server responded with a status of 404 ()
-finished: 2026-10-11T16:41:46Z
-exit code: 0
+started: 2026-10-11T17:45:43Z
+warm-up done in 26 s
+intro: 3.6 s of video, 554 s to record
+hover: 7.3 s of video, 1091 s to record
+zoom: 7.8 s of video, 1176 s to record
+element: 9.8 s of video, 1477 s to record

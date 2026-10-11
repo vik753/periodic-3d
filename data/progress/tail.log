@@ -42,3 +42,5 @@ started: 2026-10-11T05:29:57Z
 2026-10-11 05:54:04,469 INFO p3d.build:   structures: 26000/27202 (18 s)
 2026-10-11 05:54:06,899 INFO p3d.build: Wikipedia en extracts for 23859 articles
 2026-10-11 05:54:07,118 INFO p3d.wikipedia: Wikipedia en: 48 of 23859 titles remembered
+2026-10-11 05:58:32,116 INFO p3d.build: Wikipedia ru extracts for 9759 articles
+2026-10-11 05:58:32,235 INFO p3d.wikipedia: Wikipedia ru: 29 of 9759 titles remembered

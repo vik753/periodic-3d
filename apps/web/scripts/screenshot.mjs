@@ -155,6 +155,8 @@ const shots = [
   { name: 'compound-glucose', path: 'c/Q37525', viewport: desktop, wait: 4000 },
   { name: 'compound-sodium-acetate', path: 'c/Q339940', viewport: desktop, wait: 4000 },
   { name: 'compound-no-3d', path: 'c/Q483269', viewport: desktop, wait: 4000 },
+  // Source check (Q.1): Wikidata wrote "KCIO₃"; the card shows the fixed formula and a note.
+  { name: 'compound-chlorate-fixed', path: 'c/Q309328', viewport: desktop, wait: 4000 },
   { name: 'about', path: 'about', viewport: desktop, wait: 2000 },
   {
     name: 'keyboard-index',

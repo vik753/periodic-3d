@@ -9,12 +9,14 @@ import { useElement, useGnome, usePair, usePredictedPartners, usePredictedSet } 
 import type { ElementCell } from '../data/periodic';
 import { condensedConfiguration, elementBySymbol, shellsOf } from '../data/periodic';
 import { pairPath } from '../data/source';
+import { useHoverIntent } from '../lib/hoverIntent';
 import { useAppStore } from '../state/store';
 import { formatNumber } from './format';
 import { PredictedBadge } from './MaterialPanel';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
 import { ReportLink } from './ReportLink';
+import { FormulaRow } from './FormulaRow';
 
 const PARTNERS_SHOWN = 18;
 
@@ -44,8 +46,7 @@ function CompoundLinks({ compounds }: { compounds: CompoundSummary[] }) {
             to={`/c/${compound.id}`}
             className="-mx-2 flex items-baseline gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-white/5"
           >
-            <span className="min-w-[4.5rem] font-display text-sm font-medium">{compound.formula}</span>
-            <span className="truncate text-sm text-muted">{pickName(compound.names, i18n.language)}</span>
+            <FormulaRow formula={compound.formula} name={pickName(compound.names, i18n.language)} />
           </Link>
         </li>
       ))}
@@ -57,15 +58,19 @@ function Partners({ element, partners }: { element: ElementCell; partners: Partn
   const { t } = useTranslation();
   const hoveredPartner = useAppStore((state) => state.hoveredPartner);
   const setHoveredPartner = useAppStore((state) => state.setHoveredPartner);
+  const intent = useHoverIntent<number>(
+    (z) => setHoveredPartner(z),
+    () => useAppStore.getState().hoveredPartner,
+  );
   return (
     <Section title={t('element.partners')}>
-      <ul className="flex flex-wrap gap-1.5" onMouseLeave={() => setHoveredPartner(null)}>
+      <ul className="flex flex-wrap gap-1.5" onMouseLeave={() => intent.out()}>
         {partners.slice(0, PARTNERS_SHOWN).map((partner) => (
           <li key={partner.z}>
             <Link
               to={`/e/${element.symbol}/${partner.symbol}`}
-              onMouseEnter={() => setHoveredPartner(partner.z)}
-              onFocus={() => setHoveredPartner(partner.z)}
+              onMouseEnter={() => intent.over(partner.z)}
+              onFocus={() => intent.over(partner.z, true)}
               onBlur={() => setHoveredPartner(null)}
               className={`inline-flex items-baseline gap-1.5 rounded-full px-2.5 py-1 text-sm ring-1 transition-colors ${
                 hoveredPartner === partner.z ? 'bg-ray/15 ring-ray/60' : 'ring-rim hover:bg-white/5'
@@ -92,6 +97,13 @@ function PredictedSection({ element }: { element: ElementCell }) {
   const setShowPredicted = useAppStore((state) => state.setShowPredicted);
   const hoveredPartner = useAppStore((state) => (state.hoveredPredicted ? state.hoveredPartner : null));
   const setHoveredPartner = useAppStore((state) => state.setHoveredPartner);
+  const violetIntent = useHoverIntent<number>(
+    (z) => setHoveredPartner(z, true),
+    () => {
+      const state = useAppStore.getState();
+      return state.hoveredPredicted ? state.hoveredPartner : null;
+    },
+  );
   const predicted = usePredictedPartners(element.symbol, true);
   const count = predicted.data?.count ?? 0;
   return (
@@ -115,13 +127,13 @@ function PredictedSection({ element }: { element: ElementCell }) {
         </button>
       )}
       {showPredicted && predicted.data && predicted.data.partners.length > 0 && (
-        <ul className="mt-3 flex flex-wrap gap-1.5" onMouseLeave={() => setHoveredPartner(null)}>
+        <ul className="mt-3 flex flex-wrap gap-1.5" onMouseLeave={() => violetIntent.out()}>
           {predicted.data.partners.slice(0, PARTNERS_SHOWN).map((partner) => (
             <li key={partner.z}>
               <Link
                 to={`/e/${element.symbol}/${partner.symbol}/predicted`}
-                onMouseEnter={() => setHoveredPartner(partner.z, true)}
-                onFocus={() => setHoveredPartner(partner.z, true)}
+                onMouseEnter={() => violetIntent.over(partner.z)}
+                onFocus={() => violetIntent.over(partner.z, true)}
                 onBlur={() => setHoveredPartner(null)}
                 className={`inline-flex items-baseline gap-1.5 rounded-full px-2.5 py-1 text-sm ring-1 transition-colors ${
                   hoveredPartner === partner.z ? 'bg-violet/15 ring-violet/60' : 'ring-violet/30 hover:bg-violet/10'
@@ -263,8 +275,7 @@ export function WalkPanel({ element, partner }: { element: ElementCell; partner:
               }`}
             >
               <span className="w-6 shrink-0 text-right text-xs tabular-nums text-muted">{index + 1}</span>
-              <span className="min-w-[4.5rem] font-display text-sm font-medium">{compound.formula}</span>
-              <span className="truncate text-sm text-muted">{pickName(compound.names, i18n.language)}</span>
+              <FormulaRow formula={compound.formula} name={pickName(compound.names, i18n.language)} />
             </button>
           </li>
         ))}

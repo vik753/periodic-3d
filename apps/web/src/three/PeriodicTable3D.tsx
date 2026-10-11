@@ -7,6 +7,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import type { Category } from '../data/periodic';
 import { ELEMENTS } from '../data/periodic';
 import { isTouchFirst } from '../lib/device';
+import { useHoverIntent } from '../lib/hoverIntent';
 import { useAppStore } from '../state/store';
 import type { AtlasEntry } from './labelAtlas';
 import {
@@ -323,20 +324,31 @@ export function PeriodicTable3D({
     }
   });
 
+  // Hover intent: a quick sweep over the table magnifies nothing; the tile under a
+  // pointer that slows down or stops does (lib/hoverIntent.ts).
+  const hoverIntent = useHoverIntent<number>(
+    (z) => {
+      setHoveredZ(z);
+      if (elementScene) setHoveredPartner(z != null && partners.has(z) ? z : null);
+    },
+    () => useAppStore.getState().hoveredZ,
+  );
+
   const handleMove = (event: ThreeEvent<PointerEvent>) => {
     // On touch screens a tap magnifies (handleClick); dragging must not.
     if (!pickable || event.instanceId == null || event.pointerType === 'touch') return;
     event.stopPropagation();
     const z = event.instanceId + 1;
-    if (z === activeZ) return;
-    if (z !== hoveredZ) setHoveredZ(z);
-    if (elementScene) setHoveredPartner(partners.has(z) ? z : null);
+    if (z === activeZ) {
+      hoverIntent.out();
+      return;
+    }
+    hoverIntent.over(z);
   };
 
   const handleOut = (event: ThreeEvent<PointerEvent>) => {
     if (event.pointerType === 'touch') return; // the magnified tile stays until the next tap
-    if (hoveredZ != null) setHoveredZ(null);
-    if (elementScene && hoveredPartner != null) setHoveredPartner(null);
+    hoverIntent.out();
   };
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {

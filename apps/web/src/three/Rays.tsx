@@ -8,6 +8,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { Partner } from '../data/api';
 import { elementByZ } from '../data/periodic';
 import type { Vec3 } from '../data/structure';
+import { useHoverIntent } from '../lib/hoverIntent';
 import { useAppStore } from '../state/store';
 import { RAY_COLOR, VIOLET_COLOR } from './colors';
 import type { TableTransform } from './layout';
@@ -251,14 +252,22 @@ export function Rays({
     return curves[Math.round(index)];
   };
 
+  // Hover intent: rays light up under a pointer that slows down, not under a quick pass.
+  const hoverIntent = useHoverIntent<number>(
+    (z) => setHoveredPartner(z, predicted),
+    () => {
+      const state = useAppStore.getState();
+      return state.hoveredPredicted === predicted ? state.hoveredPartner : null;
+    },
+  );
   const onMove = (event: ThreeEvent<PointerEvent>) => {
     event.stopPropagation();
     const ray = rayAt(event);
-    if (ray && ray.z !== hoveredPartner) setHoveredPartner(ray.z, predicted);
+    if (ray) hoverIntent.over(ray.z, event.pointerType === 'touch');
     document.body.style.cursor = 'pointer';
   };
   const onOut = () => {
-    setHoveredPartner(null);
+    hoverIntent.out();
     document.body.style.cursor = 'auto';
   };
   const onClick = (event: ThreeEvent<MouseEvent>) => {

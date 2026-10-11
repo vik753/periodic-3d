@@ -7,6 +7,7 @@ import * as THREE from 'three';
 
 import type { IndexEntry } from '../data/compoundIndex';
 import type { StructureData } from '../data/structure';
+import { useHoverIntent } from '../lib/hoverIntent';
 import { useAppStore } from '../state/store';
 import type { ControlsRef } from './CameraDirector';
 import { cloudOverviewPose } from './CameraDirector';
@@ -110,6 +111,14 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
   const selectedSet = useMemo(() => new Set(selected), [selected]);
   const focusIndex = items.findIndex((entry) => entry.id === focus);
   const hoverIndex = items.findIndex((entry) => entry.id === hover);
+  /** Size an orb grows or shrinks to: by fame, larger when hovered, 0 under a 3D model. */
+  const targetSize = (index: number, hovered: number): number => {
+    const entry = items[index];
+    if (!entry) return 0;
+    if (index === focusIndex) return focusStructure ? 0 : 2.2;
+    const base = 0.7 + 0.9 * (Math.log1p(entry.fame) / Math.log1p(strongest));
+    return index === hovered ? base * 1.7 : base;
+  };
 
   const sphere = useMemo(() => new THREE.SphereGeometry(1, 18, 12), []);
   const material = useMemo(() => new THREE.MeshBasicMaterial({ toneMapped: false }), []);
@@ -154,8 +163,7 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
     if (!reducedMotion && focusIndex < 0) group.rotation.y += dt * 0.05;
     const matrix = new THREE.Matrix4();
     items.forEach((entry, index) => {
-      const base = 0.7 + 0.9 * (Math.log1p(entry.fame) / Math.log1p(strongest));
-      const target = index === focusIndex ? (focusStructure ? 0 : 2.2) : index === hoverIndex ? base * 1.7 : base;
+      const target = targetSize(index, hoverIndex);
       sizes.current[index] = damp(sizes.current[index]!, target, 7, dt);
       const radius = ORB_RADIUS * sizes.current[index]!;
       matrix.makeScale(radius, radius, radius).setPosition(positions[index]!);
@@ -193,15 +201,52 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [controls, focusIndex, positions, reducedMotion]);
 
+  // Picking. The hovered orb grows to 1.7×; picking the drawn spheres made it flicker: it
+  // grew, a neighbour or the edge took the pointer, it shrank, and again. Picking now
+  // uses the target sizes, not the animated ones: a resting orb answers in a slightly
+  // larger sphere than it shows, the hovered one in its full grown size (hysteresis),
+  // so the pointer stays on it until it really leaves. Analytic ray–sphere tests also
+  // never use a stale bounding sphere of the instanced mesh.
+  const pickState = useRef({ hoverIndex, targetSize });
+  pickState.current = { hoverIndex, targetSize };
+  const pickRaycast = useMemo(() => {
+    const center = new THREE.Vector3();
+    const toCenter = new THREE.Vector3();
+    const scale = new THREE.Vector3();
+    return (raycaster: THREE.Raycaster, intersects: THREE.Intersection[]) => {
+      const orbs = orbsRef.current;
+      if (!orbs) return;
+      const { hoverIndex: hovered, targetSize: sizeOf } = pickState.current;
+      const ray = raycaster.ray;
+      scale.setFromMatrixScale(orbs.matrixWorld);
+      for (let index = 0; index < orbs.count; index += 1) {
+        const local = positions[index];
+        if (!local) continue;
+        const size = sizeOf(index, hovered) * (index === hovered ? 1 : 1.15);
+        if (size <= 0) continue;
+        const radius = ORB_RADIUS * size * scale.x;
+        center.copy(local).applyMatrix4(orbs.matrixWorld);
+        const distanceSq = ray.distanceSqToPoint(center);
+        if (distanceSq > radius * radius) continue;
+        const along = toCenter.subVectors(center, ray.origin).dot(ray.direction);
+        const distance = along - Math.sqrt(radius * radius - distanceSq);
+        if (distance < raycaster.near || distance > raycaster.far) continue;
+        intersects.push({ distance, point: ray.at(distance, new THREE.Vector3()), object: orbs, instanceId: index });
+      }
+    };
+  }, [positions]);
+
+  // Hover intent: an orb lights up under a pointer that slows down (lib/hoverIntent.ts).
+  const hoverIntent = useHoverIntent<string>(setHover, () => useAppStore.getState().cloudHover);
   const onMove = (event: ThreeEvent<PointerEvent>) => {
     if (event.instanceId == null) return;
     event.stopPropagation();
     const entry = items[event.instanceId];
-    if (entry && entry.id !== hover) setHover(entry.id);
+    if (entry) hoverIntent.over(entry.id, event.pointerType === 'touch');
     document.body.style.cursor = 'pointer';
   };
   const onOut = () => {
-    setHover(null);
+    hoverIntent.out();
     document.body.style.cursor = 'auto';
   };
   const onClick = (event: ThreeEvent<MouseEvent>) => {
@@ -229,6 +274,7 @@ export function CompoundCloud({ controls, entries, selected, focusStructure, lab
         <instancedMesh
           ref={orbsRef}
           args={[sphere, material, CLOUD_MAX]}
+          raycast={pickRaycast}
           onPointerMove={onMove}
           onPointerOut={onOut}
           onClick={onClick}

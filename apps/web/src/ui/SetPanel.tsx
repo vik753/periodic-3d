@@ -5,10 +5,12 @@ import { pickName } from '../data/api';
 import { COMPOUND_GROUPS } from '../data/compoundIndex';
 import { useElements, useGnome } from '../data/hooks';
 import { elementByZ } from '../data/periodic';
+import { useHoverIntent } from '../lib/hoverIntent';
 import { useAppStore } from '../state/store';
 import { useCloud } from '../state/useCloud';
 import { PredictedBadge } from './MaterialPanel';
 import { Panel, Section, Skeleton, StatusNote } from './Panel';
+import { FormulaRow } from './FormulaRow';
 
 const LIST_LIMIT = 60;
 const EXTRAS_SHOWN = 16;
@@ -25,6 +27,8 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
   const hover = useAppStore((state) => state.cloudHover);
   const focus = useAppStore((state) => state.cloudFocus);
   const setHover = useAppStore((state) => state.setCloudHover);
+  // The list lights up orbs; a quick pass down the list must not flash them all.
+  const listHover = useHoverIntent<string>(setHover, () => useAppStore.getState().cloudHover);
   const setFocus = useAppStore((state) => state.setCloudFocus);
   const { result, predicted, predictedPending, isPending, unavailable } = useCloud();
   const gnome = useGnome();
@@ -174,21 +178,20 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
 
       {result && result.items.length > 0 && (
         <Section title={t('cloud.list')}>
-          <ol className="flex flex-col" onMouseLeave={() => setHover(null)}>
+          <ol className="flex flex-col" onMouseLeave={() => listHover.out()}>
             {result.items.slice(0, LIST_LIMIT).map((entry) => (
               <li key={entry.id}>
                 <button
                   type="button"
-                  onMouseEnter={() => setHover(entry.id)}
-                  onFocus={() => setHover(entry.id)}
+                  onMouseEnter={() => listHover.over(entry.id)}
+                  onFocus={() => listHover.over(entry.id, true)}
                   onClick={() => (entry.id === focus ? navigate(openPath(entry)) : setFocus(entry.id))}
                   aria-current={entry.id === focus ? 'true' : undefined}
                   className={`-mx-2 flex w-[calc(100%+1rem)] items-baseline gap-3 rounded-xl px-2 py-1.5 text-left transition-colors ${
                     entry.id === focus ? 'bg-cyan/10 ring-1 ring-cyan/50' : entry.id === hover ? 'bg-white/5' : 'hover:bg-white/5'
                   }`}
                 >
-                  <span className="min-w-[4.5rem] font-display text-sm font-medium">{entry.formula}</span>
-                  <span className="truncate text-sm text-muted">{pickName(entry.names, i18n.language)}</span>
+                  <FormulaRow formula={entry.formula} name={pickName(entry.names, i18n.language)} />
                 </button>
               </li>
             ))}
@@ -197,13 +200,13 @@ export function SetPanel({ symbols }: { symbols: string[] }) {
       )}
       {predicted && predicted.entries.length > 0 && (
         <Section title={t('predicted.title')}>
-          <ol className="flex flex-col" onMouseLeave={() => setHover(null)}>
+          <ol className="flex flex-col" onMouseLeave={() => listHover.out()}>
             {predicted.entries.map((entry) => (
               <li key={entry.id}>
                 <button
                   type="button"
-                  onMouseEnter={() => setHover(entry.id)}
-                  onFocus={() => setHover(entry.id)}
+                  onMouseEnter={() => listHover.over(entry.id)}
+                  onFocus={() => listHover.over(entry.id, true)}
                   onClick={() => (entry.id === focus ? navigate(openPath(entry)) : setFocus(entry.id))}
                   aria-current={entry.id === focus ? 'true' : undefined}
                   className={`-mx-2 flex w-[calc(100%+1rem)] items-baseline gap-3 rounded-xl px-2 py-1.5 text-left transition-colors ${

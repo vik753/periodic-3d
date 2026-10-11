@@ -11,6 +11,7 @@ import { formatCharge, formatCount, formatNumber, formulaOrder } from './format'
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
 import { ReportLink } from './ReportLink';
+import { FormulaRow } from './FormulaRow';
 
 /** Wikidata classes too generic to show ("type of chemical entity", "group of isomers"…). */
 const GENERIC_CLASSES = new Set([
@@ -178,8 +179,7 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
                   to={`/c/${item.id}`}
                   className="-mx-2 flex items-baseline gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-white/5"
                 >
-                  <span className="min-w-[4.5rem] font-display text-sm font-medium">{item.formula}</span>
-                  <span className="truncate text-sm text-muted">{pickName(item.names, language)}</span>
+                  <FormulaRow formula={item.formula} name={pickName(item.names, language)} />
                 </Link>
               </li>
             ))}

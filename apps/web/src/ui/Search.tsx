@@ -7,6 +7,7 @@ import type { ElementSummary } from '../data/api';
 import { pickName } from '../data/api';
 import { normalizeText, searchIndex, useCompoundIndex } from '../data/compoundIndex';
 import { useElements } from '../data/hooks';
+import { FormulaRow } from './FormulaRow';
 
 interface Result {
   key: string;
@@ -155,18 +156,17 @@ export function Search() {
                 position === active ? 'bg-white/10' : ''
               }`}
             >
-              <span
-                className={`font-display font-semibold ${
+              <FormulaRow
+                formula={result.title}
+                name={result.subtitle}
+                formulaClassName={`font-display font-semibold ${
                   result.kind === 'element'
                     ? 'min-w-[2rem] text-gold'
                     : result.kind === 'material'
                       ? 'min-w-[4rem] text-violet'
                       : 'min-w-[4rem]'
                 }`}
-              >
-                {result.title}
-              </span>
-              <span className="truncate text-sm text-muted">{result.subtitle}</span>
+              />
             </li>
           ))}
         </ul>

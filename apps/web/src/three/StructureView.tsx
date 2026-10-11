@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import { atomColor, covalentRadius } from '../data/chemistry';
 import type { StructureData, Vec3 } from '../data/structure';
 import { boundingRadius, centroid } from '../data/structure';
+import { useHoverIntent } from '../lib/hoverIntent';
 import { useAppStore } from '../state/store';
 import { ClickGuard } from './ClickGuard';
 import { damp, prefersReducedMotion, useKeepRendering } from './useKeepRendering';
@@ -212,10 +213,12 @@ export function StructureView({
     if (idle && !reducedMotion) group.rotation.y += dt * 0.16;
   });
 
+  // Hover intent: the atom label shows under a pointer that rests, not one that sweeps by.
+  const hoverIntent = useHoverIntent<number>(setHoveredAtom, () => useAppStore.getState().hoveredAtom);
   const handleMove = (event: ThreeEvent<PointerEvent>) => {
     if (event.instanceId == null) return;
     event.stopPropagation();
-    if (event.instanceId !== hoveredAtom) setHoveredAtom(event.instanceId);
+    hoverIntent.over(event.instanceId, event.pointerType === 'touch');
   };
 
   const anchors = useMemo(
@@ -232,7 +235,7 @@ export function StructureView({
         ref={atomsRef}
         args={[sphere, atomMaterial, data.atoms.length]}
         onPointerMove={handleMove}
-        onPointerOut={() => setHoveredAtom(null)}
+        onPointerOut={() => hoverIntent.out()}
       />
       {halves.length > 0 && <instancedMesh ref={bondsRef} args={[cylinder, bondMaterial, halves.length]} raycast={() => null} />}
       {cellLines && <lineSegments geometry={cellLines} material={cellMaterial} />}

@@ -32,10 +32,26 @@ NOTE = {
     "B5": 987.77, "C#6": 1108.73, "D6": 1174.66, "E6": 1318.51,
 }
 CHORDS = [
-    {"root": "D2", "pad": ["D3", "A3", "C#4", "E4", "F#4"], "bells": ["F#4", "A4", "C#5", "D5", "E5", "F#5", "A5", "E6"]},
-    {"root": "A1", "pad": ["A2", "E3", "F#3", "B3", "C#4"], "bells": ["E4", "F#4", "A4", "B4", "C#5", "E5", "F#5", "B5", "C#6"]},
-    {"root": "G2", "pad": ["D3", "F#3", "G3", "B3", "D4"], "bells": ["G4", "B4", "D5", "F#5", "A5", "B5", "D6"]},
-    {"root": "E2", "pad": ["E3", "B3", "D4", "F#4", "G4"], "bells": ["E4", "G4", "B4", "D5", "F#5", "B5", "E6"]},
+    {
+        "root": "D2",
+        "pad": ["D3", "A3", "C#4", "E4", "F#4"],
+        "bells": ["F#4", "A4", "C#5", "D5", "E5", "F#5", "A5", "E6"],
+    },
+    {
+        "root": "A1",
+        "pad": ["A2", "E3", "F#3", "B3", "C#4"],
+        "bells": ["E4", "F#4", "A4", "B4", "C#5", "E5", "F#5", "B5", "C#6"],
+    },
+    {
+        "root": "G2",
+        "pad": ["D3", "F#3", "G3", "B3", "D4"],
+        "bells": ["G4", "B4", "D5", "F#5", "A5", "B5", "D6"],
+    },
+    {
+        "root": "E2",
+        "pad": ["E3", "B3", "D4", "F#4", "G4"],
+        "bells": ["E4", "G4", "B4", "D5", "F#5", "B5", "E6"],
+    },
 ]
 
 
@@ -154,7 +170,8 @@ def render(seconds: float, seed: int = 7) -> np.ndarray:
 
     # Air: soft band of noise that swells and fades.
     t = np.arange(total) / RATE
-    air = signal.sosfilt(signal.butter(2, [500, 4200], btype="band", fs=RATE, output="sos"), rng.standard_normal((total, 2)), axis=0)
+    band = signal.butter(2, [500, 4200], btype="band", fs=RATE, output="sos")
+    air = signal.sosfilt(band, rng.standard_normal((total, 2)), axis=0)
     air *= (0.013 + 0.009 * np.sin(2 * np.pi * 0.045 * t + 1.0))[:, None]
 
     pads = signal.sosfiltfilt(signal.butter(2, 4800, fs=RATE, output="sos"), pads, axis=0)

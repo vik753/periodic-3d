@@ -34,9 +34,9 @@ export function reloadForNewVersion(): boolean {
 }
 
 /** React.lazy that reloads the page once when the chunk is gone after a deploy. */
-export function lazyChunk<P extends object>(
-  load: () => Promise<{ default: ComponentType<P> }>,
-): LazyExoticComponent<ComponentType<P>> {
+// The same constraint as React.lazy: any component type.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function lazyChunk<T extends ComponentType<any>>(load: () => Promise<{ default: T }>): LazyExoticComponent<T> {
   return lazy(() =>
     load().catch((error: unknown) => {
       if (isChunkError(error) && reloadForNewVersion()) {

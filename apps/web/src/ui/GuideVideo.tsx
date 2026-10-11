@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router';
 
 /** The guide videos that CI recorded for this site (guide/manifest.json, if any). */
 interface GuideManifest {
@@ -45,12 +46,21 @@ function PlayIcon() {
 export function GuideVideoButton() {
   const { t, i18n } = useTranslation();
   const manifest = useGuideManifest();
-  const [open, setOpen] = useState(false);
+  // /about?video opens the video at once: the README links here.
+  const [params, setParams] = useSearchParams();
+  const [open, setOpen] = useState(() => params.has('video'));
   const buttonRef = useRef<HTMLButtonElement>(null);
   const close = useCallback(() => {
     setOpen(false);
+    setParams(
+      (current) => {
+        current.delete('video');
+        return current;
+      },
+      { replace: true },
+    );
     buttonRef.current?.focus();
-  }, []);
+  }, [setParams]);
 
   const videos = manifest.data?.videos;
   if (!videos) return null;
@@ -132,6 +142,7 @@ function GuideOverlay({ src, poster, onClose }: { src: string; poster?: string; 
           poster={poster}
           controls
           autoPlay
+          muted // the video has no sound; muted video may start by itself in every browser
           playsInline
           preload="metadata"
           className="aspect-video w-full rounded-2xl bg-black shadow-2xl ring-1 ring-rim"

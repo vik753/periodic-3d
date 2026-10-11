@@ -11,6 +11,9 @@ function isLanguage(value: string | null | undefined): value is Language {
 }
 
 function detectLanguage(): Language {
+  // A link may name the language (?lang=uk): the README links to the video this way.
+  const requested = new URLSearchParams(window.location.search).get('lang');
+  if (isLanguage(requested)) return requested;
   try {
     const saved = window.localStorage.getItem(STORAGE_KEY);
     if (isLanguage(saved)) return saved;

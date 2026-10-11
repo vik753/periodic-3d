@@ -276,18 +276,23 @@ function RenderStats() {
   const camera = useThree((state) => state.camera);
   const size = useThree((state) => state.size);
   const scene = useAppStore((state) => state.scene);
+  const world = useThree((state) => state.scene);
 
   useEffect(() => {
     window.__p3d = {
       ...window.__p3d,
+      // Where a tile is on screen now: the table moves and shrinks inside an element.
       project: (symbol: string) => {
         const cell = elementBySymbol(symbol);
         if (!cell) return null;
-        const point = new THREE.Vector3(...tilePosition(cell)).project(camera);
+        const point = new THREE.Vector3(...tilePosition(cell));
+        const table = world.getObjectByName('periodic-table');
+        if (table) point.applyMatrix4(table.matrixWorld);
+        point.project(camera);
         return { x: ((point.x + 1) / 2) * size.width, y: ((1 - point.y) / 2) * size.height };
       },
     };
-  }, [camera, size]);
+  }, [camera, size, world]);
   useFrame(() => {
     window.__p3d = {
       ...window.__p3d,

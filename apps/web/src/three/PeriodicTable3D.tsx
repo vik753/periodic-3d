@@ -381,7 +381,7 @@ export function PeriodicTable3D({
   };
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} name="periodic-table">
       <instancedMesh
         ref={tilesRef}
         args={[tileGeometry, tileMaterial, COUNT]}

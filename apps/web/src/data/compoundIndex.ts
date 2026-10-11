@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import type { CompoundIndex, Names, StructureKind } from './api';
 import { useMeta } from './hooks';
-import { fetchJson, resourceUrl } from './source';
+import { checkFreshVersion, fetchJson, NotFoundError, resourceUrl } from './source';
 
 export interface IndexEntry {
   id: string;
@@ -71,7 +71,14 @@ export function useCompoundIndex(enabled = true) {
   const version = meta.data?.version;
   return useQuery({
     queryKey: ['dataset', version, 'index'],
-    queryFn: async ({ signal }) => parseIndex(await fetchJson<CompoundIndex>(resourceUrl(version as string, 'index'), signal)),
+    queryFn: async ({ signal }) => {
+      try {
+        return parseIndex(await fetchJson<CompoundIndex>(resourceUrl(version as string, 'index'), signal));
+      } catch (error) {
+        if (error instanceof NotFoundError) checkFreshVersion(version as string, (fresh) => fresh.version);
+        throw error;
+      }
+    },
     enabled: enabled && Boolean(version),
   });
 }

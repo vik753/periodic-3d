@@ -22,7 +22,7 @@ import {
   predictedPartners,
   rarestElement,
 } from './predicted';
-import { fetchJson, metaUrl, NotFoundError, resourceUrl } from './source';
+import { checkFreshVersion, fetchJson, metaUrl, NotFoundError, resourceUrl } from './source';
 
 /** Retry network hiccups, not missing files. */
 function retry(failureCount: number, error: unknown): boolean {
@@ -43,7 +43,15 @@ function useDataset<T>(path: string | null) {
   const version = meta.data?.version;
   const query = useQuery({
     queryKey: ['dataset', version, path],
-    queryFn: ({ signal }) => fetchJson<T>(resourceUrl(version as string, path as string), signal),
+    queryFn: async ({ signal }) => {
+      try {
+        return await fetchJson<T>(resourceUrl(version as string, path as string), signal);
+      } catch (error) {
+        // An old page asks for a dataset the site no longer has: reload for the new one.
+        if (error instanceof NotFoundError) checkFreshVersion(version as string, (fresh) => fresh.version);
+        throw error;
+      }
+    },
     enabled: Boolean(version && path),
     retry,
   });
@@ -89,7 +97,14 @@ function useGnomeFile<T>(path: string | null) {
   const version = meta.data?.gnome?.version;
   const query = useQuery({
     queryKey: ['gnome', version, path],
-    queryFn: ({ signal }) => fetchJson<T>(resourceUrl(version as string, path as string), signal),
+    queryFn: async ({ signal }) => {
+      try {
+        return await fetchJson<T>(resourceUrl(version as string, path as string), signal);
+      } catch (error) {
+        if (error instanceof NotFoundError) checkFreshVersion(version as string, (fresh) => fresh.gnome?.version);
+        throw error;
+      }
+    },
     enabled: Boolean(version && path),
     retry,
     staleTime: Infinity,

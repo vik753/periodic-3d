@@ -9,6 +9,12 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
 import { App } from './App';
+import { reloadForNewVersion } from './lib/lazyChunk';
+
+// Vite reports a chunk it could not preload (gone after a deploy): load the new page once.
+window.addEventListener('vite:preloadError', (event) => {
+  if (reloadForNewVersion()) event.preventDefault();
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {

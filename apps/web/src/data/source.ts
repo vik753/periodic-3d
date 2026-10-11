@@ -8,6 +8,8 @@
  * The path is the same in both modes: "elements/Fe", "compounds/Q283", "pairs/O-Fe".
  */
 
+import { reloadForNewVersion } from '../lib/lazyChunk';
+
 export type DataMode = 'static' | 'api';
 
 export const DATA_MODE: DataMode = import.meta.env.VITE_DATA_MODE === 'api' ? 'api' : 'static';
@@ -45,4 +47,31 @@ export async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T
 export function pairPath(a: { z: number; symbol: string }, b: { z: number; symbol: string }): string {
   const [first, second] = a.z <= b.z ? [a, b] : [b, a];
   return `pairs/${first.symbol}-${second.symbol}`;
+}
+
+let checking = false;
+
+/**
+ * A file of the loaded dataset is missing. When the site has switched to a newer dataset
+ * since this page opened (the old files are gone), reload the page once to get it.
+ * `pick` reads the version to compare from a fresh meta.json.
+ */
+export function checkFreshVersion(current: string, pick: (meta: Partial<VersionInfo>) => string | undefined): void {
+  if (checking || DATA_MODE !== 'static') return;
+  checking = true;
+  void fetch(metaUrl(), { cache: 'no-store', headers: { Accept: 'application/json' } })
+    .then((response) => (response.ok ? (response.json() as Promise<Partial<VersionInfo>>) : null))
+    .then((meta) => {
+      const fresh = meta ? pick(meta) : undefined;
+      if (fresh && fresh !== current) reloadForNewVersion();
+    })
+    .catch(() => undefined)
+    .finally(() => {
+      checking = false;
+    });
+}
+
+interface VersionInfo {
+  version: string;
+  gnome: { version?: string } | null;
 }

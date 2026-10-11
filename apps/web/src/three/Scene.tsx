@@ -1,7 +1,7 @@
 import { CameraControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import type { RefObject } from 'react';
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 
@@ -26,6 +26,7 @@ import type { IndexEntry } from '../data/compoundIndex';
 import { useAppStore } from '../state/store';
 import { formulaOrder } from '../ui/format';
 import { cloudEntries, useCloud } from '../state/useCloud';
+import { lazyChunk } from '../lib/lazyChunk';
 import type { ControlsRef } from './CameraDirector';
 import { CAMERA_FOV, CameraDirector, cloudOverviewPose, SIDE_PANEL_MIN_WIDTH } from './CameraDirector';
 import type { CloudLabel } from './CompoundCloud';
@@ -41,12 +42,12 @@ import type { BeadLabel } from './RayWalk';
 import { damp } from './useKeepRendering';
 
 // Scene parts beyond the table load on demand: the first screen needs only the table.
-const AtomModel = lazy(() => import('./AtomModel').then((module) => ({ default: module.AtomModel })));
-const CompositionView = lazy(() => import('./CompositionView').then((module) => ({ default: module.CompositionView })));
-const CompoundCloud = lazy(() => import('./CompoundCloud').then((module) => ({ default: module.CompoundCloud })));
-const Rays = lazy(() => import('./Rays').then((module) => ({ default: module.Rays })));
-const RayWalk = lazy(() => import('./RayWalk').then((module) => ({ default: module.RayWalk })));
-const StructureView = lazy(() => import('./StructureView').then((module) => ({ default: module.StructureView })));
+const AtomModel = lazyChunk(() => import('./AtomModel').then((module) => ({ default: module.AtomModel })));
+const CompositionView = lazyChunk(() => import('./CompositionView').then((module) => ({ default: module.CompositionView })));
+const CompoundCloud = lazyChunk(() => import('./CompoundCloud').then((module) => ({ default: module.CompoundCloud })));
+const Rays = lazyChunk(() => import('./Rays').then((module) => ({ default: module.Rays })));
+const RayWalk = lazyChunk(() => import('./RayWalk').then((module) => ({ default: module.RayWalk })));
+const StructureView = lazyChunk(() => import('./StructureView').then((module) => ({ default: module.StructureView })));
 
 declare global {
   interface Window {

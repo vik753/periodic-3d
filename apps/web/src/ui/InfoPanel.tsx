@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router';
 
@@ -6,16 +6,17 @@ import { pickName } from '../data/api';
 import { useElements } from '../data/hooks';
 import { ELEMENTS } from '../data/periodic';
 import { isTouchFirst } from '../lib/device';
+import { lazyChunk } from '../lib/lazyChunk';
 import { useAppStore } from '../state/store';
 import { formatNumber } from './format';
 import { Panel, Skeleton } from './Panel';
 
 // Panels load with their scene; the table needs only the hint below.
-const AboutPanel = lazy(() => import('./AboutPanel').then((module) => ({ default: module.AboutPanel })));
-const CompoundPanel = lazy(() => import('./CompoundPanel').then((module) => ({ default: module.CompoundPanel })));
-const ElementPanel = lazy(() => import('./ElementPanel').then((module) => ({ default: module.ElementPanel })));
-const MaterialPanel = lazy(() => import('./MaterialPanel').then((module) => ({ default: module.MaterialPanel })));
-const SetPanel = lazy(() => import('./SetPanel').then((module) => ({ default: module.SetPanel })));
+const AboutPanel = lazyChunk(() => import('./AboutPanel').then((module) => ({ default: module.AboutPanel })));
+const CompoundPanel = lazyChunk(() => import('./CompoundPanel').then((module) => ({ default: module.CompoundPanel })));
+const ElementPanel = lazyChunk(() => import('./ElementPanel').then((module) => ({ default: module.ElementPanel })));
+const MaterialPanel = lazyChunk(() => import('./MaterialPanel').then((module) => ({ default: module.MaterialPanel })));
+const SetPanel = lazyChunk(() => import('./SetPanel').then((module) => ({ default: module.SetPanel })));
 
 function Loading() {
   return (

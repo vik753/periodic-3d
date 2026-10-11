@@ -256,6 +256,11 @@ const resources = {
         elements: 'Елементи таблиці',
         elementsHint: 'Перелік елементів для клавіатури: Tab — далі, Enter — відкрити елемент.',
       },
+      error: {
+        title: 'Не вдалося показати цю частину',
+        text: 'Можливо, сайт щойно оновився. Оновіть сторінку: вона завантажить нову версію.',
+        reload: 'Оновити сторінку',
+      },
       guide: {
         watch: 'Дивитися відео',
         length: 'Усі можливості сайту за {{count}} хв',
@@ -523,6 +528,11 @@ const resources = {
         elements: 'Элементы таблицы',
         elementsHint: 'Список элементов для клавиатуры: Tab — дальше, Enter — открыть элемент.',
       },
+      error: {
+        title: 'Не удалось показать эту часть',
+        text: 'Возможно, сайт только что обновился. Обновите страницу: она загрузит новую версию.',
+        reload: 'Обновить страницу',
+      },
       guide: {
         watch: 'Смотреть видео',
         length: 'Все возможности сайта за {{count}} мин',
@@ -778,6 +788,11 @@ const resources = {
       a11y: {
         elements: 'Table elements',
         elementsHint: 'Element list for the keyboard: Tab moves on, Enter opens the element.',
+      },
+      error: {
+        title: 'This part could not be shown',
+        text: 'The site may have just been updated. Reload the page to get the new version.',
+        reload: 'Reload the page',
       },
       guide: {
         watch: 'Watch the video',

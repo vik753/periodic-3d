@@ -1,5 +1,5 @@
 $ bash ../../tools/ci/fetch-gnome.sh out/gnome
-started: 2026-10-11T14:44:17Z
+started: 2026-10-11T14:58:35Z
 fetch-gnome: release:gnome-2026.10.11-r2 → /home/runner/work/periodic-3d/periodic-3d/apps/api/out/gnome/gnome.tar.gz (151843099 bytes)
-finished: 2026-10-11T14:44:18Z
+finished: 2026-10-11T14:58:37Z
 exit code: 0

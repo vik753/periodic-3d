@@ -1,38 +1,38 @@
 $ npm run screenshot
-started: 2026-10-11T03:58:07Z
+started: 2026-10-11T04:14:07Z
 
 > @periodic-3d/web@0.1.0 screenshot
 > node scripts/screenshot.mjs
 
-ok   table 4057ms calls=3 url=/periodic-3d/
-ok   table-hover-fe 4944ms calls=3 url=/periodic-3d/
-ok   click-fe-flight 7578ms calls=11 url=/periodic-3d/e/Fe
-ok   search-fe 3738ms calls=3 url=/periodic-3d/
-ok   element-fe 7300ms calls=11 url=/periodic-3d/e/Fe
-ok   element-u 7141ms calls=12 url=/periodic-3d/e/U
-ok   element-fe-substance 9698ms calls=8 url=/periodic-3d/e/Fe
-ok   element-c-substance 9042ms calls=6 url=/periodic-3d/e/C
-ok   element-o-rays 8041ms calls=9 url=/periodic-3d/e/O
-ok   walk-fe-o 8235ms calls=10 url=/periodic-3d/e/Fe/O
-ok   walk-fe-o-step3 11211ms calls=10 url=/periodic-3d/e/Fe/O
-ok   phone-walk-fe-o 7952ms calls=8 url=/periodic-3d/e/Fe/O
-ok   phone-element-o-rays 7517ms calls=9 url=/periodic-3d/e/O
-ok   set-fe-o 7734ms calls=5 url=/periodic-3d/set/Fe-O
-ok   set-o 7837ms calls=5 url=/periodic-3d/set/O
-ok   phone-set-fe-o 7223ms calls=5 url=/periodic-3d/set/Fe-O
-ok   compound-hematite 8563ms calls=6 url=/periodic-3d/c/Q103223
-ok   compound-water 8363ms calls=5 url=/periodic-3d/c/Q283
-ok   compound-ozone-ru 8993ms calls=5 url=/periodic-3d/c/Q36933
-ok   compound-glucose 6377ms calls=3 url=/periodic-3d/c/Q37525
-ok   compound-sodium-acetate 6590ms calls=3 url=/periodic-3d/c/Q339940
-ok   compound-no-3d 6704ms calls=3 url=/periodic-3d/c/Q483269
-ok   about 6188ms calls=3 url=/periodic-3d/about
-ok   keyboard-index 3927ms calls=3 url=/periodic-3d/
-ok   phone-about 4083ms calls=3 url=/periodic-3d/about
-ok   molecule-benzene 7609ms calls=5 url=/periodic-3d/c/demo-benzene
-ok   crystal-nacl 7933ms calls=6 url=/periodic-3d/c/demo-nacl
-ok   phone-table 3805ms calls=3 url=/periodic-3d/
-ok   phone-element-fe 7052ms calls=11 url=/periodic-3d/e/Fe
-ok   phone-compound-hematite 7705ms calls=6 url=/periodic-3d/c/Q103223
-finished: 2026-10-11T04:02:00Z
+ok   table 4018ms calls=3 url=/periodic-3d/
+ok   table-hover-fe 4212ms calls=3 url=/periodic-3d/
+ok   click-fe-flight 7586ms calls=11 url=/periodic-3d/e/Fe
+ok   search-fe 3729ms calls=3 url=/periodic-3d/
+ok   element-fe 7835ms calls=11 url=/periodic-3d/e/Fe
+ok   element-u 7670ms calls=12 url=/periodic-3d/e/U
+ok   element-fe-substance 10225ms calls=8 url=/periodic-3d/e/Fe
+ok   element-c-substance 9556ms calls=6 url=/periodic-3d/e/C
+ok   element-o-rays 7664ms calls=9 url=/periodic-3d/e/O
+ok   walk-fe-o 8327ms calls=10 url=/periodic-3d/e/Fe/O
+ok   walk-fe-o-step3 10884ms calls=10 url=/periodic-3d/e/Fe/O
+ok   phone-walk-fe-o 8418ms calls=8 url=/periodic-3d/e/Fe/O
+ok   phone-element-o-rays 7514ms calls=9 url=/periodic-3d/e/O
+ok   set-fe-o 7514ms calls=5 url=/periodic-3d/set/Fe-O
+ok   set-o 7699ms calls=5 url=/periodic-3d/set/O
+ok   phone-set-fe-o 7452ms calls=5 url=/periodic-3d/set/Fe-O
+ok   compound-hematite 8811ms calls=6 url=/periodic-3d/c/Q103223
+ok   compound-water 7630ms calls=5 url=/periodic-3d/c/Q283
+ok   compound-ozone-ru 8119ms calls=5 url=/periodic-3d/c/Q36933
+ok   compound-glucose 6243ms calls=3 url=/periodic-3d/c/Q37525
+ok   compound-sodium-acetate 6260ms calls=3 url=/periodic-3d/c/Q339940
+ok   compound-no-3d 5975ms calls=3 url=/periodic-3d/c/Q483269
+ok   about 5841ms calls=3 url=/periodic-3d/about
+ok   keyboard-index 3928ms calls=3 url=/periodic-3d/
+ok   phone-about 4241ms calls=3 url=/periodic-3d/about
+ok   molecule-benzene 7587ms calls=5 url=/periodic-3d/c/demo-benzene
+ok   crystal-nacl 7456ms calls=6 url=/periodic-3d/c/demo-nacl
+ok   phone-table 3798ms calls=3 url=/periodic-3d/
+ok   phone-element-fe 7329ms calls=11 url=/periodic-3d/e/Fe
+ok   phone-compound-hematite 7348ms calls=6 url=/periodic-3d/c/Q103223
+finished: 2026-10-11T04:17:56Z
 exit code: 0

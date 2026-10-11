@@ -1,40 +1,40 @@
 {
   "base": "https://vik753.github.io/periodic-3d/",
-  "time": "2026-10-11T04:04:06.187Z",
+  "time": "2026-10-11T04:20:02.230Z",
   "network": "4G 9 Mbit/s, 170 ms RTT",
   "profiles": [
     {
       "name": "desktop-4g",
       "cpuSlowdown": 1,
-      "lcpMs": 876,
-      "readyMs": 1725,
+      "lcpMs": 864,
+      "readyMs": 1765,
       "scriptKB": 384,
       "totalKB": 539,
       "samples": [
         {
-          "lcp": 992,
-          "domContentLoaded": 808.5999999999767,
-          "load": 808.7999999999884,
+          "lcp": 988,
+          "domContentLoaded": 813.5999999999767,
+          "load": 813.9000000000233,
           "calls": 3,
-          "ready": 1725,
+          "ready": 1649,
           "scriptKB": 384,
           "totalKB": 539
         },
         {
           "lcp": 864,
-          "domContentLoaded": 801,
-          "load": 801.3000000000466,
+          "domContentLoaded": 802.7999999999302,
+          "load": 803,
           "calls": 3,
-          "ready": 1574,
+          "ready": 1918,
           "scriptKB": 384,
           "totalKB": 539
         },
         {
-          "lcp": 876,
-          "domContentLoaded": 802.8999999999651,
-          "load": 803,
+          "lcp": 864,
+          "domContentLoaded": 807.6000000000931,
+          "load": 807.8000000000466,
           "calls": 3,
-          "ready": 2049,
+          "ready": 1765,
           "scriptKB": 384,
           "totalKB": 539
         }
@@ -43,35 +43,35 @@
     {
       "name": "phone-4g",
       "cpuSlowdown": 4,
-      "lcpMs": 1136,
-      "readyMs": 2174,
+      "lcpMs": 1108,
+      "readyMs": 2099,
       "scriptKB": 384,
       "totalKB": 539,
       "samples": [
         {
-          "lcp": 1180,
-          "domContentLoaded": 992.6000000000349,
-          "load": 993.6000000000349,
+          "lcp": 1120,
+          "domContentLoaded": 949.1999999999534,
+          "load": 950.5,
           "calls": 3,
-          "ready": 2212,
+          "ready": 2107,
           "scriptKB": 384,
           "totalKB": 539
         },
         {
-          "lcp": 1136,
-          "domContentLoaded": 948.3999999999651,
-          "load": 949.5,
+          "lcp": 1108,
+          "domContentLoaded": 942.6999999999534,
+          "load": 943.5,
           "calls": 3,
-          "ready": 2174,
+          "ready": 2099,
           "scriptKB": 384,
           "totalKB": 539
         },
         {
-          "lcp": 1136,
-          "domContentLoaded": 948.2999999999884,
-          "load": 949.2999999999884,
+          "lcp": 1100,
+          "domContentLoaded": 937.9000000000233,
+          "load": 938.5999999999767,
           "calls": 3,
-          "ready": 2166,
+          "ready": 2084,
           "scriptKB": 384,
           "totalKB": 539
         }

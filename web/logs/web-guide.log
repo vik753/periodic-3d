@@ -1,5 +1,14 @@
 $ bash ../../tools/ci/fetch-guide.sh dist/guide
-started: 2026-10-11T15:05:11Z
-fetch-guide: no guide video (data/GUIDE)
-finished: 2026-10-11T15:05:11Z
+started: 2026-10-11T16:59:22Z
+total 78932
+drwxr-xr-x 2 runner runner     4096 Oct 11 16:59 .
+drwxr-xr-x 5 runner runner     4096 Oct 11 16:59 ..
+-rw-r--r-- 1 runner runner   241337 Oct 11 16:59 guide-en.jpg
+-rw-r--r-- 1 runner runner 26161743 Oct 11 16:59 guide-en.mp4
+-rw-r--r-- 1 runner runner   135327 Oct 11 16:59 guide-ru.jpg
+-rw-r--r-- 1 runner runner 27144436 Oct 11 16:59 guide-ru.mp4
+-rw-r--r-- 1 runner runner   130715 Oct 11 16:59 guide-uk.jpg
+-rw-r--r-- 1 runner runner 26986476 Oct 11 16:59 guide-uk.mp4
+-rw-r--r-- 1 runner runner      259 Oct 11 16:59 manifest.json
+finished: 2026-10-11T16:59:25Z
 exit code: 0

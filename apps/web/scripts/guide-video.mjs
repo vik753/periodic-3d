@@ -132,8 +132,32 @@ let recording = true;
 const timeline = [];
 let pointer = { x: viewport.width / 2, y: viewport.height / 2 };
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * A screenshot of a page with a frozen clock now and then never completes (software
+ * WebGL in CI). When it takes longer than 5 s, nudge the clock by 1 ms every 2 s: the
+ * page paints, the screenshot returns, and the video timing moves by a few ms at most.
+ */
+async function screenshot() {
+  let done = false;
+  const nudger = (async () => {
+    await sleep(5000);
+    while (!done) {
+      await page.clock.runFor(1).catch(() => undefined);
+      await sleep(2000);
+    }
+  })();
+  try {
+    return await page.screenshot({ type: 'jpeg', quality: 92, timeout: 120_000 });
+  } finally {
+    done = true;
+    await nudger;
+  }
+}
+
 async function capture() {
-  const image = await page.screenshot({ type: 'jpeg', quality: 92, timeout: 90_000 });
+  const image = await screenshot();
   await writeFile(join(framesDir, `${String(frame).padStart(6, '0')}.jpg`), image);
   frame += 1;
 }

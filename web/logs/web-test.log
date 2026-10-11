@@ -1,5 +1,5 @@
 $ npm test
-started: 2026-10-11T05:33:05Z
+started: 2026-10-11T05:35:42Z
 
 > @periodic-3d/web@0.1.0 test
 > vitest run
@@ -7,18 +7,18 @@ started: 2026-10-11T05:33:05Z
 
 [1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/periodic-3d/periodic-3d/apps/web[39m
 
- [32m✓[39m src/three/composition.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/three/composition.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
  [32m✓[39m src/data/compoundIndex.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/data/chemistry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
  [32m✓[39m src/three/quality.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
- [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 21[2mms[22m[39m
- [32m✓[39m src/data/chemistry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 45[2mms[22m[39m
  [32m✓[39m src/data/source.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
 [2m      Tests [22m [1m[32m29 passed[39m[22m[90m (29)[39m
-[2m   Start at [22m 05:33:06
-[2m   Duration [22m 1.91s[2m (transform 231ms, setup 0ms, collect 390ms, tests 53ms, environment 2.75s, prepare 559ms)[22m
+[2m   Start at [22m 05:35:43
+[2m   Duration [22m 1.55s[2m (transform 185ms, setup 0ms, collect 333ms, tests 77ms, environment 2.11s, prepare 441ms)[22m
 
-finished: 2026-10-11T05:33:08Z
+finished: 2026-10-11T05:35:44Z
 exit code: 0

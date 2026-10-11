@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 391.1,
+  "initialJsGzipKb": 391.4,
   "withinBudget": true,
   "rows": [
     {
@@ -10,91 +10,91 @@
       "initial": true
     },
     {
-      "file": "assets/react-B7ulV_JK.js",
+      "file": "assets/react-dAOiIDMQ.js",
       "kb": 258.7,
-      "gzipKb": 82.5,
+      "gzipKb": 82.6,
       "initial": true
     },
     {
-      "file": "assets/r3f-2nWjCB4d.js",
+      "file": "assets/r3f-CHldKRQJ.js",
       "kb": 223.2,
       "gzipKb": 67.2,
       "initial": true
     },
     {
-      "file": "assets/index-yaiH5P3-.js",
-      "kb": 174.8,
-      "gzipKb": 57.9,
+      "file": "assets/index-Byg-aQn9.js",
+      "kb": 175.6,
+      "gzipKb": 58.1,
       "initial": true
     },
     {
-      "file": "assets/index-DXS_1BWj.css",
-      "kb": 37.7,
-      "gzipKb": 9.3,
+      "file": "assets/index-Pc8yr0p2.css",
+      "kb": 39.7,
+      "gzipKb": 9.6,
       "initial": true
     },
     {
-      "file": "assets/ElementPanel-BleyznZV.js",
+      "file": "assets/ElementPanel-DSqc0PAu.js",
       "kb": 12.4,
       "gzipKb": 3.4,
       "initial": false
     },
     {
-      "file": "assets/Rays-DuFgYNPh.js",
+      "file": "assets/Rays-O4JylJwh.js",
       "kb": 5.9,
       "gzipKb": 2.7,
       "initial": false
     },
     {
-      "file": "assets/RayWalk-CxSVyJNz.js",
+      "file": "assets/RayWalk-DqhfhGLm.js",
       "kb": 5.4,
       "gzipKb": 2.6,
       "initial": false
     },
     {
-      "file": "assets/StructureView-BuFvU_30.js",
+      "file": "assets/AboutPanel-aWdAaqlo.js",
+      "kb": 6.4,
+      "gzipKb": 2.4,
+      "initial": false
+    },
+    {
+      "file": "assets/StructureView-B6PCquh6.js",
       "kb": 5.4,
       "gzipKb": 2.4,
       "initial": false
     },
     {
-      "file": "assets/CompoundCloud-Ic7BUdox.js",
+      "file": "assets/CompoundCloud-DW6EPiBA.js",
       "kb": 4.8,
       "gzipKb": 2.3,
       "initial": false
     },
     {
-      "file": "assets/CompoundPanel-DGlKMmNE.js",
+      "file": "assets/CompoundPanel-DErVYLI6.js",
       "kb": 6.1,
       "gzipKb": 2.2,
       "initial": false
     },
     {
-      "file": "assets/SetPanel-D8CcR7Zq.js",
+      "file": "assets/SetPanel-BN5luMNU.js",
       "kb": 6.2,
       "gzipKb": 2,
       "initial": false
     },
     {
-      "file": "assets/MaterialPanel-BdRsY8ch.js",
+      "file": "assets/MaterialPanel-BAgJo0mM.js",
       "kb": 5.1,
       "gzipKb": 1.8,
       "initial": false
     },
     {
-      "file": "assets/AboutPanel-U_M-DSSn.js",
-      "kb": 3.5,
-      "gzipKb": 1.3,
-      "initial": false
-    },
-    {
-      "file": "assets/AtomModel-C_FNPUqS.js",
+      "file": "assets/AtomModel-RRw3sk2S.js",
       "kb": 2.6,
       "gzipKb": 1.3,
       "initial": false
     },
     {
-      "file": "assets/CompositionView-cP34zgVM.js",
+      "file": "assets/CompositionView-CtZbVrBv.js",
       "kb": 2,
       "gzipKb": 1,
       "initial": false
@@ -112,19 +112,19 @@
       "initial": false
     },
     {
-      "file": "assets/PhotoFigure-BfJv6EB4.js",
+      "file": "assets/PhotoFigure-B5dKdHTG.js",
       "kb": 0.9,
       "gzipKb": 0.5,
       "initial": false
     },
     {
-      "file": "assets/ReportLink-DtNmTMS2.js",
+      "file": "assets/ReportLink-DJW6L4kn.js",
       "kb": 0.7,
       "gzipKb": 0.5,
       "initial": false
     },
     {
-      "file": "assets/ClickGuard-CLCsR6iP.js",
+      "file": "assets/ClickGuard-BwZUAtFo.js",
       "kb": 0.2,
       "gzipKb": 0.2,
       "initial": false

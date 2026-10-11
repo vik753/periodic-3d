@@ -1,172 +1,22 @@
-$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.11-r19 --only-elements  --limit 0 --descriptions
-started: 2026-10-11T03:25:39Z
-2026-10-11 03:25:39,958 INFO p3d.build: Elements
-2026-10-11 03:25:39,963 INFO p3d.build: Compounds from Wikidata
-2026-10-11 03:25:41,737 INFO p3d.build: Selected 27202 compounds
-2026-10-11 03:25:41,737 INFO p3d.build: Class labels
-2026-10-11 03:25:41,754 INFO p3d.build: PubChem properties for 23149 CIDs
-2026-10-11 03:25:41,854 INFO p3d.build: PubChem 3D conformers for 16781 of 23149 CIDs
-2026-10-11 03:25:41,907 INFO p3d.pubchem:   3D batches: 200/1678, 1990 records, {'cache_hit': 442}
-2026-10-11 03:26:12,660 INFO p3d.pubchem:   3D batches: 400/1678, 3990 records, {'cache_hit': 580, 'fetched': 62}
-2026-10-11 03:26:37,194 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +1.0 s per request
-2026-10-11 03:26:38,660 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +0.0 s per request
-2026-10-11 03:27:53,920 INFO p3d.pubchem:   3D batches: 600/1678, 5990 records, {'cache_hit': 580, 'fetched': 262}
-2026-10-11 03:28:35,265 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +1.0 s per request
-2026-10-11 03:28:36,779 INFO p3d.http: pubchem.ncbi.nlm.nih.gov asks to slow down: +0.0 s per request
-2026-10-11 03:32:05,890 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/92817,92827,92832,92834,92846,92847,92850,92855,92874,92879/SDF
-2026-10-11 03:33:49,400 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/92894,92895,92910,92918,92925,92934,92938,92940,92943,92974/SDF
-2026-10-11 03:35:32,902 WARNING p3d.pubchem: PubChem 3D failed for 10 CIDs: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/92979,93004,93006,93040,93055,93057,93090,93093,93101,93154/SDF
-2026-10-11 03:35:32,902 WARNING p3d.pubchem: PubChem 3D: 3 failures in a row, continuing from the cache only
-2026-10-11 03:35:32,905 INFO p3d.pubchem:   3D batches: 800/1678, 7420 records, {'cache_hit': 580, 'fetched': 405, 'retry_429': 15, 'failed_batches': 3, 'skipped_offline': 54}
-2026-10-11 03:35:32,912 INFO p3d.pubchem:   3D batches: 1000/1678, 7420 records, {'cache_hit': 580, 'fetched': 405, 'retry_429': 15, 'failed_batches': 3, 'skipped_offline': 254}
-2026-10-11 03:35:32,919 INFO p3d.pubchem:   3D batches: 1200/1678, 7420 records, {'cache_hit': 580, 'fetched': 405, 'retry_429': 15, 'failed_batches': 3, 'skipped_offline': 454}
-2026-10-11 03:35:32,925 INFO p3d.pubchem:   3D batches: 1400/1678, 7420 records, {'cache_hit': 580, 'fetched': 405, 'retry_429': 15, 'failed_batches': 3, 'skipped_offline': 654}
-2026-10-11 03:35:32,932 INFO p3d.pubchem:   3D batches: 1600/1678, 7420 records, {'cache_hit': 580, 'fetched': 405, 'retry_429': 15, 'failed_batches': 3, 'skipped_offline': 854}
-2026-10-11 03:35:32,934 INFO p3d.build: PubChem 3D: 7420 records in 591 s
-2026-10-11 03:35:32,956 INFO p3d.build: RDKit: embedding 16183 molecules on 4 processes
-[1;91m_RemoteTraceback: [0m
-[32m""[0m"
-Traceback [1m([0mmost recent call last[1m)[0m:
-  File [32m"/usr/lib/python3.12/concurrent/futures/process.py"[0m, line [1;36m263[0m, in 
-_process_worker
-    r = [1;35mcall_item.fn[0m[1m([0m*call_item.args, **call_item.kwargs[1m)[0m
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File [32m"/usr/lib/python3.12/concurrent/futures/process.py"[0m, line [1;36m212[0m, in 
-_process_chunk
-    return [1m[[0m[1;35mfn[0m[1m([0m*args[1m)[0m for args in chunk[1m][0m
-            ^^^^^^^^^
-  File 
-[32m"/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/structures.[0m
-[32mpy"[0m, line [1;36m181[0m, in molecule_from_smiles
-    fragment = [1;35m_embed[0m[1m([0mpart, [33mseed[0m=[35mseed[0m, [33mmax_atoms[0m=[35mbudget[0m[1m)[0m
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File 
-[32m"/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/structures.[0m
-[32mpy"[0m, line [1;36m212[0m, in _embed
-    elif [1;35mAllChem.EmbedMolecule[0m[1m([0mmol, params[1m)[0m != [1;36m0[0m:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Invariant Violation
-        bad lower bound
-        Violation occurred on line [1;36m204[0m in file 
-Code/GraphMol/DistGeomHelpers/BoundsMatrixBuilder.cpp
-        Failed Expression: lb > DIST12_DELTA || clb > DIST12_DELTA
-        RDKIT: [1;36m2026.09[0m.[1;36m1[0m
-        BOOST: 1_85
-
-[32m""[0m"
-
-[3mThe above exception was the direct cause of the following exception:[0m
-
-[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mcli.py[0m:4 [31m│[0m
-[31m│[0m 7 in build                                                                   [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m44 [0m[2m│   │   [0mdescriptions=descriptions,                                      [31m│[0m
-[31m│[0m   [2m45 [0m[2m│   │   [0mstructures=structures,                                          [31m│[0m
-[31m│[0m   [2m46 [0m[2m│   [0m)                                                                   [31m│[0m
-[31m│[0m [31m❱ [0m47 [2m│   [0mtyper.echo([1;4mrun(options)[0m)                                            [31m│[0m
-[31m│[0m   [2m48 [0m                                                                        [31m│[0m
-[31m│[0m   [2m49 [0m                                                                        [31m│[0m
-[31m│[0m   [2m50 [0m[94mif[0m [91m__name__[0m == [33m"[0m[33m__main__[0m[33m"[0m:                                              [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mbuild.py[0m [31m│[0m
-[31m│[0m :620 in run                                                                  [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m617 [0m[2m│   │   [0mstats: Counter[[96mstr[0m] = Counter()                                [31m│[0m
-[31m│[0m   [2m618 [0m[2m│   │   [0moversized: [96mlist[0m[[96mstr[0m] = []                                      [31m│[0m
-[31m│[0m   [2m619 [0m[2m│   │   [0m[94mif[0m options.structures:                                         [31m│[0m
-[31m│[0m [31m❱ [0m620 [2m│   │   │   [0mresults, stats = [1;4massign_structures(compounds, fetcher)[0m     [31m│[0m
-[31m│[0m   [2m621 [0m[2m│   │   │   [0m[94mfor[0m compound [95min[0m compounds:                                 [31m│[0m
-[31m│[0m   [2m622 [0m[2m│   │   │   │   [0mresult = results.get(compound.id)                      [31m│[0m
-[31m│[0m   [2m623 [0m[2m│   │   │   │   [0m[94mif[0m result [95mis[0m [94mNone[0m:                                     [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mbuild.py[0m [31m│[0m
-[31m│[0m :365 in assign_structures                                                    [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m362 [0m[2m│   │   │   [0m[94mif[0m (smiles := compound.smiles) [95mand[0m [95mnot[0m (compound.cid [95mand[0m   [31m│[0m
-[31m│[0m       compound.cid [95min[0m conformers)                                            [31m│[0m
-[31m│[0m   [2m363 [0m[2m│   │   [0m}                                                              [31m│[0m
-[31m│[0m   [2m364 [0m[2m│   [0m)                                                                  [31m│[0m
-[31m│[0m [31m❱ [0m365 [2m│   [0membedded = [1;4membed_all(smiles_jobs)[0m                                  [31m│[0m
-[31m│[0m   [2m366 [0m[2m│   [0mstats[[33m"[0m[33mrdkit_embedded[0m[33m"[0m] = [96msum[0m([94m1[0m [94mfor[0m structure [95min[0m embedded.values() [31m│[0m
-[31m│[0m       [94mif[0m structure)                                                          [31m│[0m
-[31m│[0m   [2m367 [0m[2m│   [0m                                                                   [31m│[0m
-[31m│[0m   [2m368 [0m[2m│   [0mwants_crystal = {                                                  [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mbuild.py[0m [31m│[0m
-[31m│[0m :328 in embed_all                                                            [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m325 [0m[2m│   [0mworkers = [96mmax[0m([94m1[0m, (os.cpu_count() [95mor[0m [94m2[0m))                            [31m│[0m
-[31m│[0m   [2m326 [0m[2m│   [0mlog.info([33m"[0m[33mRDKit: embedding [0m[33m%d[0m[33m molecules on [0m[33m%d[0m[33m processes[0m[33m"[0m,          [31m│[0m
-[31m│[0m       [96mlen[0m(smiles), workers)                                                  [31m│[0m
-[31m│[0m   [2m327 [0m[2m│   [0m[94mwith[0m ProcessPoolExecutor(max_workers=workers) [94mas[0m pool:             [31m│[0m
-[31m│[0m [31m❱ [0m328 [2m│   │   [0mstructures = [1;4;96mlist[0m[1;4m(pool.map(molecule_from_smiles, smiles, [0m      [31m│[0m
-[31m│[0m       [1;4mchunksize=[0m[1;4;94m25[0m[1;4m))[0m                                                         [31m│[0m
-[31m│[0m   [2m329 [0m[2m│   [0mlog.info([33m"[0m[33mRDKit: done in [0m[33m%.0f[0m[33m s[0m[33m"[0m, time.monotonic() - started)      [31m│[0m
-[31m│[0m   [2m330 [0m[2m│   [0m[94mreturn[0m [96mdict[0m([96mzip[0m(smiles, structures, strict=[94mTrue[0m))                  [31m│[0m
-[31m│[0m   [2m331 [0m                                                                       [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/usr/lib/python3.12/concurrent/futures/[0m[1mprocess.py[0m:642 in                     [31m│[0m
-[31m│[0m _chain_from_iterable_of_lists                                                [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m639 [0m[2;33m│   [0m[33mEach item in *iterable* should be a list.  This function is[0m        [31m│[0m
-[31m│[0m   [2m640 [0m[2;33m│   [0m[33mcareful not to keep references to yielded objects.[0m                 [31m│[0m
-[31m│[0m   [2m641 [0m[2;33m│   [0m[33m"""[0m                                                                [31m│[0m
-[31m│[0m [31m❱ [0m642 [2m│   [0m[1;4;94mfor[0m[1;4m element [0m[1;4;95min[0m[1;4m iterable:[0m                                           [31m│[0m
-[31m│[0m   [2m643 [0m[2m│   │   [0m[1;4melement.reverse()[0m                                              [31m│[0m
-[31m│[0m   [2m644 [0m[2m│   │   [0m[1;4;94mwhile[0m[1;4m element:[0m                                                 [31m│[0m
-[31m│[0m   [2m645 [0m[2m│   │   │   [0m[1;4;94myield[0m[1;4m element.pop()[0m                                        [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/usr/lib/python3.12/concurrent/futures/[0m[1m_base.py[0m:619 in result_iterator       [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m616 [0m[2m│   │   │   │   [0m[94mwhile[0m fs:                                              [31m│[0m
-[31m│[0m   [2m617 [0m[2m│   │   │   │   │   [0m[2m# Careful not to keep a reference to the popped [0m   [31m│[0m
-[31m│[0m       [2mfuture[0m                                                                 [31m│[0m
-[31m│[0m   [2m618 [0m[2m│   │   │   │   │   [0m[94mif[0m timeout [95mis[0m [94mNone[0m:                                [31m│[0m
-[31m│[0m [31m❱ [0m619 [2m│   │   │   │   │   │   [0m[94myield[0m _result_or_cancel(fs.pop())              [31m│[0m
-[31m│[0m   [2m620 [0m[2m│   │   │   │   │   [0m[94melse[0m:                                              [31m│[0m
-[31m│[0m   [2m621 [0m[2m│   │   │   │   │   │   [0m[94myield[0m _result_or_cancel(fs.pop(), end_time -   [31m│[0m
-[31m│[0m       time.monotonic())                                                      [31m│[0m
-[31m│[0m   [2m622 [0m[2m│   │   │   [0m[94mfinally[0m:                                                   [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/usr/lib/python3.12/concurrent/futures/[0m[1m_base.py[0m:317 in _result_or_cancel     [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m314 [0m[94mdef[0m[90m [0m[92m_result_or_cancel[0m(fut, timeout=[94mNone[0m):                              [31m│[0m
-[31m│[0m   [2m315 [0m[2m│   [0m[94mtry[0m:                                                               [31m│[0m
-[31m│[0m   [2m316 [0m[2m│   │   [0m[94mtry[0m:                                                           [31m│[0m
-[31m│[0m [31m❱ [0m317 [2m│   │   │   [0m[94mreturn[0m fut.result(timeout)                                 [31m│[0m
-[31m│[0m   [2m318 [0m[2m│   │   [0m[94mfinally[0m:                                                       [31m│[0m
-[31m│[0m   [2m319 [0m[2m│   │   │   [0mfut.cancel()                                               [31m│[0m
-[31m│[0m   [2m320 [0m[2m│   [0m[94mfinally[0m:                                                           [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/usr/lib/python3.12/concurrent/futures/[0m[1m_base.py[0m:449 in result                [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m446 [0m[2m│   │   │   │   [0m[94mif[0m [96mself[0m._state [95min[0m [CANCELLED, CANCELLED_AND_NOTIFIED]: [31m│[0m
-[31m│[0m   [2m447 [0m[2m│   │   │   │   │   [0m[94mraise[0m CancelledError()                             [31m│[0m
-[31m│[0m   [2m448 [0m[2m│   │   │   │   [0m[94melif[0m [96mself[0m._state == FINISHED:                          [31m│[0m
-[31m│[0m [31m❱ [0m449 [2m│   │   │   │   │   [0m[94mreturn[0m [96mself[0m.__get_result()                         [31m│[0m
-[31m│[0m   [2m450 [0m[2m│   │   │   │   [0m                                                       [31m│[0m
-[31m│[0m   [2m451 [0m[2m│   │   │   │   [0m[96mself[0m._condition.wait(timeout)                          [31m│[0m
-[31m│[0m   [2m452 [0m                                                                       [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/usr/lib/python3.12/concurrent/futures/[0m[1m_base.py[0m:401 in __get_result          [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m398 [0m[2m│   [0m[94mdef[0m[90m [0m[92m__get_result[0m([96mself[0m):                                            [31m│[0m
-[31m│[0m   [2m399 [0m[2m│   │   [0m[94mif[0m [96mself[0m._exception:                                            [31m│[0m
-[31m│[0m   [2m400 [0m[2m│   │   │   [0m[94mtry[0m:                                                       [31m│[0m
-[31m│[0m [31m❱ [0m401 [2m│   │   │   │   [0m[94mraise[0m [96mself[0m._exception                                  [31m│[0m
-[31m│[0m   [2m402 [0m[2m│   │   │   [0m[94mfinally[0m:                                                   [31m│[0m
-[31m│[0m   [2m403 [0m[2m│   │   │   │   [0m[2m# Break a reference cycle with the exception in [0m       [31m│[0m
-[31m│[0m       [2mself._exception[0m                                                        [31m│[0m
-[31m│[0m   [2m404 [0m[2m│   │   │   │   [0m[1;4;96mself[0m = [94mNone[0m                                            [31m│[0m
-[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
-[1;91mRuntimeError: [0mInvariant Violation
-        bad lower bound
-        Violation occurred on line [1;36m204[0m in file 
-Code/GraphMol/DistGeomHelpers/BoundsMatrixBuilder.cpp
-        Failed Expression: lb > DIST12_DELTA || clb > DIST12_DELTA
-        RDKIT: [1;36m2026.09[0m.[1;36m1[0m
-        BOOST: 1_85
-
-finished: 2026-10-11T03:54:08Z
-exit code: 1
+$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.11-r20 --only-elements H,O,Fe --limit 60 --descriptions
+started: 2026-10-11T03:54:37Z
+2026-10-11 03:54:38,210 INFO p3d.build: Elements
+2026-10-11 03:54:38,214 INFO p3d.build: Compounds from Wikidata
+2026-10-11 03:54:39,590 INFO p3d.build: Selected 49 compounds
+2026-10-11 03:54:39,590 INFO p3d.build: Class labels
+2026-10-11 03:54:39,591 INFO p3d.build: PubChem properties for 34 CIDs
+2026-10-11 03:54:39,591 INFO p3d.build: PubChem 3D conformers for 17 of 34 CIDs
+2026-10-11 03:54:39,591 INFO p3d.build: PubChem 3D: 17 records in 0 s
+2026-10-11 03:54:39,592 INFO p3d.build: RDKit: embedding 20 molecules on 4 processes
+2026-10-11 03:54:39,713 INFO p3d.build: RDKit: done in 0 s
+2026-10-11 03:54:39,714 INFO p3d.build: OPTIMADE candidates for 17 formulas
+2026-10-11 03:54:39,716 INFO p3d.build: OPTIMADE structures for 11 materials
+2026-10-11 03:54:39,717 INFO p3d.build: Assigning structures for 49 compounds
+2026-10-11 03:54:40,254 INFO p3d.build: Wikipedia en extracts for 48 articles
+2026-10-11 03:54:40,255 INFO p3d.build: Wikipedia ru extracts for 29 articles
+2026-10-11 03:54:40,256 INFO p3d.build: Wikipedia uk extracts for 26 articles
+2026-10-11 03:54:40,258 INFO p3d.build: Vectors
+2026-10-11 03:54:40,265 INFO p3d.build: Dataset ../data/build/2026.10.11-r20 written in 2 s
+../data/build/2026.10.11-r20
+finished: 2026-10-11T03:54:40Z
+exit code: 0

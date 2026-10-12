@@ -1,28 +1,28 @@
 $ bash -x tools/ci/version-tag.sh
-started: 2026-10-12T06:48:02Z
+started: 2026-10-12T15:13:21Z
 + set -euo pipefail
 ++ git rev-parse --show-toplevel
 + cd /home/runner/work/periodic-3d/periodic-3d
 + git config user.name 'github-actions[bot]'
 + git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 ++ python3 -c 'import json; print(json.load(open("apps/web/package.json"))["version"])'
-+ version=1.5.0
++ version=1.6.0
 ++ git rev-parse HEAD
-+ tag v1.5.0 b88e2d6b94de1218710890817f69b8350634314a true
-+ local name=v1.5.0 commit=b88e2d6b94de1218710890817f69b8350634314a latest=true
-+ git ls-remote --exit-code --tags origin refs/tags/v1.5.0
-+ git tag -a v1.5.0 b88e2d6b94de1218710890817f69b8350634314a -m 'Site v1.5.0'
-+ git push --quiet origin refs/tags/v1.5.0
-+ notes 1.5.0
-+ awk -v version=1.5.0 '
++ tag v1.6.0 9f2b9b261149c11ecb36fbd0936bfa9e93872cfe true
++ local name=v1.6.0 commit=9f2b9b261149c11ecb36fbd0936bfa9e93872cfe latest=true
++ git ls-remote --exit-code --tags origin refs/tags/v1.6.0
++ git tag -a v1.6.0 9f2b9b261149c11ecb36fbd0936bfa9e93872cfe -m 'Site v1.6.0'
++ git push --quiet origin refs/tags/v1.6.0
++ notes 1.6.0
++ awk -v version=1.6.0 '
     index($0, "## [" version "]") == 1 { on = 1; next }
     on && /^## \[/ { exit }
     on && /^\[/ { exit }
     on { print }
   ' CHANGELOG.md
-+ gh release create v1.5.0 --title 'Site v1.5.0' --notes-file /home/runner/work/_temp/notes.md --verify-tag --latest=true
-https://github.com/vik753/periodic-3d/releases/tag/v1.5.0
-+ echo 'version-tag: v1.5.0 → b88e2d6b94de1218710890817f69b8350634314a'
-version-tag: v1.5.0 → b88e2d6b94de1218710890817f69b8350634314a
-finished: 2026-10-12T06:48:06Z
++ gh release create v1.6.0 --title 'Site v1.6.0' --notes-file /home/runner/work/_temp/notes.md --verify-tag --latest=true
+https://github.com/vik753/periodic-3d/releases/tag/v1.6.0
++ echo 'version-tag: v1.6.0 → 9f2b9b261149c11ecb36fbd0936bfa9e93872cfe'
+version-tag: v1.6.0 → 9f2b9b261149c11ecb36fbd0936bfa9e93872cfe
+finished: 2026-10-12T15:13:27Z
 exit code: 0

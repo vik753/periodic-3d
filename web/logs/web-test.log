@@ -1,33 +1,33 @@
 $ npm test
-started: 2026-10-12T15:12:09Z
+started: 2026-10-12T15:19:18Z
 
-> @periodic-3d/web@1.5.0 test
+> @periodic-3d/web@1.6.0 test
 > vitest run
 
 
 [1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/periodic-3d/periodic-3d/apps/web[39m
 
- [32m✓[39m src/lib/hoverIntent.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 20[2mms[22m[39m
- [32m✓[39m src/data/crystal.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 12[2mms[22m[39m
- [32m✓[39m src/data/compoundIndex.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/lib/hoverIntent.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/data/crystal.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/data/compoundIndex.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 13[2mms[22m[39m
  [32m✓[39m src/data/predicted.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/three/sdf.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 20[2mms[22m[39m
- [32m✓[39m src/three/quality.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/data/periodic.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/three/sdf.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m src/three/quality.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/state/cloudEntries.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
  [32m✓[39m src/three/composition.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/state/cloudEntries.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/three/zoom.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/lib/lazyChunk.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+ [32m✓[39m src/three/zoom.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/ui/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m src/lib/lazyChunk.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
  [32m✓[39m src/data/chemistry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
- [32m✓[39m src/lib/route.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
  [32m✓[39m src/data/source.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/lib/route.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
  [32m✓[39m src/three/layout.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
 [2m      Tests [22m [1m[32m60 passed[39m[22m[90m (60)[39m
-[2m   Start at [22m 15:12:10
-[2m   Duration [22m 5.66s[2m (transform 474ms, setup 0ms, collect 1.07s, tests 176ms, environment 9.05s, prepare 1.97s)[22m
+[2m   Start at [22m 15:19:18
+[2m   Duration [22m 5.52s[2m (transform 529ms, setup 0ms, collect 1.09s, tests 171ms, environment 9.10s, prepare 1.86s)[22m
 
-finished: 2026-10-12T15:12:16Z
+finished: 2026-10-12T15:19:24Z
 exit code: 0

@@ -9,7 +9,7 @@ on:
       part:
         description: "What to probe"
         type: choice
-        options: [pubchem-headings, wikidata, usgs]
+        options: [pubchem-headings, chebi, elements, wikidata, usgs]
         default: pubchem-headings
 
 permissions:
@@ -41,6 +41,14 @@ jobs:
         if: inputs.part == 'pubchem-headings'
         continue-on-error: true
         run: bash $RUN probe-pubchem-headings python3 ../tools/probe/pubchem_headings.py ../tools/probe/cids.txt "out/probe/$PART"
+      - name: ChEBI application roles
+        if: inputs.part == 'chebi'
+        continue-on-error: true
+        run: bash $RUN probe-chebi python3 ../tools/probe/chebi_roles.py "out/probe/$PART"
+      - name: PubChem element pages
+        if: inputs.part == 'elements'
+        continue-on-error: true
+        run: bash $RUN probe-elements python3 ../tools/probe/pubchem_elements.py "out/probe/$PART"
       - name: USGS Mineral Commodity Summaries
         if: inputs.part == 'usgs'
         continue-on-error: true

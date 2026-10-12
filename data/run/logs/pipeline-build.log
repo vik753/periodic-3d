@@ -1,44 +1,57 @@
-$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.12-r45 --only-elements H,O,Fe --limit 60 --descriptions
-started: 2026-10-12T09:24:28Z
-2026-10-12 09:24:29,207 INFO p3d.build: Elements
-2026-10-12 09:24:29,211 INFO p3d.build: Compounds from Wikidata
-2026-10-12 09:24:30,611 INFO p3d.build: Selected 49 compounds
-2026-10-12 09:24:30,612 INFO p3d.build: Class labels
-2026-10-12 09:24:30,612 INFO p3d.build: PubChem properties for 34 CIDs
-2026-10-12 09:24:30,613 INFO p3d.build: Formula checks: {<Verdict.OK: 'ok'>: 33, <Verdict.NO_PUBCHEM: 'no_pubchem'>: 16}
-2026-10-12 09:24:30,613 INFO p3d.build: PubChem 3D conformers for 17 of 34 CIDs
-2026-10-12 09:24:30,614 INFO p3d.build: PubChem 3D: 17 records in 0 s
-2026-10-12 09:24:30,615 INFO p3d.build: RDKit: 20 molecules remembered, embedding 0 on 4 processes
-2026-10-12 09:24:30,615 INFO p3d.build: RDKit: done in 0 s
-2026-10-12 09:24:30,616 INFO p3d.build: OPTIMADE candidates for 17 formulas
-2026-10-12 09:24:30,619 INFO p3d.mp_api: MP API: origin of 162 of 164 structures
-2026-10-12 09:24:30,619 INFO p3d.build: OPTIMADE structures for 11 materials
-2026-10-12 09:24:30,619 INFO p3d.build: MP API origins known for 11 of 11 chosen structures (e.g. ['mp-1009077', 'mp-1009490', 'mp-1023923']; chosen e.g. ['mp-1009077', 'mp-1193306', 'mp-18905'])
-2026-10-12 09:24:30,620 INFO p3d.build: Assigning structures for 49 compounds
-2026-10-12 09:24:30,823 INFO p3d.mp_api: MP API: origin of 653 of 654 structures
-2026-10-12 09:24:31,254 INFO p3d.build: Wikipedia en extracts for 48 articles
-2026-10-12 09:24:31,256 INFO p3d.wikipedia: Wikipedia en: 48 of 48 titles remembered
-2026-10-12 09:24:31,257 INFO p3d.build: Wikipedia ru extracts for 29 articles
-2026-10-12 09:24:31,259 INFO p3d.wikipedia: Wikipedia ru: 29 of 29 titles remembered
-2026-10-12 09:24:31,260 INFO p3d.build: Wikipedia uk extracts for 26 articles
-2026-10-12 09:24:31,261 INFO p3d.wikipedia: Wikipedia uk: 26 of 26 titles remembered
-2026-10-12 09:24:31,262 INFO p3d.build: Commons photos for 124 files
-2026-10-12 09:24:31,269 INFO p3d.build: Uses
-2026-10-12 09:24:31,374 INFO p3d.uses: Uses: PubChem Uses
-2026-10-12 09:24:32,750 INFO p3d.uses: Uses: PubChem Use Classification
-2026-10-12 09:24:32,935 INFO p3d.uses: Uses: PubChem Industry Uses
-2026-10-12 09:24:33,037 INFO p3d.uses: Uses: PubChem Consumer Uses
-2026-10-12 09:24:33,097 INFO p3d.uses: Uses: PubChem Therapeutic Uses
-2026-10-12 09:24:33,179 INFO p3d.uses: Uses: PubChem Drug Classes
-2026-10-12 09:24:33,199 INFO p3d.uses: Uses: PubChem Food Additive Classes
-2026-10-12 09:24:33,268 INFO p3d.uses: Uses: PubChem Agrochemical Category
-2026-10-12 09:24:33,287 INFO p3d.uses: Uses: PubChem Pesticides
-2026-10-12 09:24:33,327 INFO p3d.uses: Uses: PubChem Cosmetics
-2026-10-12 09:24:33,409 INFO p3d.uses: Uses: PubChem element pages
-2026-10-12 09:24:34,688 INFO p3d.uses: Uses: ChEBI application roles
-2026-10-12 09:24:37,062 INFO p3d.uses: Uses: Wikidata P366 and ATC
-2026-10-12 09:24:37,196 INFO p3d.build: Vectors
-2026-10-12 09:24:37,203 INFO p3d.build: Dataset ../data/build/2026.10.12-r45 written in 8 s
-../data/build/2026.10.12-r45
-finished: 2026-10-12T09:24:37Z
+$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.12-r46 --only-elements  --limit 0 --descriptions
+started: 2026-10-12T09:25:44Z
+2026-10-12 09:25:44,730 INFO p3d.build: Elements
+2026-10-12 09:25:44,734 INFO p3d.build: Compounds from Wikidata
+2026-10-12 09:25:46,335 INFO p3d.build: Selected 27202 compounds
+2026-10-12 09:25:46,335 INFO p3d.build: Class labels
+2026-10-12 09:25:46,352 INFO p3d.build: PubChem properties for 23149 CIDs
+2026-10-12 09:25:46,786 INFO p3d.build: Formula checks: {<Verdict.OK: 'ok'>: 22647, <Verdict.NO_PUBCHEM: 'no_pubchem'>: 4227, <Verdict.HYDRATE: 'hydrate'>: 12, <Verdict.WIKIDATA_FIXED: 'wikidata_fixed'>: 28, <Verdict.PUBCHEM_DROPPED: 'pubchem_dropped'>: 62, <Verdict.DISAGREE: 'disagree'>: 222, <Verdict.SCALED: 'scaled'>: 3, <Verdict.ISOTOPES: 'isotopes'>: 1}
+2026-10-12 09:25:46,789 INFO p3d.build: PubChem 3D conformers for 16781 of 23087 CIDs
+2026-10-12 09:25:47,292 INFO p3d.build: PubChem 3D: 16775 records in 1 s
+2026-10-12 09:25:47,930 INFO p3d.build: RDKit: 6836 molecules remembered, embedding 0 on 4 processes
+2026-10-12 09:25:47,930 INFO p3d.build: RDKit: done in 1 s
+2026-10-12 09:25:48,181 INFO p3d.build: OPTIMADE candidates for 9670 formulas
+2026-10-12 09:25:48,433 INFO p3d.mp_api: MP API: origin of 11088 of 11148 structures
+2026-10-12 09:25:48,618 INFO p3d.build: OPTIMADE structures for 4488 materials
+2026-10-12 09:25:48,620 INFO p3d.build: MP API origins known for 4458 of 4488 chosen structures (e.g. ['mp-1000', 'mp-10004', 'mp-1001112']; chosen e.g. ['mp-1000', 'mp-10004', 'mp-1001112'])
+2026-10-12 09:25:48,846 INFO p3d.build: Assigning structures for 27202 compounds
+2026-10-12 09:25:51,939 INFO p3d.build:   structures: 2000/27202 (3 s)
+2026-10-12 09:25:54,163 INFO p3d.build:   structures: 4000/27202 (5 s)
+2026-10-12 09:25:56,191 INFO p3d.build:   structures: 6000/27202 (7 s)
+2026-10-12 09:25:58,165 INFO p3d.build:   structures: 8000/27202 (9 s)
+2026-10-12 09:26:00,260 INFO p3d.build:   structures: 10000/27202 (11 s)
+2026-10-12 09:26:02,378 INFO p3d.build:   structures: 12000/27202 (14 s)
+2026-10-12 09:26:04,483 INFO p3d.build:   structures: 14000/27202 (16 s)
+2026-10-12 09:26:06,094 INFO p3d.build:   structures: 16000/27202 (17 s)
+2026-10-12 09:26:07,604 INFO p3d.build:   structures: 18000/27202 (19 s)
+2026-10-12 09:26:08,482 INFO p3d.build:   structures: 20000/27202 (20 s)
+2026-10-12 09:26:09,688 INFO p3d.build:   structures: 22000/27202 (21 s)
+2026-10-12 09:26:10,974 INFO p3d.build:   structures: 24000/27202 (22 s)
+2026-10-12 09:26:17,241 INFO p3d.build:   structures: 26000/27202 (28 s)
+2026-10-12 09:26:20,522 INFO p3d.mp_api: MP API: origin of 653 of 654 structures
+2026-10-12 09:26:20,838 INFO p3d.build: Wikipedia en extracts for 23859 articles
+2026-10-12 09:26:21,472 INFO p3d.wikipedia: Wikipedia en: 23859 of 23859 titles remembered
+2026-10-12 09:26:21,763 INFO p3d.build: Wikipedia ru extracts for 9759 articles
+2026-10-12 09:26:22,030 INFO p3d.wikipedia: Wikipedia ru: 9759 of 9759 titles remembered
+2026-10-12 09:26:22,126 INFO p3d.build: Wikipedia uk extracts for 3844 articles
+2026-10-12 09:26:22,231 INFO p3d.wikipedia: Wikipedia uk: 3844 of 3844 titles remembered
+2026-10-12 09:26:22,274 INFO p3d.build: Commons photos for 2367 files
+2026-10-12 09:26:22,350 INFO p3d.build: Uses
+2026-10-12 09:26:22,463 INFO p3d.uses: Uses: PubChem Uses
+2026-10-12 09:26:38,599 INFO p3d.uses: Uses: PubChem Use Classification
+2026-10-12 09:26:39,838 INFO p3d.uses: Uses: PubChem Industry Uses
+2026-10-12 09:26:40,798 INFO p3d.uses: Uses: PubChem Consumer Uses
+2026-10-12 09:26:41,264 INFO p3d.uses: Uses: PubChem Therapeutic Uses
+2026-10-12 09:26:41,529 INFO p3d.uses: Uses: PubChem Drug Classes
+2026-10-12 09:26:41,901 INFO p3d.uses: Uses: PubChem Food Additive Classes
+2026-10-12 09:26:42,184 INFO p3d.uses: Uses: PubChem Agrochemical Category
+2026-10-12 09:26:42,268 INFO p3d.uses: Uses: PubChem Pesticides
+2026-10-12 09:26:42,417 INFO p3d.uses: Uses: PubChem Cosmetics
+2026-10-12 09:26:42,610 INFO p3d.uses: Uses: PubChem element pages
+2026-10-12 09:26:43,784 INFO p3d.uses: Uses: ChEBI application roles
+2026-10-12 09:26:46,494 INFO p3d.uses: Uses: Wikidata P366 and ATC
+2026-10-12 09:26:46,986 INFO p3d.build: Vectors
+2026-10-12 09:26:48,650 INFO p3d.build: Dataset ../data/build/2026.10.12-r46 written in 64 s
+../data/build/2026.10.12-r46
+finished: 2026-10-12T09:26:48Z
 exit code: 0

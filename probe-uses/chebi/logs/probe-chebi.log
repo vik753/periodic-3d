@@ -1,0 +1,17 @@
+$ python3 ../tools/probe/chebi_roles.py out/probe/chebi
+started: 2026-10-12T08:09:46Z
+ChEBI: https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_lite.obo.gz (7 MB)
+# Probe: ChEBI application roles
+
+- Our Wikidata items with a ChEBI ID: 11813 (elements: 123)
+- With an application role: 0 (elements: 0)
+
+## Top-level application branches
+
+
+## Most common roles
+
+
+## Examples
+finished: 2026-10-12T08:10:00Z
+exit code: 0

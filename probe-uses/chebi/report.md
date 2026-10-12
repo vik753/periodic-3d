@@ -1,13 +1,209 @@
 # Probe: ChEBI application roles
 
 - Our Wikidata items with a ChEBI ID: 11813 (elements: 123)
-- With an application role: 0 (elements: 0)
+- With an application role: 4385 (elements: 12)
 
 ## Top-level application branches
 
+- pharmaceutical: 9057
+- pesticide: 520
+- anti-inflammatory agent: 505
+- agrochemical: 253
+- additive: 206
+- food additive: 183
+- dye: 176
+- pro-agent: 138
+- anti-anaemic agent: 134
+- anti-asthmatic agent: 133
+- solvent: 108
+- indicator: 67
+- reagent: 58
+- reference compound: 58
+- fragrance: 45
+- refrigerant: 26
+- MALDI matrix material: 9
+- plasticiser: 9
+- probe: 9
+- flame retardant: 9
+- cosmetic: 8
+- detergent: 8
+- propellant: 7
+- fuel: 7
+- antispermatogenic agent: 5
+- anticaking agent: 4
+- mordant: 4
+- tracer: 3
+- humectant: 3
+- curing agent: 2
+- protein denaturant: 2
+- protein-sequencing agent: 1
+- polymerization aid: 1
+- adhesive: 1
+- enzyme mimic: 1
+- label: 1
 
 ## Most common roles
 
+- antineoplastic agent (CHEBI:35610): 1176
+- cardiovascular drug (CHEBI:35554): 406
+- anti-inflammatory agent (CHEBI:67079): 330
+- antidepressant (CHEBI:35469): 278
+- hypoglycemic agent (CHEBI:35526): 262
+- antihypertensive agent (CHEBI:35674): 259
+- analgesic (CHEBI:35480): 256
+- antipsychotic agent (CHEBI:35476): 220
+- antiinfective agent (CHEBI:35441): 176
+- ophthalmology drug (CHEBI:66981): 171
+- antibacterial drug (CHEBI:36047): 166
+- anxiolytic drug (CHEBI:35474): 164
+- geroprotector (CHEBI:176497): 161
+- immunosuppressive agent (CHEBI:35705): 150
+- renoprotective agent (CHEBI:231911): 144
+- agrochemical (CHEBI:33286): 138
+- neuroprotective agent (CHEBI:63726): 136
+- anti-anaemic agent (CHEBI:75835): 134
+- anticonvulsant (CHEBI:35623): 127
+- antirheumatic drug (CHEBI:35842): 126
+- vasodilator agent (CHEBI:35620): 126
+- prodrug (CHEBI:50266): 121
+- antiparkinson drug (CHEBI:48407): 120
+- non-steroidal anti-inflammatory drug (CHEBI:35475): 115
+- anti-arrhythmia drug (CHEBI:38070): 108
+- anti-asthmatic agent (CHEBI:65023): 105
+- herbicide (CHEBI:24527): 104
+- dermatologic drug (CHEBI:50177): 92
+- hepatoprotective agent (CHEBI:62868): 90
+- non-narcotic analgesic (CHEBI:35481): 86
+- antimalarial (CHEBI:38068): 85
+- antifibrotic agent (CHEBI:233423): 84
+- fluorochrome (CHEBI:51217): 80
+- antifungal agrochemical (CHEBI:86328): 78
+- drug allergen (CHEBI:88188): 74
+- anti-ulcer drug (CHEBI:49201): 71
+- histological dye (CHEBI:77178): 70
+- antitubercular agent (CHEBI:33231): 70
+- vulnerary (CHEBI:73336): 69
+- antipsoriatic (CHEBI:50748): 67
+- antiemetic (CHEBI:50919): 64
+- bone density conservation agent (CHEBI:50646): 63
+- anticoagulant (CHEBI:50249): 63
+- flavouring agent (CHEBI:35617): 62
+- serotonergic antagonist (CHEBI:48279): 62
+- acaricide (CHEBI:22153): 61
+- antiviral drug (CHEBI:36044): 61
+- opioid analgesic (CHEBI:35482): 60
+- anti-inflammatory drug (CHEBI:35472): 59
+- anti-allergic agent (CHEBI:50857): 58
+- NMR chemical shift reference compound (CHEBI:228364): 58
+- antitussive (CHEBI:51177): 58
+- antispasmodic drug (CHEBI:53784): 57
+- sedative (CHEBI:35717): 54
+- antiglaucoma drug (CHEBI:39456): 51
+- muscarinic antagonist (CHEBI:48876): 48
+- H1-receptor antagonist (CHEBI:37955): 48
+- fragrance (CHEBI:48318): 45
+- mu-opioid receptor agonist (CHEBI:55322): 45
+- gastrointestinal drug (CHEBI:55324): 44
+- nutraceutical (CHEBI:50733): 44
+- dopaminergic antagonist (CHEBI:48561): 44
+- vasoconstrictor agent (CHEBI:50514): 43
+- insecticide (CHEBI:24852): 42
+- antiatherosclerotic agent (CHEBI:145947): 41
+- platelet aggregation inhibitor (CHEBI:50427): 41
+- serotonergic agonist (CHEBI:35941): 41
+- nasal decongestant (CHEBI:77715): 40
+- antipyretic (CHEBI:35493): 39
+- biomarker (CHEBI:59163): 39
+- antiparasitic agent (CHEBI:35442): 38
+- bronchodilator agent (CHEBI:35523): 37
+- angiogenesis inhibitor (CHEBI:48422): 37
+- muscle relaxant (CHEBI:51371): 34
+- laxative (CHEBI:50503): 34
+- cardioprotective agent (CHEBI:77307): 34
+- immunomodulator (CHEBI:50846): 31
+- antiprotozoal drug (CHEBI:35820): 30
+- sympathomimetic agent (CHEBI:35524): 30
+- alpha-adrenergic antagonist (CHEBI:37890): 30
+- anticholesteremic drug (CHEBI:35821): 29
+- anthelminthic drug (CHEBI:35443): 29
+- antiamoebic agent (CHEBI:171664): 29
+- antileishmanial agent (CHEBI:70868): 29
+- anti-asthmatic drug (CHEBI:49167): 28
+- fertilizer (CHEBI:33287): 28
+- antiseptic drug (CHEBI:48218): 28
+- antilipemic drug (CHEBI:35679): 27
+- local anaesthetic (CHEBI:36333): 26
+- refrigerant (CHEBI:78433): 26
+- antifungal drug (CHEBI:86327): 25
+- insulin-sensitizing drug (CHEBI:50864): 25
+- diuretic (CHEBI:35498): 24
+- nephroprotective agent (CHEBI:76595): 24
+- gout suppressant (CHEBI:35845): 24
+- solvent (CHEBI:46787): 24
+- beta-adrenergic agonist (CHEBI:35522): 24
+- serotonin uptake inhibitor (CHEBI:50949): 24
+- non-polar solvent (CHEBI:48355): 22
+- nematicide (CHEBI:25491): 22
+- photosensitizing agent (CHEBI:47868): 22
+- beta-adrenergic antagonist (CHEBI:35530): 22
+- reagent (CHEBI:33893): 22
+- cardiotonic drug (CHEBI:38147): 22
+- dye (CHEBI:37958): 22
+- EC 3.4.15.1 (peptidyl-dipeptidase A) inhibitor (CHEBI:35457): 21
+- pyrethroid ester insecticide (CHEBI:39116): 21
+- histamine antagonist (CHEBI:37956): 20
+- appetite enhancer (CHEBI:50779): 20
+- central nervous system depressant (CHEBI:35488): 20
+- antipruritic drug (CHEBI:59683): 20
+- dopamine agonist (CHEBI:51065): 20
+- protic solvent (CHEBI:48356): 19
+- alpha-adrenergic agonist (CHEBI:35569): 19
+- antidote (CHEBI:50247): 19
+- psychotropic drug (CHEBI:35471): 19
+- central nervous system stimulant (CHEBI:35337): 19
+- polar aprotic solvent (CHEBI:48358): 18
+- trypanocidal drug (CHEBI:36335): 18
+- dopamine uptake inhibitor (CHEBI:51039): 18
 
 ## Examples
 
+- Q100151634 durlobactam: antibacterial drug
+- Q1002165 fluticasone: hypoglycemic agent, anti-asthmatic drug, anti-allergic agent, anti-asthmatic agent
+- Q1003185 diethylstilbestrol diphosphate: antineoplastic agent
+- Q100783323 bifluranol: androgen antagonist
+- Q1027605 formetanate: acaricide, agrochemical, carbamate insecticide
+- Q1028455 guacetisal: analgesic
+- Q1032539 deuterated chloroform: NMR solvent, non-polar solvent
+- Q1032873 acetone d6: NMR solvent, polar aprotic solvent
+- Q10354103 probucol: anti-inflammatory drug, hypoglycemic agent, cardiovascular drug, antilipemic drug, anticholesteremic drug
+- Q10357327 Ramatroban: anti-asthmatic agent
+- Q10359556 ellipticine: antineoplastic agent
+- Q10382411 tideglusib: neuroprotective agent, anti-inflammatory agent
+- Q10384947 trofosfamide: antineoplastic agent
+- Q1040678 thiamethoxam: antifeedant, neonicotinoid insectide
+- Q1041804 imidapril: EC 3.4.15.1 (peptidyl-dipeptidase A) inhibitor, cardiovascular drug, antihypertensive agent, prodrug
+- Q104334 carbonic acid: analgesic, antineoplastic agent
+- Q104398877 esculeoside A: antineoplastic agent
+- Q1044248 mometasone furoate: anti-inflammatory drug, antineoplastic agent, dermatologic drug, antipsoriatic, anti-allergic agent, anti-asthmatic agent, anti-anaemic agent, nasal decongestant
+- Q104708365 antimycin A: piscicide
+- Q1047468 chlorobutanol: antiemetic
+- Q104938890 madecassoside: antirheumatic drug, anti-inflammatory agent, vulnerary
+- Q104987776 D-pinitol: geroprotector
+- Q104992442 echinocandin B: antiinfective agent
+- Q1050019 carbenicillin: antibacterial drug
+- Q105007367 anisatin: phytogenic insecticide, GABA antagonist
+- Q105212280 isostrychnine: antineoplastic agent
+- Q105592965 Trilaciclib: antineoplastic agent
+- Q106026341 Glu-Asp-Arg: neuroprotective agent
+- Q106029845 glimepiride: antiatherosclerotic agent, hypoglycemic agent, cardiovascular drug, antihypertensive agent
+- Q106039554 HU-308: antihypertensive agent, bone density conservation agent, anti-inflammatory agent
+- Q106041264 metyltetraprole: quinone outside inhibitor, antifungal agrochemical
+- Q106041352 spectinabilin: nematicide, antiplasmodial drug
+- Q106045160 N,N'-bis(diphenylmethyl)ethane-1,2-diamine: neuroprotective agent
+- Q1060922 oxybutynin: antineoplastic agent, renal agent, local anaesthetic, muscarinic antagonist, parasympatholytic, muscle relaxant, antispasmodic drug
+- Q106271348 aplindore: antiparkinson drug
+- Q1063862 idarubicin: antineoplastic agent, anti-anaemic agent
+- Q1064625 zingerone: flavouring agent, fragrance, antiemetic, radiation protective agent, anti-inflammatory agent
+- Q106857003 PF-07304814: prodrug
+- Q107125128 ohmefentanyl: opioid analgesic, mu-opioid receptor agonist
+- Q107184 copper(II) sulfate: emetic, fertilizer

@@ -1,30 +1,30 @@
-$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.12-r40 --only-elements H,O,Fe --limit 60 --descriptions
-started: 2026-10-12T06:44:25Z
-2026-10-12 06:44:26,160 INFO p3d.build: Elements
-2026-10-12 06:44:26,165 INFO p3d.build: Compounds from Wikidata
-2026-10-12 06:44:27,180 INFO p3d.build: Selected 49 compounds
-2026-10-12 06:44:27,180 INFO p3d.build: Class labels
-2026-10-12 06:44:27,181 INFO p3d.build: PubChem properties for 34 CIDs
-2026-10-12 06:44:27,181 INFO p3d.build: Formula checks: {<Verdict.OK: 'ok'>: 33, <Verdict.NO_PUBCHEM: 'no_pubchem'>: 16}
-2026-10-12 06:44:27,181 INFO p3d.build: PubChem 3D conformers for 17 of 34 CIDs
-2026-10-12 06:44:27,215 INFO p3d.build: PubChem 3D: 17 records in 0 s
-2026-10-12 06:44:27,226 INFO p3d.build: RDKit: 20 molecules remembered, embedding 0 on 4 processes
-2026-10-12 06:44:27,226 INFO p3d.build: RDKit: done in 0 s
-2026-10-12 06:44:27,226 INFO p3d.build: OPTIMADE candidates for 17 formulas
-2026-10-12 06:44:27,228 INFO p3d.mp_api: MP API: origin of 162 of 164 structures
-2026-10-12 06:44:27,228 INFO p3d.build: OPTIMADE structures for 11 materials
-2026-10-12 06:44:27,228 INFO p3d.build: MP API origins known for 11 of 11 chosen structures (e.g. ['mp-1009077', 'mp-1009490', 'mp-1023923']; chosen e.g. ['mp-1009077', 'mp-1193306', 'mp-18905'])
-2026-10-12 06:44:27,228 INFO p3d.build: Assigning structures for 49 compounds
-2026-10-12 06:44:27,342 INFO p3d.mp_api: MP API: origin of 653 of 654 structures
-2026-10-12 06:44:27,598 INFO p3d.build: Wikipedia en extracts for 48 articles
-2026-10-12 06:44:27,600 INFO p3d.wikipedia: Wikipedia en: 48 of 48 titles remembered
-2026-10-12 06:44:27,600 INFO p3d.build: Wikipedia ru extracts for 29 articles
-2026-10-12 06:44:27,601 INFO p3d.wikipedia: Wikipedia ru: 29 of 29 titles remembered
-2026-10-12 06:44:27,601 INFO p3d.build: Wikipedia uk extracts for 26 articles
-2026-10-12 06:44:27,602 INFO p3d.wikipedia: Wikipedia uk: 26 of 26 titles remembered
-2026-10-12 06:44:27,602 INFO p3d.build: Commons photos for 124 files
-2026-10-12 06:44:27,606 INFO p3d.build: Vectors
-2026-10-12 06:44:27,610 INFO p3d.build: Dataset ../data/build/2026.10.12-r40 written in 1 s
-../data/build/2026.10.12-r40
-finished: 2026-10-12T06:44:27Z
+$ uv run p3d-pipeline build --out ../data/build --cache ../data/cache --version 2026.10.12-r41 --only-elements H,O,Fe --limit 60 --descriptions
+started: 2026-10-12T06:56:23Z
+2026-10-12 06:56:24,267 INFO p3d.build: Elements
+2026-10-12 06:56:24,271 INFO p3d.build: Compounds from Wikidata
+2026-10-12 06:56:25,649 INFO p3d.build: Selected 49 compounds
+2026-10-12 06:56:25,649 INFO p3d.build: Class labels
+2026-10-12 06:56:25,649 INFO p3d.build: PubChem properties for 34 CIDs
+2026-10-12 06:56:25,650 INFO p3d.build: Formula checks: {<Verdict.OK: 'ok'>: 33, <Verdict.NO_PUBCHEM: 'no_pubchem'>: 16}
+2026-10-12 06:56:25,650 INFO p3d.build: PubChem 3D conformers for 17 of 34 CIDs
+2026-10-12 06:56:25,652 INFO p3d.build: PubChem 3D: 17 records in 0 s
+2026-10-12 06:56:25,653 INFO p3d.build: RDKit: 20 molecules remembered, embedding 0 on 4 processes
+2026-10-12 06:56:25,653 INFO p3d.build: RDKit: done in 0 s
+2026-10-12 06:56:25,654 INFO p3d.build: OPTIMADE candidates for 17 formulas
+2026-10-12 06:56:25,656 INFO p3d.mp_api: MP API: origin of 162 of 164 structures
+2026-10-12 06:56:25,657 INFO p3d.build: OPTIMADE structures for 11 materials
+2026-10-12 06:56:25,657 INFO p3d.build: MP API origins known for 11 of 11 chosen structures (e.g. ['mp-1009077', 'mp-1009490', 'mp-1023923']; chosen e.g. ['mp-1009077', 'mp-1193306', 'mp-18905'])
+2026-10-12 06:56:25,657 INFO p3d.build: Assigning structures for 49 compounds
+2026-10-12 06:56:25,852 INFO p3d.mp_api: MP API: origin of 653 of 654 structures
+2026-10-12 06:56:26,277 INFO p3d.build: Wikipedia en extracts for 48 articles
+2026-10-12 06:56:26,280 INFO p3d.wikipedia: Wikipedia en: 48 of 48 titles remembered
+2026-10-12 06:56:26,280 INFO p3d.build: Wikipedia ru extracts for 29 articles
+2026-10-12 06:56:26,282 INFO p3d.wikipedia: Wikipedia ru: 29 of 29 titles remembered
+2026-10-12 06:56:26,282 INFO p3d.build: Wikipedia uk extracts for 26 articles
+2026-10-12 06:56:26,284 INFO p3d.wikipedia: Wikipedia uk: 26 of 26 titles remembered
+2026-10-12 06:56:26,285 INFO p3d.build: Commons photos for 124 files
+2026-10-12 06:56:26,293 INFO p3d.build: Vectors
+2026-10-12 06:56:26,299 INFO p3d.build: Dataset ../data/build/2026.10.12-r41 written in 2 s
+../data/build/2026.10.12-r41
+finished: 2026-10-12T06:56:26Z
 exit code: 0

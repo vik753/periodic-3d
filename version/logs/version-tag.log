@@ -1,0 +1,18 @@
+$ bash -x tools/ci/version-tag.sh v1.0.0=8f517d14 v1.1.0=72ecceee v1.2.0=ea2cfbb4 v1.3.0=89f0b7b8 v1.4.0=f02d2b49 v1.5.0=67dbe06c
+started: 2026-10-12T06:46:21Z
++ set -euo pipefail
+++ git rev-parse --show-toplevel
++ cd /home/runner/work/periodic-3d/periodic-3d
++ git config user.name 'github-actions[bot]'
++ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
++ for pair in "$@"
++ tag v1.0.0 8f517d14 false
++ local name=v1.0.0 commit=8f517d14 latest=false
++ git ls-remote --exit-code --tags origin refs/tags/v1.0.0
++ git tag -a v1.0.0 8f517d14 -m 'Site v1.0.0'
++ git push --quiet origin refs/tags/v1.0.0
+To https://github.com/vik753/periodic-3d
+ ! [remote rejected]   v1.0.0 -> v1.0.0 (refusing to allow a GitHub App to create or update workflow `.github/workflows/ci.yml` without `workflows` permission)
+error: failed to push some refs to 'https://github.com/vik753/periodic-3d'
+finished: 2026-10-12T06:46:22Z
+exit code: 1

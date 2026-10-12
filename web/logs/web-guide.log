@@ -1,14 +1,14 @@
 $ bash ../../tools/ci/fetch-guide.sh dist/guide
-started: 2026-10-12T06:49:14Z
+started: 2026-10-12T07:01:45Z
 total 86084
-drwxr-xr-x 2 runner runner     4096 Oct 12 06:49 .
-drwxr-xr-x 5 runner runner     4096 Oct 12 06:49 ..
--rw-r--r-- 1 runner runner   136175 Oct 12 06:49 guide-en.jpg
--rw-r--r-- 1 runner runner 29072132 Oct 12 06:49 guide-en.mp4
--rw-r--r-- 1 runner runner   135398 Oct 12 06:49 guide-ru.jpg
--rw-r--r-- 1 runner runner 29474625 Oct 12 06:49 guide-ru.mp4
--rw-r--r-- 1 runner runner   129800 Oct 12 06:49 guide-uk.jpg
--rw-r--r-- 1 runner runner 29176422 Oct 12 06:49 guide-uk.mp4
--rw-r--r-- 1 runner runner      259 Oct 12 06:49 manifest.json
-finished: 2026-10-12T06:49:15Z
+drwxr-xr-x 2 runner runner     4096 Oct 12 07:01 .
+drwxr-xr-x 5 runner runner     4096 Oct 12 07:01 ..
+-rw-r--r-- 1 runner runner   136175 Oct 12 07:01 guide-en.jpg
+-rw-r--r-- 1 runner runner 29072132 Oct 12 07:01 guide-en.mp4
+-rw-r--r-- 1 runner runner   135398 Oct 12 07:01 guide-ru.jpg
+-rw-r--r-- 1 runner runner 29474625 Oct 12 07:01 guide-ru.mp4
+-rw-r--r-- 1 runner runner   129800 Oct 12 07:01 guide-uk.jpg
+-rw-r--r-- 1 runner runner 29176422 Oct 12 07:01 guide-uk.mp4
+-rw-r--r-- 1 runner runner      259 Oct 12 07:01 manifest.json
+finished: 2026-10-12T07:01:46Z
 exit code: 0

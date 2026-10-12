@@ -4,7 +4,9 @@
 #
 # Usage: tools/ci/version-tag.sh [vX.Y.Z=<commit> ...]
 #   The pairs tag older versions first (with --latest=false); then the current version is
-#   tagged at HEAD unless it already exists.
+#   tagged at HEAD unless it already exists. GitHub refuses GITHUB_TOKEN a tag on a commit
+#   whose workflow files differ from the default branch, so older versions (1.0–1.4) stay
+#   untagged; CHANGELOG links them to their commits.
 # Needs GH_TOKEN with contents: write, and a full clone (fetch-depth: 0).
 set -euo pipefail
 

@@ -70,9 +70,9 @@
   мовами, адреса для кожної сцени; API і статичне демо.
 
 [Готується]: https://github.com/vik753/periodic-3d/compare/v1.5.0...HEAD
-[1.5.0]: https://github.com/vik753/periodic-3d/compare/v1.4.0...v1.5.0
-[1.4.0]: https://github.com/vik753/periodic-3d/compare/v1.3.0...v1.4.0
-[1.3.0]: https://github.com/vik753/periodic-3d/compare/v1.2.0...v1.3.0
-[1.2.0]: https://github.com/vik753/periodic-3d/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/vik753/periodic-3d/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/vik753/periodic-3d/releases/tag/v1.0.0
+[1.5.0]: https://github.com/vik753/periodic-3d/releases/tag/v1.5.0
+[1.4.0]: https://github.com/vik753/periodic-3d/commit/f02d2b49
+[1.3.0]: https://github.com/vik753/periodic-3d/commit/89f0b7b8
+[1.2.0]: https://github.com/vik753/periodic-3d/commit/ea2cfbb4
+[1.1.0]: https://github.com/vik753/periodic-3d/commit/72ecceee
+[1.0.0]: https://github.com/vik753/periodic-3d/commit/8f517d14

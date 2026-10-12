@@ -15,6 +15,7 @@ import { formatNumber } from './format';
 import { PredictedBadge } from './MaterialPanel';
 import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
+import { UsesSection } from './UsesSection';
 import { ReportLink } from './ReportLink';
 import { FormulaRow } from './FormulaRow';
 
@@ -415,6 +416,8 @@ export function ElementPanel({ symbol, partner, predicted }: { symbol: string; p
       {data?.photo && (
         <PhotoFigure photo={data.photo} alt={pickName(data.substanceNames, language, name)} />
       )}
+
+      {data?.uses && <UsesSection uses={data.uses} />}
 
       {data && data.partners.length > 0 && <Partners element={cell} partners={data.partners} />}
 

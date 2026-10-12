@@ -12,6 +12,7 @@ import { BackButton, Panel, Row, Section, Skeleton, StatusNote } from './Panel';
 import { PhotoFigure } from './PhotoFigure';
 import { ReportLink } from './ReportLink';
 import { FormulaRow } from './FormulaRow';
+import { UsesSection } from './UsesSection';
 
 /** Wikidata classes too generic to show ("type of chemical entity", "group of isomers"…). */
 const GENERIC_CLASSES = new Set([
@@ -138,6 +139,8 @@ function RealCompound({ compound }: { compound: CompoundDetail }) {
       )}
 
       {compound.photo && <PhotoFigure photo={compound.photo} alt={name || compound.formula} />}
+
+      {compound.uses && <UsesSection uses={compound.uses} />}
 
       <Composition compound={compound} />
 

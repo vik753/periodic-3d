@@ -97,6 +97,72 @@ export interface SimilarElement {
   score: number;
 }
 
+/** The ten spheres of use (pipeline vocabulary, task U.2). */
+export type UseSphereId =
+  | 'industry'
+  | 'materials'
+  | 'energy'
+  | 'electronics'
+  | 'medicine'
+  | 'agriculture'
+  | 'food'
+  | 'household'
+  | 'science'
+  | 'defense';
+
+/** One use: a vocabulary term with the sources that support it. */
+export interface UseTerm {
+  id: string;
+  names: Names;
+  /** Source ids (see Uses.sources), most trusted first. */
+  sources: string[];
+  /** "eu_not_approved": the EU Pesticides Database does not approve it as a pesticide. */
+  notes?: string[];
+  /** Share of consumption from USGS, percent. */
+  share?: number;
+}
+
+export interface UseSource {
+  id: string;
+  short: string;
+  name: string;
+  /** The page of this substance at the source. */
+  url: string;
+  license: string;
+}
+
+export interface UseShareItem {
+  names: Names;
+  share?: number;
+  term?: string;
+  /** "more than" the share. */
+  more?: boolean;
+}
+
+/** End-use shares of a mineral commodity (USGS Mineral Commodity Summaries). */
+export interface UseShares {
+  source: string;
+  commodity: Names;
+  edition: string;
+  year: string;
+  scope: 'world' | 'us' | null;
+  /** Items are ordered by quantity but have no numbers. */
+  ranked: boolean;
+  /** The data describe a group of elements (rare earths). */
+  group: boolean;
+  url: string;
+  quote: string;
+  items: UseShareItem[];
+}
+
+/** Where a substance is used (task U.2). */
+export interface Uses {
+  spheres: { id: UseSphereId; terms: UseTerm[] }[];
+  sources: UseSource[];
+  quotes?: { source: string; text: string }[];
+  shares?: UseShares[];
+}
+
 export interface ElementDetail {
   version: string;
   z: number;
@@ -125,6 +191,7 @@ export interface ElementDetail {
   /** Elements with similar partners (vector model); empty for older datasets. */
   similar?: SimilarElement[];
   photo?: Photo | null;
+  uses?: Uses | null;
 }
 
 export interface ClassRef {
@@ -166,6 +233,7 @@ export interface CompoundDetail {
   photo?: Photo | null;
   /** Cross-check of the sources; absent when they agree. */
   quality?: CompoundQuality | null;
+  uses?: Uses | null;
 }
 
 export interface CompoundQuality {

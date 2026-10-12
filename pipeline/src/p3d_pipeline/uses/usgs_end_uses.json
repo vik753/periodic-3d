@@ -1,0 +1,2596 @@
+{
+ "source": "USGS Mineral Commodity Summaries 2026 (U.S. Geological Survey, public domain)",
+ "note": "Typed by hand from the 'Domestic Production and Use' paragraphs; checked by tools/probe/usgs_curate.py.",
+ "commodities": [
+  {
+   "commodity": {
+    "uk": "Літій",
+    "ru": "Литий",
+    "en": "Lithium"
+   },
+   "elements": [
+    "Li"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "world",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf",
+   "quote": "global end uses were estimated as follows: batteries, 88%; ceramics and glass, 4%; lubricating greases, 2%; air treatment, 1%; continuous casting mold flux powders, 1%; medical, 1%; and other uses, 3%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "акумулятори",
+      "ru": "аккумуляторы",
+      "en": "batteries"
+     },
+     "share": 88,
+     "term": "batteries"
+    },
+    {
+     "names": {
+      "uk": "кераміка і скло",
+      "ru": "керамика и стекло",
+      "en": "ceramics and glass"
+     },
+     "share": 4,
+     "term": "glass"
+    },
+    {
+     "names": {
+      "uk": "мастила",
+      "ru": "смазки",
+      "en": "lubricating greases"
+     },
+     "share": 2,
+     "term": "lubricants"
+    },
+    {
+     "names": {
+      "uk": "очищення повітря",
+      "ru": "очистка воздуха",
+      "en": "air treatment"
+     },
+     "share": 1
+    },
+    {
+     "names": {
+      "uk": "флюси для безперервного лиття",
+      "ru": "флюсы для непрерывной разливки",
+      "en": "continuous casting mould flux"
+     },
+     "share": 1,
+     "term": "metallurgy"
+    },
+    {
+     "names": {
+      "uk": "медицина",
+      "ru": "медицина",
+      "en": "medical"
+     },
+     "share": 1,
+     "term": "drug"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 3
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Мідь",
+    "ru": "Медь",
+    "en": "Copper"
+   },
+   "elements": [
+    "Cu"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-copper.pdf",
+   "quote": "copper and copper alloy products were used in building construction, 42%; electrical and electronic products, 23%; transportation equipment, 18%; consumer and general products, 10%; and industrial machinery and equipment, 7%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "будівництво",
+      "ru": "строительство",
+      "en": "building construction"
+     },
+     "share": 42,
+     "term": "construction"
+    },
+    {
+     "names": {
+      "uk": "електротехніка й електроніка",
+      "ru": "электротехника и электроника",
+      "en": "electrical and electronic products"
+     },
+     "share": 23,
+     "term": "electrical"
+    },
+    {
+     "names": {
+      "uk": "транспорт",
+      "ru": "транспорт",
+      "en": "transportation equipment"
+     },
+     "share": 18,
+     "term": "automotive"
+    },
+    {
+     "names": {
+      "uk": "побутові вироби",
+      "ru": "бытовые изделия",
+      "en": "consumer and general products"
+     },
+     "share": 10,
+     "term": "toys_jewelry"
+    },
+    {
+     "names": {
+      "uk": "промислове обладнання",
+      "ru": "промышленное оборудование",
+      "en": "industrial machinery and equipment"
+     },
+     "share": 7
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Алюміній",
+    "ru": "Алюминий",
+    "en": "Aluminium"
+   },
+   "elements": [
+    "Al"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-aluminum.pdf",
+   "quote": "Transportation applications accounted for 36% of domestic consumption; the remainder was used in packaging, 24%; building, 13%; electrical, 9%; consumer durables and machinery, 8% each; and other, 2%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "транспорт",
+      "ru": "транспорт",
+      "en": "transportation"
+     },
+     "share": 36,
+     "term": "automotive"
+    },
+    {
+     "names": {
+      "uk": "пакування",
+      "ru": "упаковка",
+      "en": "packaging"
+     },
+     "share": 24
+    },
+    {
+     "names": {
+      "uk": "будівництво",
+      "ru": "строительство",
+      "en": "building"
+     },
+     "share": 13,
+     "term": "construction"
+    },
+    {
+     "names": {
+      "uk": "електротехніка",
+      "ru": "электротехника",
+      "en": "electrical"
+     },
+     "share": 9,
+     "term": "electrical"
+    },
+    {
+     "names": {
+      "uk": "побутові товари тривалого користування",
+      "ru": "товары длительного пользования",
+      "en": "consumer durables"
+     },
+     "share": 8,
+     "term": "toys_jewelry"
+    },
+    {
+     "names": {
+      "uk": "машинобудування",
+      "ru": "машиностроение",
+      "en": "machinery"
+     },
+     "share": 8
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 2
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Сурма",
+    "ru": "Сурьма",
+    "en": "Antimony"
+   },
+   "elements": [
+    "Sb"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf",
+   "quote": "In the United States, the leading uses of antimony were metal products, including flame retardants, 49%; antimonial lead and ammunition, 40%; and nonmetal products, including ceramics and glass and rubber products, 11%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "металеві вироби, зокрема антипірени",
+      "ru": "металлические изделия, в том числе антипирены",
+      "en": "metal products, including flame retardants"
+     },
+     "share": 49,
+     "term": "fire_safety"
+    },
+    {
+     "names": {
+      "uk": "свинцево-сурм’яні сплави й боєприпаси",
+      "ru": "свинцово-сурьмяные сплавы и боеприпасы",
+      "en": "antimonial lead and ammunition"
+     },
+     "share": 40,
+     "term": "military"
+    },
+    {
+     "names": {
+      "uk": "кераміка, скло, гума",
+      "ru": "керамика, стекло, резина",
+      "en": "ceramics, glass and rubber products"
+     },
+     "share": 11,
+     "term": "ceramics"
+    }
+   ],
+   "terms": [
+    "batteries",
+    "glass",
+    "rubber"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Берилій",
+    "ru": "Бериллий",
+    "en": "Beryllium"
+   },
+   "elements": [
+    "Be"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-beryllium.pdf",
+   "quote": "approximately 29% of beryllium products were used in consumer electronics, 24% in aerospace and defense applications, 17% in industrial components, 9% in automotive electronics, 8% in energy applications, 2% in semiconductor applications, and 11% in other applications.",
+   "shares": [
+    {
+     "names": {
+      "uk": "побутова електроніка",
+      "ru": "бытовая электроника",
+      "en": "consumer electronics"
+     },
+     "share": 29,
+     "term": "electrical"
+    },
+    {
+     "names": {
+      "uk": "авіація, космос і оборона",
+      "ru": "авиация, космос и оборона",
+      "en": "aerospace and defence"
+     },
+     "share": 24,
+     "term": "aerospace"
+    },
+    {
+     "names": {
+      "uk": "промислові деталі",
+      "ru": "промышленные детали",
+      "en": "industrial components"
+     },
+     "share": 17
+    },
+    {
+     "names": {
+      "uk": "автомобільна електроніка",
+      "ru": "автомобильная электроника",
+      "en": "automotive electronics"
+     },
+     "share": 9,
+     "term": "automotive"
+    },
+    {
+     "names": {
+      "uk": "енергетика",
+      "ru": "энергетика",
+      "en": "energy applications"
+     },
+     "share": 8
+    },
+    {
+     "names": {
+      "uk": "напівпровідники",
+      "ru": "полупроводники",
+      "en": "semiconductor applications"
+     },
+     "share": 2,
+     "term": "semiconductors"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 11
+    }
+   ],
+   "terms": [
+    "military"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Кобальт",
+    "ru": "Кобальт",
+    "en": "Cobalt"
+   },
+   "elements": [
+    "Co"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf",
+   "quote": "An estimated 51% of cobalt consumed in the United States was used in superalloys, mainly for aircraft gas turbine engines; 25% in a variety of chemical applications; 15% in various other metallic applications; and 9% in cemented carbides for cutting and wear-resistant applications.",
+   "shares": [
+    {
+     "names": {
+      "uk": "суперсплави для авіадвигунів",
+      "ru": "суперсплавы для авиадвигателей",
+      "en": "superalloys for aircraft engines"
+     },
+     "share": 51,
+     "term": "aerospace"
+    },
+    {
+     "names": {
+      "uk": "хімічні застосування",
+      "ru": "химические применения",
+      "en": "chemical applications"
+     },
+     "share": 25
+    },
+    {
+     "names": {
+      "uk": "інші металеві вироби",
+      "ru": "прочие металлические изделия",
+      "en": "other metallic applications"
+     },
+     "share": 15,
+     "term": "alloys"
+    },
+    {
+     "names": {
+      "uk": "тверді сплави для різців",
+      "ru": "твёрдые сплавы для резцов",
+      "en": "cemented carbides"
+     },
+     "share": 9,
+     "term": "abrasives"
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Галій",
+    "ru": "Галлий",
+    "en": "Gallium"
+   },
+   "elements": [
+    "Ga"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+   "quote": "ICs accounted for 73% of domestic gallium consumption, and optoelectronic devices accounted for 26%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "мікросхеми",
+      "ru": "микросхемы",
+      "en": "integrated circuits"
+     },
+     "share": 73,
+     "term": "semiconductors"
+    },
+    {
+     "names": {
+      "uk": "оптоелектроніка (світлодіоди, лазери, фотодетектори)",
+      "ru": "оптоэлектроника (светодиоды, лазеры, фотодетекторы)",
+      "en": "optoelectronic devices"
+     },
+     "share": 26,
+     "term": "displays"
+    }
+   ],
+   "terms": [
+    "optics_lasers",
+    "solar",
+    "sensors"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Гелій",
+    "ru": "Гелий",
+    "en": "Helium"
+   },
+   "elements": [
+    "He"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
+   "quote": "Helium was used for, in decreasing quantity of use, analytical, engineering, lab, science, and specialty gases (22%); controlled atmospheres, fiber optics, and semiconductors (17%); lifting gas (17%); magnetic resonance imaging (15%); aerospace (9%); welding (8%); diving (5%); leak detection (5%); and other applications (2%).",
+   "shares": [
+    {
+     "names": {
+      "uk": "аналітичні й лабораторні гази",
+      "ru": "аналитические и лабораторные газы",
+      "en": "analytical, lab and science gases"
+     },
+     "share": 22,
+     "term": "analysis"
+    },
+    {
+     "names": {
+      "uk": "захисні атмосфери, оптоволокно, напівпровідники",
+      "ru": "защитные атмосферы, оптоволокно, полупроводники",
+      "en": "controlled atmospheres, fibre optics, semiconductors"
+     },
+     "share": 17,
+     "term": "semiconductors"
+    },
+    {
+     "names": {
+      "uk": "підйомний газ (аеростати)",
+      "ru": "подъёмный газ (аэростаты)",
+      "en": "lifting gas"
+     },
+     "share": 17
+    },
+    {
+     "names": {
+      "uk": "МРТ",
+      "ru": "МРТ",
+      "en": "magnetic resonance imaging"
+     },
+     "share": 15,
+     "term": "diagnostics"
+    },
+    {
+     "names": {
+      "uk": "авіація й космос",
+      "ru": "авиация и космос",
+      "en": "aerospace"
+     },
+     "share": 9,
+     "term": "aerospace"
+    },
+    {
+     "names": {
+      "uk": "зварювання",
+      "ru": "сварка",
+      "en": "welding"
+     },
+     "share": 8,
+     "term": "welding"
+    },
+    {
+     "names": {
+      "uk": "дихальні суміші для дайвінгу",
+      "ru": "дыхательные смеси для дайвинга",
+      "en": "diving"
+     },
+     "share": 5
+    },
+    {
+     "names": {
+      "uk": "пошук витоків",
+      "ru": "поиск утечек",
+      "en": "leak detection"
+     },
+     "share": 5,
+     "term": "sensors"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 2
+    }
+   ],
+   "terms": [
+    "optics_lasers"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Неон",
+    "ru": "Неон",
+    "en": "Neon"
+   },
+   "elements": [
+    "Ne"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
+   "quote": "Neon was used for, in decreasing quantity of use, lamps (53%), semiconductors (32%), plasma displays (12%), and other (3%).",
+   "shares": [
+    {
+     "names": {
+      "uk": "лампи",
+      "ru": "лампы",
+      "en": "lamps"
+     },
+     "share": 53,
+     "term": "lighting"
+    },
+    {
+     "names": {
+      "uk": "напівпровідники",
+      "ru": "полупроводники",
+      "en": "semiconductors"
+     },
+     "share": 32,
+     "term": "semiconductors"
+    },
+    {
+     "names": {
+      "uk": "плазмові екрани",
+      "ru": "плазменные экраны",
+      "en": "plasma displays"
+     },
+     "share": 12,
+     "term": "displays"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 3
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Аргон",
+    "ru": "Аргон",
+    "en": "Argon"
+   },
+   "elements": [
+    "Ar"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
+   "quote": "Argon was used for welding (66%), steelmaking (20%), electronics (10%), and other (4%).",
+   "shares": [
+    {
+     "names": {
+      "uk": "зварювання",
+      "ru": "сварка",
+      "en": "welding"
+     },
+     "share": 66,
+     "term": "welding"
+    },
+    {
+     "names": {
+      "uk": "виплавлення сталі",
+      "ru": "выплавка стали",
+      "en": "steelmaking"
+     },
+     "share": 20,
+     "term": "metallurgy"
+    },
+    {
+     "names": {
+      "uk": "електроніка",
+      "ru": "электроника",
+      "en": "electronics"
+     },
+     "share": 10,
+     "term": "electrical"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 4
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Криптон",
+    "ru": "Криптон",
+    "en": "Krypton"
+   },
+   "elements": [
+    "Kr"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
+   "quote": "Krypton was used for semiconductors (67%), lamps (20%), insulated glass (10%), and other (3%).",
+   "shares": [
+    {
+     "names": {
+      "uk": "напівпровідники",
+      "ru": "полупроводники",
+      "en": "semiconductors"
+     },
+     "share": 67,
+     "term": "semiconductors"
+    },
+    {
+     "names": {
+      "uk": "лампи",
+      "ru": "лампы",
+      "en": "lamps"
+     },
+     "share": 20,
+     "term": "lighting"
+    },
+    {
+     "names": {
+      "uk": "склопакети",
+      "ru": "стеклопакеты",
+      "en": "insulated glass"
+     },
+     "share": 10,
+     "term": "glass"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 3
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Ксенон",
+    "ru": "Ксенон",
+    "en": "Xenon"
+   },
+   "elements": [
+    "Xe"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
+   "quote": "Xenon was used for lamps (37%), semiconductors (36%), lasers (13%), medical (6%), and other (8%).",
+   "shares": [
+    {
+     "names": {
+      "uk": "лампи",
+      "ru": "лампы",
+      "en": "lamps"
+     },
+     "share": 37,
+     "term": "lighting"
+    },
+    {
+     "names": {
+      "uk": "напівпровідники",
+      "ru": "полупроводники",
+      "en": "semiconductors"
+     },
+     "share": 36,
+     "term": "semiconductors"
+    },
+    {
+     "names": {
+      "uk": "лазери",
+      "ru": "лазеры",
+      "en": "lasers"
+     },
+     "share": 13,
+     "term": "optics_lasers"
+    },
+    {
+     "names": {
+      "uk": "медицина",
+      "ru": "медицина",
+      "en": "medical"
+     },
+     "share": 6,
+     "term": "drug"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 8
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Йод",
+    "ru": "Йод",
+    "en": "Iodine"
+   },
+   "elements": [
+    "I"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "world",
+   "ranked": true,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-iodine.pdf",
+   "quote": "Worldwide, the leading uses of iodine and its compounds were, in descending order of quantity consumed, X-ray contrast media (XRCM), liquid crystal displays (LCDs), pharmaceuticals, iodophors, animal feed, and fluorochemicals.",
+   "shares": [
+    {
+     "names": {
+      "uk": "рентгеноконтрастні речовини",
+      "ru": "рентгеноконтрастные вещества",
+      "en": "X-ray contrast media"
+     },
+     "term": "diagnostics"
+    },
+    {
+     "names": {
+      "uk": "рідкокристалічні екрани",
+      "ru": "жидкокристаллические экраны",
+      "en": "liquid crystal displays"
+     },
+     "term": "displays"
+    },
+    {
+     "names": {
+      "uk": "ліки",
+      "ru": "лекарства",
+      "en": "pharmaceuticals"
+     },
+     "term": "drug"
+    },
+    {
+     "names": {
+      "uk": "йодофори (антисептики)",
+      "ru": "йодофоры (антисептики)",
+      "en": "iodophors"
+     },
+     "term": "antiseptic"
+    },
+    {
+     "names": {
+      "uk": "корми для тварин",
+      "ru": "корма для животных",
+      "en": "animal feed"
+     },
+     "term": "animal_feed"
+    },
+    {
+     "names": {
+      "uk": "фторорганічна хімія",
+      "ru": "фторорганическая химия",
+      "en": "fluorochemicals"
+     },
+     "term": "chemical_feedstock"
+    }
+   ],
+   "terms": [
+    "biocide",
+    "fortification",
+    "plastics"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Ртуть",
+    "ru": "Ртуть",
+    "en": "Mercury"
+   },
+   "elements": [
+    "Hg"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2021",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-mercury.pdf",
+   "quote": "The leading domestic end uses of mercury and mercury compounds were relays, sensors, switches, and valves, 65%; dental amalgam, 27%; formulated products (buffers, catalysts, fixatives, and vaccination uses), 7%; and bulbs, lamps, and lighting, 1%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "реле, датчики, перемикачі, клапани",
+      "ru": "реле, датчики, переключатели, клапаны",
+      "en": "relays, sensors, switches and valves"
+     },
+     "share": 65,
+     "term": "sensors"
+    },
+    {
+     "names": {
+      "uk": "зубна амальгама",
+      "ru": "зубная амальгама",
+      "en": "dental amalgam"
+     },
+     "share": 27,
+     "term": "dental"
+    },
+    {
+     "names": {
+      "uk": "готові препарати (буфери, каталізатори, вакцини)",
+      "ru": "готовые препараты (буферы, катализаторы, вакцины)",
+      "en": "formulated products"
+     },
+     "share": 7
+    },
+    {
+     "names": {
+      "uk": "лампи й освітлення",
+      "ru": "лампы и освещение",
+      "en": "bulbs, lamps and lighting"
+     },
+     "share": 1,
+     "term": "lighting"
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Селен",
+    "ru": "Селен",
+    "en": "Selenium"
+   },
+   "elements": [
+    "Se"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "world",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-selenium.pdf",
+   "quote": "In 2025, estimated end uses for selenium in global consumption were metallurgy (including electrolytic manganese metal production), 40%; agriculture and animal health, 20%; glass manufacturing, 20%; electronics and photovoltaics, 10%; chemicals and pigments, 5%; and other applications, 5%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "металургія",
+      "ru": "металлургия",
+      "en": "metallurgy"
+     },
+     "share": 40,
+     "term": "metallurgy"
+    },
+    {
+     "names": {
+      "uk": "сільське господарство й ветеринарія",
+      "ru": "сельское хозяйство и ветеринария",
+      "en": "agriculture and animal health"
+     },
+     "share": 20,
+     "term": "fertilizer"
+    },
+    {
+     "names": {
+      "uk": "виробництво скла",
+      "ru": "производство стекла",
+      "en": "glass manufacturing"
+     },
+     "share": 20,
+     "term": "glass"
+    },
+    {
+     "names": {
+      "uk": "електроніка й сонячні батареї",
+      "ru": "электроника и солнечные батареи",
+      "en": "electronics and photovoltaics"
+     },
+     "share": 10,
+     "term": "solar"
+    },
+    {
+     "names": {
+      "uk": "хімікати й пігменти",
+      "ru": "химикаты и пигменты",
+      "en": "chemicals and pigments"
+     },
+     "share": 5,
+     "term": "pigments_dyes"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 5
+    }
+   ],
+   "terms": [
+    "cosmetics",
+    "explosives",
+    "catalyst",
+    "alloys",
+    "rubber",
+    "plating",
+    "animal_feed"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Срібло",
+    "ru": "Серебро",
+    "en": "Silver"
+   },
+   "elements": [
+    "Ag"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-silver.pdf",
+   "quote": "In 2025, the estimated domestic uses for silver were in electrical and electronics, 25%; other industrial uses and photography, 19%; net physical investment (bars), 18%; photovoltaics (PV), 15%; coins and medals, 14%; jewelry and silverware, 6%; and brazing and solder, 3%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "електротехніка й електроніка",
+      "ru": "электротехника и электроника",
+      "en": "electrical and electronics"
+     },
+     "share": 25,
+     "term": "electrical"
+    },
+    {
+     "names": {
+      "uk": "інша промисловість і фотографія",
+      "ru": "прочая промышленность и фотография",
+      "en": "other industrial uses and photography"
+     },
+     "share": 19,
+     "term": "photography"
+    },
+    {
+     "names": {
+      "uk": "інвестиційні злитки",
+      "ru": "инвестиционные слитки",
+      "en": "investment bars"
+     },
+     "share": 18
+    },
+    {
+     "names": {
+      "uk": "сонячні батареї",
+      "ru": "солнечные батареи",
+      "en": "photovoltaics"
+     },
+     "share": 15,
+     "term": "solar"
+    },
+    {
+     "names": {
+      "uk": "монети й медалі",
+      "ru": "монеты и медали",
+      "en": "coins and medals"
+     },
+     "share": 14,
+     "term": "toys_jewelry"
+    },
+    {
+     "names": {
+      "uk": "прикраси й столове срібло",
+      "ru": "украшения и столовое серебро",
+      "en": "jewellery and silverware"
+     },
+     "share": 6
+    },
+    {
+     "names": {
+      "uk": "паяння",
+      "ru": "пайка",
+      "en": "brazing and solder"
+     },
+     "share": 3,
+     "term": "welding"
+    }
+   ],
+   "terms": [
+    "batteries",
+    "automotive",
+    "plating",
+    "printing",
+    "optics_lasers",
+    "water_treatment",
+    "wood",
+    "dental"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Кальцинована сода",
+    "ru": "Кальцинированная сода",
+    "en": "Soda ash"
+   },
+   "elements": [
+    "Na"
+   ],
+   "compounds": [
+    "sodium carbonate"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-soda-ash.pdf",
+   "quote": "the estimated distribution of soda ash by end use was glass, 45%; chemicals, 28%; miscellaneous uses, 9%; distributors, 7%; soap and detergents, 5%; flue gas desulfurization, 4%; pulp and paper, 1%; and water treatment, 1%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "скло",
+      "ru": "стекло",
+      "en": "glass"
+     },
+     "share": 45,
+     "term": "glass"
+    },
+    {
+     "names": {
+      "uk": "хімічна промисловість",
+      "ru": "химическая промышленность",
+      "en": "chemicals"
+     },
+     "share": 28,
+     "term": "chemical_feedstock"
+    },
+    {
+     "names": {
+      "uk": "різне",
+      "ru": "разное",
+      "en": "miscellaneous uses"
+     },
+     "share": 9
+    },
+    {
+     "names": {
+      "uk": "дистриб’ютори",
+      "ru": "дистрибьюторы",
+      "en": "distributors"
+     },
+     "share": 7
+    },
+    {
+     "names": {
+      "uk": "мило й мийні засоби",
+      "ru": "мыло и моющие средства",
+      "en": "soap and detergents"
+     },
+     "share": 5,
+     "term": "cleaning"
+    },
+    {
+     "names": {
+      "uk": "очищення димових газів",
+      "ru": "очистка дымовых газов",
+      "en": "flue gas desulfurization"
+     },
+     "share": 4
+    },
+    {
+     "names": {
+      "uk": "папір і целюлоза",
+      "ru": "бумага и целлюлоза",
+      "en": "pulp and paper"
+     },
+     "share": 1,
+     "term": "pulp_paper"
+    },
+    {
+     "names": {
+      "uk": "очищення води",
+      "ru": "очистка воды",
+      "en": "water treatment"
+     },
+     "share": 1,
+     "term": "water_treatment"
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Кухонна сіль",
+    "ru": "Поваренная соль",
+    "en": "Salt"
+   },
+   "elements": [
+    "Na",
+    "Cl"
+   ],
+   "compounds": [
+    "sodium chloride"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-salt.pdf",
+   "quote": "The chemical industry accounted for about 42% of total salt sales, with salt in brine accounting for approximately 90% of the salt used for chemical feedstock. Chlorine and caustic soda manufacturers were the main consumers within the chemical industry. Highway deicing accounted for about 37% of total salt consumed.",
+   "shares": [
+    {
+     "names": {
+      "uk": "хімічна промисловість (хлор, їдкий натр)",
+      "ru": "химическая промышленность (хлор, едкий натр)",
+      "en": "chemical industry"
+     },
+     "share": 42,
+     "term": "chemical_feedstock"
+    },
+    {
+     "names": {
+      "uk": "посипання доріг узимку",
+      "ru": "посыпка дорог зимой",
+      "en": "highway deicing"
+     },
+     "share": 37,
+     "term": "antifreeze"
+    }
+   ],
+   "terms": [
+    "food_processing",
+    "water_treatment"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Телур",
+    "ru": "Теллур",
+    "en": "Tellurium"
+   },
+   "elements": [
+    "Te"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "world",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tellurium.pdf",
+   "quote": "In 2025, estimated end uses for tellurium in global consumption were solar power cells, 70%; thermoelectric devices, 15%; metallurgy, 10%; and other applications, 5%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "сонячні батареї",
+      "ru": "солнечные батареи",
+      "en": "solar power cells"
+     },
+     "share": 70,
+     "term": "solar"
+    },
+    {
+     "names": {
+      "uk": "термоелектричні пристрої",
+      "ru": "термоэлектрические устройства",
+      "en": "thermoelectric devices"
+     },
+     "share": 15,
+     "term": "electrical"
+    },
+    {
+     "names": {
+      "uk": "металургія",
+      "ru": "металлургия",
+      "en": "metallurgy"
+     },
+     "share": 10,
+     "term": "metallurgy"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 5
+    }
+   ],
+   "terms": [
+    "explosives",
+    "rubber",
+    "catalyst",
+    "sensors",
+    "pigments_dyes",
+    "glass",
+    "ceramics"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Реній",
+    "ru": "Рений",
+    "en": "Rhenium"
+   },
+   "elements": [
+    "Re"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf",
+   "quote": "The major uses of rhenium were in superalloys used in high-temperature turbine engine components and in petroleum-reforming catalysts, representing an estimated 80% and 15%, respectively, of end uses.",
+   "shares": [
+    {
+     "names": {
+      "uk": "суперсплави для турбін",
+      "ru": "суперсплавы для турбин",
+      "en": "superalloys for turbine engines"
+     },
+     "share": 80,
+     "term": "aerospace"
+    },
+    {
+     "names": {
+      "uk": "каталізатори нафтопереробки",
+      "ru": "катализаторы нефтепереработки",
+      "en": "petroleum-reforming catalysts"
+     },
+     "share": 15,
+     "term": "catalyst"
+    }
+   ],
+   "terms": [
+    "oil_gas",
+    "alloys",
+    "electrical",
+    "sensors"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Ніобій",
+    "ru": "Ниобий",
+    "en": "Niobium"
+   },
+   "elements": [
+    "Nb"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf",
+   "quote": "Major end-use distribution of domestic niobium consumption was estimated as follows: steels, about 77%, and superalloys, about 23%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "сталі",
+      "ru": "стали",
+      "en": "steels"
+     },
+     "share": 77,
+     "term": "steel_iron"
+    },
+    {
+     "names": {
+      "uk": "суперсплави",
+      "ru": "суперсплавы",
+      "en": "superalloys"
+     },
+     "share": 23,
+     "term": "alloys"
+    }
+   ],
+   "terms": [
+    "aerospace"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Сталь",
+    "ru": "Сталь",
+    "en": "Steel"
+   },
+   "elements": [
+    "Fe"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-iron-steel.pdf",
+   "quote": "Construction accounted for an estimated 31% of net shipments by market classification, followed by steel service centers and distributors, 26%; automotive, 15%; and steel for converting and processing, 11%; all other applications accounted for 17% of net shipments.",
+   "shares": [
+    {
+     "names": {
+      "uk": "будівництво",
+      "ru": "строительство",
+      "en": "construction"
+     },
+     "share": 31,
+     "term": "construction"
+    },
+    {
+     "names": {
+      "uk": "сервісні центри й дистриб’ютори",
+      "ru": "сервисные центры и дистрибьюторы",
+      "en": "service centres and distributors"
+     },
+     "share": 26
+    },
+    {
+     "names": {
+      "uk": "автомобілі",
+      "ru": "автомобили",
+      "en": "automotive"
+     },
+     "share": 15,
+     "term": "automotive"
+    },
+    {
+     "names": {
+      "uk": "подальша переробка",
+      "ru": "дальнейшая переработка",
+      "en": "converting and processing"
+     },
+     "share": 11
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 17
+    }
+   ],
+   "terms": [
+    "steel_iron"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Магній (метал)",
+    "ru": "Магний (металл)",
+    "en": "Magnesium metal"
+   },
+   "elements": [
+    "Mg"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-magnesium-metal.pdf",
+   "quote": "In 2025, an estimated 69% of primary magnesium consumption was used in castings, principally for the automotive industry. Aluminum-base alloys that were used for packaging, transportation, and other applications accounted for an estimated 15% of consumption; desulfurization of iron and steel, 9%; and all other uses, 7%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "литі деталі, переважно для автомобілів",
+      "ru": "литые детали, в основном для автомобилей",
+      "en": "castings, mainly automotive"
+     },
+     "share": 69,
+     "term": "automotive"
+    },
+    {
+     "names": {
+      "uk": "алюмінієві сплави",
+      "ru": "алюминиевые сплавы",
+      "en": "aluminium-base alloys"
+     },
+     "share": 15,
+     "term": "alloys"
+    },
+    {
+     "names": {
+      "uk": "десульфурація чавуну й сталі",
+      "ru": "десульфурация чугуна и стали",
+      "en": "desulfurization of iron and steel"
+     },
+     "share": 9,
+     "term": "metallurgy"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 7
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Сполуки магнію",
+    "ru": "Соединения магния",
+    "en": "Magnesium compounds"
+   },
+   "elements": [
+    "Mg"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-magnesium-compounds.pdf",
+   "quote": "The remaining magnesium compounds were consumed for refractories in the form of dead-burned magnesia, fused magnesia, and olivine.",
+   "shares": [],
+   "terms": [
+    "refractories",
+    "antifreeze"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Калійні солі",
+    "ru": "Калийные соли",
+    "en": "Potash"
+   },
+   "elements": [
+    "K"
+   ],
+   "compounds": [
+    "potassium chloride"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-potash.pdf",
+   "quote": "The fertilizer industry used about 85% of U.S. potash sales, and the remainder was used for chemical and industrial applications.",
+   "shares": [
+    {
+     "names": {
+      "uk": "добрива",
+      "ru": "удобрения",
+      "en": "fertilizers"
+     },
+     "share": 85,
+     "term": "fertilizer"
+    },
+    {
+     "names": {
+      "uk": "хімія й промисловість (решта)",
+      "ru": "химия и промышленность (остальное)",
+      "en": "chemical and industrial applications (the remainder)"
+     },
+     "share": 15,
+     "term": "chemical_feedstock"
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Аміак (азот)",
+    "ru": "Аммиак (азот)",
+    "en": "Ammonia (nitrogen)"
+   },
+   "elements": [
+    "N"
+   ],
+   "compounds": [
+    "ammonia"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nitrogen.pdf",
+   "quote": "Approximately 88% of domestic ammonia production was for fertilizer use, including anhydrous ammonia for direct application, urea, ammonium nitrates, ammonium phosphates, and other nitrogen compounds.",
+   "shares": [
+    {
+     "names": {
+      "uk": "добрива",
+      "ru": "удобрения",
+      "en": "fertilizers"
+     },
+     "share": 88,
+     "term": "fertilizer"
+    }
+   ],
+   "terms": [
+    "explosives",
+    "plastics",
+    "chemical_feedstock"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Фосфорити",
+    "ru": "Фосфориты",
+    "en": "Phosphate rock"
+   },
+   "elements": [
+    "P"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf",
+   "quote": "More than 95% of the phosphate rock mined in the United States was used to manufacture wet-process phosphoric acid and superphosphoric acid, which were used as intermediate feedstocks in the manufacture of granular and liquid ammonium phosphate fertilizers and animal feed supplements.",
+   "shares": [
+    {
+     "names": {
+      "uk": "фосфорна кислота для добрив і кормів",
+      "ru": "фосфорная кислота для удобрений и кормов",
+      "en": "phosphoric acid for fertilizers and feed"
+     },
+     "share": 95,
+     "term": "fertilizer",
+     "more": true
+    }
+   ],
+   "terms": [
+    "animal_feed",
+    "chemical_feedstock"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Стронцій",
+    "ru": "Стронций",
+    "en": "Strontium"
+   },
+   "elements": [
+    "Sr"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-strontium.pdf",
+   "quote": "the estimated end-use distribution in the United States for strontium, including celestite and strontium compounds, was drilling fluids, 65%; ceramic ferrite magnets and pyrotechnics and signals, 14% each; and other uses, including electrolytic production of zinc, glass, master alloys, and pigments and fillers, 7%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "бурові розчини",
+      "ru": "буровые растворы",
+      "en": "drilling fluids"
+     },
+     "share": 65,
+     "term": "oil_gas"
+    },
+    {
+     "names": {
+      "uk": "феритові магніти",
+      "ru": "ферритовые магниты",
+      "en": "ceramic ferrite magnets"
+     },
+     "share": 14,
+     "term": "magnets"
+    },
+    {
+     "names": {
+      "uk": "піротехніка й сигнальні ракети",
+      "ru": "пиротехника и сигнальные ракеты",
+      "en": "pyrotechnics and signals"
+     },
+     "share": 14,
+     "term": "pyrotechnics"
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 7
+    }
+   ],
+   "terms": [
+    "glass",
+    "alloys",
+    "pigments_dyes"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Олово",
+    "ru": "Олово",
+    "en": "Tin"
+   },
+   "elements": [
+    "Sn"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tin.pdf",
+   "quote": "The uses for tin in the United States were chemicals, 25%; tinplate, 16%; alloys, 12%; solder, 11%; babbitt, brass and bronze, and tinning, 7%; bar tin, 2%; and other, 27%.",
+   "shares": [
+    {
+     "names": {
+      "uk": "хімічні сполуки",
+      "ru": "химические соединения",
+      "en": "chemicals"
+     },
+     "share": 25,
+     "term": "chemical_feedstock"
+    },
+    {
+     "names": {
+      "uk": "білу жесть",
+      "ru": "белая жесть",
+      "en": "tinplate"
+     },
+     "share": 16,
+     "term": "plating"
+    },
+    {
+     "names": {
+      "uk": "сплави",
+      "ru": "сплавы",
+      "en": "alloys"
+     },
+     "share": 12,
+     "term": "alloys"
+    },
+    {
+     "names": {
+      "uk": "припої",
+      "ru": "припои",
+      "en": "solder"
+     },
+     "share": 11,
+     "term": "welding"
+    },
+    {
+     "names": {
+      "uk": "бабіт, латунь, бронза, лудіння",
+      "ru": "баббит, латунь, бронза, лужение",
+      "en": "babbitt, brass, bronze, tinning"
+     },
+     "share": 7
+    },
+    {
+     "names": {
+      "uk": "олово в зливках",
+      "ru": "олово в слитках",
+      "en": "bar tin"
+     },
+     "share": 2
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     },
+     "share": 27
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Вольфрам",
+    "ru": "Вольфрам",
+    "en": "Tungsten"
+   },
+   "elements": [
+    "W"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tungsten.pdf",
+   "quote": "An estimated 60% of the tungsten consumed in the United States was used in cemented carbide parts for cutting and wear-resistant applications, primarily in the construction, metalworking, mining, and oil-and gas-drilling industries.",
+   "shares": [
+    {
+     "names": {
+      "uk": "тверді сплави для різання й буріння",
+      "ru": "твёрдые сплавы для резания и бурения",
+      "en": "cemented carbide parts"
+     },
+     "share": 60,
+     "term": "abrasives"
+    }
+   ],
+   "terms": [
+    "alloys",
+    "steel_iron",
+    "electrical",
+    "lighting",
+    "welding"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Ванадій",
+    "ru": "Ванадий",
+    "en": "Vanadium"
+   },
+   "elements": [
+    "V"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf",
+   "quote": "Metallurgical use, primarily as an alloying agent for iron and steel, accounted for more than 90% of domestic reported vanadium consumption in 2025.",
+   "shares": [
+    {
+     "names": {
+      "uk": "легування чавуну й сталі",
+      "ru": "легирование чугуна и стали",
+      "en": "alloying of iron and steel"
+     },
+     "share": 90,
+     "term": "steel_iron",
+     "more": true
+    }
+   ],
+   "terms": [
+    "catalyst"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Нікель",
+    "ru": "Никель",
+    "en": "Nickel"
+   },
+   "elements": [
+    "Ni"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
+   "quote": "Stainless and alloy steel and nickel-containing alloys typically account for more than 85% of domestic consumption.",
+   "shares": [
+    {
+     "names": {
+      "uk": "нержавіюча сталь і сплави",
+      "ru": "нержавеющая сталь и сплавы",
+      "en": "stainless steel and alloys"
+     },
+     "share": 85,
+     "term": "steel_iron",
+     "more": true
+    }
+   ],
+   "terms": [
+    "alloys",
+    "plating",
+    "catalyst"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Свинець",
+    "ru": "Свинец",
+    "en": "Lead"
+   },
+   "elements": [
+    "Pb"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lead.pdf",
+   "quote": "The lead-acid battery industry accounted for an estimated 67% of U.S. apparent consumption of lead during 2025.",
+   "shares": [
+    {
+     "names": {
+      "uk": "свинцево-кислотні акумулятори",
+      "ru": "свинцово-кислотные аккумуляторы",
+      "en": "lead-acid batteries"
+     },
+     "share": 67,
+     "term": "batteries"
+    }
+   ],
+   "terms": [
+    "automotive"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Миш’як",
+    "ru": "Мышьяк",
+    "en": "Arsenic"
+   },
+   "elements": [
+    "As"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-arsenic.pdf",
+   "quote": "Domestically, the leading use of arsenic was for the production of herbicides, insecticides, and wood preservatives (more than 80%), followed by metallurgical and semiconductor applications.",
+   "shares": [
+    {
+     "names": {
+      "uk": "гербіциди, інсектициди, захист деревини",
+      "ru": "гербициды, инсектициды, защита древесины",
+      "en": "herbicides, insecticides and wood preservatives"
+     },
+     "share": 80,
+     "term": "wood",
+     "more": true
+    }
+   ],
+   "terms": [
+    "herbicide",
+    "insecticide",
+    "semiconductors",
+    "alloys",
+    "batteries"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Барит",
+    "ru": "Барит",
+    "en": "Barite"
+   },
+   "elements": [
+    "Ba"
+   ],
+   "compounds": [
+    "barium sulfate",
+    "baryte"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-barite.pdf",
+   "quote": "Typically, more than 90% of the barite sold in the United States is used as a weighting agent in fluids used in the drilling of oil and natural gas wells.",
+   "shares": [
+    {
+     "names": {
+      "uk": "бурові розчини для нафтових і газових свердловин",
+      "ru": "буровые растворы для нефтяных и газовых скважин",
+      "en": "drilling fluids for oil and gas wells"
+     },
+     "share": 90,
+     "term": "oil_gas",
+     "more": true
+    }
+   ],
+   "terms": [
+    "paints_coatings",
+    "plastics",
+    "rubber",
+    "automotive",
+    "construction",
+    "diagnostics"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Рідкісноземельні елементи",
+    "ru": "Редкоземельные элементы",
+    "en": "Rare earths"
+   },
+   "elements": [
+    "La",
+    "Ce",
+    "Pr",
+    "Nd",
+    "Sm",
+    "Eu",
+    "Gd",
+    "Tb",
+    "Dy",
+    "Ho",
+    "Er",
+    "Tm",
+    "Yb",
+    "Lu"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "quote": "The estimated leading domestic end use of rare earths was catalysts, whereas the estimated leading global use was magnets. Other end uses included batteries, ceramics and glass, metallurgical applications and alloys, and polishing.",
+   "shares": [],
+   "terms": [
+    "catalyst",
+    "magnets",
+    "batteries",
+    "ceramics",
+    "glass",
+    "alloys",
+    "abrasives"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Ітрій",
+    "ru": "Иттрий",
+    "en": "Yttrium"
+   },
+   "elements": [
+    "Y"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "world",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-yttrium.pdf",
+   "quote": "The leading domestic and global end uses of yttrium were in ceramics and phosphors. Lesser amounts were consumed for fiber optics, optical glass, pigments and other applications, including yttrium-aluminum-garnet crystals used in lasers for communication, industrial, and medical applications.",
+   "shares": [],
+   "terms": [
+    "ceramics",
+    "lighting",
+    "optics_lasers",
+    "glass",
+    "pigments_dyes"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Скандій",
+    "ru": "Скандий",
+    "en": "Scandium"
+   },
+   "elements": [
+    "Sc"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-scandium.pdf",
+   "quote": "The principal uses for scandium in 2025 were in aerospace alloys and solid oxide fuel cells used in large-scale power generation and backup power systems for critical infrastructure.",
+   "shares": [],
+   "terms": [
+    "aerospace",
+    "alloys",
+    "fuel_cells"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Циркон",
+    "ru": "Циркон",
+    "en": "Zircon"
+   },
+   "elements": [
+    "Zr"
+   ],
+   "compounds": [
+    "zircon"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-zirconium-hafnium.pdf",
+   "quote": "The leading end use for zircon was ceramics. Other primary uses of zircon included foundry sand, refractories, and zirconium chemicals.",
+   "shares": [],
+   "terms": [
+    "ceramics",
+    "metallurgy",
+    "refractories"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Гафній",
+    "ru": "Гафний",
+    "en": "Hafnium"
+   },
+   "elements": [
+    "Hf"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-zirconium-hafnium.pdf",
+   "quote": "The leading use of hafnium metal was in superalloys.",
+   "shares": [],
+   "terms": [
+    "alloys"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Титан (метал)",
+    "ru": "Титан (металл)",
+    "en": "Titanium metal"
+   },
+   "elements": [
+    "Ti"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium.pdf",
+   "quote": "the majority of titanium metal was used in aerospace applications, and the remainder was used in armor, chemical processing, marine hardware, medical implants, power generation, and other applications.",
+   "shares": [],
+   "terms": [
+    "aerospace",
+    "military"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Індій",
+    "ru": "Индий",
+    "en": "Indium"
+   },
+   "elements": [
+    "In"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "world",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-indium.pdf",
+   "quote": "Production of indium tin oxide (ITO) continued to account for most global indium consumption.",
+   "shares": [],
+   "terms": [
+    "displays",
+    "alloys",
+    "welding",
+    "semiconductors",
+    "research"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Германій",
+    "ru": "Германий",
+    "en": "Germanium"
+   },
+   "elements": [
+    "Ge"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf",
+   "quote": "A company in St. George, UT, produced germanium wafers mostly for solar cells used in satellites from imported and recycled germanium. A company in Quapaw, OK, produced germanium tetrachloride for the production of fiber optics from imported and recycled germanium materials.",
+   "shares": [],
+   "terms": [
+    "solar",
+    "aerospace",
+    "optics_lasers"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Графіт",
+    "ru": "Графит",
+    "en": "Graphite"
+   },
+   "elements": [
+    "C"
+   ],
+   "compounds": [
+    "graphite"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-graphite.pdf",
+   "quote": "Natural graphite was widely used in batteries, brake linings, lubricants, powdered metals, refractory applications, and steelmaking, and was also incorporated into some defense-related materials and components.",
+   "shares": [],
+   "terms": [
+    "batteries",
+    "automotive",
+    "lubricants",
+    "refractories",
+    "steel_iron",
+    "military"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Технічні алмази",
+    "ru": "Технические алмазы",
+    "en": "Industrial diamond"
+   },
+   "elements": [
+    "C"
+   ],
+   "compounds": [
+    "diamond"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-diamond.pdf",
+   "quote": "The major consuming sectors of industrial diamond are computer chip production; construction; drilling for minerals, natural gas, and oil; machinery manufacturing; stone cutting and polishing; and transportation (infrastructure and vehicles).",
+   "shares": [],
+   "terms": [
+    "semiconductors",
+    "construction",
+    "oil_gas",
+    "abrasives"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Флюорит",
+    "ru": "Флюорит",
+    "en": "Fluorspar"
+   },
+   "elements": [
+    "F"
+   ],
+   "compounds": [
+    "calcium fluoride",
+    "fluorite"
+   ],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-fluorspar.pdf",
+   "quote": "Aqueous HF is the primary feedstock for the manufacture of virtually all fluorine-bearing chemicals, particularly refrigerants and fluoropolymers, and chemicals used in the processing of primary aluminum and uranium.",
+   "shares": [],
+   "terms": [
+    "chemical_feedstock",
+    "refrigerant",
+    "plastics",
+    "metallurgy"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Марганець",
+    "ru": "Марганец",
+    "en": "Manganese"
+   },
+   "elements": [
+    "Mn"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-manganese.pdf",
+   "quote": "Other companies consumed ore for nonmetallurgical purposes, such as in the production of animal feed, brick colorant, dry cell batteries, and fertilizers.",
+   "shares": [],
+   "terms": [
+    "steel_iron",
+    "alloys",
+    "animal_feed",
+    "pigments_dyes",
+    "batteries",
+    "fertilizer"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Молібден",
+    "ru": "Молибден",
+    "en": "Molybdenum"
+   },
+   "elements": [
+    "Mo"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-molybdenum.pdf",
+   "quote": "Molybdenum is a refractory metallic element used principally as an alloying agent in cast iron, steel, and superalloys and is also used in numerous chemical applications, including catalysts, lubricants, and pigments.",
+   "shares": [],
+   "terms": [
+    "alloys",
+    "steel_iron",
+    "catalyst",
+    "lubricants",
+    "pigments_dyes"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Хром",
+    "ru": "Хром",
+    "en": "Chromium"
+   },
+   "elements": [
+    "Cr"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-chromium.pdf",
+   "quote": "Stainless-steel and heat-resisting-steel producers were the leading consumers of ferrochromium.",
+   "shares": [],
+   "terms": [
+    "steel_iron",
+    "alloys"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Цинк",
+    "ru": "Цинк",
+    "en": "Zinc"
+   },
+   "elements": [
+    "Zn"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": true,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-zinc.pdf",
+   "quote": "Of the total reported zinc consumed, most was used to produce galvanized steel, followed by brass and bronze, zinc-base alloys, and other uses.",
+   "shares": [
+    {
+     "names": {
+      "uk": "оцинкована сталь",
+      "ru": "оцинкованная сталь",
+      "en": "galvanized steel"
+     },
+     "term": "plating"
+    },
+    {
+     "names": {
+      "uk": "латунь і бронза",
+      "ru": "латунь и бронза",
+      "en": "brass and bronze"
+     },
+     "term": "alloys"
+    },
+    {
+     "names": {
+      "uk": "цинкові сплави",
+      "ru": "цинковые сплавы",
+      "en": "zinc-base alloys"
+     }
+    },
+    {
+     "names": {
+      "uk": "інше",
+      "ru": "прочее",
+      "en": "other"
+     }
+    }
+   ],
+   "terms": []
+  },
+  {
+   "commodity": {
+    "uk": "Кремній (метал)",
+    "ru": "Кремний (металл)",
+    "en": "Silicon metal"
+   },
+   "elements": [
+    "Si"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-silicon.pdf",
+   "quote": "The main consumers of silicon metal were producers of aluminum alloys and the chemical industry, in particular for the manufacture of silicones.",
+   "shares": [],
+   "terms": [
+    "alloys",
+    "plastics",
+    "chemical_feedstock"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Бор",
+    "ru": "Бор",
+    "en": "Boron"
+   },
+   "elements": [
+    "B"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-boron.pdf",
+   "quote": "In 2025, the glass and ceramics industries remained the leading domestic users of boron products. Boron also was used as a component in abrasives, cleaning products, insecticides, insulation, and in the production of semiconductors.",
+   "shares": [],
+   "terms": [
+    "glass",
+    "ceramics",
+    "abrasives",
+    "cleaning",
+    "insecticide",
+    "construction",
+    "semiconductors"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Бром",
+    "ru": "Бром",
+    "en": "Bromine"
+   },
+   "elements": [
+    "Br"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "world",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bromine.pdf",
+   "quote": "The leading global applications of bromine are for the production of brominated flame retardants (BFRs) and clear brine drilling fluids.",
+   "shares": [],
+   "terms": [
+    "fire_safety",
+    "oil_gas",
+    "chemical_feedstock",
+    "water_treatment"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Кадмій",
+    "ru": "Кадмий",
+    "en": "Cadmium"
+   },
+   "elements": [
+    "Cd"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cadmium.pdf",
+   "quote": "Cadmium metal and compounds are mainly consumed for nickel cadmium (NiCd) batteries, but also for alloys, coatings, and pigments.",
+   "shares": [],
+   "terms": [
+    "batteries",
+    "alloys",
+    "plating",
+    "pigments_dyes",
+    "solar",
+    "sensors"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Вісмут",
+    "ru": "Висмут",
+    "en": "Bismuth"
+   },
+   "elements": [
+    "Bi"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf",
+   "quote": "Most domestic bismuth consumption was for chemicals used in cosmetic, industrial, laboratory, and pharmaceutical applications.",
+   "shares": [],
+   "terms": [
+    "cosmetics",
+    "reagent",
+    "drug",
+    "ceramics",
+    "pigments_dyes",
+    "metallurgy",
+    "alloys",
+    "fire_safety"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Цезій",
+    "ru": "Цезий",
+    "en": "Caesium"
+   },
+   "elements": [
+    "Cs"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cesium.pdf",
+   "quote": "Cesium formate brines are used for high-pressure, high-temperature well drilling for oil and gas exploration and production.",
+   "shares": [],
+   "terms": [
+    "oil_gas",
+    "catalyst"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Рубідій",
+    "ru": "Рубидий",
+    "en": "Rubidium"
+   },
+   "elements": [
+    "Rb"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rubidium.pdf",
+   "quote": "Applications for rubidium and its compounds include biomedical research, electronics, pyrotechnics, and specialty glass.",
+   "shares": [],
+   "terms": [
+    "research",
+    "electrical",
+    "pyrotechnics",
+    "glass"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Талій",
+    "ru": "Таллий",
+    "en": "Thallium"
+   },
+   "elements": [
+    "Tl"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": null,
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-thallium.pdf",
+   "quote": "The primary end uses included the following: radioisotope thallium-201 used for medical purposes in cardiovascular imaging; thallium used as an activator (sodium iodide crystal doped with thallium) in electronics for photoelectric cells and gamma radiation detection; thallium-barium-calcium-copper-oxide high-temperature superconductors…",
+   "shares": [],
+   "terms": [
+    "nuclear_medicine",
+    "sensors",
+    "superconductors",
+    "optics_lasers",
+    "glass",
+    "catalyst"
+   ]
+  },
+  {
+   "commodity": {
+    "uk": "Тантал",
+    "ru": "Тантал",
+    "en": "Tantalum"
+   },
+   "elements": [
+    "Ta"
+   ],
+   "compounds": [],
+   "edition": "Mineral Commodity Summaries 2026",
+   "year": "2025",
+   "scope": "us",
+   "ranked": false,
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf",
+   "quote": "Companies in the United States produced tantalum alloys, capacitors, carbides, compounds, and tantalum metal from imported tantalum ores and concentrates and tantalum-containing materials.",
+   "shares": [],
+   "terms": [
+    "electrical",
+    "alloys",
+    "abrasives"
+   ]
+  }
+ ]
+}

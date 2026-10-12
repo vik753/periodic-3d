@@ -33,6 +33,7 @@ def build(
     limit: Annotated[int, typer.Option(help="Keep the N most famous compounds (0 = all).")] = 0,
     descriptions: Annotated[bool, typer.Option(help="Fetch Wikipedia descriptions.")] = True,
     structures: Annotated[bool, typer.Option(help="Build 3D structures.")] = True,
+    uses: Annotated[bool, typer.Option(help="Collect where substances are used (PubChem, ChEBI, USGS).")] = True,
 ) -> None:
     """Build the dataset and print its directory."""
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -45,6 +46,7 @@ def build(
         limit=limit,
         descriptions=descriptions,
         structures=structures,
+        uses=uses,
     )
     typer.echo(run(options))
 

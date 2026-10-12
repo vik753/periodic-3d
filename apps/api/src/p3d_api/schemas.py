@@ -144,6 +144,8 @@ class ElementDetail(Schema):
     top_compounds: list[CompoundSummary]
     similar: list[SimilarElement] = Field(default_factory=list)
     photo: Photo | None = None
+    # Where the element is used (U.2): spheres → terms with sources, quotes, USGS shares.
+    uses: dict[str, Any] | None = None
 
 
 class ClassRef(Schema):
@@ -186,6 +188,8 @@ class CompoundDetail(Schema):
     # is fixed), pubchemFormula (PubChem disagrees, no third source decides) or
     # pubchemDropped (the PubChem link led to another substance).
     quality: dict[str, Any] | None = None
+    # Where the compound is used (U.2): spheres → terms with sources and quotes.
+    uses: dict[str, Any] | None = None
 
 
 class ElementRef(Schema):

@@ -230,3 +230,29 @@ def fetch_labels(fetcher: Fetcher, qids: set[str], languages: tuple[str, ...] = 
         for row in rows:
             result.setdefault(qid(row["item"]), {})[row["lang"]] = row["label"]
     return result
+
+
+def fetch_selection_values(fetcher: Fetcher, predicate: str) -> dict[str, set[str]]:
+    """Values of one property for every selected compound (formula + article), by QID."""
+    result: dict[str, set[str]] = {}
+    for row in sparql(
+        fetcher,
+        f"""SELECT DISTINCT ?item ?value WHERE {{
+          ?item wdt:P274 ?formula ; {predicate} ?value . {_HAS_ARTICLE}
+        }}""",
+    ):
+        result.setdefault(qid(row["item"]), set()).add(row["value"])
+    return result
+
+
+def fetch_item_values(fetcher: Fetcher, qids: set[str], predicate: str) -> dict[str, set[str]]:
+    """Values of one property for the given items (for example, the 118 elements), by QID."""
+    result: dict[str, set[str]] = {}
+    ordered = sorted(qids)
+    for start in range(0, len(ordered), LABEL_BATCH):
+        values = " ".join(f"wd:{item}" for item in ordered[start : start + LABEL_BATCH])
+        for row in sparql(
+            fetcher, f"SELECT ?item ?value WHERE {{ VALUES ?item {{ {values} }} ?item {predicate} ?value . }}"
+        ):
+            result.setdefault(qid(row["item"]), set()).add(row["value"])
+    return result

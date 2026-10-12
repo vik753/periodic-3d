@@ -56,6 +56,7 @@ from .http import Fetcher
 from .quality import FormulaCheck, Verdict, check_formula, has_isotopes, molar_mass, plain_formula
 from .sources import commons, mp_api, optimade, pubchem, wikidata, wikipedia
 from .structures import Structure, composition, crystal_fragment, finalize, molecule_from_smiles, parse_sdf
+from .uses import collect as uses_collect
 
 log = logging.getLogger("p3d.build")
 
@@ -77,6 +78,7 @@ LICENSES = {
     "wikipedia": "CC BY-SA 4.0, Wikipedia",
     "rdkit": "Computed with RDKit from SMILES (PubChem, Wikidata)",
     "commons": "Wikimedia Commons, license per photo",
+    "uses": "Uses: license per source (uses.json); terms only, short quotes from U.S. Government works",
 }
 
 
@@ -89,6 +91,7 @@ class Options:
     limit: int = 0
     descriptions: bool = True
     structures: bool = True
+    uses: bool = True
 
 
 @dataclass
@@ -114,6 +117,7 @@ class Compound:
     # Cross-check results shown in the card (Q.1): a fixed formula, a dropped PubChem link,
     # or the PubChem formula that disagrees with Wikidata.
     quality: dict[str, Any] = field(default_factory=dict)
+    uses: dict[str, Any] | None = None  # where the substance is used (U.2)
 
     @property
     def elements(self) -> list[str]:
@@ -724,6 +728,7 @@ def compound_card(compound: Compound) -> dict[str, Any]:
         "structure": compound.structure,
         **({"photo": compound.photo} if compound.photo else {}),
         **({"quality": compound.quality} if compound.quality else {}),
+        **({"uses": compound.uses} if compound.uses else {}),
     }
 
 
@@ -771,6 +776,7 @@ def write_report(
     classes: dict[str, dict[str, Any]] | None = None,
     neighbours: dict[str, list[tuple[str, float]]] | None = None,
     quality: QualityReport | None = None,
+    uses_lines: list[str] | None = None,
 ) -> None:
     with_structure = [compound for compound in compounds if compound.structure]
     per_element = Counter(symbol for compound in compounds for symbol in compound.counts)
@@ -798,6 +804,7 @@ def write_report(
     ]
     lines += [f"| {key} | {value} |" for key, value in sorted(stats.items())]
     lines += quality_lines(quality)
+    lines += uses_lines or []
     lines += ["", "## Запросы", "", "| Метрика | Значение |", "| --- | --- |"]
     lines += [f"| {key} | {value} |" for key, value in sorted(fetch_stats.items())]
     lines += ["", "## Топ-40 классов Wikidata", "", "| Класс | Название | Соединений |", "| --- | --- | --- |"]
@@ -869,6 +876,22 @@ def run(options: Options) -> Path:
             fetch_descriptions(compounds, fetcher)
             fetch_photos(compounds, elements, wikidata.fetch_element_images(fetcher), fetcher)
 
+        uses_lines: list[str] = []
+        if options.uses:
+            log.info("Uses")
+            cards, uses_stats = uses_collect.collect(
+                fetcher, [(c.id, c.cid, c.names.get("en", "")) for c in compounds], elements
+            )
+            for compound in compounds:
+                compound.uses = cards.get(compound.id)
+            for element in elements:
+                if element.get("wikidata") in cards:
+                    element["uses"] = cards[element["wikidata"]]
+            uses_lines = uses_collect.report_lines(
+                cards, uses_stats, [(c.id, c.names.get("en", "")) for c in compounds], elements
+            )
+            _write_json(root / "uses.json", uses_collect.vocabulary())
+
         pairs = build_pairs(compounds)
         fetch_stats = fetcher.stats
 
@@ -920,6 +943,19 @@ def run(options: Options) -> Path:
         "licenses": LICENSES,
     }
     _write_json(root / "manifest.json", manifest)
-    write_report(root, compounds, elements, pairs, stats, oversized, fetch_stats, seconds, classes, neighbours, quality)
+    write_report(
+        root,
+        compounds,
+        elements,
+        pairs,
+        stats,
+        oversized,
+        fetch_stats,
+        seconds,
+        classes,
+        neighbours,
+        quality,
+        uses_lines,
+    )
     log.info("Dataset %s written in %.0f s", root, seconds)
     return root

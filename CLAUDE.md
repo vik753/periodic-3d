@@ -77,3 +77,6 @@ Alarms are `send_later` messages into the main session, named
 - Data licenses: store the license per record, exclude the GNoME dataset (CC BY-NC),
   keep the "Sources and licenses" page current.
 - Performance budgets are in docs/plan.md. Do not ship features that break them.
+- Versions (SemVer): `apps/web/package.json` is the single source. For each customer-visible
+  change bump it, add an entry to CHANGELOG.md, CHANGELOG.uk.md and CHANGELOG.ru.md and the
+  "Current version" line of the three READMEs, then push a tag `vX.Y.Z` on that commit.

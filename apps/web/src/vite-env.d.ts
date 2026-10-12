@@ -8,3 +8,10 @@ interface ImportMetaEnv {
   /** Base path of the site, e.g. /periodic-3d/ on GitHub Pages. */
   readonly VITE_BASE?: string;
 }
+
+/** Site version from package.json (SemVer), set at build time (vite.config.ts). */
+declare const __APP_VERSION__: string;
+/** Short commit hash of the build. */
+declare const __APP_COMMIT__: string;
+/** Build time, ISO 8601. */
+declare const __APP_BUILT__: string;

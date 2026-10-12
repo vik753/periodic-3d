@@ -10,6 +10,7 @@ cloud of compounds that contain all of them.
 
 **Open the site:** https://vik753.github.io/periodic-3d/ — free, no sign-up, works in a
 desktop browser and on a phone. The interface speaks Ukrainian, Russian and English.
+Current version: **1.5.0** — [what is new](CHANGELOG.md).
 
 ## Video guide
 

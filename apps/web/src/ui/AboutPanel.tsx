@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { useMeta } from '../data/hooks';
+import { APP_BUILT, APP_COMMIT, APP_VERSION, changelogUrl, commitUrl } from '../lib/version';
 import { markAboutSeen } from '../lib/visits';
 import { useAppStore } from '../state/store';
 import { formatCount } from './format';
@@ -66,7 +67,18 @@ export function AboutPanel() {
   return (
     <Panel label={t('about.title')}>
       <BackButton />
-      <h1 className="font-display text-2xl font-semibold leading-tight tracking-tight">{t('about.title')}</h1>
+      <div className="flex items-baseline justify-between gap-3">
+        <h1 className="font-display text-2xl font-semibold leading-tight tracking-tight">{t('about.title')}</h1>
+        <a
+          href={changelogUrl(language)}
+          target="_blank"
+          rel="noreferrer"
+          title={t('about.whatsNew')}
+          className="shrink-0 rounded-full px-2.5 py-0.5 text-xs tabular-nums text-muted ring-1 ring-rim hover:text-text"
+        >
+          v{APP_VERSION}
+        </a>
+      </div>
       <p className="mt-3 text-sm leading-relaxed text-text/90">{t('about.intro')}</p>
       <GuideVideoButton />
 
@@ -125,6 +137,31 @@ export function AboutPanel() {
             {t('about.cite')}: {meta.data.gnome.citation}
           </p>
         )}
+      </Section>
+
+      <Section title={t('about.siteTitle')}>
+        <dl>
+          <Row term={t('about.siteVersion')}>{APP_VERSION}</Row>
+          <Row term={t('about.siteBuild')}>
+            {commitUrl() ? (
+              <a href={commitUrl() ?? undefined} target="_blank" rel="noreferrer" className="underline decoration-rim underline-offset-2 hover:text-gold">
+                {APP_COMMIT}
+              </a>
+            ) : (
+              APP_COMMIT
+            )}
+            {' · '}
+            {new Date(APP_BUILT).toLocaleDateString(language)}
+          </Row>
+        </dl>
+        <a
+          href={changelogUrl(language)}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-2 inline-block text-sm underline decoration-rim underline-offset-2 hover:text-gold"
+        >
+          {t('about.whatsNew')}
+        </a>
       </Section>
 
       <Section title={t('about.codeTitle')}>

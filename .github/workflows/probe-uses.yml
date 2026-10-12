@@ -1,0 +1,44 @@
+name: probe-uses
+
+# Task U.1: measure where "uses" of elements and compounds can come from (Wikidata P366,
+# PubChem PUG-View, USGS Mineral Commodity Summaries). Results go to ci-results/probe-uses.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: pipeline
+    env:
+      RUN: ../tools/ci/run.sh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: bash $RUN pipeline-install bash ../tools/ci/uv-sync.sh
+      - name: Probe Wikidata and PubChem
+        continue-on-error: true
+        run: bash $RUN probe-uses uv run p3d-pipeline probe-uses --cache "$RUNNER_TEMP/cache" --out out/probe-uses
+      - name: Probe USGS Mineral Commodity Summaries
+        continue-on-error: true
+        run: |
+          mkdir -p out/probe-uses/usgs
+          python3 -m pip install --quiet --break-system-packages pypdf
+          bash $RUN probe-usgs python3 ../tools/probe/usgs.py out/probe-uses/usgs
+      - name: Publish results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p out/probe-uses
+          cp -R out/logs out/probe-uses/ 2>/dev/null || true
+          bash ../tools/ci/publish-results.sh out/probe-uses probe-uses "ci: probe uses ${GITHUB_SHA::7}"

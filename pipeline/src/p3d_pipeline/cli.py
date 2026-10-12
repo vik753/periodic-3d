@@ -66,6 +66,21 @@ def verify_command(
         raise typer.Exit(code=1)
 
 
+@app.command("probe-uses")
+def probe_uses_command(
+    sample: Annotated[Path, typer.Option(help="JSON with the sample compounds and elements.")] = Path(
+        "../tools/probe/uses-sample.json"
+    ),
+    cache: Annotated[Path, typer.Option(help="Cache directory for raw responses.")] = Path("../data/cache"),
+    out: Annotated[Path, typer.Option(help="Output directory for the report.")] = Path("out/probe-uses"),
+) -> None:
+    """Measure where uses of substances can come from (Wikidata P366, PubChem): task U.1."""
+    from .probe_uses import run_probe
+
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    typer.echo(run_probe(sample, cache, out))
+
+
 @app.command("gnome")
 def gnome_layer(
     out: Annotated[Path, typer.Option(help="Output directory for GNoME layers.")] = Path("../data/gnome"),

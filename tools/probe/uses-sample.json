@@ -1,0 +1,2396 @@
+{
+"compounds": [
+{
+"qid": "Q283",
+"cid": 962,
+"name": "Water",
+"fame": 330
+},
+{
+"qid": "Q1997",
+"cid": 280,
+"name": "Carbon dioxide",
+"fame": 148
+},
+{
+"qid": "Q153",
+"cid": 702,
+"name": "Ethanol",
+"fame": 132
+},
+{
+"qid": "Q37129",
+"cid": 297,
+"name": "Methane",
+"fame": 119
+},
+{
+"qid": "Q4087",
+"cid": 222,
+"name": "Ammonia",
+"fame": 117
+},
+{
+"qid": "Q41576",
+"cid": 446220,
+"name": "Cocaine",
+"fame": 115
+},
+{
+"qid": "Q18216",
+"cid": 2244,
+"name": "Aspirin",
+"fame": 113
+},
+{
+"qid": "Q28086552",
+"cid": 89594,
+"name": "(−)-nicotine",
+"fame": 112
+},
+{
+"qid": "Q2025",
+"cid": 281,
+"name": "Carbon monoxide",
+"fame": 108
+},
+{
+"qid": "Q36933",
+"cid": 24823,
+"name": "Ozone",
+"fame": 107
+},
+{
+"qid": "Q43656",
+"cid": 5997,
+"name": "Cholesterol",
+"fame": 107
+},
+{
+"qid": "Q57055",
+"cid": 1983,
+"name": "Paracetamol",
+"fame": 106
+},
+{
+"qid": "Q199678",
+"cid": 54670067,
+"name": "Vitamin C",
+"fame": 105
+},
+{
+"qid": "Q4118",
+"cid": 1118,
+"name": "Sulfuric acid",
+"fame": 103
+},
+{
+"qid": "Q50265665",
+"cid": 16129672,
+"name": "Insulin",
+"fame": 101
+},
+{
+"qid": "Q60168",
+"cid": 5462328,
+"name": "Heroin",
+"fame": 100
+},
+{
+"qid": "Q60235",
+"cid": 2519,
+"name": "Caffeine",
+"fame": 98
+},
+{
+"qid": "Q83320",
+"cid": 944,
+"name": "Nitric acid",
+"fame": 96
+},
+{
+"qid": "Q47512",
+"cid": 176,
+"name": "Acetic acid",
+"fame": 95
+},
+{
+"qid": "Q2270",
+"cid": 241,
+"name": "Benzene",
+"fame": 93
+},
+{
+"qid": "Q81225",
+"cid": 5288826,
+"name": "Morphine",
+"fame": 93
+},
+{
+"qid": "Q132621",
+"cid": 5816,
+"name": "Epinephrine",
+"fame": 91
+},
+{
+"qid": "Q1318776",
+"cid": 6013,
+"name": "Testosterone",
+"fame": 90
+},
+{
+"qid": "Q170304",
+"cid": 681,
+"name": "Dopamine",
+"fame": 90
+},
+{
+"qid": "Q179731",
+"cid": 516892,
+"name": "Sodium bicarbonate",
+"fame": 89
+},
+{
+"qid": "Q4027534",
+"cid": 5988,
+"name": "Sucrose",
+"fame": 89
+},
+{
+"qid": "Q130336",
+"cid": 996,
+"name": "Phenol",
+"fame": 87
+},
+{
+"qid": "Q102769",
+"cid": 14798,
+"name": "Sodium hydroxide",
+"fame": 86
+},
+{
+"qid": "Q23118",
+"cid": 5761,
+"name": "Lysergic acid diethylamide",
+"fame": 85
+},
+{
+"qid": "Q48318",
+"cid": 1176,
+"name": "Urea",
+"fame": 85
+},
+{
+"qid": "Q122043",
+"cid": 5984,
+"name": "Keto-D-fructose",
+"fame": 84
+},
+{
+"qid": "Q2314",
+"cid": 5234,
+"name": "Sodium chloride",
+"fame": 84
+},
+{
+"qid": "Q14982",
+"cid": 887,
+"name": "Methanol",
+"fame": 83
+},
+{
+"qid": "Q186969",
+"cid": 3672,
+"name": "Ibuprofen",
+"fame": 82
+},
+{
+"qid": "Q191521",
+"cid": 135398744,
+"name": "Sildenafil",
+"fame": 82
+},
+{
+"qid": "Q44909815",
+"cid": 1206,
+"name": "DL-methamphetamine",
+"fame": 82
+},
+{
+"qid": "Q52858",
+"cid": 6324,
+"name": "Ethane",
+"fame": 82
+},
+{
+"qid": "Q80863",
+"cid": 5957,
+"name": "Adenosine triphosphate",
+"fame": 82
+},
+{
+"qid": "Q116269",
+"cid": 24261,
+"name": "Silicon dioxide",
+"fame": 81
+},
+{
+"qid": "Q127900",
+"cid": 6134,
+"name": "Β-lactose",
+"fame": 81
+},
+{
+"qid": "Q23767",
+"cid": 10112,
+"name": "Calcium carbonate",
+"fame": 81
+},
+{
+"qid": "Q159683",
+"cid": 311,
+"name": "Citric acid",
+"fame": 80
+},
+{
+"qid": "Q162867",
+"cid": 4510,
+"name": "Nitroglycerin",
+"fame": 80
+},
+{
+"qid": "Q83187",
+"cid": 1130,
+"name": "Thiamine(1+) ion",
+"fame": 80
+},
+{
+"qid": "Q151313",
+"cid": 6325,
+"name": "Ethylene",
+"fame": 79
+},
+{
+"qid": "Q130365",
+"cid": 493570,
+"name": "Riboflavin",
+"fame": 78
+},
+{
+"qid": "Q177836",
+"cid": 24434,
+"name": "Potassium nitrate",
+"fame": 78
+},
+{
+"qid": "Q132501",
+"cid": 753,
+"name": "Glycerol",
+"fame": 77
+},
+{
+"qid": "Q133145",
+"cid": 6326,
+"name": "Acetylene",
+"fame": 77
+},
+{
+"qid": "Q134192",
+"cid": 7843,
+"name": "Butane",
+"fame": 77
+},
+{
+"qid": "Q169960",
+"cid": 439302,
+"name": "Oxytocin",
+"fame": 77
+},
+{
+"qid": "Q170167",
+"cid": 8376,
+"name": "TNT",
+"fame": 77
+},
+{
+"qid": "Q181559",
+"cid": 2537,
+"name": "Camphor",
+"fame": 77
+},
+{
+"qid": "Q190227",
+"cid": 10340,
+"name": "Sodium carbonate",
+"fame": 77
+},
+{
+"qid": "Q5282",
+"cid": 1119,
+"name": "Sulfur dioxide",
+"fame": 77
+},
+{
+"qid": "Q620730",
+"cid": 750,
+"name": "Glycine",
+"fame": 77
+},
+{
+"qid": "Q131189",
+"cid": 6334,
+"name": "Propane",
+"fame": 76
+},
+{
+"qid": "Q15277",
+"cid": 190,
+"name": "Adenine",
+"fame": 76
+},
+{
+"qid": "Q161233",
+"cid": 284,
+"name": "Formic acid",
+"fame": 76
+},
+{
+"qid": "Q243547",
+"cid": 3821,
+"name": "(RS)-ketamine",
+"fame": 76
+},
+{
+"qid": "Q49546",
+"cid": 180,
+"name": "Acetone",
+"fame": 76
+},
+{
+"qid": "Q170591",
+"cid": 402,
+"name": "Hydrogen sulfide",
+"fame": 75
+},
+{
+"qid": "Q171877",
+"cid": 784,
+"name": "Hydrogen peroxide",
+"fame": 75
+},
+{
+"qid": "Q180912",
+"cid": 896,
+"name": "Melatonin",
+"fame": 75
+},
+{
+"qid": "Q104334",
+"cid": 767,
+"name": "Carbonic acid",
+"fame": 74
+},
+{
+"qid": "Q161249",
+"cid": 612,
+"name": "DL-lactic acid",
+"fame": 74
+},
+{
+"qid": "Q201928",
+"cid": 33613,
+"name": "Amoxicillin",
+"fame": 74
+},
+{
+"qid": "Q218642",
+"cid": 5950,
+"name": "L-alanine",
+"fame": 74
+},
+{
+"qid": "Q103223",
+"cid": 14833,
+"name": "Hematite",
+"fame": 73
+},
+{
+"qid": "Q161210",
+"cid": 712,
+"name": "Formaldehyde",
+"fame": 73
+},
+{
+"qid": "Q167934",
+"cid": 5202,
+"name": "Serotonin",
+"fame": 73
+},
+{
+"qid": "Q184782",
+"cid": 1004,
+"name": "Phosphoric acid",
+"fame": 73
+},
+{
+"qid": "Q26075",
+"cid": 768,
+"name": "Hydrogen cyanide",
+"fame": 73
+},
+{
+"qid": "Q169313",
+"cid": 764,
+"name": "Guanine",
+"fame": 72
+},
+{
+"qid": "Q170002",
+"cid": 439186,
+"name": "Maltose",
+"fame": 72
+},
+{
+"qid": "Q178425",
+"cid": 597,
+"name": "Cytosine",
+"fame": 72
+},
+{
+"qid": "Q182849",
+"cid": 14777,
+"name": "Calcium hydroxide",
+"fame": 72
+},
+{
+"qid": "Q69488",
+"cid": 1615,
+"name": "MDMA",
+"fame": 72
+},
+{
+"qid": "Q170617",
+"cid": 16186314,
+"name": "Glucagon",
+"fame": 71
+},
+{
+"qid": "Q177342",
+"cid": 9989226,
+"name": "Aluminium oxide",
+"fame": 71
+},
+{
+"qid": "Q179678",
+"cid": 23672308,
+"name": "Monosodium L-glutamate",
+"fame": 71
+},
+{
+"qid": "Q182329",
+"cid": 22985,
+"name": "Ammonium nitrate",
+"fame": 71
+},
+{
+"qid": "Q155890",
+"cid": 24602,
+"name": "Heavy water",
+"fame": 70
+},
+{
+"qid": "Q163648",
+"cid": 3036,
+"name": "DDT",
+"fame": 70
+},
+{
+"qid": "Q172275",
+"cid": 6212,
+"name": "Chloroform",
+"fame": 70
+},
+{
+"qid": "Q179452",
+"cid": 3007,
+"name": "DL-amphetamine",
+"fame": 70
+},
+{
+"qid": "Q187045",
+"cid": 7628,
+"name": "Orthoboric acid",
+"fame": 70
+},
+{
+"qid": "Q188543",
+"cid": 25517,
+"name": "Ammonium chloride",
+"fame": 70
+},
+{
+"qid": "Q190865",
+"cid": 516875,
+"name": "Potassium permanganate",
+"fame": 70
+},
+{
+"qid": "Q184832",
+"cid": 971,
+"name": "Oxalic acid",
+"fame": 69
+},
+{
+"qid": "Q185006",
+"cid": 14778,
+"name": "Calcium oxide",
+"fame": 69
+},
+{
+"qid": "Q187695",
+"cid": 7871,
+"name": "Sarin",
+"fame": 69
+},
+{
+"qid": "Q190875",
+"cid": 5754,
+"name": "Cortisol",
+"fame": 69
+},
+{
+"qid": "Q5319",
+"cid": 10219853,
+"name": "Borax",
+"fame": 69
+},
+{
+"qid": "Q81166",
+"cid": 10461,
+"name": "Mustard gas",
+"fame": 69
+},
+{
+"qid": "Q905750",
+"cid": 948,
+"name": "Nitrous oxide",
+"fame": 69
+},
+{
+"qid": "Q171973",
+"cid": 1135,
+"name": "Thymine",
+"fame": 68
+},
+{
+"qid": "Q181136",
+"cid": 611,
+"name": "DL-glutamic acid",
+"fame": 68
+},
+{
+"qid": "Q189522",
+"cid": 3034034,
+"name": "Quinine",
+"fame": 68
+},
+{
+"qid": "Q15779",
+"cid": 1140,
+"name": "Toluene",
+"fame": 67
+},
+{
+"qid": "Q173670",
+"cid": 6322,
+"name": "L-arginine",
+"fame": 67
+},
+{
+"qid": "Q174723",
+"cid": 5284371,
+"name": "Codeine",
+"fame": 67
+},
+{
+"qid": "Q193521",
+"cid": 26042,
+"name": "Titanium dioxide",
+"fame": 67
+},
+{
+"qid": "Q202218",
+"cid": 3283,
+"name": "Diethyl ether",
+"fame": 67
+},
+{
+"qid": "Q104219",
+"cid": 5280352,
+"name": "Bilirubin",
+"fame": 66
+},
+{
+"qid": "Q107184",
+"cid": 24462,
+"name": "Cupric sulfate",
+"fame": 66
+},
+{
+"qid": "Q132298",
+"cid": 14797,
+"name": "Potassium hydroxide",
+"fame": 66
+},
+{
+"qid": "Q151324",
+"cid": 8252,
+"name": "Propylene",
+"fame": 66
+},
+{
+"qid": "Q178450",
+"cid": 5960,
+"name": "L-aspartic acid",
+"fame": 66
+},
+{
+"qid": "Q180623",
+"cid": 187,
+"name": "Acetylcholine",
+"fame": 66
+},
+{
+"qid": "Q181003",
+"cid": 6305,
+"name": "Tryptophan",
+"fame": 66
+},
+{
+"qid": "Q184630",
+"cid": 4873,
+"name": "Potassium chloride",
+"fame": 66
+},
+{
+"qid": "Q407541",
+"cid": 3345,
+"name": "Fentanyl",
+"fame": 66
+},
+{
+"qid": "Q483752",
+"cid": 6287,
+"name": "L-valine",
+"fame": 66
+},
+{
+"qid": "Q61233",
+"cid": 774,
+"name": "Histamine",
+"fame": 66
+},
+{
+"qid": "Q179724",
+"cid": 931,
+"name": "Naphthalene",
+"fame": 65
+},
+{
+"qid": "Q181354",
+"cid": 171548,
+"name": "Biotin",
+"fame": 65
+},
+{
+"qid": "Q186242",
+"cid": 439260,
+"name": "Norepinephrine",
+"fame": 65
+},
+{
+"qid": "Q193572",
+"cid": 338,
+"name": "Salicylic acid",
+"fame": 65
+},
+{
+"qid": "Q483745",
+"cid": 6106,
+"name": "L-leucine",
+"fame": 65
+},
+{
+"qid": "Q58447",
+"cid": 9321,
+"name": "Hydrazine",
+"fame": 65
+},
+{
+"qid": "Q105522",
+"cid": 1175,
+"name": "Uric acid",
+"fame": 64
+},
+{
+"qid": "Q170545",
+"cid": 6140,
+"name": "Phenylalanine",
+"fame": 64
+},
+{
+"qid": "Q179894",
+"cid": 988,
+"name": "Pantothenic acid",
+"fame": 64
+},
+{
+"qid": "Q181619",
+"cid": 5961,
+"name": "L-glutamine",
+"fame": 64
+},
+{
+"qid": "Q182990",
+"cid": 1174,
+"name": "Uracil",
+"fame": 64
+},
+{
+"qid": "Q188017",
+"cid": 6057,
+"name": "L-tyrosine",
+"fame": 64
+},
+{
+"qid": "Q379885",
+"cid": 11430,
+"name": "Potassium carbonate",
+"fame": 64
+},
+{
+"qid": "Q484940",
+"cid": 6306,
+"name": "L-isoleucine",
+"fame": 64
+},
+{
+"qid": "Q485277",
+"cid": 6274,
+"name": "L-histidine",
+"fame": 64
+},
+{
+"qid": "Q150429",
+"cid": 8003,
+"name": "n-pentane",
+"fame": 63
+},
+{
+"qid": "Q179996",
+"cid": 4095,
+"name": "(RS)-methadone",
+"fame": 63
+},
+{
+"qid": "Q184373",
+"cid": 24268,
+"name": "Sodium nitrate",
+"fame": 63
+},
+{
+"qid": "Q188261",
+"cid": 1044,
+"name": "Purine",
+"fame": 63
+},
+{
+"qid": "Q484583",
+"cid": 614,
+"name": "DL-proline",
+"fame": 63
+},
+{
+"qid": "Q150681",
+"cid": 356,
+"name": "Octane",
+"fame": 62
+},
+{
+"qid": "Q180341",
+"cid": 876,
+"name": "DL-methionine",
+"fame": 62
+},
+{
+"qid": "Q183290",
+"cid": 5951,
+"name": "L-serine",
+"fame": 62
+},
+{
+"qid": "Q190901",
+"cid": 223,
+"name": "Ammonium cation",
+"fame": 62
+},
+{
+"qid": "Q61457",
+"cid": 177,
+"name": "Acetaldehyde",
+"fame": 62
+},
+{
+"qid": "Q150440",
+"cid": 8058,
+"name": "Hexane",
+"fame": 61
+},
+{
+"qid": "Q178430",
+"cid": 866,
+"name": "DL-lysine",
+"fame": 61
+},
+{
+"qid": "Q184564",
+"cid": 5839,
+"name": "Aldosterone",
+"fame": 61
+},
+{
+"qid": "Q185906",
+"cid": 236,
+"name": "DL-asparagine",
+"fame": 61
+},
+{
+"qid": "Q186474",
+"cid": 5862,
+"name": "L-Cysteine",
+"fame": 61
+},
+{
+"qid": "Q186521",
+"cid": 6288,
+"name": "L-threonine",
+"fame": 61
+},
+{
+"qid": "Q190077",
+"cid": 14806,
+"name": "Zinc oxide",
+"fame": 61
+},
+{
+"qid": "Q192454",
+"cid": 439576,
+"name": "Β-D-2-deoxyribose",
+"fame": 61
+},
+{
+"qid": "Q207442",
+"cid": 24470,
+"name": "Silver nitrate",
+"fame": 61
+},
+{
+"qid": "Q211737",
+"cid": 24436,
+"name": "Sodium sulfate",
+"fame": 61
+},
+{
+"qid": "Q26963",
+"cid": 5994,
+"name": "Progesterone",
+"fame": 61
+},
+{
+"qid": "Q182040",
+"cid": 134601,
+"name": "Aspartame",
+"fame": 60
+},
+{
+"qid": "Q186414",
+"cid": 6115,
+"name": "Aniline",
+"fame": 60
+},
+{
+"qid": "Q189090",
+"cid": 6371,
+"name": "Phosgene",
+"fame": 60
+},
+{
+"qid": "Q208451",
+"cid": 24854,
+"name": "Calcium chloride",
+"fame": 60
+},
+{
+"qid": "Q210402",
+"cid": 3016,
+"name": "Diazepam",
+"fame": 60
+},
+{
+"qid": "Q211086",
+"cid": 313,
+"name": "Hydrogen chloride",
+"fame": 60
+},
+{
+"qid": "Q214769",
+"cid": 14792,
+"name": "Magnesium oxide",
+"fame": 60
+},
+{
+"qid": "Q271943",
+"cid": 6557,
+"name": "Isoprene",
+"fame": 60
+},
+{
+"qid": "Q189298",
+"cid": 6954,
+"name": "Picric acid",
+"fame": 59
+},
+{
+"qid": "Q191700",
+"cid": 243,
+"name": "Benzoic acid",
+"fame": 59
+},
+{
+"qid": "Q192717",
+"cid": 19649,
+"name": "Streptomycin",
+"fame": 59
+},
+{
+"qid": "Q193045",
+"cid": 54675776,
+"name": "Tetracycline",
+"fame": 59
+},
+{
+"qid": "Q207688",
+"cid": 445639,
+"name": "Oleic acid",
+"fame": 59
+},
+{
+"qid": "Q207722",
+"cid": 9260,
+"name": "Pyrimidine",
+"fame": 59
+},
+{
+"qid": "Q207895",
+"cid": 3032552,
+"name": "Nitrogen dioxide",
+"fame": 59
+},
+{
+"qid": "Q244408",
+"cid": 3033,
+"name": "Diclofenac",
+"fame": 59
+},
+{
+"qid": "Q190012",
+"cid": 60961,
+"name": "Adenosine",
+"fame": 58
+},
+{
+"qid": "Q191831",
+"cid": 24538,
+"name": "Ammonium sulfate",
+"fame": 58
+},
+{
+"qid": "Q207843",
+"cid": 145068,
+"name": "Nitric oxide",
+"fame": 58
+},
+{
+"qid": "Q210385",
+"cid": 1049,
+"name": "Pyridine",
+"fame": 58
+},
+{
+"qid": "Q309038",
+"cid": 24414,
+"name": "Barium sulfate",
+"fame": 58
+},
+{
+"qid": "Q187921",
+"cid": 4764,
+"name": "Phenolphthalein",
+"fame": 57
+},
+{
+"qid": "Q192470",
+"cid": 9032,
+"name": "Potassium cyanide",
+"fame": 57
+},
+{
+"qid": "Q193213",
+"cid": 264,
+"name": "Butyric acid",
+"fame": 57
+},
+{
+"qid": "Q194207",
+"cid": 174,
+"name": "Ethylene glycol",
+"fame": 57
+},
+{
+"qid": "Q194322",
+"cid": 875,
+"name": "Tartaric acid",
+"fame": 57
+},
+{
+"qid": "Q19484",
+"cid": 4091,
+"name": "Metformin",
+"fame": 57
+},
+{
+"qid": "Q203174",
+"cid": 5426,
+"name": "Thalidomide",
+"fame": 57
+},
+{
+"qid": "Q206778",
+"cid": 1100,
+"name": "Sulfurous acid",
+"fame": 57
+},
+{
+"qid": "Q209727",
+"cid": 985,
+"name": "Palmitic acid",
+"fame": 57
+},
+{
+"qid": "Q213580",
+"cid": 1060,
+"name": "Pyruvic acid",
+"fame": 57
+},
+{
+"qid": "Q223600",
+"cid": 586,
+"name": "Creatine",
+"fame": 57
+},
+{
+"qid": "Q28917",
+"cid": 7501,
+"name": "Styrene",
+"fame": 57
+},
+{
+"qid": "Q407617",
+"cid": 68617,
+"name": "Sertraline",
+"fame": 57
+},
+{
+"qid": "Q422244",
+"cid": 3386,
+"name": "Fluoxetine",
+"fame": 57
+},
+{
+"qid": "Q422442",
+"cid": 54671203,
+"name": "Doxycycline",
+"fame": 57
+},
+{
+"qid": "Q165399",
+"cid": 447043,
+"name": "Azithromycin",
+"fame": 56
+},
+{
+"qid": "Q169569",
+"cid": 4173,
+"name": "Metronidazole",
+"fame": 56
+},
+{
+"qid": "Q191381",
+"cid": 5143,
+"name": "Saccharin",
+"fame": 56
+},
+{
+"qid": "Q193956",
+"cid": 24247,
+"name": "Perchloric acid",
+"fame": 56
+},
+{
+"qid": "Q207877",
+"cid": 24404,
+"name": "Phosphine",
+"fame": 56
+},
+{
+"qid": "Q209685",
+"cid": 5281,
+"name": "Stearic acid",
+"fame": 56
+},
+{
+"qid": "Q213050",
+"cid": 1110,
+"name": "Succinic acid",
+"fame": 56
+},
+{
+"qid": "Q242715",
+"cid": 24682,
+"name": "Sulfur trioxide",
+"fame": 56
+},
+{
+"qid": "Q407153",
+"cid": 8857,
+"name": "Ethyl acetate",
+"fame": 56
+},
+{
+"qid": "Q422740",
+"cid": 4943,
+"name": "Propofol",
+"fame": 56
+},
+{
+"qid": "Q16392",
+"cid": 3776,
+"name": "Isopropyl alcohol",
+"fame": 55
+},
+{
+"qid": "Q190143",
+"cid": 525,
+"name": "DL-malic acid",
+"fame": 55
+},
+{
+"qid": "Q194406",
+"cid": 441071,
+"name": "Strychnine",
+"fame": 55
+},
+{
+"qid": "Q207051",
+"cid": 1123,
+"name": "Taurine",
+"fame": 55
+},
+{
+"qid": "Q216935",
+"cid": 3676,
+"name": "Lidocaine",
+"fame": 55
+},
+{
+"qid": "Q219626",
+"cid": 9294,
+"name": "(−)-ephedrine",
+"fame": 55
+},
+{
+"qid": "Q225045",
+"cid": 5943,
+"name": "Carbon tetrachloride",
+"fame": 55
+},
+{
+"qid": "Q27261089",
+"cid": 56843331,
+"name": "Semaglutide",
+"fame": 55
+},
+{
+"qid": "Q288266",
+"cid": 24083,
+"name": "Magnesium sulfate",
+"fame": 55
+},
+{
+"qid": "Q319541",
+"cid": 798,
+"name": "1H-indole",
+"fame": 55
+},
+{
+"qid": "Q319877",
+"cid": 2118,
+"name": "Alprazolam",
+"fame": 55
+},
+{
+"qid": "Q421094",
+"cid": 3652,
+"name": "Hydroxychloroquine",
+"fame": 55
+},
+{
+"qid": "Q422112",
+"cid": 4158,
+"name": "Methylphenidate",
+"fame": 55
+},
+{
+"qid": "Q121874",
+"cid": 4875,
+"name": "Potassium iodide",
+"fame": 54
+},
+{
+"qid": "Q193166",
+"cid": 305,
+"name": "Choline",
+"fame": 54
+},
+{
+"qid": "Q206844",
+"cid": 5429,
+"name": "Theobromine",
+"fame": 54
+},
+{
+"qid": "Q210021",
+"cid": 119,
+"name": "Γ-aminobutyric acid",
+"fame": 54
+},
+{
+"qid": "Q211433",
+"cid": 8078,
+"name": "Cyclohexane",
+"fame": 54
+},
+{
+"qid": "Q243992",
+"cid": 8029,
+"name": "Furan",
+"fame": 54
+},
+{
+"qid": "Q274515",
+"cid": 5959,
+"name": "Chloramphenicol",
+"fame": 54
+},
+{
+"qid": "Q324628",
+"cid": 6581,
+"name": "Acrylic acid",
+"fame": 54
+},
+{
+"qid": "Q407418",
+"cid": 16666,
+"name": "L-menthol",
+"fame": 54
+},
+{
+"qid": "Q408265",
+"cid": 3958,
+"name": "Lorazepam",
+"fame": 54
+},
+{
+"qid": "Q412356",
+"cid": 9863,
+"name": "Silicon carbide",
+"fame": 54
+},
+{
+"qid": "Q421801",
+"cid": 6352,
+"name": "Calcium carbide",
+"fame": 54
+},
+{
+"qid": "Q422438",
+"cid": 2719,
+"name": "Chloroquine",
+"fame": 54
+},
+{
+"qid": "Q7739",
+"cid": 261004,
+"name": "Arsenic trioxide",
+"fame": 54
+},
+{
+"qid": "Q185253",
+"cid": 6022,
+"name": "Adenosine diphosphate",
+"fame": 53
+},
+{
+"qid": "Q208118",
+"cid": 10624,
+"name": "Psilocybin",
+"fame": 53
+},
+{
+"qid": "Q211891",
+"cid": 24529,
+"name": "Nitrous acid",
+"fame": 53
+},
+{
+"qid": "Q213511",
+"cid": 12560,
+"name": "Erythromycin",
+"fame": 53
+},
+{
+"qid": "Q244150",
+"cid": 6249,
+"name": "Ampicillin",
+"fame": 53
+},
+{
+"qid": "Q245280",
+"cid": 5780,
+"name": "D-sorbitol",
+"fame": 53
+},
+{
+"qid": "Q314036",
+"cid": 24012,
+"name": "Aluminum chloride",
+"fame": 53
+},
+{
+"qid": "Q357415",
+"cid": 196,
+"name": "Adipic acid",
+"fame": 53
+},
+{
+"qid": "Q407232",
+"cid": 3496,
+"name": "Glyphosate",
+"fame": 53
+},
+{
+"qid": "Q407592",
+"cid": 33741,
+"name": "Tramadol",
+"fame": 53
+},
+{
+"qid": "Q409202",
+"cid": 769,
+"name": "Bicarbonate ion",
+"fame": 53
+},
+{
+"qid": "Q422416",
+"cid": 5757,
+"name": "17β-estradiol",
+"fame": 53
+},
+{
+"qid": "Q423071",
+"cid": 4192,
+"name": "Midazolam",
+"fame": 53
+},
+{
+"qid": "Q1215575",
+"cid": 156391,
+"name": "Naproxen",
+"fame": 52
+},
+{
+"qid": "Q150717",
+"cid": 15600,
+"name": "Decane",
+"fame": 52
+},
+{
+"qid": "Q212553",
+"cid": 7955,
+"name": "Melamine",
+"fame": 52
+},
+{
+"qid": "Q2546",
+"cid": 253877,
+"name": "Potassium bromide",
+"fame": 52
+},
+{
+"qid": "Q273169",
+"cid": 1548943,
+"name": "Capsaicin",
+"fame": 52
+},
+{
+"qid": "Q28209496",
+"cid": 121304016,
+"name": "Remdesivir",
+"fame": 52
+},
+{
+"qid": "Q309328",
+"cid": 6426889,
+"name": "Potassium chlorate",
+"fame": 52
+},
+{
+"qid": "Q315860",
+"cid": 16132288,
+"name": "Calcitonin",
+"fame": 52
+},
+{
+"qid": "Q338869",
+"cid": 6338,
+"name": "Vinyl chloride",
+"fame": 52
+},
+{
+"qid": "Q407535",
+"cid": 5284603,
+"name": "Oxycodone",
+"fame": 52
+},
+{
+"qid": "Q422152",
+"cid": 8418,
+"name": "Anthracene",
+"fame": 52
+},
+{
+"qid": "Q422210",
+"cid": 4594,
+"name": "Omeprazole",
+"fame": 52
+},
+{
+"qid": "Q422252",
+"cid": 5743,
+"name": "Dexamethasone",
+"fame": 52
+},
+{
+"qid": "Q422917",
+"cid": 644019,
+"name": "Cannabidiol",
+"fame": 52
+},
+{
+"qid": "Q834280",
+"cid": 444,
+"name": "Bupropion",
+"fame": 52
+},
+{
+"qid": "Q111812",
+"cid": 323,
+"name": "Coumarin",
+"fame": 51
+},
+{
+"qid": "Q116907",
+"cid": 124886,
+"name": "Glutathione",
+"fame": 51
+},
+{
+"qid": "Q150694",
+"cid": 8141,
+"name": "Nonane",
+"fame": 51
+},
+{
+"qid": "Q190067",
+"cid": 16078,
+"name": "Tetrahydrocannabinol",
+"fame": 51
+},
+{
+"qid": "Q193140",
+"cid": 4076,
+"name": "Mescaline",
+"fame": 51
+},
+{
+"qid": "Q201552",
+"cid": 24763,
+"name": "Inulin",
+"fame": 51
+},
+{
+"qid": "Q208130",
+"cid": 446925,
+"name": "Lycopene",
+"fame": 51
+},
+{
+"qid": "Q214863",
+"cid": 24393,
+"name": "Iron(II) sulfate",
+"fame": 51
+},
+{
+"qid": "Q243354",
+"cid": 6348,
+"name": "Carbon disulfide",
+"fame": 51
+},
+{
+"qid": "Q256602",
+"cid": 2764,
+"name": "Ciprofloxacin",
+"fame": 51
+},
+{
+"qid": "Q328692",
+"cid": 795,
+"name": "Imidazole",
+"fame": 51
+},
+{
+"qid": "Q372524",
+"cid": 240,
+"name": "Benzaldehyde",
+"fame": 51
+},
+{
+"qid": "Q407125",
+"cid": 10176082,
+"name": "Aluminum hydroxide",
+"fame": 51
+},
+{
+"qid": "Q407324",
+"cid": 6468,
+"name": "Phencyclidine",
+"fame": 51
+},
+{
+"qid": "Q419170",
+"cid": 518696,
+"name": "Iron(III) oxide",
+"fame": 51
+},
+{
+"qid": "Q422956",
+"cid": 1032,
+"name": "Propionic acid",
+"fame": 51
+},
+{
+"qid": "Q429659",
+"cid": 6850749,
+"name": "Shellac",
+"fame": 51
+},
+{
+"qid": "Q58397",
+"cid": 2160,
+"name": "Amitriptyline",
+"fame": 51
+},
+{
+"qid": "Q161503",
+"cid": 7845,
+"name": "1,3-butadiene",
+"fame": 50
+},
+{
+"qid": "Q2447",
+"cid": 260,
+"name": "Hydrogen bromide",
+"fame": 50
+},
+{
+"qid": "Q271980",
+"cid": 6623,
+"name": "Bisphenol A",
+"fame": 50
+},
+{
+"qid": "Q339975",
+"cid": 23668193,
+"name": "Sodium nitrite",
+"fame": 50
+},
+{
+"qid": "Q421972",
+"cid": 867,
+"name": "Malonic acid",
+"fame": 50
+},
+{
+"qid": "Q80250",
+"cid": 6351,
+"name": "Cyclopropane",
+"fame": 50
+},
+{
+"qid": "Q139857",
+"cid": 444972,
+"name": "Fumaric acid",
+"fame": 49
+},
+{
+"qid": "Q147101",
+"cid": 135398513,
+"name": "Aciclovir",
+"fame": 49
+},
+{
+"qid": "Q190020",
+"cid": 8490,
+"name": "Cyclonite",
+"fame": 49
+},
+{
+"qid": "Q211509",
+"cid": 65028,
+"name": "Oseltamivir",
+"fame": 49
+},
+{
+"qid": "Q2468",
+"cid": 14917,
+"name": "Hydrogen fluoride",
+"fame": 49
+},
+{
+"qid": "Q337188",
+"cid": 153311,
+"name": "L-scopolamine",
+"fame": 49
+},
+{
+"qid": "Q342790",
+"cid": 7847,
+"name": "Acrolein",
+"fame": 49
+},
+{
+"qid": "Q407204",
+"cid": 23665760,
+"name": "Sodium hypochlorite",
+"fame": 49
+},
+{
+"qid": "Q407473",
+"cid": 6354,
+"name": "Ethylene oxide",
+"fame": 49
+},
+{
+"qid": "Q421724",
+"cid": 9999,
+"name": "Cyanogen",
+"fame": 49
+},
+{
+"qid": "Q422134",
+"cid": 6099,
+"name": "Methylene blue",
+"fame": 49
+},
+{
+"qid": "Q423746",
+"cid": 1054,
+"name": "Pyridoxine",
+"fame": 49
+},
+{
+"qid": "Q14985",
+"cid": 1031,
+"name": "Propyl alcohol",
+"fame": 48
+},
+{
+"qid": "Q15768",
+"cid": 253881,
+"name": "Sodium bromide",
+"fame": 48
+},
+{
+"qid": "Q216852",
+"cid": 853,
+"name": "Thyroxine",
+"fame": 48
+},
+{
+"qid": "Q219660",
+"cid": 71587188,
+"name": "Ultramarine",
+"fame": 48
+},
+{
+"qid": "Q242627",
+"cid": 8027,
+"name": "Pyrrole",
+"fame": 48
+},
+{
+"qid": "Q251347",
+"cid": 3559,
+"name": "Haloperidol",
+"fame": 48
+},
+{
+"qid": "Q278809",
+"cid": 22311,
+"name": "(±)-limonene",
+"fame": 48
+},
+{
+"qid": "Q339940",
+"cid": 517045,
+"name": "Sodium acetate",
+"fame": 48
+},
+{
+"qid": "Q399771",
+"cid": 24380,
+"name": "Ferric chloride",
+"fame": 48
+},
+{
+"qid": "Q407258",
+"cid": 24497,
+"name": "Calcium sulfate",
+"fame": 48
+},
+{
+"qid": "Q407270",
+"cid": 25204,
+"name": "Barium chloride",
+"fame": 48
+},
+{
+"qid": "Q407775",
+"cid": 7918,
+"name": "Acetic anhydride",
+"fame": 48
+}
+],
+"elements": [
+{
+"z": 1,
+"symbol": "H",
+"qid": "Q556"
+},
+{
+"z": 2,
+"symbol": "He",
+"qid": "Q560"
+},
+{
+"z": 3,
+"symbol": "Li",
+"qid": "Q568"
+},
+{
+"z": 4,
+"symbol": "Be",
+"qid": "Q569"
+},
+{
+"z": 5,
+"symbol": "B",
+"qid": "Q618"
+},
+{
+"z": 6,
+"symbol": "C",
+"qid": "Q623"
+},
+{
+"z": 7,
+"symbol": "N",
+"qid": "Q627"
+},
+{
+"z": 8,
+"symbol": "O",
+"qid": "Q629"
+},
+{
+"z": 9,
+"symbol": "F",
+"qid": "Q650"
+},
+{
+"z": 10,
+"symbol": "Ne",
+"qid": "Q654"
+},
+{
+"z": 11,
+"symbol": "Na",
+"qid": "Q658"
+},
+{
+"z": 12,
+"symbol": "Mg",
+"qid": "Q660"
+},
+{
+"z": 13,
+"symbol": "Al",
+"qid": "Q663"
+},
+{
+"z": 14,
+"symbol": "Si",
+"qid": "Q670"
+},
+{
+"z": 15,
+"symbol": "P",
+"qid": "Q674"
+},
+{
+"z": 16,
+"symbol": "S",
+"qid": "Q682"
+},
+{
+"z": 17,
+"symbol": "Cl",
+"qid": "Q688"
+},
+{
+"z": 18,
+"symbol": "Ar",
+"qid": "Q696"
+},
+{
+"z": 19,
+"symbol": "K",
+"qid": "Q703"
+},
+{
+"z": 20,
+"symbol": "Ca",
+"qid": "Q706"
+},
+{
+"z": 21,
+"symbol": "Sc",
+"qid": "Q713"
+},
+{
+"z": 22,
+"symbol": "Ti",
+"qid": "Q716"
+},
+{
+"z": 23,
+"symbol": "V",
+"qid": "Q722"
+},
+{
+"z": 24,
+"symbol": "Cr",
+"qid": "Q725"
+},
+{
+"z": 25,
+"symbol": "Mn",
+"qid": "Q731"
+},
+{
+"z": 26,
+"symbol": "Fe",
+"qid": "Q677"
+},
+{
+"z": 27,
+"symbol": "Co",
+"qid": "Q740"
+},
+{
+"z": 28,
+"symbol": "Ni",
+"qid": "Q744"
+},
+{
+"z": 29,
+"symbol": "Cu",
+"qid": "Q753"
+},
+{
+"z": 30,
+"symbol": "Zn",
+"qid": "Q758"
+},
+{
+"z": 31,
+"symbol": "Ga",
+"qid": "Q861"
+},
+{
+"z": 32,
+"symbol": "Ge",
+"qid": "Q867"
+},
+{
+"z": 33,
+"symbol": "As",
+"qid": "Q871"
+},
+{
+"z": 34,
+"symbol": "Se",
+"qid": "Q876"
+},
+{
+"z": 35,
+"symbol": "Br",
+"qid": "Q879"
+},
+{
+"z": 36,
+"symbol": "Kr",
+"qid": "Q888"
+},
+{
+"z": 37,
+"symbol": "Rb",
+"qid": "Q895"
+},
+{
+"z": 38,
+"symbol": "Sr",
+"qid": "Q938"
+},
+{
+"z": 39,
+"symbol": "Y",
+"qid": "Q941"
+},
+{
+"z": 40,
+"symbol": "Zr",
+"qid": "Q1038"
+},
+{
+"z": 41,
+"symbol": "Nb",
+"qid": "Q1046"
+},
+{
+"z": 42,
+"symbol": "Mo",
+"qid": "Q1053"
+},
+{
+"z": 43,
+"symbol": "Tc",
+"qid": "Q1054"
+},
+{
+"z": 44,
+"symbol": "Ru",
+"qid": "Q1086"
+},
+{
+"z": 45,
+"symbol": "Rh",
+"qid": "Q1087"
+},
+{
+"z": 46,
+"symbol": "Pd",
+"qid": "Q1089"
+},
+{
+"z": 47,
+"symbol": "Ag",
+"qid": "Q1090"
+},
+{
+"z": 48,
+"symbol": "Cd",
+"qid": "Q1091"
+},
+{
+"z": 49,
+"symbol": "In",
+"qid": "Q1094"
+},
+{
+"z": 50,
+"symbol": "Sn",
+"qid": "Q1096"
+},
+{
+"z": 51,
+"symbol": "Sb",
+"qid": "Q1099"
+},
+{
+"z": 52,
+"symbol": "Te",
+"qid": "Q1100"
+},
+{
+"z": 53,
+"symbol": "I",
+"qid": "Q1103"
+},
+{
+"z": 54,
+"symbol": "Xe",
+"qid": "Q1106"
+},
+{
+"z": 55,
+"symbol": "Cs",
+"qid": "Q1108"
+},
+{
+"z": 56,
+"symbol": "Ba",
+"qid": "Q1112"
+},
+{
+"z": 57,
+"symbol": "La",
+"qid": "Q1801"
+},
+{
+"z": 58,
+"symbol": "Ce",
+"qid": "Q1385"
+},
+{
+"z": 59,
+"symbol": "Pr",
+"qid": "Q1386"
+},
+{
+"z": 60,
+"symbol": "Nd",
+"qid": "Q1388"
+},
+{
+"z": 61,
+"symbol": "Pm",
+"qid": "Q1809"
+},
+{
+"z": 62,
+"symbol": "Sm",
+"qid": "Q1819"
+},
+{
+"z": 63,
+"symbol": "Eu",
+"qid": "Q1396"
+},
+{
+"z": 64,
+"symbol": "Gd",
+"qid": "Q1832"
+},
+{
+"z": 65,
+"symbol": "Tb",
+"qid": "Q1838"
+},
+{
+"z": 66,
+"symbol": "Dy",
+"qid": "Q1843"
+},
+{
+"z": 67,
+"symbol": "Ho",
+"qid": "Q1846"
+},
+{
+"z": 68,
+"symbol": "Er",
+"qid": "Q1849"
+},
+{
+"z": 69,
+"symbol": "Tm",
+"qid": "Q1853"
+},
+{
+"z": 70,
+"symbol": "Yb",
+"qid": "Q1855"
+},
+{
+"z": 71,
+"symbol": "Lu",
+"qid": "Q1857"
+},
+{
+"z": 72,
+"symbol": "Hf",
+"qid": "Q1119"
+},
+{
+"z": 73,
+"symbol": "Ta",
+"qid": "Q1123"
+},
+{
+"z": 74,
+"symbol": "W",
+"qid": "Q743"
+},
+{
+"z": 75,
+"symbol": "Re",
+"qid": "Q737"
+},
+{
+"z": 76,
+"symbol": "Os",
+"qid": "Q751"
+},
+{
+"z": 77,
+"symbol": "Ir",
+"qid": "Q877"
+},
+{
+"z": 78,
+"symbol": "Pt",
+"qid": "Q880"
+},
+{
+"z": 79,
+"symbol": "Au",
+"qid": "Q897"
+},
+{
+"z": 80,
+"symbol": "Hg",
+"qid": "Q925"
+},
+{
+"z": 81,
+"symbol": "Tl",
+"qid": "Q932"
+},
+{
+"z": 82,
+"symbol": "Pb",
+"qid": "Q708"
+},
+{
+"z": 83,
+"symbol": "Bi",
+"qid": "Q942"
+},
+{
+"z": 84,
+"symbol": "Po",
+"qid": "Q979"
+},
+{
+"z": 85,
+"symbol": "At",
+"qid": "Q999"
+},
+{
+"z": 86,
+"symbol": "Rn",
+"qid": "Q1133"
+},
+{
+"z": 87,
+"symbol": "Fr",
+"qid": "Q671"
+},
+{
+"z": 88,
+"symbol": "Ra",
+"qid": "Q1128"
+},
+{
+"z": 89,
+"symbol": "Ac",
+"qid": "Q1121"
+},
+{
+"z": 90,
+"symbol": "Th",
+"qid": "Q1115"
+},
+{
+"z": 91,
+"symbol": "Pa",
+"qid": "Q1109"
+},
+{
+"z": 92,
+"symbol": "U",
+"qid": "Q1098"
+},
+{
+"z": 93,
+"symbol": "Np",
+"qid": "Q1105"
+},
+{
+"z": 94,
+"symbol": "Pu",
+"qid": "Q1102"
+},
+{
+"z": 95,
+"symbol": "Am",
+"qid": "Q1872"
+},
+{
+"z": 96,
+"symbol": "Cm",
+"qid": "Q1876"
+},
+{
+"z": 97,
+"symbol": "Bk",
+"qid": "Q1882"
+},
+{
+"z": 98,
+"symbol": "Cf",
+"qid": "Q1888"
+},
+{
+"z": 99,
+"symbol": "Es",
+"qid": "Q1892"
+},
+{
+"z": 100,
+"symbol": "Fm",
+"qid": "Q1896"
+},
+{
+"z": 101,
+"symbol": "Md",
+"qid": "Q1898"
+},
+{
+"z": 102,
+"symbol": "No",
+"qid": "Q1901"
+},
+{
+"z": 103,
+"symbol": "Lr",
+"qid": "Q1905"
+},
+{
+"z": 104,
+"symbol": "Rf",
+"qid": "Q1226"
+},
+{
+"z": 105,
+"symbol": "Db",
+"qid": "Q1232"
+},
+{
+"z": 106,
+"symbol": "Sg",
+"qid": "Q1234"
+},
+{
+"z": 107,
+"symbol": "Bh",
+"qid": "Q1249"
+},
+{
+"z": 108,
+"symbol": "Hs",
+"qid": "Q1252"
+},
+{
+"z": 109,
+"symbol": "Mt",
+"qid": "Q1258"
+},
+{
+"z": 110,
+"symbol": "Ds",
+"qid": "Q1266"
+},
+{
+"z": 111,
+"symbol": "Rg",
+"qid": "Q1272"
+},
+{
+"z": 112,
+"symbol": "Cn",
+"qid": "Q1278"
+},
+{
+"z": 113,
+"symbol": "Nh",
+"qid": "Q1301"
+},
+{
+"z": 114,
+"symbol": "Fl",
+"qid": "Q1302"
+},
+{
+"z": 115,
+"symbol": "Mc",
+"qid": "Q1303"
+},
+{
+"z": 116,
+"symbol": "Lv",
+"qid": "Q1304"
+},
+{
+"z": 117,
+"symbol": "Ts",
+"qid": "Q1306"
+},
+{
+"z": 118,
+"symbol": "Og",
+"qid": "Q1307"
+}
+]
+}

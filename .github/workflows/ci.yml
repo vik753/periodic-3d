@@ -13,6 +13,8 @@ on:
       - ".github/workflows/guide.yml"
       - "tools/guide/**"
       - "tools/ci/guide-*"
+      - ".github/workflows/version.yml"
+      - "tools/ci/version-tag.sh"
   pull_request:
   workflow_dispatch:
 

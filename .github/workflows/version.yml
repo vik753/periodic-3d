@@ -1,0 +1,39 @@
+name: version
+
+# Tags each site version (apps/web/package.json) and publishes a GitHub release with the
+# notes from CHANGELOG.md. A manual run can also tag older versions.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web/package.json"
+  workflow_dispatch:
+    inputs:
+      history:
+        description: "Older versions to tag: vX.Y.Z=<commit>, separated by spaces"
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: version
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Tag the version and publish its release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HISTORY: ${{ inputs.history }}
+        run: |
+          # shellcheck disable=SC2086 # the pairs are separate words
+          bash tools/ci/version-tag.sh $HISTORY

@@ -41,4 +41,5 @@ jobs:
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash tools/ci/publish-results.sh out/logs version/logs "ci: version logs ${GITHUB_SHA::7}"
+        run: |
+          bash tools/ci/publish-results.sh out/logs version/logs "ci: version logs ${GITHUB_SHA::7}"

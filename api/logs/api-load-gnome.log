@@ -1,5 +1,5 @@
 $ uv run p3d-api load-gnome out/gnome/gnome.tar.gz
-started: 2026-10-12T15:08:31Z
+started: 2026-10-12T15:14:18Z
 loaded gnome-2026.10.11-r2: 554054 materials, 3403 pairs, 83 elements
-finished: 2026-10-12T15:09:31Z
+finished: 2026-10-12T15:15:43Z
 exit code: 0

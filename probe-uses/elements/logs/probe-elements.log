@@ -1,0 +1,64 @@
+$ python3 ../tools/probe/pubchem_elements.py out/probe/elements
+started: 2026-10-12T08:09:44Z
+# Probe: PubChem element pages
+
+## Sections
+
+- Isotopes / Atomic Mass, Half Life, and Decay: 590
+- Isotopes / Isotope Mass and Abundance: 576
+- Compounds / Element Forms: 555
+- Properties / Atomic Weight: 438
+- History / Historical Isotopic Abundances: 336
+- History: 319
+- Properties / Atomic Radius: 296
+- History / Historical Atomic Weights: 264
+- Identifiers / Element Name: 236
+- Identifiers / Element Symbol: 236
+- Properties / Oxidation States: 220
+- Properties / Melting Point: 211
+- Properties / Ionization Energy: 210
+- Properties / Atomic Spectra: 209
+- Uses: 203
+- Properties / Boiling Point: 199
+- Properties / Electronegativity: 167
+- Isotopes: 166
+- Properties / Electron Affinity: 146
+- Compounds: 137
+- Description: 127
+- Identifiers / InChI: 118
+- Identifiers / InChIKey: 118
+- Properties / Physical Description: 118
+- Properties / Element Period Number: 118
+- Properties / Element Group Number: 118
+- Properties / Estimated Crustal Abundance: 118
+- Properties / Estimated Oceanic Abundance: 118
+- Properties / Electron Configuration: 117
+- Properties / Element Classification: 117
+- Properties / Ground Level: 108
+- Properties / Density: 96
+- Sources: 69
+- Isotopes / Isotopes in Medicine: 58
+- Isotopes / Isotopes in Earth/Planetary Science: 54
+- Isotopes / Isotopes in Geochronology: 39
+- Handling and Storage: 39
+- Isotopes / Isotopes in Industry: 35
+- Isotopes / Isotopes Used as a Source of Radioactive Isotope(s): 31
+- Isotopes / Isotopes in Biology: 18
+- Production: 17
+- Isotopes / Isotopes in Forensic Science and Anthropology: 13
+
+## Sources
+
+- Jefferson Lab, U.S. Department of Energy: 1674
+- IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW): 1255
+- Los Alamos National Laboratory, U.S. Department of Energy: 1178
+- PubChem Elements: 1169
+- NIST Physical Measurement Laboratory: 867
+- Atomic Mass Data Center (AMDC), International Atomic Energy Agency (IAEA): 590
+- PubChem: 472
+- IUPAC Periodic Table of the Elements and Isotopes (IPTEI): 273
+
+## Uses texts (116 elements)
+
+finished: 2026-10-12T08:14:57Z
+exit code: 0

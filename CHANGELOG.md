@@ -9,8 +9,18 @@ own versions (`data-…`, `gnome-…` releases).
 
 ## [Unreleased]
 
-- Where a substance is used: ten spheres (industry, medicine, agriculture, energy, defence…)
-  from checked sources (in progress).
+## [1.6.0] — 2026-10-12
+
+### Added
+- **Where it is used** under the photo of element and compound cards: ten spheres
+  (industry, materials, energy, electronics, medicine, agriculture, food, home, science,
+  defence and safety) and the concrete uses in them. A tap on a use shows its sources.
+- Uses come only from checked sources: HSDB and EPA (through PubChem), WHO ATC codes,
+  JECFA, FDA, EU databases, ChEBI, Los Alamos and Jefferson Lab. Former, banned and merely
+  possible uses are not shown. Now: 8 129 compounds and all 118 elements.
+- Shares of industries for 59 mineral commodities from the USGS Mineral Commodity
+  Summaries 2026, with the original quote.
+- ChEBI, WHO ATC and USGS on the **Sources and licenses** list.
 
 ## [1.5.0] — 2026-10-11
 
@@ -69,7 +79,8 @@ own versions (`data-…`, `gnome-…` releases).
   compound cards with 3D models, the cloud of compounds for several elements, search in
   three languages, an address for every scene; the API and the static demo.
 
-[Unreleased]: https://github.com/vik753/periodic-3d/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/vik753/periodic-3d/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/vik753/periodic-3d/releases/tag/v1.6.0
 [1.5.0]: https://github.com/vik753/periodic-3d/releases/tag/v1.5.0
 [1.4.0]: https://github.com/vik753/periodic-3d/commit/f02d2b49
 [1.3.0]: https://github.com/vik753/periodic-3d/commit/89f0b7b8

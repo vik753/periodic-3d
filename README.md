@@ -5,12 +5,12 @@
 An interactive 3D periodic table. Click an element and fly inside it: glowing rays lead
 to the elements it forms compounds with, and each ray carries the compounds of that
 pair. Open a compound to see its molecule or crystal slowly rotating in 3D, with its
-formula, composition, properties and sources beside it. Pick several elements to get a
+formula, composition, properties, sources and where it is used beside it. Pick several elements to get a
 cloud of compounds that contain all of them.
 
 **Open the site:** https://vik753.github.io/periodic-3d/ — free, no sign-up, works in a
 desktop browser and on a phone. The interface speaks Ukrainian, Russian and English.
-Current version: **1.5.0** — [what is new](CHANGELOG.md).
+Current version: **1.6.0** — [what is new](CHANGELOG.md).
 
 ## Video guide
 
@@ -76,6 +76,9 @@ Click a tile and the camera flies into the element.
 - **The panel** on the right (at the bottom on a phone) gives the facts: atomic mass,
   electron configuration, melting and boiling points, density, the year of discovery, a
   photo of the substance, the best-known compounds and similar elements.
+- **Where it is used** (under the photo): uses in ten spheres, from industry to medicine,
+  each with its sources. For metals and minerals a bar shows the shares of industries from
+  the US Geological Survey.
 
 ![Iron with its rays](docs/images/element.webp)
 
@@ -109,6 +112,10 @@ The card shows one compound: the 3D model on the left and the facts on the right
   When they disagree, a yellow note explains what the card shows and why.
 - **Description** from Wikipedia, the type of substance (oxide, acid, mineral…), a photo,
   **similar compounds**, and the **sources and licenses** of every piece of data.
+- **Where it is used.** Under the photo: spheres (industry, materials, energy,
+  electronics, medicine, agriculture, food, home, science, defence and safety) with the
+  concrete uses inside them. Tap a use to see which sources state it. See
+  [Where a substance is used](#where-a-substance-is-used) for how we check it.
 - **Report an error** opens a ready GitHub issue with the record number. Write what is
   wrong; a link to a source helps.
 
@@ -218,7 +225,9 @@ instead of flying, and the dust and the atoms stop moving.
 | Source | What we take | License |
 | --- | --- | --- |
 | [Wikidata](https://www.wikidata.org) | the list of compounds, formulas, names in three languages, classes, SMILES, links to PubChem and Materials Project | CC0 |
-| [PubChem](https://pubchem.ncbi.nlm.nih.gov) (US National Institutes of Health) | formula, molar mass, IUPAC name, 3D shapes of molecules | public domain |
+| [PubChem](https://pubchem.ncbi.nlm.nih.gov) (US National Institutes of Health) | formula, molar mass, IUPAC name, 3D shapes of molecules; uses from HSDB, EPA, FDA, JECFA and EU databases | public domain; facts of other databases with a link |
+| [ChEBI](https://www.ebi.ac.uk/chebi/) (EMBL-EBI) | roles of substances: herbicide, dye, refrigerant… | CC BY 4.0 |
+| [USGS Mineral Commodity Summaries 2026](https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries) | shares of industries for metals and mineral commodities | public domain |
 | [Materials Project](https://materialsproject.org) | crystal structures, and whether a structure was measured in a lab (ICSD records) | CC BY 4.0 |
 | [Wikipedia](https://www.wikipedia.org) | descriptions | CC BY-SA 4.0 |
 | [Wikimedia Commons](https://commons.wikimedia.org) | photos, with author and license under each | per photo |
@@ -267,6 +276,33 @@ site uses now (`data-2026.10.11-r39`).
    "predicted by computation, not confirmed by experiment".
 9. **Everything is on record.** Each dataset is a versioned GitHub release with a full
    report that lists every fix and every removed link.
+
+### Where a substance is used
+
+The section **Where it is used** follows the same rules. Nobody writes these texts by hand,
+and no AI writes them: every use is a term from a fixed list of 120 uses in ten spheres,
+with a name in three languages, and every term names the sources that state it.
+
+- **Sources.** Government and scientific databases, read through PubChem: the Hazardous
+  Substances Data Bank (US National Library of Medicine), EPA chemical reports, FDA animal
+  drugs, LiverTox and LactMed, the FAO/WHO committee on food additives (JECFA), the EU
+  databases of food additives and pesticides, the IFRA fragrance list and others. Also
+  ChEBI roles (EMBL-EBI), WHO ATC codes of medicines (through Wikidata), the element pages
+  of Los Alamos and Jefferson Lab, and the USGS Mineral Commodity Summaries 2026.
+- **Only current uses.** A sentence about the past, a ban, a proposal or a study
+  ("formerly", "not registered", "has been proposed", "clinical trial") is skipped.
+- **A product is not its raw material.** "Used in the production of insecticides" does
+  not make chlorine an insecticide, and an inert ingredient of a pesticide is not a
+  pesticide.
+- **Each source speaks about its own field.** A food committee can add a food use and a
+  cosmetics review a cosmetic use; the word "stabilizer" in an industrial report does not
+  become a food additive.
+- **Strong uses first.** The card first shows uses from official sources or from two or
+  more sources. A use that only one text mentions waits behind **N more**.
+- **Numbers are typed by hand and checked.** The shares of industries for 59 mineral
+  commodities (35 elements get a bar) come from the USGS reports. A script refuses the
+  file when a number is missing from the verbatim quote that the card shows.
+- **Coverage now:** uses for 8 129 of 27 202 compounds and for all 118 elements.
 
 ### Errors we found and fixed
 
@@ -344,8 +380,8 @@ Design decisions are recorded in [docs/adr](docs/adr); the plan is in
 
 The source code is MIT-licensed. Chemical data keeps the licenses of its sources:
 Wikidata (CC0), Wikipedia (CC BY-SA 4.0), PubChem (NIH, public domain), Materials
-Project (CC BY 4.0), Wikimedia Commons (license per photo), GNoME by Google DeepMind
-(CC BY-NC 4.0). The site's About page and [docs/data-sources.md](docs/data-sources.md)
+Project (CC BY 4.0), Wikimedia Commons (license per photo), ChEBI (CC BY 4.0), USGS
+(public domain), GNoME by Google DeepMind (CC BY-NC 4.0). The site's About page and [docs/data-sources.md](docs/data-sources.md)
 list the details.
 
 **Non-commercial.** The layer of predicted materials comes from GNoME under CC BY-NC 4.0.

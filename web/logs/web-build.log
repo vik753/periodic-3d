@@ -1,5 +1,5 @@
 $ npm run build
-started: 2026-10-12T08:59:49Z
+started: 2026-10-12T09:15:04Z
 
 > @periodic-3d/web@1.5.0 build
 > vite build
@@ -19,26 +19,26 @@ computing gzip size...
 [2mdist/[22m[2massets/[22m[32mgolos-text-latin-wght-normal-BS5oQT7X.woff2         [39m[1m[2m 37.92 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32munbounded-latin-wght-normal-D5afBTBx.woff2          [39m[1m[2m 50.90 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32munbounded-latin-ext-wght-normal-D6H-S6MW.woff2      [39m[1m[2m118.35 kB[22m[1m[22m
-[2mdist/[22m[2massets/[22m[35mindex-BMIMjgZv.css                                  [39m[1m[2m 42.19 kB[22m[1m[22m[2m │ gzip:  10.14 kB[22m
+[2mdist/[22m[2massets/[22m[35mindex-dJ7R1Ql1.css                                  [39m[1m[2m 42.22 kB[22m[1m[22m[2m │ gzip:  10.14 kB[22m
 [2mdist/[22m[2massets/[22m[36mClickGuard-B-C_HKgR.js                              [39m[1m[2m  0.20 kB[22m[1m[22m[2m │ gzip:   0.18 kB[22m
 [2mdist/[22m[2massets/[22m[36mReportLink-jl9FV95p.js                              [39m[1m[2m  0.71 kB[22m[1m[22m[2m │ gzip:   0.48 kB[22m
 [2mdist/[22m[2massets/[22m[36mglow-Dql_eXPH.js                                    [39m[1m[2m  1.21 kB[22m[1m[22m[2m │ gzip:   0.59 kB[22m
-[2mdist/[22m[2massets/[22m[36mCompositionView-BLpB0NJ-.js                         [39m[1m[2m  2.07 kB[22m[1m[22m[2m │ gzip:   1.07 kB[22m
-[2mdist/[22m[2massets/[22m[36mAtomModel-DsmZ1bEL.js                               [39m[1m[2m  2.67 kB[22m[1m[22m[2m │ gzip:   1.34 kB[22m
-[2mdist/[22m[2massets/[22m[36mMaterialPanel-8HTKaf63.js                           [39m[1m[2m  5.25 kB[22m[1m[22m[2m │ gzip:   1.85 kB[22m
-[2mdist/[22m[2massets/[22m[36mRayWalk-Dikwf2MX.js                                 [39m[1m[2m  5.58 kB[22m[1m[22m[2m │ gzip:   2.68 kB[22m
-[2mdist/[22m[2massets/[22m[36mStructureView-ClYuXtqX.js                           [39m[1m[2m  5.64 kB[22m[1m[22m[2m │ gzip:   2.52 kB[22m
-[2mdist/[22m[2massets/[22m[36mCompoundCloud-CkylDDaD.js                           [39m[1m[2m  5.67 kB[22m[1m[22m[2m │ gzip:   2.64 kB[22m
-[2mdist/[22m[2massets/[22m[36mCompoundPanel-BwKF_cF1.js                           [39m[1m[2m  6.13 kB[22m[1m[22m[2m │ gzip:   2.21 kB[22m
-[2mdist/[22m[2massets/[22m[36mRays-3omcI4Vk.js                                    [39m[1m[2m  6.21 kB[22m[1m[22m[2m │ gzip:   2.75 kB[22m
-[2mdist/[22m[2massets/[22m[36mSetPanel-CBM_wOzV.js                                [39m[1m[2m  6.32 kB[22m[1m[22m[2m │ gzip:   2.06 kB[22m
-[2mdist/[22m[2massets/[22m[36mUsesSection-gjKyroXA.js                             [39m[1m[2m  6.95 kB[22m[1m[22m[2m │ gzip:   2.75 kB[22m
-[2mdist/[22m[2massets/[22m[36mAboutPanel-DsIfW2xz.js                              [39m[1m[2m  7.82 kB[22m[1m[22m[2m │ gzip:   2.88 kB[22m
-[2mdist/[22m[2massets/[22m[36mElementPanel-DA7r5RnL.js                            [39m[1m[2m 12.63 kB[22m[1m[22m[2m │ gzip:   3.55 kB[22m
-[2mdist/[22m[2massets/[22m[36mindex-CB1gCZHV.js                                   [39m[1m[2m189.29 kB[22m[1m[22m[2m │ gzip:  62.61 kB[22m
+[2mdist/[22m[2massets/[22m[36mCompositionView-xBx8b1Ko.js                         [39m[1m[2m  2.07 kB[22m[1m[22m[2m │ gzip:   1.07 kB[22m
+[2mdist/[22m[2massets/[22m[36mAtomModel-Bu2Kw6Ps.js                               [39m[1m[2m  2.67 kB[22m[1m[22m[2m │ gzip:   1.34 kB[22m
+[2mdist/[22m[2massets/[22m[36mMaterialPanel-DF4E40zS.js                           [39m[1m[2m  5.25 kB[22m[1m[22m[2m │ gzip:   1.86 kB[22m
+[2mdist/[22m[2massets/[22m[36mRayWalk-BGtVcd9w.js                                 [39m[1m[2m  5.58 kB[22m[1m[22m[2m │ gzip:   2.68 kB[22m
+[2mdist/[22m[2massets/[22m[36mStructureView-CA9HK3JC.js                           [39m[1m[2m  5.64 kB[22m[1m[22m[2m │ gzip:   2.52 kB[22m
+[2mdist/[22m[2massets/[22m[36mCompoundCloud-eka6aHXR.js                           [39m[1m[2m  5.67 kB[22m[1m[22m[2m │ gzip:   2.64 kB[22m
+[2mdist/[22m[2massets/[22m[36mCompoundPanel-DQ7e_9rW.js                           [39m[1m[2m  6.13 kB[22m[1m[22m[2m │ gzip:   2.21 kB[22m
+[2mdist/[22m[2massets/[22m[36mRays-COMsGDwu.js                                    [39m[1m[2m  6.21 kB[22m[1m[22m[2m │ gzip:   2.75 kB[22m
+[2mdist/[22m[2massets/[22m[36mSetPanel-R_Xx7Len.js                                [39m[1m[2m  6.32 kB[22m[1m[22m[2m │ gzip:   2.06 kB[22m
+[2mdist/[22m[2massets/[22m[36mUsesSection-Bv2hg4ye.js                             [39m[1m[2m  7.64 kB[22m[1m[22m[2m │ gzip:   3.05 kB[22m
+[2mdist/[22m[2massets/[22m[36mAboutPanel-D_2hOpdg.js                              [39m[1m[2m  8.24 kB[22m[1m[22m[2m │ gzip:   3.04 kB[22m
+[2mdist/[22m[2massets/[22m[36mElementPanel-ZU3268P2.js                            [39m[1m[2m 12.63 kB[22m[1m[22m[2m │ gzip:   3.55 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-DhGzKeIW.js                                   [39m[1m[2m190.50 kB[22m[1m[22m[2m │ gzip:  63.09 kB[22m
 [2mdist/[22m[2massets/[22m[36mr3f-R3fzmp4S.js                                     [39m[1m[2m228.54 kB[22m[1m[22m[2m │ gzip:  69.00 kB[22m
 [2mdist/[22m[2massets/[22m[36mreact-DhKm9lbL.js                                   [39m[1m[2m265.78 kB[22m[1m[22m[2m │ gzip:  85.03 kB[22m
 [2mdist/[22m[2massets/[22m[36mthree-BUBHTKcn.js                                   [39m[1m[2m724.31 kB[22m[1m[22m[2m │ gzip: 188.47 kB[22m
-[32m✓ built in 4.73s[39m
-finished: 2026-10-12T08:59:55Z
+[32m✓ built in 5.26s[39m
+finished: 2026-10-12T09:15:10Z
 exit code: 0

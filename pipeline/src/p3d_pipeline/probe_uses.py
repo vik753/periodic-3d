@@ -145,12 +145,18 @@ def _pubchem(fetcher: Fetcher, compounds: list[dict[str, Any]], showcase_ids: se
     headings: Counter[str] = Counter()
     sources: Counter[str] = Counter()
     covered: Counter[str] = Counter()
+    failures: Counter[str] = Counter()
     samples: dict[str, Any] = {}
     for number, compound in enumerate(compounds, start=1):
         if number % 50 == 0:
             log.info("PubChem: %d/%d", number, len(compounds))
         for heading in HEADINGS:
-            body = fetcher.get(PUG_VIEW.format(cid=compound["cid"]), {"heading": heading}, attempts=4)
+            try:
+                body = fetcher.get(PUG_VIEW.format(cid=compound["cid"]), {"heading": heading}, attempts=6)
+            except Exception as error:  # a throttled request must not stop the probe
+                log.warning("PubChem %s %s: %s", compound["cid"], heading, error)
+                failures[heading] += 1
+                continue
             if body is None:
                 continue
             data = json.loads(body).get("Record", {})
@@ -168,6 +174,7 @@ def _pubchem(fetcher: Fetcher, compounds: list[dict[str, Any]], showcase_ids: se
     return {
         "sample": len(compounds),
         "covered": dict(covered),
+        "failures": dict(failures),
         "headings": headings.most_common(80),
         "sources": sources.most_common(60),
         "samples": samples,
@@ -195,7 +202,8 @@ def _texts(record: dict[str, Any]) -> list[str]:
 
 def run_probe(sample_path: Path, cache: Path, out: Path) -> Path:
     sample = json.loads(sample_path.read_text(encoding="utf-8"))
-    fetcher = Fetcher(cache)
+    # PUG-View throttles harder than PUG-REST: one request per second.
+    fetcher = Fetcher(cache, rates={"pubchem.ncbi.nlm.nih.gov": 1.0})
     out.mkdir(parents=True, exist_ok=True)
     showcase_ids = {compound["qid"] for compound in sample["compounds"][:SHOWCASE_SIZE]}
     wd = _wikidata(fetcher, sample["elements"], showcase_ids)
@@ -236,6 +244,7 @@ def run_probe(sample_path: Path, cache: Path, out: Path) -> Path:
         "| --- | --- |",
     ]
     lines += [f"| {heading} | {count} |" for heading, count in sorted(pc["covered"].items())]
+    lines += ["", f"Failed requests: {pc['failures']}"]
     lines += ["", "### Subsections", ""] + [f"- {path}: {count}" for path, count in pc["headings"]]
     lines += ["", "### Sources", ""] + [f"- {name}: {count}" for name, count in pc["sources"]]
     for name, sections in pc["samples"].items():

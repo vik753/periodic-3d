@@ -1,160 +1,17 @@
 $ uv run p3d-pipeline probe-uses --cache /home/runner/work/_temp/cache --out out/probe-uses
-started: 2026-10-12T06:44:04Z
-2026-10-12 06:46:30,638 INFO p3d.probe_uses: PubChem: 50/300
-[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mcli.py[0m:8 [31m│[0m
-[31m│[0m 1 in probe_uses_command                                                      [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m 78 [0m[2m│   [0m[94mfrom[0m[90m [0m[4;96m.[0m[4;96mprobe_uses[0m[90m [0m[94mimport[0m run_probe                                  [31m│[0m
-[31m│[0m   [2m 79 [0m[2m│   [0m                                                                   [31m│[0m
-[31m│[0m   [2m 80 [0m[2m│   [0mlogging.basicConfig(level=logging.INFO, [96mformat[0m=[33m"[0m[33m%(asctime)s[0m[33m [0m       [31m│[0m
-[31m│[0m       [33m%(levelname)s[0m[33m [0m[33m%(name)s[0m[33m: [0m[33m%(message)s[0m[33m"[0m)                                  [31m│[0m
-[31m│[0m [31m❱ [0m 81 [2m│   [0mtyper.echo([1;4mrun_probe(sample, cache, out)[0m)                          [31m│[0m
-[31m│[0m   [2m 82 [0m                                                                       [31m│[0m
-[31m│[0m   [2m 83 [0m                                                                       [31m│[0m
-[31m│[0m   [2m 84 [0m[1;95m@app[0m.command([33m"[0m[33mgnome[0m[33m"[0m)                                                  [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mprobe_us[0m [31m│[0m
-[31m│[0m [1mes.py[0m:203 in run_probe                                                       [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m200 [0m[2m│   [0mshowcase_ids = {compound[[33m"[0m[33mqid[0m[33m"[0m] [94mfor[0m compound [95min[0m                    [31m│[0m
-[31m│[0m       sample[[33m"[0m[33mcompounds[0m[33m"[0m][:SHOWCASE_SIZE]}                                   [31m│[0m
-[31m│[0m   [2m201 [0m[2m│   [0mwd = _wikidata(fetcher, sample[[33m"[0m[33melements[0m[33m"[0m], showcase_ids)          [31m│[0m
-[31m│[0m   [2m202 [0m[2m│   [0m(out / [33m"[0m[33mwikidata.json[0m[33m"[0m).write_text(json.dumps(wd,                  [31m│[0m
-[31m│[0m       ensure_ascii=[94mFalse[0m, indent=[94m1[0m), encoding=[33m"[0m[33mutf-8[0m[33m"[0m)                       [31m│[0m
-[31m│[0m [31m❱ [0m203 [2m│   [0mpc = [1;4m_pubchem(fetcher, sample[[0m[1;4;33m"[0m[1;4;33mcompounds[0m[1;4;33m"[0m[1;4m], showcase_ids)[0m          [31m│[0m
-[31m│[0m   [2m204 [0m[2m│   [0m(out / [33m"[0m[33mpubchem.json[0m[33m"[0m).write_text(json.dumps(pc,                   [31m│[0m
-[31m│[0m       ensure_ascii=[94mFalse[0m, indent=[94m1[0m), encoding=[33m"[0m[33mutf-8[0m[33m"[0m)                       [31m│[0m
-[31m│[0m   [2m205 [0m[2m│   [0m                                                                   [31m│[0m
-[31m│[0m   [2m206 [0m[2m│   [0mlines = [[33m"[0m[33m# Probe: uses of elements and compounds[0m[33m"[0m, [33m"[0m[33m"[0m]            [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mprobe_us[0m [31m│[0m
-[31m│[0m [1mes.py[0m:153 in _pubchem                                                        [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m150 [0m[2m│   │   [0m[94mif[0m number % [94m50[0m == [94m0[0m:                                           [31m│[0m
-[31m│[0m   [2m151 [0m[2m│   │   │   [0mlog.info([33m"[0m[33mPubChem: [0m[33m%d[0m[33m/[0m[33m%d[0m[33m"[0m, number, [96mlen[0m(compounds))         [31m│[0m
-[31m│[0m   [2m152 [0m[2m│   │   [0m[94mfor[0m heading [95min[0m HEADINGS:                                       [31m│[0m
-[31m│[0m [31m❱ [0m153 [2m│   │   │   [0mbody = [1;4mfetcher.get(PUG_VIEW.format(cid=compound[[0m[1;4;33m"[0m[1;4;33mcid[0m[1;4;33m"[0m[1;4m]), [0m  [31m│[0m
-[31m│[0m       [1;4m{[0m[1;4;33m"[0m[1;4;33mheading[0m[1;4;33m"[0m[1;4m: heading}, attempts=[0m[1;4;94m4[0m[1;4m)[0m                                      [31m│[0m
-[31m│[0m   [2m154 [0m[2m│   │   │   [0m[94mif[0m body [95mis[0m [94mNone[0m:                                           [31m│[0m
-[31m│[0m   [2m155 [0m[2m│   │   │   │   [0m[94mcontinue[0m                                               [31m│[0m
-[31m│[0m   [2m156 [0m[2m│   │   │   [0mdata = json.loads(body).get([33m"[0m[33mRecord[0m[33m"[0m, {})                  [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mhttp.py[0m: [31m│[0m
-[31m│[0m 154 in get                                                                   [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m151 [0m[2m│   │   [0m[94mif[0m cache_only:                                                 [31m│[0m
-[31m│[0m   [2m152 [0m[2m│   │   │   [0m[96mself[0m.stats[[33m"[0m[33mskipped_offline[0m[33m"[0m] += [94m1[0m                         [31m│[0m
-[31m│[0m   [2m153 [0m[2m│   │   │   [0m[94mreturn[0m [94mNone[0m                                                [31m│[0m
-[31m│[0m [31m❱ [0m154 [2m│   │   [0mbody = [1;4;96mself[0m[1;4m._fetch_with_retries(url, params, accept, attempts,[0m [31m│[0m
-[31m│[0m       [1;4mheaders)[0m                                                               [31m│[0m
-[31m│[0m   [2m155 [0m[2m│   │   [0mpath.parent.mkdir(parents=[94mTrue[0m, exist_ok=[94mTrue[0m)                 [31m│[0m
-[31m│[0m   [2m156 [0m[2m│   │   [0m[94mif[0m body [95mis[0m [94mNone[0m:                                               [31m│[0m
-[31m│[0m   [2m157 [0m[2m│   │   │   [0mmissing.touch()                                            [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mhttp.py[0m: [31m│[0m
-[31m│[0m 179 in _fetch_with_retries                                                   [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m176 [0m[2m│   │   │   [0mstop=stop_after_attempt(attempts),                         [31m│[0m
-[31m│[0m   [2m177 [0m[2m│   │   │   [0mreraise=[94mTrue[0m,                                              [31m│[0m
-[31m│[0m   [2m178 [0m[2m│   │   [0m)                                                              [31m│[0m
-[31m│[0m [31m❱ [0m179 [2m│   │   [0mbody: [96mbytes[0m | [94mNone[0m = [1;4mretrying([0m[1;4;96mself[0m[1;4m._fetch, url, params, [0m       [31m│[0m
-[31m│[0m       [1;4maccept, headers)[0m                                                       [31m│[0m
-[31m│[0m   [2m180 [0m[2m│   │   [0m[94mreturn[0m body                                                    [31m│[0m
-[31m│[0m   [2m181 [0m[2m│   [0m                                                                   [31m│[0m
-[31m│[0m   [2m182 [0m[2m│   [0m[94mdef[0m[90m [0m[92m_fetch[0m(                                                        [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/.venv/lib/python3.12/site[0m [31m│[0m
-[31m│[0m [2m-packages/tenacity/[0m[1m__init__.py[0m:550 in __call__                               [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m547 [0m[2m│   │   [0m                                                               [31m│[0m
-[31m│[0m   [2m548 [0m[2m│   │   [0mretry_state = RetryCallState(retry_object=[96mself[0m, fn=fn,         [31m│[0m
-[31m│[0m       args=args, kwargs=kwargs)                                              [31m│[0m
-[31m│[0m   [2m549 [0m[2m│   │   [0m[94mwhile[0m [94mTrue[0m:                                                    [31m│[0m
-[31m│[0m [31m❱ [0m550 [2m│   │   │   [0mdo = [1;4;96mself[0m[1;4m.iter(retry_state=retry_state)[0m                    [31m│[0m
-[31m│[0m   [2m551 [0m[2m│   │   │   [0m[94mif[0m [96misinstance[0m(do, DoAttempt):                              [31m│[0m
-[31m│[0m   [2m552 [0m[2m│   │   │   │   [0m[94mtry[0m:                                                   [31m│[0m
-[31m│[0m   [2m553 [0m[2m│   │   │   │   │   [0mresult = fn(*args, **kwargs)                       [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/.venv/lib/python3.12/site[0m [31m│[0m
-[31m│[0m [2m-packages/tenacity/[0m[1m__init__.py[0m:440 in iter                                   [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m437 [0m[2m│   │   [0m[96mself[0m._begin_iter(retry_state)                                  [31m│[0m
-[31m│[0m   [2m438 [0m[2m│   │   [0mresult = [94mNone[0m                                                  [31m│[0m
-[31m│[0m   [2m439 [0m[2m│   │   [0m[94mfor[0m action [95min[0m [96mself[0m.iter_state.actions:                         [31m│[0m
-[31m│[0m [31m❱ [0m440 [2m│   │   │   [0mresult = [1;4maction(retry_state)[0m                               [31m│[0m
-[31m│[0m   [2m441 [0m[2m│   │   [0m[94mreturn[0m result                                                  [31m│[0m
-[31m│[0m   [2m442 [0m[2m│   [0m                                                                   [31m│[0m
-[31m│[0m   [2m443 [0m[2m│   [0m[94mdef[0m[90m [0m[92m_begin_iter[0m([96mself[0m, retry_state: [33m"[0m[33mRetryCallState[0m[33m"[0m) -> [94mNone[0m:      [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/.venv/lib/python3.12/site[0m [31m│[0m
-[31m│[0m [2m-packages/tenacity/[0m[1m__init__.py[0m:482 in exc_check                              [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m479 [0m[2m│   │   │   │   [0mfut = t.cast([33m"[0m[33mFuture[0m[33m"[0m, rs.outcome)                     [31m│[0m
-[31m│[0m   [2m480 [0m[2m│   │   │   │   [0mretry_exc = [96mself[0m.retry_error_cls(fut)                  [31m│[0m
-[31m│[0m   [2m481 [0m[2m│   │   │   │   [0m[94mif[0m [96mself[0m.reraise:                                       [31m│[0m
-[31m│[0m [31m❱ [0m482 [2m│   │   │   │   │   [0m[1;4mretry_exc.reraise()[0m                                [31m│[0m
-[31m│[0m   [2m483 [0m[2m│   │   │   │   [0m[94mraise[0m retry_exc [94mfrom[0m[90m [0m[4;96mfut[0m[4;96m.[0m[4;96mexception[0m()                   [31m│[0m
-[31m│[0m   [2m484 [0m[2m│   │   │   [0m                                                           [31m│[0m
-[31m│[0m   [2m485 [0m[2m│   │   │   [0m[96mself[0m._add_action_func(exc_check)                           [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/.venv/lib/python3.12/site[0m [31m│[0m
-[31m│[0m [2m-packages/tenacity/[0m[1m__init__.py[0m:216 in reraise                                [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m213 [0m[2m│   │   │   │   [0mcause = exc.__cause__ [95mor[0m exc.__context__               [31m│[0m
-[31m│[0m   [2m214 [0m[2m│   │   │   │   [0m[94mif[0m cause [95mis[0m [95mnot[0m [94mNone[0m:                                  [31m│[0m
-[31m│[0m   [2m215 [0m[2m│   │   │   │   │   [0m[94mraise[0m cause.with_traceback(cause.__traceback__)    [31m│[0m
-[31m│[0m       [94mfrom[0m[90m [0m[94mNone[0m                                                              [31m│[0m
-[31m│[0m [31m❱ [0m216 [2m│   │   │   [0m[94mraise[0m [1;4;96mself[0m[1;4m.last_attempt.result()[0m                           [31m│[0m
-[31m│[0m   [2m217 [0m[2m│   │   [0m[94mraise[0m [96mself[0m                                                     [31m│[0m
-[31m│[0m   [2m218 [0m[2m│   [0m                                                                   [31m│[0m
-[31m│[0m   [2m219 [0m[2m│   [0m[1;95m@override[0m                                                          [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/usr/lib/python3.12/concurrent/futures/[0m[1m_base.py[0m:449 in result                [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m446 [0m[2m│   │   │   │   [0m[94mif[0m [96mself[0m._state [95min[0m [CANCELLED, CANCELLED_AND_NOTIFIED]: [31m│[0m
-[31m│[0m   [2m447 [0m[2m│   │   │   │   │   [0m[94mraise[0m CancelledError()                             [31m│[0m
-[31m│[0m   [2m448 [0m[2m│   │   │   │   [0m[94melif[0m [96mself[0m._state == FINISHED:                          [31m│[0m
-[31m│[0m [31m❱ [0m449 [2m│   │   │   │   │   [0m[94mreturn[0m [96mself[0m.__get_result()                         [31m│[0m
-[31m│[0m   [2m450 [0m[2m│   │   │   │   [0m                                                       [31m│[0m
-[31m│[0m   [2m451 [0m[2m│   │   │   │   [0m[96mself[0m._condition.wait(timeout)                          [31m│[0m
-[31m│[0m   [2m452 [0m                                                                       [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/usr/lib/python3.12/concurrent/futures/[0m[1m_base.py[0m:401 in __get_result          [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m398 [0m[2m│   [0m[94mdef[0m[90m [0m[92m__get_result[0m([96mself[0m):                                            [31m│[0m
-[31m│[0m   [2m399 [0m[2m│   │   [0m[94mif[0m [96mself[0m._exception:                                            [31m│[0m
-[31m│[0m   [2m400 [0m[2m│   │   │   [0m[94mtry[0m:                                                       [31m│[0m
-[31m│[0m [31m❱ [0m401 [2m│   │   │   │   [0m[94mraise[0m [96mself[0m._exception                                  [31m│[0m
-[31m│[0m   [2m402 [0m[2m│   │   │   [0m[94mfinally[0m:                                                   [31m│[0m
-[31m│[0m   [2m403 [0m[2m│   │   │   │   [0m[2m# Break a reference cycle with the exception in [0m       [31m│[0m
-[31m│[0m       [2mself._exception[0m                                                        [31m│[0m
-[31m│[0m   [2m404 [0m[2m│   │   │   │   [0m[1;4;96mself[0m = [94mNone[0m                                            [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/.venv/lib/python3.12/site[0m [31m│[0m
-[31m│[0m [2m-packages/tenacity/[0m[1m__init__.py[0m:553 in __call__                               [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m550 [0m[2m│   │   │   [0mdo = [1;4;96mself[0m[1;4m.iter(retry_state=retry_state)[0m                    [31m│[0m
-[31m│[0m   [2m551 [0m[2m│   │   │   [0m[94mif[0m [96misinstance[0m(do, DoAttempt):                              [31m│[0m
-[31m│[0m   [2m552 [0m[2m│   │   │   │   [0m[94mtry[0m:                                                   [31m│[0m
-[31m│[0m [31m❱ [0m553 [2m│   │   │   │   │   [0mresult = fn(*args, **kwargs)                       [31m│[0m
-[31m│[0m   [2m554 [0m[2m│   │   │   │   [0m[94mexcept[0m [96mBaseException[0m:                                  [31m│[0m
-[31m│[0m   [2m555 [0m[2m│   │   │   │   │   [0mretry_state.set_exception(sys.exc_info())  [2m# type:[0m [31m│[0m
-[31m│[0m       [2mignore[arg-type][0m                                                       [31m│[0m
-[31m│[0m   [2m556 [0m[2m│   │   │   │   [0m[94melse[0m:                                                  [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m [2m/home/runner/work/periodic-3d/periodic-3d/pipeline/src/p3d_pipeline/[0m[1mhttp.py[0m: [31m│[0m
-[31m│[0m 211 in _fetch                                                                [31m│[0m
-[31m│[0m                                                                              [31m│[0m
-[31m│[0m   [2m208 [0m[2m│   │   │   [0m[94melif[0m status [95min[0m ([94m429[0m, [94m503[0m):                                 [31m│[0m
-[31m│[0m   [2m209 [0m[2m│   │   │   │   [0mtime.sleep(BUSY_PAUSE)                                 [31m│[0m
-[31m│[0m   [2m210 [0m[2m│   │   │   [0m[96mself[0m.stats[[33mf[0m[33m"[0m[33mretry_[0m[33m{[0mstatus[33m}[0m[33m"[0m] += [94m1[0m                         [31m│[0m
-[31m│[0m [31m❱ [0m211 [2m│   │   │   [0m[1;4;94mraise[0m[1;4m RetryableError([0m[1;4;33mf[0m[1;4;33m"[0m[1;4;33mHTTP [0m[1;4;33m{[0m[1;4mstatus[0m[1;4;33m}[0m[1;4;33m for [0m[1;4;33m{[0m[1;4murl[0m[1;4;33m}[0m[1;4;33m"[0m[1;4m)[0m           [31m│[0m
-[31m│[0m   [2m212 [0m[2m│   │   [0mresponse.raise_for_status()                                    [31m│[0m
-[31m│[0m   [2m213 [0m[2m│   │   [0m[94mreturn[0m response.content                                        [31m│[0m
-[31m│[0m   [2m214 [0m                                                                       [31m│[0m
-[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
-[1;91mRetryableError: [0mHTTP [1;36m429[0m for 
-[4;94mhttps://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/23672308/JSON[0m
-finished: 2026-10-12T06:51:54Z
-exit code: 1
+started: 2026-10-12T06:55:48Z
+2026-10-12 07:00:21,677 INFO p3d.probe_uses: PubChem: 50/300
+2026-10-12 07:06:39,739 WARNING p3d.probe_uses: PubChem 23672308 Food Additives and Ingredients: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/23672308/JSON
+2026-10-12 07:10:16,801 WARNING p3d.probe_uses: PubChem 22985 Use and Manufacturing: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/22985/JSON
+2026-10-12 07:13:52,876 WARNING p3d.probe_uses: PubChem 22985 Drug and Medication Information: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/22985/JSON
+2026-10-12 07:17:28,985 WARNING p3d.probe_uses: PubChem 22985 Agrochemical Information: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/22985/JSON
+2026-10-12 07:21:05,082 WARNING p3d.probe_uses: PubChem 22985 Food Additives and Ingredients: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/22985/JSON
+2026-10-12 07:24:41,166 WARNING p3d.probe_uses: PubChem 22985 Pharmacology and Biochemistry: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/22985/JSON
+2026-10-12 07:28:17,242 WARNING p3d.probe_uses: PubChem 24602 Use and Manufacturing: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/24602/JSON
+2026-10-12 07:31:53,342 WARNING p3d.probe_uses: PubChem 24602 Drug and Medication Information: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/24602/JSON
+2026-10-12 07:35:29,428 WARNING p3d.probe_uses: PubChem 24602 Agrochemical Information: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/24602/JSON
+2026-10-12 07:39:05,509 WARNING p3d.probe_uses: PubChem 24602 Food Additives and Ingredients: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/24602/JSON
+2026-10-12 07:42:41,597 WARNING p3d.probe_uses: PubChem 24602 Pharmacology and Biochemistry: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/24602/JSON
+2026-10-12 07:46:17,675 WARNING p3d.probe_uses: PubChem 3036 Use and Manufacturing: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/3036/JSON
+2026-10-12 07:49:53,763 WARNING p3d.probe_uses: PubChem 3036 Drug and Medication Information: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/3036/JSON
+2026-10-12 07:53:29,887 WARNING p3d.probe_uses: PubChem 3036 Agrochemical Information: HTTP 429 for https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/3036/JSON

@@ -1,0 +1,7566 @@
+{
+ "selection": 27954,
+ "with_use": 3461,
+ "pairs": 7780,
+ "statements": 7830,
+ "referenced": 3194,
+ "top": [
+  {
+   "use": "Q12140",
+   "items": 2297,
+   "labels": {
+    "en": "medication",
+    "ru": "лекарственное средство",
+    "uk": "лікарський засіб"
+   },
+   "classes": [
+    {
+     "id": "Q12034612",
+     "label": "medicinal product"
+    },
+    {
+     "id": "Q8386",
+     "label": "drug"
+    }
+   ]
+  },
+  {
+   "use": "Q181322",
+   "items": 195,
+   "labels": {
+    "en": "insecticide",
+    "ru": "инсектициды",
+    "uk": "інсектицид"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q10861296",
+     "label": "zoocide"
+    },
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    },
+    {
+     "id": "Q864939",
+     "label": "biocide"
+    },
+    {
+     "id": "Q902296",
+     "label": "phytopharmaceuticals"
+    }
+   ]
+  },
+  {
+   "use": "Q178266",
+   "items": 152,
+   "labels": {
+    "en": "herbicide",
+    "ru": "гербицид",
+    "uk": "гербіциди"
+   },
+   "classes": [
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    },
+    {
+     "id": "Q902296",
+     "label": "phytopharmaceuticals"
+    }
+   ]
+  },
+  {
+   "use": "Q189567",
+   "items": 141,
+   "labels": {
+    "en": "food additive",
+    "ru": "пищевая добавка",
+    "uk": "харчові додатки"
+   },
+   "classes": [
+    {
+     "id": "Q25403900",
+     "label": "food ingredient"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    }
+   ]
+  },
+  {
+   "use": "Q50377175",
+   "items": 84,
+   "labels": {
+    "en": "indicators and reagents",
+    "uk": "індикататори й реагенти"
+   },
+   "classes": [
+    {
+     "id": "Q50379882",
+     "label": "laboratory chemical"
+    }
+   ]
+  },
+  {
+   "use": "Q193237",
+   "items": 80,
+   "labels": {
+    "en": "fungicide",
+    "ru": "фунгициды",
+    "uk": "фунгіциди"
+   },
+   "classes": [
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    },
+    {
+     "id": "Q902296",
+     "label": "phytopharmaceuticals"
+    }
+   ]
+  },
+  {
+   "use": "Q189720",
+   "items": 69,
+   "labels": {
+    "en": "dye",
+    "uk": "барвник",
+    "ru": "красители"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q214609",
+     "label": "material"
+    },
+    {
+     "id": "Q911922",
+     "label": "colourant"
+    }
+   ]
+  },
+  {
+   "use": "Q753009",
+   "items": 54,
+   "labels": {
+    "en": "food coloring",
+    "ru": "пищевой краситель",
+    "uk": "харчовий барвник"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q189720",
+     "label": "dye"
+    }
+   ]
+  },
+  {
+   "use": "Q25326509",
+   "items": 45,
+   "labels": {
+    "en": "chemical probe"
+   },
+   "classes": [
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    }
+   ]
+  },
+  {
+   "use": "Q50377184",
+   "items": 41,
+   "labels": {
+    "en": "industrial fungicides"
+   },
+   "classes": [
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    },
+    {
+     "id": "Q193237",
+     "label": "fungicide"
+    }
+   ]
+  },
+  {
+   "use": "Q266790",
+   "items": 23,
+   "labels": {
+    "en": "refrigerant",
+    "ru": "холодильный агент",
+    "uk": "холодоагент"
+   },
+   "classes": [
+    {
+     "id": "Q1056832",
+     "label": "coolant"
+    },
+    {
+     "id": "Q1475443",
+     "label": "heat-transfer media"
+    },
+    {
+     "id": "Q217236",
+     "label": "working fluid"
+    }
+   ]
+  },
+  {
+   "use": "Q898753",
+   "items": 23,
+   "labels": {
+    "en": "acidity regulator",
+    "ru": "регулятор кислотности",
+    "uk": "регулятор кислотності"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q924146",
+   "items": 19,
+   "labels": {
+    "en": "rodenticide",
+    "ru": "зооцид"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q50413986",
+     "label": "specialty use of chemicals"
+    },
+    {
+     "id": "Q10861296",
+     "label": "zoocide"
+    },
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    }
+   ]
+  },
+  {
+   "use": "Q8386",
+   "items": 19,
+   "labels": {
+    "en": "drug",
+    "ru": "биологически активные вещества",
+    "uk": "біологічно активна речовина"
+   },
+   "classes": [
+    {
+     "id": "Q409205",
+     "label": "xenobiotic"
+    }
+   ]
+  },
+  {
+   "use": "Q334637",
+   "items": 18,
+   "labels": {
+    "en": "detergent",
+    "uk": "мийний засіб",
+    "ru": "моющее средство"
+   },
+   "classes": [
+    {
+     "id": "Q1069267",
+     "label": "chemical product"
+    },
+    {
+     "id": "Q191154",
+     "label": "surfactant"
+    },
+    {
+     "id": "Q1974312",
+     "label": "cleaning product"
+    }
+   ]
+  },
+  {
+   "use": "Q146505",
+   "items": 18,
+   "labels": {
+    "en": "solvent",
+    "ru": "растворитель",
+    "uk": "розчинник"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q4897819",
+     "label": "role"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q898745",
+   "items": 15,
+   "labels": {
+    "en": "flavor enhancer",
+    "ru": "усилитель вкуса"
+   },
+   "classes": [
+    {
+     "id": "Q15812117",
+     "label": "flavoring"
+    },
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q6509670",
+   "items": 15,
+   "labels": {
+    "en": "food preservative",
+    "uk": "консерванти"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q274579",
+     "label": "preservative"
+    }
+   ]
+  },
+  {
+   "use": "Q902863",
+   "items": 14,
+   "labels": {
+    "en": "flame retardant",
+    "ru": "антипирен",
+    "uk": "антипірен"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q3030569",
+     "label": "protective device"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q161179",
+   "items": 14,
+   "labels": {
+    "en": "pigment",
+    "ru": "пигмент",
+    "uk": "пігмент"
+   },
+   "classes": [
+    {
+     "id": "Q911922",
+     "label": "colourant"
+    }
+   ]
+  },
+  {
+   "use": "Q3400794",
+   "items": 13,
+   "labels": {
+    "en": "sweetener",
+    "uk": "підсолоджувачі",
+    "ru": "подсластитель"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q2596997",
+     "label": "condiment"
+    },
+    {
+     "id": "Q898745",
+     "label": "flavor enhancer"
+    }
+   ]
+  },
+  {
+   "use": "Q30032115",
+   "items": 13,
+   "labels": {
+    "en": "biological research",
+    "ru": "биологические исследования",
+    "uk": "біологічні дослідження"
+   },
+   "classes": [
+    {
+     "id": "Q42240",
+     "label": "research"
+    }
+   ]
+  },
+  {
+   "use": "Q416014",
+   "items": 12,
+   "labels": {
+    "en": "acaricide",
+    "uk": "Акарициди",
+    "ru": "Акарициды"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q10861296",
+     "label": "zoocide"
+    },
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    }
+   ]
+  },
+  {
+   "use": "Q35456",
+   "items": 12,
+   "labels": {
+    "en": "WHO essential medicines",
+    "uk": "необхідні ліки",
+    "ru": "основное лекарство"
+   },
+   "classes": [
+    {
+     "id": "Q2585617",
+     "label": "drug class"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    }
+   ]
+  },
+  {
+   "use": "Q133948",
+   "items": 11,
+   "labels": {
+    "en": "antioxidant",
+    "uk": "антиоксиданти",
+    "ru": "антиоксиданты"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q3271540",
+     "label": "mechanism of action"
+    },
+    {
+     "id": "Q50380088",
+     "label": "protective agent"
+    }
+   ]
+  },
+  {
+   "use": "Q4742080",
+   "items": 10,
+   "labels": {
+    "en": "amebicide"
+   },
+   "classes": [
+    {
+     "id": "Q582559",
+     "label": "antiprotozoal"
+    }
+   ]
+  },
+  {
+   "use": "Q902638",
+   "items": 10,
+   "labels": {
+    "en": "excipient",
+    "ru": "вспомогательное вещество",
+    "uk": "допоміжні речовини"
+   },
+   "classes": [
+    {
+     "id": "Q350176",
+     "label": "additive"
+    },
+    {
+     "id": "Q50430121",
+     "label": "pharmaceutic aid"
+    },
+    {
+     "id": "Q50430193",
+     "label": "pharmaceutical vehicle"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q131656",
+   "items": 10,
+   "labels": {
+    "en": "pesticide",
+    "ru": "пестицид",
+    "uk": "пестицид"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q17154431",
+     "label": "mode of toxic action"
+    },
+    {
+     "id": "Q2742406",
+     "label": "biological agent"
+    },
+    {
+     "id": "Q2746959",
+     "label": "agrochemical"
+    },
+    {
+     "id": "Q864939",
+     "label": "biocide"
+    }
+   ]
+  },
+  {
+   "use": "Q827658",
+   "items": 9,
+   "labels": {
+    "en": "sunscreen",
+    "ru": "солнцезащитный крем",
+    "uk": "сонцезахисний крем"
+   },
+   "classes": [
+    {
+     "id": "Q11498931",
+     "label": "radiation protection agent"
+    },
+    {
+     "id": "Q131207",
+     "label": "cosmetics"
+    },
+    {
+     "id": "Q1809112",
+     "label": "dermatologic drug"
+    },
+    {
+     "id": "Q97576718",
+     "label": "Sun protection"
+    }
+   ]
+  },
+  {
+   "use": "Q662959",
+   "items": 7,
+   "labels": {
+    "en": "blister agent",
+    "ru": "Везикант",
+    "uk": "Отруйні речовини шкірно-наривної дії"
+   },
+   "classes": [
+    {
+     "id": "Q21973549",
+     "label": "chemical warfare agent"
+    }
+   ]
+  },
+  {
+   "use": "Q910212",
+   "items": 7,
+   "labels": {
+    "en": "plasticizer",
+    "ru": "пластификаторы",
+    "uk": "пластифікатор"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    },
+    {
+     "id": "Q37931493",
+     "label": "film former"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    },
+    {
+     "id": "Q907356",
+     "label": "emulsifier"
+    }
+   ]
+  },
+  {
+   "use": "Q2612896",
+   "items": 7,
+   "labels": {
+    "en": "nerve agent",
+    "uk": "Бойові отруйні речовини нервово-паралітичної дії",
+    "ru": "Нервно-паралитические отравляющие вещества"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    },
+    {
+     "id": "Q21973549",
+     "label": "chemical warfare agent"
+    }
+   ]
+  },
+  {
+   "use": "Q18211401",
+   "items": 7,
+   "labels": {
+    "en": "V-agents",
+    "ru": "V-газы"
+   },
+   "classes": [
+    {
+     "id": "Q2612896",
+     "label": "nerve agent"
+    },
+    {
+     "id": "Q407752",
+     "label": "neurotoxin"
+    }
+   ]
+  },
+  {
+   "use": "Q3535009",
+   "items": 6,
+   "labels": {
+    "en": "nuclear reactor coolant",
+    "ru": "теплоноситель ядерного реактора",
+    "uk": "теплоносій ядерного реактора"
+   },
+   "classes": [
+    {
+     "id": "Q1056832",
+     "label": "coolant"
+    }
+   ]
+  },
+  {
+   "use": "Q901537",
+   "items": 6,
+   "labels": {
+    "en": "molluscicide",
+    "ru": "Моллюскоциды"
+   },
+   "classes": [
+    {
+     "id": "Q10861296",
+     "label": "zoocide"
+    },
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    }
+   ]
+  },
+  {
+   "use": "Q50414107",
+   "items": 6,
+   "labels": {
+    "en": "fixative"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    }
+   ]
+  },
+  {
+   "use": "Q626292",
+   "items": 6,
+   "labels": {
+    "en": "non-nutritive sweetener",
+    "uk": "Підсолоджувачі",
+    "ru": "сахарозаменители"
+   },
+   "classes": [
+    {
+     "id": "Q11302381",
+     "label": "imitation food"
+    },
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q3400794",
+     "label": "sweetener"
+    }
+   ]
+  },
+  {
+   "use": "Q910391",
+   "items": 6,
+   "labels": {
+    "en": "nematicide",
+    "ru": "Нематоциды"
+   },
+   "classes": [
+    {
+     "id": "Q4774981",
+     "label": "antinematodal agent"
+    },
+    {
+     "id": "Q902296",
+     "label": "phytopharmaceuticals"
+    }
+   ]
+  },
+  {
+   "use": "Q12870",
+   "items": 6,
+   "labels": {
+    "en": "explosive chemicals",
+    "ru": "взрывчатое вещество",
+    "uk": "вибухова речовина"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q5376832",
+     "label": "energetic material"
+    },
+    {
+     "id": "Q757138",
+     "label": "hazardous substances"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q726460",
+   "items": 6,
+   "labels": {
+    "en": "anticaking agent"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q1779868",
+   "items": 5,
+   "labels": {
+    "en": "combination drug",
+    "ru": "комбинированное лекарство",
+    "uk": "Комбінований препарат"
+   },
+   "classes": [
+    {
+     "id": "Q130705900",
+     "label": "type of medical treatment"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q169336",
+     "label": "mixture"
+    },
+    {
+     "id": "Q72070508",
+     "label": "group or class of chemical entities"
+    }
+   ]
+  },
+  {
+   "use": "Q145958",
+   "items": 5,
+   "labels": {
+    "en": "polyimide",
+    "ru": "Полиимиды"
+   },
+   "classes": [
+    {
+     "id": "Q47154513",
+     "label": "structural class of chemical entities"
+    },
+    {
+     "id": "Q407944",
+     "label": "imide"
+    },
+    {
+     "id": "Q81163",
+     "label": "polymer"
+    },
+    {
+     "id": "Q99600509",
+     "label": "organic polymer"
+    }
+   ]
+  },
+  {
+   "use": "Q113813711",
+   "items": 5,
+   "labels": {
+    "en": "coin type",
+    "uk": "тип монети",
+    "ru": "тип монеты"
+   },
+   "classes": [
+    {
+     "id": "Q19478619",
+     "label": "metaclass"
+    },
+    {
+     "id": "Q21146257",
+     "label": "type"
+    }
+   ]
+  },
+  {
+   "use": "Q41207",
+   "items": 5,
+   "labels": {
+    "en": "coin",
+    "ru": "монета",
+    "uk": "монета"
+   },
+   "classes": [
+    {
+     "id": "Q113813711",
+     "label": "coin type"
+    },
+    {
+     "id": "Q116035976",
+     "label": "monetiform object"
+    },
+    {
+     "id": "Q2342494",
+     "label": "collectable"
+    },
+    {
+     "id": "Q693464",
+     "label": "cash"
+    },
+    {
+     "id": "Q860861",
+     "label": "sculpture"
+    }
+   ]
+  },
+  {
+   "use": "Q28948212",
+   "items": 5,
+   "labels": {
+    "en": "lachrymatory agent",
+    "ru": "слезоточивый агент",
+    "uk": "сльозоточивий засіб"
+   },
+   "classes": [
+    {
+     "id": "Q2142251",
+     "label": "irritant"
+    }
+   ]
+  },
+  {
+   "use": "Q28319808",
+   "items": 5,
+   "labels": {
+    "en": "chlorine-releasing compound"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q35456",
+     "label": "WHO essential medicines"
+    },
+    {
+     "id": "Q187689",
+     "label": "oxidizing agent"
+    },
+    {
+     "id": "Q72695611",
+     "label": "chlorine compound"
+    }
+   ]
+  },
+  {
+   "use": "Q83323",
+   "items": 5,
+   "labels": {
+    "en": "fertilizer",
+    "uk": "добрива",
+    "ru": "удобрение"
+   },
+   "classes": [
+    {
+     "id": "Q115922789",
+     "label": "gardening item"
+    },
+    {
+     "id": "Q2746959",
+     "label": "agrochemical"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q1340459",
+   "items": 5,
+   "labels": {
+    "en": "repellent",
+    "uk": "репеленти",
+    "ru": "репеллент"
+   },
+   "classes": [
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    },
+    {
+     "id": "Q50380088",
+     "label": "protective agent"
+    }
+   ]
+  },
+  {
+   "use": "Q679692",
+   "items": 4,
+   "labels": {
+    "en": "biopharmaceutical",
+    "ru": "биологический препарат",
+    "uk": "біологічний препарат"
+   },
+   "classes": [
+    {
+     "id": "Q2585617",
+     "label": "drug class"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q67008917",
+     "label": "biological products"
+    }
+   ]
+  },
+  {
+   "use": "Q187689",
+   "items": 4,
+   "labels": {
+    "en": "oxidizing agent",
+    "ru": "окислитель",
+    "uk": "окисник"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q4897819",
+     "label": "role"
+    },
+    {
+     "id": "Q1231592",
+     "label": "electron acceptor"
+    },
+    {
+     "id": "Q3775643",
+     "label": "comburent"
+    },
+    {
+     "id": "Q50379880",
+     "label": "noxa"
+    }
+   ]
+  },
+  {
+   "use": "Q5421154",
+   "items": 4,
+   "labels": {
+    "en": "experimental drug"
+   },
+   "classes": [
+    {
+     "id": "Q12140",
+     "label": "medication"
+    }
+   ]
+  },
+  {
+   "use": "Q742487",
+   "items": 4,
+   "labels": {
+    "en": "nootropic",
+    "ru": "ноотроп",
+    "uk": "ноотропні препарати"
+   },
+   "classes": [
+    {
+     "id": "Q41014950",
+     "label": "ChEBI Ontology term"
+    },
+    {
+     "id": "Q50429917",
+     "label": "central nervous system agent"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q2151963",
+   "items": 4,
+   "labels": {
+    "en": "aroma compound",
+    "ru": "душистые вещества",
+    "uk": "запашні речовини"
+   },
+   "classes": [
+    {
+     "id": "Q131929187",
+     "label": "functional use categories"
+    },
+    {
+     "id": "Q22981361",
+     "label": "volatile chemical substance"
+    },
+    {
+     "id": "Q2424752",
+     "label": "product"
+    }
+   ]
+  },
+  {
+   "use": "Q2397199",
+   "items": 4,
+   "labels": {
+    "en": "liquid rocket propellant",
+    "ru": "жидкое ракетное топливо",
+    "uk": "рідке ракетне паливо"
+   },
+   "classes": [
+    {
+     "id": "Q140478661",
+     "label": "type of fuel"
+    },
+    {
+     "id": "Q1386534",
+     "label": "liquid fuel"
+    },
+    {
+     "id": "Q287464",
+     "label": "rocket propellant"
+    }
+   ]
+  },
+  {
+   "use": "Q21973549",
+   "items": 4,
+   "labels": {
+    "en": "chemical warfare agent",
+    "ru": "боевые отравляющие вещества",
+    "uk": "бойові отруйні речовини"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q40867",
+     "label": "poison"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q1979901",
+   "items": 4,
+   "labels": {
+    "en": "perfumery",
+    "uk": "парфумерія",
+    "ru": "парфюмерия"
+   },
+   "classes": [
+    {
+     "id": "Q268592",
+     "label": "industry"
+    },
+    {
+     "id": "Q2207288",
+     "label": "craft"
+    }
+   ]
+  },
+  {
+   "use": "Q274579",
+   "items": 4,
+   "labels": {
+    "en": "preservative",
+    "uk": "консерванти",
+    "ru": "консерванты"
+   },
+   "classes": [
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q1200715",
+   "items": 4,
+   "labels": {
+    "en": "designer drug",
+    "ru": "дизайнерские наркотики",
+    "uk": "конструкторський наркотик"
+   },
+   "classes": [
+    {
+     "id": "Q3706669",
+     "label": "psychoactive drug"
+    },
+    {
+     "id": "Q8386",
+     "label": "drug"
+    }
+   ]
+  },
+  {
+   "use": "Q906629",
+   "items": 4,
+   "labels": {
+    "en": "nitrogen fertilizer",
+    "uk": "азотні добрива",
+    "ru": "азотные удобрения"
+   },
+   "classes": [
+    {
+     "id": "Q83323",
+     "label": "fertilizer"
+    }
+   ]
+  },
+  {
+   "use": "Q11587",
+   "items": 4,
+   "labels": {
+    "en": "bleach",
+    "uk": "вибілювання",
+    "ru": "отбеливатель"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q73984",
+     "label": "disinfectant"
+    },
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q1974312",
+     "label": "cleaning product"
+    },
+    {
+     "id": "Q274493",
+     "label": "antiseptic"
+    }
+   ]
+  },
+  {
+   "use": "Q98637450",
+   "items": 4,
+   "labels": {
+    "en": "synergist"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q42501",
+   "items": 4,
+   "labels": {
+    "en": "fuel",
+    "uk": "паливо",
+    "ru": "топливо"
+   },
+   "classes": [
+    {
+     "id": "Q112234259",
+     "label": "source type"
+    },
+    {
+     "id": "Q135412187",
+     "label": "resource type"
+    },
+    {
+     "id": "Q137424905",
+     "label": "type of material"
+    },
+    {
+     "id": "Q5376832",
+     "label": "energetic material"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q1408137",
+   "items": 4,
+   "labels": {
+    "en": "lifting gas",
+    "ru": "подъёмный газ"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q11432",
+     "label": "gas"
+    }
+   ]
+  },
+  {
+   "use": "Q2826769",
+   "items": 3,
+   "labels": {
+    "en": "buffering agent"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q1079788",
+     "label": "solute"
+    },
+    {
+     "id": "Q898753",
+     "label": "acidity regulator"
+    }
+   ]
+  },
+  {
+   "use": "Q350176",
+   "items": 3,
+   "labels": {
+    "en": "additive",
+    "ru": "добавка",
+    "uk": "додаток"
+   },
+   "classes": [
+    {
+     "id": "Q10683158",
+     "label": "substance"
+    }
+   ]
+  },
+  {
+   "use": "Q483610",
+   "items": 3,
+   "labels": {
+    "en": "chemical warfare",
+    "ru": "Боевые отравляющие вещества",
+    "uk": "хімічна зброя"
+   },
+   "classes": [
+    {
+     "id": "Q12786121",
+     "label": "warfare"
+    }
+   ]
+  },
+  {
+   "use": "Q65967059",
+   "items": 3,
+   "labels": {
+    "en": "ecological crop protection"
+   },
+   "classes": [
+    {
+     "id": "Q1914636",
+     "label": "activity"
+    },
+    {
+     "id": "Q20113959",
+     "label": "nature conservation"
+    },
+    {
+     "id": "Q2306047",
+     "label": "pest control"
+    }
+   ]
+  },
+  {
+   "use": "Q3564138",
+   "items": 3,
+   "labels": {
+    "en": "household chemicals",
+    "ru": "бытовая химия",
+    "uk": "побутова хімія"
+   },
+   "classes": [
+    {
+     "id": "Q115922519",
+     "label": "household supply"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    },
+    {
+     "id": "Q868404",
+     "label": "final good"
+    }
+   ]
+  },
+  {
+   "use": "Q221033",
+   "items": 3,
+   "labels": {
+    "en": "nuclear poison",
+    "ru": "Иодная яма",
+    "uk": "Ядерна отрута"
+   },
+   "classes": [
+    {
+     "id": "Q35758",
+     "label": "matter"
+    }
+   ]
+  },
+  {
+   "use": "Q83437",
+   "items": 3,
+   "labels": {
+    "en": "gemstone",
+    "uk": "дорогоцінне каміння",
+    "ru": "поделочный камень"
+   },
+   "classes": [
+    {
+     "id": "Q22731",
+     "label": "stone"
+    },
+    {
+     "id": "Q7946",
+     "label": "mineral"
+    }
+   ]
+  },
+  {
+   "use": "Q1879770",
+   "items": 3,
+   "labels": {
+    "en": "fire extinguishing agent",
+    "uk": "вогнегасна речовина"
+   },
+   "classes": [
+    {
+     "id": "Q1287168",
+     "label": "fire suppression system"
+    },
+    {
+     "id": "Q214609",
+     "label": "material"
+    }
+   ]
+  },
+  {
+   "use": "Q110314997",
+   "items": 3,
+   "labels": {
+    "en": "curing agent"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q81614",
+   "items": 3,
+   "labels": {
+    "en": "hypergolic propellant",
+    "uk": "Гіперголічний пропелент"
+   },
+   "classes": [
+    {
+     "id": "Q135011446",
+     "label": "bipropellant"
+    }
+   ]
+  },
+  {
+   "use": "Q1056832",
+   "items": 3,
+   "labels": {
+    "en": "coolant",
+    "ru": "охлаждающая жидкость",
+    "uk": "охолоджуюча рідина"
+   },
+   "classes": [
+    {
+     "id": "Q50413986",
+     "label": "specialty use of chemicals"
+    },
+    {
+     "id": "Q11435",
+     "label": "liquid"
+    },
+    {
+     "id": "Q1475443",
+     "label": "heat-transfer media"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q300951",
+   "items": 3,
+   "labels": {
+    "en": "pH indicator",
+    "uk": "Кислотно-основні індикатори",
+    "ru": "Кислотно-основные индикаторы"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    },
+    {
+     "id": "Q2200407",
+     "label": "chemical indicator"
+    }
+   ]
+  },
+  {
+   "use": "Q50430004",
+   "items": 3,
+   "labels": {
+    "en": "filaricide"
+   },
+   "classes": [
+    {
+     "id": "Q4774981",
+     "label": "antinematodal agent"
+    }
+   ]
+  },
+  {
+   "use": "Q274083",
+   "items": 3,
+   "labels": {
+    "en": "antacid",
+    "uk": "антацид",
+    "ru": "Антацид"
+   },
+   "classes": [
+    {
+     "id": "Q2608633",
+     "label": "drugs for acid-related disorders"
+    },
+    {
+     "id": "Q3271540",
+     "label": "mechanism of action"
+    },
+    {
+     "id": "Q50377202",
+     "label": "gastrointestinal agent"
+    }
+   ]
+  },
+  {
+   "use": "Q995634",
+   "items": 2,
+   "labels": {
+    "en": "sunless tanning",
+    "ru": "Автозагар",
+    "uk": "Автозасмага"
+   },
+   "classes": [
+    {
+     "id": "Q117207481",
+     "label": "tanning product"
+    },
+    {
+     "id": "Q131207",
+     "label": "cosmetics"
+    },
+    {
+     "id": "Q67986719",
+     "label": "skin dyeing"
+    }
+   ]
+  },
+  {
+   "use": "Q353743",
+   "items": 2,
+   "labels": {
+    "en": "permanent magnet",
+    "ru": "постоянный магнит"
+   },
+   "classes": [
+    {
+     "id": "Q50002046",
+     "label": "type of magnets"
+    },
+    {
+     "id": "Q11421",
+     "label": "magnet"
+    }
+   ]
+  },
+  {
+   "use": "Q469842",
+   "items": 2,
+   "labels": {
+    "en": "flour treatment agent"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q3706669",
+   "items": 2,
+   "labels": {
+    "en": "psychoactive drug",
+    "uk": "психоактивна речовина",
+    "ru": "психоактивное вещество"
+   },
+   "classes": [
+    {
+     "id": "Q2585617",
+     "label": "drug class"
+    },
+    {
+     "id": "Q50429917",
+     "label": "central nervous system agent"
+    },
+    {
+     "id": "Q8386",
+     "label": "drug"
+    }
+   ]
+  },
+  {
+   "use": "Q1974312",
+   "items": 2,
+   "labels": {
+    "en": "cleaning product",
+    "uk": "очисник",
+    "ru": "чистящее средство"
+   },
+   "classes": [
+    {
+     "id": "Q3564138",
+     "label": "household chemicals"
+    }
+   ]
+  },
+  {
+   "use": "Q372301",
+   "items": 2,
+   "labels": {
+    "en": "abrasive",
+    "uk": "абразив",
+    "ru": "абразивные материалы и абразивная обработка"
+   },
+   "classes": [
+    {
+     "id": "Q214609",
+     "label": "material"
+    }
+   ]
+  },
+  {
+   "use": "Q37756",
+   "items": 2,
+   "labels": {
+    "en": "alloy",
+    "ru": "сплав",
+    "uk": "сплави"
+   },
+   "classes": [
+    {
+     "id": "Q87491079",
+     "label": "numismatic term"
+    },
+    {
+     "id": "Q1924900",
+     "label": "metallic material"
+    },
+    {
+     "id": "Q5447188",
+     "label": "solution"
+    }
+   ]
+  },
+  {
+   "use": "Q439099",
+   "items": 2,
+   "labels": {
+    "en": "polymer stabilizer"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    },
+    {
+     "id": "Q274579",
+     "label": "preservative"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    },
+    {
+     "id": "Q910592",
+     "label": "stabilizer"
+    }
+   ]
+  },
+  {
+   "use": "Q73984",
+   "items": 2,
+   "labels": {
+    "en": "disinfectant",
+    "ru": "дезинфицирующее средство",
+    "uk": "дезінфектант"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q50377176",
+     "label": "anti-infective agent"
+    }
+   ]
+  },
+  {
+   "use": "Q3503392",
+   "items": 2,
+   "labels": {
+    "en": "electroplating",
+    "ru": "гальванизация",
+    "uk": "гальваностегія"
+   },
+   "classes": [
+    {
+     "id": "Q10843872",
+     "label": "process"
+    },
+    {
+     "id": "Q1193988",
+     "label": "plating"
+    },
+    {
+     "id": "Q134984300",
+     "label": ""
+    },
+    {
+     "id": "Q1564871",
+     "label": "coating"
+    },
+    {
+     "id": "Q64403",
+     "label": "electrolysis"
+    },
+    {
+     "id": "Q6456484",
+     "label": "electrotyping"
+    }
+   ]
+  },
+  {
+   "use": "Q7168157",
+   "items": 2,
+   "labels": {
+    "en": "perfluorocarbon tracer"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q15835484",
+     "label": "tracer"
+    },
+    {
+     "id": "Q23305225",
+     "label": "perfluorocarbon"
+    }
+   ]
+  },
+  {
+   "use": "Q3382072",
+   "items": 2,
+   "labels": {
+    "en": "herbicide safener"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q4868978",
+   "items": 2,
+   "labels": {
+    "en": "bath salts",
+    "ru": "соли (наркотики)",
+    "uk": "Солі для ванн"
+   },
+   "classes": [
+    {
+     "id": "Q1200715",
+     "label": "designer drug"
+    },
+    {
+     "id": "Q3706669",
+     "label": "psychoactive drug"
+    },
+    {
+     "id": "Q7632116",
+     "label": "cathinone"
+    }
+   ]
+  },
+  {
+   "use": "Q503288",
+   "items": 2,
+   "labels": {
+    "en": "antifreeze",
+    "uk": "антифриз",
+    "ru": "Антифриз"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q1056832",
+     "label": "coolant"
+    },
+    {
+     "id": "Q11435",
+     "label": "liquid"
+    },
+    {
+     "id": "Q2424752",
+     "label": "product"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q2245999",
+   "items": 2,
+   "labels": {
+    "en": "ceramic flux",
+    "uk": "керамічний флюс"
+   },
+   "classes": []
+  },
+  {
+   "use": "Q101401",
+   "items": 2,
+   "labels": {
+    "en": "bell",
+    "uk": "дзвін",
+    "ru": "колокол"
+   },
+   "classes": [
+    {
+     "id": "Q1254773",
+     "label": "family of musical instruments"
+    },
+    {
+     "id": "Q55721729",
+     "label": "percussion vessel"
+    },
+    {
+     "id": "Q838948",
+     "label": "work of art"
+    }
+   ]
+  },
+  {
+   "use": "Q60915",
+   "items": 2,
+   "labels": {
+    "en": "fumigation",
+    "ru": "Фумигация",
+    "uk": "фумігація"
+   },
+   "classes": [
+    {
+     "id": "Q2306047",
+     "label": "pest control"
+    }
+   ]
+  },
+  {
+   "use": "Q2356542",
+   "items": 2,
+   "labels": {
+    "en": "chemical reagent",
+    "uk": "аналітичний реагент",
+    "ru": "химический реактив"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q60449655",
+   "items": 2,
+   "labels": {
+    "en": "food thickener",
+    "uk": "загусник",
+    "ru": "загуститель"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q911138",
+     "label": "thickener"
+    }
+   ]
+  },
+  {
+   "use": "Q50430131",
+   "items": 2,
+   "labels": {
+    "en": "pharmaceutical preservatives"
+   },
+   "classes": [
+    {
+     "id": "Q274579",
+     "label": "preservative"
+    },
+    {
+     "id": "Q50430121",
+     "label": "pharmaceutic aid"
+    }
+   ]
+  },
+  {
+   "use": "Q27949287",
+   "items": 2,
+   "labels": {
+    "en": "polar protic solvent"
+   },
+   "classes": [
+    {
+     "id": "Q3489682",
+     "label": "polar solvent"
+    }
+   ]
+  },
+  {
+   "use": "Q27949284",
+   "items": 2,
+   "labels": {
+    "en": "polar aprotic solvent",
+    "uk": "Полярний апротонний розчинник"
+   },
+   "classes": [
+    {
+     "id": "Q3489682",
+     "label": "polar solvent"
+    }
+   ]
+  },
+  {
+   "use": "Q274493",
+   "items": 2,
+   "labels": {
+    "en": "antiseptic",
+    "ru": "антисептик",
+    "uk": "антисептики"
+   },
+   "classes": [
+    {
+     "id": "Q41014950",
+     "label": "ChEBI Ontology term"
+    },
+    {
+     "id": "Q178859",
+     "label": "antimicrobial drug"
+    },
+    {
+     "id": "Q804539",
+     "label": "bactericide"
+    }
+   ]
+  },
+  {
+   "use": "Q910044",
+   "items": 2,
+   "labels": {
+    "en": "mothball"
+   },
+   "classes": [
+    {
+     "id": "Q130249805",
+     "label": "pellet"
+    },
+    {
+     "id": "Q131656",
+     "label": "pesticide"
+    }
+   ]
+  },
+  {
+   "use": "Q85739793",
+   "items": 2,
+   "labels": {
+    "en": "adhesive remover"
+   },
+   "classes": [
+    {
+     "id": "Q63981612",
+     "label": "product category"
+    },
+    {
+     "id": "Q146505",
+     "label": "solvent"
+    },
+    {
+     "id": "Q1974312",
+     "label": "cleaning product"
+    }
+   ]
+  },
+  {
+   "use": "Q860861",
+   "items": 2,
+   "labels": {
+    "en": "sculpture",
+    "ru": "скульптура",
+    "uk": "скульптура"
+   },
+   "classes": [
+    {
+     "id": "Q116474095",
+     "label": "type of work of art"
+    },
+    {
+     "id": "Q17537576",
+     "label": "creative work"
+    },
+    {
+     "id": "Q35459920",
+     "label": "three-dimensional object"
+    },
+    {
+     "id": "Q4502142",
+     "label": "visual artwork"
+    },
+    {
+     "id": "Q8205328",
+     "label": "artificial physical object"
+    }
+   ]
+  },
+  {
+   "use": "Q1572093",
+   "items": 2,
+   "labels": {
+    "en": "Halon-based firefighting system"
+   },
+   "classes": [
+    {
+     "id": "Q1069433",
+     "label": "chemical-based firefighting system"
+    },
+    {
+     "id": "Q1495201",
+     "label": "automatic fire suppression"
+    }
+   ]
+  },
+  {
+   "use": "Q161437",
+   "items": 2,
+   "labels": {
+    "en": "ophthalmology",
+    "ru": "офтальмология",
+    "uk": "офтальмологія"
+   },
+   "classes": [
+    {
+     "id": "Q11862829",
+     "label": "academic discipline"
+    },
+    {
+     "id": "Q930752",
+     "label": "medical specialty"
+    },
+    {
+     "id": "Q11190",
+     "label": "medicine"
+    },
+    {
+     "id": "Q113129180",
+     "label": "ophthalmology and optometry"
+    }
+   ]
+  },
+  {
+   "use": "Q12385831",
+   "items": 2,
+   "labels": {
+    "en": "catalyst",
+    "ru": "катализатор",
+    "uk": "каталізатор"
+   },
+   "classes": [
+    {
+     "id": "Q131929187",
+     "label": "functional use categories"
+    },
+    {
+     "id": "Q1969448",
+     "label": "term"
+    },
+    {
+     "id": "Q35825432",
+     "label": "converter"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q1625709",
+   "items": 2,
+   "labels": {
+    "en": "wood preservation",
+    "ru": "Консервация древесины",
+    "uk": "Консервація деревини"
+   },
+   "classes": [
+    {
+     "id": "Q1479406",
+     "label": "preservation"
+    },
+    {
+     "id": "Q3356046",
+     "label": ""
+    }
+   ]
+  },
+  {
+   "use": "Q1658591",
+   "items": 2,
+   "labels": {
+    "en": "adulterant",
+    "ru": "адюльтерант"
+   },
+   "classes": [
+    {
+     "id": "Q133177856",
+     "label": "regulatory class of chemical substances"
+    },
+    {
+     "id": "Q214609",
+     "label": "material"
+    }
+   ]
+  },
+  {
+   "use": "Q12187",
+   "items": 2,
+   "labels": {
+    "en": "antibiotic",
+    "ru": "антибиотик",
+    "uk": "антибіотик"
+   },
+   "classes": [
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q178859",
+     "label": "antimicrobial drug"
+    },
+    {
+     "id": "Q50377176",
+     "label": "anti-infective agent"
+    },
+    {
+     "id": "Q804539",
+     "label": "bactericide"
+    }
+   ]
+  },
+  {
+   "use": "Q1310239",
+   "items": 2,
+   "labels": {
+    "en": "component",
+    "ru": "компонент",
+    "uk": "компонент"
+   },
+   "classes": [
+    {
+     "id": "Q96251598",
+     "label": "type of object"
+    },
+    {
+     "id": "Q13196193",
+     "label": "part"
+    },
+    {
+     "id": "Q53617489",
+     "label": "independent continuant"
+    }
+   ]
+  },
+  {
+   "use": "Q11644718",
+   "items": 2,
+   "labels": {
+    "en": "polymerization inhibitor"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q163767",
+     "label": "reaction inhibitor"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    }
+   ]
+  },
+  {
+   "use": "Q908833",
+   "items": 2,
+   "labels": {
+    "en": "raising agent",
+    "ru": "разрыхлитель пищевой",
+    "uk": "розпушувач харчовий"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q1550480",
+   "items": 2,
+   "labels": {
+    "en": "commodity chemical"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q317088",
+     "label": "commodity"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q131746",
+   "items": 2,
+   "labels": {
+    "en": "perfume",
+    "ru": "духи",
+    "uk": "парфуми"
+   },
+   "classes": [
+    {
+     "id": "Q214609",
+     "label": "material"
+    },
+    {
+     "id": "Q2424752",
+     "label": "product"
+    },
+    {
+     "id": "Q28877",
+     "label": "good/s"
+    },
+    {
+     "id": "Q131207",
+     "label": "cosmetics"
+    },
+    {
+     "id": "Q15043636",
+     "label": "fragrance"
+    },
+    {
+     "id": "Q2151963",
+     "label": "aroma compound"
+    }
+   ]
+  },
+  {
+   "use": "Q15303351",
+   "items": 2,
+   "labels": {
+    "en": "art material",
+    "ru": "материал для искусства",
+    "uk": "матеріал для мистецтва"
+   },
+   "classes": [
+    {
+     "id": "Q115923192",
+     "label": "arts and craft item"
+    },
+    {
+     "id": "Q214609",
+     "label": "material"
+    }
+   ]
+  },
+  {
+   "use": "Q95993810",
+   "items": 2,
+   "labels": {
+    "en": "antivertiginous"
+   },
+   "classes": [
+    {
+     "id": "Q12140",
+     "label": "medication"
+    }
+   ]
+  },
+  {
+   "use": "Q140592192",
+   "items": 2,
+   "labels": {
+    "en": "spray tanning"
+   },
+   "classes": [
+    {
+     "id": "Q995634",
+     "label": "sunless tanning"
+    }
+   ]
+  },
+  {
+   "use": "Q13221746",
+   "items": 2,
+   "labels": {
+    "en": "desiccant",
+    "uk": "десикант",
+    "ru": "поглотитель жидкости"
+   },
+   "classes": [
+    {
+     "id": "Q2426326",
+     "label": "scavenger"
+    },
+    {
+     "id": "Q726460",
+     "label": "anticaking agent"
+    }
+   ]
+  },
+  {
+   "use": "Q106199708",
+   "items": 2,
+   "labels": {
+    "en": "alloy superconductor",
+    "uk": "надпровідникові сплави"
+   },
+   "classes": [
+    {
+     "id": "Q119892838",
+     "label": "type of mixture of chemical entities"
+    },
+    {
+     "id": "Q16331841",
+     "label": "superconductor"
+    },
+    {
+     "id": "Q37756",
+     "label": "alloy"
+    }
+   ]
+  },
+  {
+   "use": "Q81944",
+   "items": 2,
+   "labels": {
+    "en": "cutlery",
+    "uk": "столові прибори",
+    "ru": "столовые приборы"
+   },
+   "classes": [
+    {
+     "id": "Q1310214",
+     "label": "utensil"
+    },
+    {
+     "id": "Q1521410",
+     "label": "kitchenware"
+    }
+   ]
+  },
+  {
+   "use": "Q105890643",
+   "items": 2,
+   "labels": {
+    "en": "peptide therapeutic"
+   },
+   "classes": [
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q172847",
+     "label": "peptide"
+    }
+   ]
+  },
+  {
+   "use": "Q132795276",
+   "items": 2,
+   "labels": {
+    "en": "odorant"
+   },
+   "classes": [
+    {
+     "id": "Q2151963",
+     "label": "aroma compound"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    }
+   ]
+  },
+  {
+   "use": "Q133824488",
+   "items": 2,
+   "labels": {
+    "en": "gadolinium-based contrast agent"
+   },
+   "classes": [
+    {
+     "id": "Q6717498",
+     "label": "MRI contrast agent"
+    }
+   ]
+  },
+  {
+   "use": "Q187510",
+   "items": 2,
+   "labels": {
+    "en": "rechargeable battery",
+    "uk": "електричний акумулятор",
+    "ru": "электрический аккумулятор"
+   },
+   "classes": [
+    {
+     "id": "Q209440",
+     "label": "galvanic cell"
+    },
+    {
+     "id": "Q267298",
+     "label": "battery"
+    }
+   ]
+  },
+  {
+   "use": "Q869095",
+   "items": 1,
+   "labels": {
+    "en": "brewing",
+    "ru": "пивоварение",
+    "uk": "пивоваріння"
+   },
+   "classes": [
+    {
+     "id": "Q2207288",
+     "label": "craft"
+    },
+    {
+     "id": "Q1408286",
+     "label": "production process"
+    }
+   ]
+  },
+  {
+   "use": "Q899016",
+   "items": 1,
+   "labels": {
+    "en": "hydrodesulfurization",
+    "ru": "Гидрообессеривание"
+   },
+   "classes": [
+    {
+     "id": "Q4209498",
+     "label": "desulfurization"
+    }
+   ]
+  },
+  {
+   "use": "Q904414",
+   "items": 1,
+   "labels": {
+    "en": "algaecide",
+    "ru": "Альгициды"
+   },
+   "classes": [
+    {
+     "id": "Q864939",
+     "label": "biocide"
+    }
+   ]
+  },
+  {
+   "use": "Q903539",
+   "items": 1,
+   "labels": {
+    "en": "radioactive tracer",
+    "ru": "Меченые атомы",
+    "uk": "мічені атоми"
+   },
+   "classes": [
+    {
+     "id": "Q15835484",
+     "label": "tracer"
+    }
+   ]
+  },
+  {
+   "use": "Q5164828",
+   "items": 1,
+   "labels": {
+    "en": "contact explosive"
+   },
+   "classes": [
+    {
+     "id": "Q12870",
+     "label": "explosive chemicals"
+    }
+   ]
+  },
+  {
+   "use": "Q50430226",
+   "items": 1,
+   "labels": {
+    "en": "serotonergic agent"
+   },
+   "classes": [
+    {
+     "id": "Q2585617",
+     "label": "drug class"
+    },
+    {
+     "id": "Q73112927",
+     "label": "neurotransmitter agent"
+    }
+   ]
+  },
+  {
+   "use": "Q901552",
+   "items": 1,
+   "labels": {
+    "en": "iodophor"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q107434516",
+     "label": "complex"
+    },
+    {
+     "id": "Q12547845",
+     "label": "iodine compound"
+    }
+   ]
+  },
+  {
+   "use": "Q50380088",
+   "items": 1,
+   "labels": {
+    "en": "protective agent",
+    "ru": "защитное средство"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q50379782",
+     "label": "physiological effect of drugs"
+    }
+   ]
+  },
+  {
+   "use": "Q901551",
+   "items": 1,
+   "labels": {
+    "en": "lithium iron phosphate battery",
+    "ru": "Литий-железо-фосфатный аккумулятор",
+    "uk": "Літій-залізо-фосфатний акумулятор"
+   },
+   "classes": [
+    {
+     "id": "Q73060694",
+     "label": "battery chemistry type"
+    },
+    {
+     "id": "Q2822895",
+     "label": "lithium-ion battery"
+    }
+   ]
+  },
+  {
+   "use": "Q50429956",
+   "items": 1,
+   "labels": {
+    "en": "cross-linking reagent"
+   },
+   "classes": [
+    {
+     "id": "Q50377175",
+     "label": "indicators and reagents"
+    }
+   ]
+  },
+  {
+   "use": "Q50430193",
+   "items": 1,
+   "labels": {
+    "en": "pharmaceutical vehicle"
+   },
+   "classes": [
+    {
+     "id": "Q50430121",
+     "label": "pharmaceutic aid"
+    }
+   ]
+  },
+  {
+   "use": "Q900774",
+   "items": 1,
+   "labels": {
+    "en": "redox indicator",
+    "ru": "Окислительно-восстановительные индикаторы",
+    "uk": "Окисно-відновні індикатори"
+   },
+   "classes": [
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    }
+   ]
+  },
+  {
+   "use": "Q51932686",
+   "items": 1,
+   "labels": {
+    "en": "desalination plant"
+   },
+   "classes": [
+    {
+     "id": "Q13226383",
+     "label": "facility"
+    },
+    {
+     "id": "Q1662011",
+     "label": "industrial building"
+    }
+   ]
+  },
+  {
+   "use": "Q899955",
+   "items": 1,
+   "labels": {
+    "en": "natural dye",
+    "ru": "природный краситель"
+   },
+   "classes": [
+    {
+     "id": "Q189720",
+     "label": "dye"
+    },
+    {
+     "id": "Q911922",
+     "label": "colourant"
+    }
+   ]
+  },
+  {
+   "use": "Q899702",
+   "items": 1,
+   "labels": {
+    "en": "date rape drug",
+    "uk": "Наркотик для зґвалтування",
+    "ru": "Наркотик изнасилования"
+   },
+   "classes": [
+    {
+     "id": "Q8386",
+     "label": "drug"
+    }
+   ]
+  },
+  {
+   "use": "Q9178218",
+   "items": 1,
+   "labels": {
+    "en": "radiopharmaceutical",
+    "ru": "Радиоактивные фармацевтические препараты"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q28885102",
+     "label": "pharmaceutical product"
+    },
+    {
+     "id": "Q3271540",
+     "label": "mechanism of action"
+    },
+    {
+     "id": "Q50377175",
+     "label": "indicators and reagents"
+    },
+    {
+     "id": "Q50379878",
+     "label": "diagnostic use of chemicals"
+    }
+   ]
+  },
+  {
+   "use": "Q3083172",
+   "items": 1,
+   "labels": {
+    "en": "monopropellant"
+   },
+   "classes": [
+    {
+     "id": "Q140478661",
+     "label": "type of fuel"
+    },
+    {
+     "id": "Q287464",
+     "label": "rocket propellant"
+    }
+   ]
+  },
+  {
+   "use": "Q4290",
+   "items": 1,
+   "labels": {
+    "en": "investment",
+    "ru": "инвестиция",
+    "uk": "інвестиція"
+   },
+   "classes": [
+    {
+     "id": "Q29028649",
+     "label": "economic concept"
+    },
+    {
+     "id": "Q1369832",
+     "label": "purchasing"
+    },
+    {
+     "id": "Q8187769",
+     "label": "economic activity"
+    }
+   ]
+  },
+  {
+   "use": "Q4321427",
+   "items": 1,
+   "labels": {
+    "en": "polyol sugar substitute"
+   },
+   "classes": [
+    {
+     "id": "Q4625944",
+     "label": "alditol"
+    },
+    {
+     "id": "Q49127966",
+     "label": "texturizing agent"
+    },
+    {
+     "id": "Q50430463",
+     "label": "nutritive sweetener"
+    }
+   ]
+  },
+  {
+   "use": "Q990420",
+   "items": 1,
+   "labels": {},
+   "classes": []
+  },
+  {
+   "use": "Q98164561",
+   "items": 1,
+   "labels": {
+    "en": "baking additive"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q4332246",
+   "items": 1,
+   "labels": {
+    "ru": "Озонирование",
+    "uk": "Озонування"
+   },
+   "classes": [
+    {
+     "id": "Q191618",
+     "label": "sterilization"
+    }
+   ]
+  },
+  {
+   "use": "Q43483",
+   "items": 1,
+   "labels": {
+    "en": "water well",
+    "ru": "колодец",
+    "uk": "криниця"
+   },
+   "classes": [
+    {
+     "id": "Q10713454",
+     "label": "water source"
+    },
+    {
+     "id": "Q118276030",
+     "label": "well"
+    },
+    {
+     "id": "Q867393",
+     "label": "amenity"
+    }
+   ]
+  },
+  {
+   "use": "Q4390114",
+   "items": 1,
+   "labels": {
+    "en": "bronze object",
+    "ru": "бронзовый объект"
+   },
+   "classes": [
+    {
+     "id": "Q11646939",
+     "label": "metal object"
+    }
+   ]
+  },
+  {
+   "use": "Q4456821",
+   "items": 1,
+   "labels": {
+    "en": "industrial gas",
+    "uk": "промислові гази",
+    "ru": "Технический газ"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q1069267",
+     "label": "chemical product"
+    },
+    {
+     "id": "Q11432",
+     "label": "gas"
+    },
+    {
+     "id": "Q29053737",
+     "label": "industrial chemical"
+    },
+    {
+     "id": "Q317088",
+     "label": "commodity"
+    }
+   ]
+  },
+  {
+   "use": "Q96796052",
+   "items": 1,
+   "labels": {
+    "en": "electron medium"
+   },
+   "classes": [
+    {
+     "id": "Q1183543",
+     "label": "device"
+    }
+   ]
+  },
+  {
+   "use": "Q4492152",
+   "items": 1,
+   "labels": {
+    "en": "phosforous fertilizer",
+    "uk": "фосфатні добрива",
+    "ru": "фосфорные удобрения"
+   },
+   "classes": [
+    {
+     "id": "Q3054313",
+     "label": "mineral fertiliser"
+    }
+   ]
+  },
+  {
+   "use": "Q92177948",
+   "items": 1,
+   "labels": {
+    "en": "organic pigment",
+    "ru": "органический пигмент"
+   },
+   "classes": [
+    {
+     "id": "Q161179",
+     "label": "pigment"
+    },
+    {
+     "id": "Q1783121",
+     "label": "organic matter"
+    }
+   ]
+  },
+  {
+   "use": "Q4989906",
+   "items": 1,
+   "labels": {
+    "en": "monument",
+    "uk": "пам'ятник",
+    "ru": "памятник"
+   },
+   "classes": [
+    {
+     "id": "Q811979",
+     "label": "built structure"
+    },
+    {
+     "id": "Q838948",
+     "label": "work of art"
+    }
+   ]
+  },
+  {
+   "use": "Q911854",
+   "items": 1,
+   "labels": {
+    "en": "humectant"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q902638",
+     "label": "excipient"
+    }
+   ]
+  },
+  {
+   "use": "Q909607",
+   "items": 1,
+   "labels": {
+    "en": "nitration",
+    "ru": "нитрование",
+    "uk": "Нітрування"
+   },
+   "classes": [
+    {
+     "id": "Q137796968",
+     "label": "type of chemical reaction"
+    },
+    {
+     "id": "Q648191",
+     "label": "organic reaction"
+    }
+   ]
+  },
+  {
+   "use": "Q909363",
+   "items": 1,
+   "labels": {
+    "en": "fuel gas",
+    "uk": "горючий газ",
+    "ru": "топливный газ"
+   },
+   "classes": [
+    {
+     "id": "Q140478661",
+     "label": "type of fuel"
+    },
+    {
+     "id": "Q11432",
+     "label": "gas"
+    },
+    {
+     "id": "Q42501",
+     "label": "fuel"
+    }
+   ]
+  },
+  {
+   "use": "Q48255",
+   "items": 1,
+   "labels": {
+    "en": "gel electrophoresis",
+    "uk": "гелевий електрофорез",
+    "ru": "электрофорез в полиакриламидном геле"
+   },
+   "classes": [
+    {
+     "id": "Q185098",
+     "label": "electrophoresis"
+    }
+   ]
+  },
+  {
+   "use": "Q4828343",
+   "items": 1,
+   "labels": {
+    "en": "aversive agent"
+   },
+   "classes": [
+    {
+     "id": "Q10675206",
+     "label": "ingredient"
+    },
+    {
+     "id": "Q3271540",
+     "label": "mechanism of action"
+    },
+    {
+     "id": "Q50429629",
+     "label": "abuse-deterrent formulations"
+    },
+    {
+     "id": "Q50430121",
+     "label": "pharmaceutic aid"
+    }
+   ]
+  },
+  {
+   "use": "Q908809",
+   "items": 1,
+   "labels": {
+    "en": "bodybuilding supplement",
+    "ru": "добавки для бодибилдинга"
+   },
+   "classes": [
+    {
+     "id": "Q645858",
+     "label": "dietary supplement"
+    }
+   ]
+  },
+  {
+   "use": "Q908714",
+   "items": 1,
+   "labels": {
+    "en": "truth drug",
+    "uk": "сироватка правди",
+    "ru": "сыворотка правды"
+   },
+   "classes": [
+    {
+     "id": "Q3706669",
+     "label": "psychoactive drug"
+    }
+   ]
+  },
+  {
+   "use": "Q485537",
+   "items": 1,
+   "labels": {
+    "en": "odor",
+    "ru": "запах",
+    "uk": "запах"
+   },
+   "classes": [
+    {
+     "id": "Q1293220",
+     "label": "physical phenomenon"
+    }
+   ]
+  },
+  {
+   "use": "Q907347",
+   "items": 1,
+   "labels": {
+    "en": "ferroalloy",
+    "uk": "феросплав",
+    "ru": "ферросплавы"
+   },
+   "classes": [
+    {
+     "id": "Q37756",
+     "label": "alloy"
+    },
+    {
+     "id": "Q65122087",
+     "label": "ferrous metal"
+    }
+   ]
+  },
+  {
+   "use": "Q48798855",
+   "items": 1,
+   "labels": {
+    "en": "Silver-cadmium battery",
+    "ru": "Серебряно-кадмиевый аккумулятор"
+   },
+   "classes": [
+    {
+     "id": "Q187510",
+     "label": "rechargeable battery"
+    }
+   ]
+  },
+  {
+   "use": "Q49100790",
+   "items": 1,
+   "labels": {
+    "en": "pH adjusting agent"
+   },
+   "classes": [
+    {
+     "id": "Q898753",
+     "label": "acidity regulator"
+    }
+   ]
+  },
+  {
+   "use": "Q4941478",
+   "items": 1,
+   "labels": {
+    "en": "bone-seeking radioisotope"
+   },
+   "classes": [
+    {
+     "id": "Q108883098",
+     "label": "radioisotope"
+    },
+    {
+     "id": "Q180507",
+     "label": "adaptive radiation therapy"
+    }
+   ]
+  },
+  {
+   "use": "Q829511",
+   "items": 1,
+   "labels": {
+    "en": "turbine blade",
+    "uk": "Лопаті турбіни"
+   },
+   "classes": [
+    {
+     "id": "Q839546",
+     "label": "machine element"
+    }
+   ]
+  },
+  {
+   "use": "Q838948",
+   "items": 1,
+   "labels": {
+    "en": "work of art",
+    "uk": "витвір мистецтва",
+    "ru": "произведение искусства"
+   },
+   "classes": [
+    {
+     "id": "Q133449656",
+     "label": "type of work"
+    },
+    {
+     "id": "Q139243747",
+     "label": "type of artifact"
+    },
+    {
+     "id": "Q151885",
+     "label": "concept"
+    },
+    {
+     "id": "Q16686448",
+     "label": "artificial object"
+    },
+    {
+     "id": "Q17537576",
+     "label": "creative work"
+    }
+   ]
+  },
+  {
+   "use": "Q6714735",
+   "items": 1,
+   "labels": {
+    "en": "synthetic rubber",
+    "ru": "синтетический каучук",
+    "uk": "синтетичний каучук"
+   },
+   "classes": [
+    {
+     "id": "Q3300022",
+     "label": "synthetic material"
+    },
+    {
+     "id": "Q18113858",
+     "label": "rubber"
+    },
+    {
+     "id": "Q252266",
+     "label": "elastomer"
+    },
+    {
+     "id": "Q3300022",
+     "label": "synthetic material"
+    },
+    {
+     "id": "Q60575243",
+     "label": "synthetic polymer"
+    }
+   ]
+  },
+  {
+   "use": "Q6731569",
+   "items": 1,
+   "labels": {
+    "en": "Magnetic ionic liquid"
+   },
+   "classes": [
+    {
+     "id": "Q25481880",
+     "label": "paramagnetic material"
+    },
+    {
+     "id": "Q898579",
+     "label": "ionic liquid"
+    }
+   ]
+  },
+  {
+   "use": "Q6764149",
+   "items": 1,
+   "labels": {
+    "en": "Marine Industries Limited"
+   },
+   "classes": [
+    {
+     "id": "Q15893266",
+     "label": "former entity"
+    },
+    {
+     "id": "Q16274795",
+     "label": "shipbuilding company"
+    }
+   ]
+  },
+  {
+   "use": "Q8348044",
+   "items": 1,
+   "labels": {
+    "en": "glass coloring and color marking"
+   },
+   "classes": [
+    {
+     "id": "Q1914636",
+     "label": "activity"
+    }
+   ]
+  },
+  {
+   "use": "Q6849688",
+   "items": 1,
+   "labels": {
+    "en": "contrast agent",
+    "uk": "контрастна речовина",
+    "ru": "контрастное вещество"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q7118290",
+   "items": 1,
+   "labels": {
+    "en": "PAVA spray"
+   },
+   "classes": [
+    {
+     "id": "Q15142894",
+     "label": "weapon model"
+    },
+    {
+     "id": "Q2115958",
+     "label": "incapacitating agent"
+    },
+    {
+     "id": "Q659495",
+     "label": "aerosol spray"
+    }
+   ]
+  },
+  {
+   "use": "Q83437234",
+   "items": 1,
+   "labels": {
+    "en": "bidentate ligand"
+   },
+   "classes": [
+    {
+     "id": "Q193161",
+     "label": "ligand"
+    }
+   ]
+  },
+  {
+   "use": "Q7168187",
+   "items": 1,
+   "labels": {
+    "en": "performance-enhancing substance"
+   },
+   "classes": [
+    {
+     "id": "Q50379782",
+     "label": "physiological effect of drugs"
+    },
+    {
+     "id": "Q65669378",
+     "label": "prohibited substance"
+    },
+    {
+     "id": "Q8386",
+     "label": "drug"
+    }
+   ]
+  },
+  {
+   "use": "Q7187820",
+   "items": 1,
+   "labels": {
+    "en": "photoinitiator",
+    "uk": "Фотоініціатор"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q7205",
+   "items": 1,
+   "labels": {
+    "en": "paleontology",
+    "ru": "палеонтология",
+    "uk": "палеонтологія"
+   },
+   "classes": [
+    {
+     "id": "Q11862829",
+     "label": "academic discipline"
+    },
+    {
+     "id": "Q1402508",
+     "label": "field research"
+    }
+   ]
+  },
+  {
+   "use": "Q834351",
+   "items": 1,
+   "labels": {
+    "en": "currency money",
+    "ru": "самоценные монеты"
+   },
+   "classes": [
+    {
+     "id": "Q113813711",
+     "label": "coin type"
+    },
+    {
+     "id": "Q41207",
+     "label": "coin"
+    }
+   ]
+  },
+  {
+   "use": "Q727732",
+   "items": 1,
+   "labels": {
+    "en": "thioether",
+    "ru": "Тиоэфиры",
+    "uk": "Тіоетери"
+   },
+   "classes": [
+    {
+     "id": "Q47154513",
+     "label": "structural class of chemical entities"
+    },
+    {
+     "id": "Q221205",
+     "label": "sulfide"
+    },
+    {
+     "id": "Q422785",
+     "label": "organosulfur compound"
+    }
+   ]
+  },
+  {
+   "use": "Q8454",
+   "items": 1,
+   "labels": {
+    "en": "capital punishment",
+    "uk": "смертна кара",
+    "ru": "смертная казнь"
+   },
+   "classes": [
+    {
+     "id": "Q2438541",
+     "label": "manner of death"
+    },
+    {
+     "id": "Q149086",
+     "label": "homicide"
+    },
+    {
+     "id": "Q1763090",
+     "label": "sentence"
+    },
+    {
+     "id": "Q186361",
+     "label": "punishment"
+    },
+    {
+     "id": "Q1931388",
+     "label": "cause of death"
+    },
+    {
+     "id": "Q3966286",
+     "label": "execution"
+    },
+    {
+     "id": "Q855919",
+     "label": "unnatural death"
+    }
+   ]
+  },
+  {
+   "use": "Q826629",
+   "items": 1,
+   "labels": {
+    "en": "novichok",
+    "ru": "Новичок",
+    "uk": "Новичок"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q2612896",
+     "label": "nerve agent"
+    },
+    {
+     "id": "Q407752",
+     "label": "neurotoxin"
+    }
+   ]
+  },
+  {
+   "use": "Q8204795",
+   "items": 1,
+   "labels": {
+    "en": "flavoring substance"
+   },
+   "classes": [
+    {
+     "id": "Q17339814",
+     "label": "group or class of chemical substances"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q7447756",
+   "items": 1,
+   "labels": {
+    "en": "selective androgen receptor modulator"
+   },
+   "classes": [
+    {
+     "id": "Q12140",
+     "label": "medication"
+    }
+   ]
+  },
+  {
+   "use": "Q746133",
+   "items": 1,
+   "labels": {
+    "en": "thin layer chromatography",
+    "ru": "тонкослойная хроматография",
+    "uk": "тонкошарова хроматографія"
+   },
+   "classes": [
+    {
+     "id": "Q901688",
+     "label": "liquid chromatography"
+    }
+   ]
+  },
+  {
+   "use": "Q81683",
+   "items": 1,
+   "labels": {
+    "en": "varnish",
+    "ru": "лак",
+    "uk": "лак"
+   },
+   "classes": [
+    {
+     "id": "Q1570182",
+     "label": "coating"
+    }
+   ]
+  },
+  {
+   "use": "Q80877",
+   "items": 1,
+   "labels": {
+    "en": "nuclear reactor",
+    "uk": "ядерний реактор",
+    "ru": "ядерный реактор"
+   },
+   "classes": [
+    {
+     "id": "Q115861143",
+     "label": "reactor"
+    },
+    {
+     "id": "Q1739545",
+     "label": "nuclear facility"
+    },
+    {
+     "id": "Q28692585",
+     "label": "heat source"
+    },
+    {
+     "id": "Q557685",
+     "label": "industrial plant"
+    }
+   ]
+  },
+  {
+   "use": "Q7553210",
+   "items": 1,
+   "labels": {
+    "en": "soda blasting"
+   },
+   "classes": [
+    {
+     "id": "Q917273",
+     "label": "abrasive blasting"
+    }
+   ]
+  },
+  {
+   "use": "Q756033",
+   "items": 1,
+   "labels": {
+    "en": "nonlinear optics",
+    "ru": "нелинейная оптика",
+    "uk": "нелінійна оптика"
+   },
+   "classes": [
+    {
+     "id": "Q4162444",
+     "label": "branch of physics"
+    },
+    {
+     "id": "Q14620",
+     "label": "optics"
+    }
+   ]
+  },
+  {
+   "use": "Q76797059",
+   "items": 1,
+   "labels": {
+    "en": "investigational drug"
+   },
+   "classes": [
+    {
+     "id": "Q66089252",
+     "label": "pharmaceutical preparation"
+    }
+   ]
+  },
+  {
+   "use": "Q769796",
+   "items": 1,
+   "labels": {
+    "en": "iron supplement",
+    "ru": "Препараты железа"
+   },
+   "classes": [
+    {
+     "id": "Q140051529",
+     "label": "mineral supplement"
+    },
+    {
+     "id": "Q35456",
+     "label": "WHO essential medicines"
+    }
+   ]
+  },
+  {
+   "use": "Q79529",
+   "items": 1,
+   "labels": {
+    "en": "chemical substance",
+    "ru": "химическое вещество",
+    "uk": "хімічна речовина"
+   },
+   "classes": [
+    {
+     "id": "Q10683158",
+     "label": "substance"
+    },
+    {
+     "id": "Q43460564",
+     "label": "chemical entity"
+    }
+   ]
+  },
+  {
+   "use": "Q775155",
+   "items": 1,
+   "labels": {
+    "en": "gold cyanidation"
+   },
+   "classes": [
+    {
+     "id": "Q898987",
+     "label": "separation process"
+    },
+    {
+     "id": "Q1640302",
+     "label": "hydrometallurgy"
+    },
+    {
+     "id": "Q1976854",
+     "label": "Gold extraction"
+    }
+   ]
+  },
+  {
+   "use": "Q5857145",
+   "items": 1,
+   "labels": {
+    "en": "mordant",
+    "uk": "Протрава"
+   },
+   "classes": [
+    {
+     "id": "Q46976206",
+     "label": "surface preparation material"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q533025",
+   "items": 1,
+   "labels": {
+    "en": "nutraceutical",
+    "ru": "Нутрицевтика",
+    "uk": "нутрицевтики"
+   },
+   "classes": [
+    {
+     "id": "Q645858",
+     "label": "dietary supplement"
+    }
+   ]
+  },
+  {
+   "use": "Q5334261",
+   "items": 1,
+   "labels": {
+    "en": "ectoparasiticide"
+   },
+   "classes": [
+    {
+     "id": "Q581102",
+     "label": "antiparasitic"
+    }
+   ]
+  },
+  {
+   "use": "Q898377",
+   "items": 1,
+   "labels": {
+    "en": "nickel–cadmium battery",
+    "ru": "никель-кадмиевый аккумулятор",
+    "uk": "Нікель-кадмієвий акумулятор"
+   },
+   "classes": [
+    {
+     "id": "Q73060694",
+     "label": "battery chemistry type"
+    },
+    {
+     "id": "Q187510",
+     "label": "rechargeable battery"
+    }
+   ]
+  },
+  {
+   "use": "Q898257",
+   "items": 1,
+   "labels": {
+    "ru": "пожаробезопасные покрытия"
+   },
+   "classes": [
+    {
+     "id": "Q1570182",
+     "label": "coating"
+    }
+   ]
+  },
+  {
+   "use": "Q5403495",
+   "items": 1,
+   "labels": {
+    "en": "Ethidium homodimer assay"
+   },
+   "classes": []
+  },
+  {
+   "use": "Q865663",
+   "items": 1,
+   "labels": {
+    "en": "biomaterial",
+    "ru": "биоматериал",
+    "uk": "біоматеріали"
+   },
+   "classes": [
+    {
+     "id": "Q50379874",
+     "label": "biomedical and dental material"
+    }
+   ]
+  },
+  {
+   "use": "Q5462021",
+   "items": 1,
+   "labels": {
+    "en": "flour bleaching agent"
+   },
+   "classes": [
+    {
+     "id": "Q469842",
+     "label": "flour treatment agent"
+    }
+   ]
+  },
+  {
+   "use": "Q864574",
+   "items": 1,
+   "labels": {
+    "en": "biomarker",
+    "ru": "биомаркер",
+    "uk": "біомаркер"
+   },
+   "classes": [
+    {
+     "id": "Q18208034",
+     "label": "indicator"
+    },
+    {
+     "id": "Q2393187",
+     "label": "molecular entity"
+    }
+   ]
+  },
+  {
+   "use": "Q548414",
+   "items": 1,
+   "labels": {
+    "en": "antiknock agent",
+    "uk": "Антидетонатори",
+    "ru": "антидетонаторы"
+   },
+   "classes": [
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q55353023",
+   "items": 1,
+   "labels": {
+    "en": "inorganic pigment",
+    "ru": "неорганический пигмент"
+   },
+   "classes": [
+    {
+     "id": "Q17339814",
+     "label": "group or class of chemical substances"
+    },
+    {
+     "id": "Q161179",
+     "label": "pigment"
+    }
+   ]
+  },
+  {
+   "use": "Q56604589",
+   "items": 1,
+   "labels": {
+    "en": "diamond industry",
+    "uk": "алмазна промисловість"
+   },
+   "classes": [
+    {
+     "id": "Q268592",
+     "label": "industry"
+    },
+    {
+     "id": "Q12101591",
+     "label": "extractive industry"
+    }
+   ]
+  },
+  {
+   "use": "Q572294",
+   "items": 1,
+   "labels": {
+    "en": "anthelmintic",
+    "ru": "Глистогонные средства",
+    "uk": "протиглисні засоби"
+   },
+   "classes": [
+    {
+     "id": "Q41014950",
+     "label": "ChEBI Ontology term"
+    },
+    {
+     "id": "Q581102",
+     "label": "antiparasitic"
+    }
+   ]
+  },
+  {
+   "use": "Q57842052",
+   "items": 1,
+   "labels": {
+    "en": "substituted benzene",
+    "ru": "замещённый бензол"
+   },
+   "classes": [
+    {
+     "id": "Q47154513",
+     "label": "structural class of chemical entities"
+    },
+    {
+     "id": "Q131424486",
+     "label": "aromatic hydrocarbon derivative"
+    },
+    {
+     "id": "Q19834818",
+     "label": "aromatic compound"
+    }
+   ]
+  },
+  {
+   "use": "Q5274910",
+   "items": 1,
+   "labels": {
+    "en": "dielectric gas"
+   },
+   "classes": [
+    {
+     "id": "Q11432",
+     "label": "gas"
+    },
+    {
+     "id": "Q11660269",
+     "label": "electric power systems component"
+    }
+   ]
+  },
+  {
+   "use": "Q58803",
+   "items": 1,
+   "labels": {
+    "en": "solar cell",
+    "uk": "сонячний елемент",
+    "ru": "фотоэлемент"
+   },
+   "classes": [
+    {
+     "id": "Q11585131",
+     "label": "optoelectronic device"
+    },
+    {
+     "id": "Q1753139",
+     "label": "electric power source"
+    },
+    {
+     "id": "Q1929430",
+     "label": "semiconductor diode"
+    },
+    {
+     "id": "Q215928",
+     "label": "transducer"
+    }
+   ]
+  },
+  {
+   "use": "Q60449171",
+   "items": 1,
+   "labels": {
+    "en": "food emulsifier",
+    "ru": "пищевой эмульгатор"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    },
+    {
+     "id": "Q907356",
+     "label": "emulsifier"
+    }
+   ]
+  },
+  {
+   "use": "Q863583",
+   "items": 1,
+   "labels": {
+    "en": "binder",
+    "ru": "вяжущее вещество",
+    "uk": "зв’язник"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q862571",
+   "items": 1,
+   "labels": {
+    "en": "petroleum industry",
+    "uk": "нафтова промисловість",
+    "ru": "нефтяная промышленность"
+   },
+   "classes": [
+    {
+     "id": "Q136653105",
+     "label": "type of industry"
+    },
+    {
+     "id": "Q12101591",
+     "label": "extractive industry"
+    },
+    {
+     "id": "Q4318084",
+     "label": "petroleum-gas industry"
+    }
+   ]
+  },
+  {
+   "use": "Q60540558",
+   "items": 1,
+   "labels": {
+    "en": "thawing agent",
+    "uk": "відтаювач"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q61043230",
+   "items": 1,
+   "labels": {
+    "en": "carbamate nerve agent"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q2612896",
+     "label": "nerve agent"
+    },
+    {
+     "id": "Q422899",
+     "label": "carbamate"
+    }
+   ]
+  },
+  {
+   "use": "Q631931",
+   "items": 1,
+   "labels": {
+    "en": "decorative art",
+    "uk": "декоративне мистецтво",
+    "ru": "декоративное искусство"
+   },
+   "classes": [
+    {
+     "id": "Q11862829",
+     "label": "academic discipline"
+    },
+    {
+     "id": "Q1792379",
+     "label": "art genre"
+    },
+    {
+     "id": "Q1078913",
+     "label": "plastic arts"
+    }
+   ]
+  },
+  {
+   "use": "Q851782",
+   "items": 1,
+   "labels": {
+    "en": "tableware",
+    "uk": "посуд",
+    "ru": "посуда"
+   },
+   "classes": [
+    {
+     "id": "Q1191255",
+     "label": "table set"
+    },
+    {
+     "id": "Q1521410",
+     "label": "kitchenware"
+    }
+   ]
+  },
+  {
+   "use": "Q63400180",
+   "items": 1,
+   "labels": {
+    "en": "natural dye",
+    "ru": "растительный краситель"
+   },
+   "classes": [
+    {
+     "id": "Q899955",
+     "label": "natural dye"
+    }
+   ]
+  },
+  {
+   "use": "Q646",
+   "items": 1,
+   "labels": {
+    "en": "thermometer",
+    "ru": "термометр",
+    "uk": "термометр"
+   },
+   "classes": [
+    {
+     "id": "Q2041172",
+     "label": "measuring instrument"
+    },
+    {
+     "id": "Q3743695",
+     "label": "meteorological instrument"
+    },
+    {
+     "id": "Q834028",
+     "label": "laboratory equipment"
+    }
+   ]
+  },
+  {
+   "use": "Q847705",
+   "items": 1,
+   "labels": {
+    "en": "sedative",
+    "ru": "Седативные средства",
+    "uk": "Суто седативні засоби"
+   },
+   "classes": [
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q50377192",
+     "label": "hypnotics and sedatives"
+    }
+   ]
+  },
+  {
+   "use": "Q649586",
+   "items": 1,
+   "labels": {
+    "en": "oil drying agent",
+    "uk": "сикативи",
+    "ru": "Сиккативы"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q3300034",
+     "label": "painting material"
+    },
+    {
+     "id": "Q110314997",
+     "label": "curing agent"
+    },
+    {
+     "id": "Q12385831",
+     "label": "catalyst"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    }
+   ]
+  },
+  {
+   "use": "Q161439",
+   "items": 1,
+   "labels": {
+    "en": "jewelry",
+    "ru": "ювелирное искусство",
+    "uk": "ювелірний виріб"
+   },
+   "classes": [
+    {
+     "id": "Q11177771",
+     "label": "artistic technique"
+    },
+    {
+     "id": "Q268592",
+     "label": "industry"
+    },
+    {
+     "id": "Q207241",
+     "label": "applied arts"
+    },
+    {
+     "id": "Q36649",
+     "label": "visual arts"
+    }
+   ]
+  },
+  {
+   "use": "Q1753576",
+   "items": 1,
+   "labels": {
+    "en": "lithium–iron disulfide battery"
+   },
+   "classes": [
+    {
+     "id": "Q73060694",
+     "label": "battery chemistry type"
+    },
+    {
+     "id": "Q107086890",
+     "label": "lithium-metal battery"
+    },
+    {
+     "id": "Q1378887",
+     "label": "primary cell"
+    },
+    {
+     "id": "Q209440",
+     "label": "galvanic cell"
+    },
+    {
+     "id": "Q267298",
+     "label": "battery"
+    }
+   ]
+  },
+  {
+   "use": "Q175233",
+   "items": 1,
+   "labels": {
+    "en": "cathode",
+    "ru": "катод",
+    "uk": "катод"
+   },
+   "classes": [
+    {
+     "id": "Q4897819",
+     "label": "role"
+    },
+    {
+     "id": "Q176140",
+     "label": "electrode"
+    }
+   ]
+  },
+  {
+   "use": "Q173412",
+   "items": 1,
+   "labels": {
+    "en": "radiocarbon dating",
+    "ru": "радиоуглеродный анализ",
+    "uk": "радіовуглецеве датування"
+   },
+   "classes": [
+    {
+     "id": "Q214753",
+     "label": "radiometric dating"
+    },
+    {
+     "id": "Q213891",
+     "label": "geochronology"
+    },
+    {
+     "id": "Q214753",
+     "label": "radiometric dating"
+    }
+   ]
+  },
+  {
+   "use": "Q173235",
+   "items": 1,
+   "labels": {
+    "en": "analgesic",
+    "ru": "анальгетик",
+    "uk": "анальгетики"
+   },
+   "classes": [
+    {
+     "id": "Q41014950",
+     "label": "ChEBI Ontology term"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q50429917",
+     "label": "central nervous system agent"
+    },
+    {
+     "id": "Q50430248",
+     "label": "sensory system agents"
+    }
+   ]
+  },
+  {
+   "use": "Q17147112",
+   "items": 1,
+   "labels": {
+    "en": "intravenous sodium bicarbonate"
+   },
+   "classes": [
+    {
+     "id": "Q35456",
+     "label": "WHO essential medicines"
+    },
+    {
+     "id": "Q640448",
+     "label": "intravenous infusion and defusion"
+    },
+    {
+     "id": "Q906356",
+     "label": "aqueous solution"
+    }
+   ]
+  },
+  {
+   "use": "Q170201",
+   "items": 1,
+   "labels": {
+    "en": "veterinary medicine",
+    "uk": "ветеринарія",
+    "ru": "ветеринарная медицина"
+   },
+   "classes": [
+    {
+     "id": "Q11862829",
+     "label": "academic discipline"
+    },
+    {
+     "id": "Q268592",
+     "label": "industry"
+    },
+    {
+     "id": "Q4671286",
+     "label": "academic major"
+    },
+    {
+     "id": "Q930752",
+     "label": "medical specialty"
+    },
+    {
+     "id": "Q110245063",
+     "label": "veterinary science"
+    },
+    {
+     "id": "Q11190",
+     "label": "medicine"
+    },
+    {
+     "id": "Q21012419",
+     "label": "animal care"
+    }
+   ]
+  },
+  {
+   "use": "Q1683099",
+   "items": 1,
+   "labels": {
+    "en": "household silver",
+    "ru": "серебряные столовые приборы"
+   },
+   "classes": [
+    {
+     "id": "Q11646939",
+     "label": "metal object"
+    },
+    {
+     "id": "Q369594",
+     "label": "household goods"
+    }
+   ]
+  },
+  {
+   "use": "Q162908",
+   "items": 1,
+   "labels": {
+    "en": "electrolyte",
+    "uk": "електроліти",
+    "ru": "электролит"
+   },
+   "classes": [
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    },
+    {
+     "id": "Q117316442",
+     "label": "medium"
+    }
+   ]
+  },
+  {
+   "use": "Q1754157",
+   "items": 1,
+   "labels": {
+    "en": "drain cleaner",
+    "ru": "средство для чистки труб"
+   },
+   "classes": [
+    {
+     "id": "Q1069267",
+     "label": "chemical product"
+    },
+    {
+     "id": "Q868404",
+     "label": "final good"
+    }
+   ]
+  },
+  {
+   "use": "Q160146",
+   "items": 1,
+   "labels": {
+    "en": "riot control",
+    "ru": "борьба с массовыми беспорядками",
+    "uk": "контроль натовпу"
+   },
+   "classes": [
+    {
+     "id": "Q1872073",
+     "label": "crowd control"
+    },
+    {
+     "id": "Q44554",
+     "label": "law enforcement"
+    },
+    {
+     "id": "Q623971",
+     "label": "social control"
+    }
+   ]
+  },
+  {
+   "use": "Q1601153",
+   "items": 1,
+   "labels": {
+    "en": "perfumes industry"
+   },
+   "classes": [
+    {
+     "id": "Q136653105",
+     "label": "type of industry"
+    },
+    {
+     "id": "Q112165275",
+     "label": "manufacture of perfumes and toiletries"
+    },
+    {
+     "id": "Q12752882",
+     "label": "cosmetics industry"
+    },
+    {
+     "id": "Q29585167",
+     "label": "manufacture of perfumes and toilet preparations"
+    }
+   ]
+  },
+  {
+   "use": "Q15900872",
+   "items": 1,
+   "labels": {
+    "en": "ultrasound contrast media"
+   },
+   "classes": [
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    },
+    {
+     "id": "Q6849688",
+     "label": "contrast agent"
+    }
+   ]
+  },
+  {
+   "use": "Q1570432",
+   "items": 1,
+   "labels": {
+    "en": "semiconductor device fabrication",
+    "ru": "технологический процесс в электронной промышленности",
+    "uk": "технологія виробництва напівпровідників"
+   },
+   "classes": [
+    {
+     "id": "Q2695280",
+     "label": "technique"
+    },
+    {
+     "id": "Q1408288",
+     "label": "manufacturing process"
+    }
+   ]
+  },
+  {
+   "use": "Q155640",
+   "items": 1,
+   "labels": {
+    "en": "potential energy",
+    "ru": "потенциальная энергия",
+    "uk": "потенціальна енергія"
+   },
+   "classes": [
+    {
+     "id": "Q3935690",
+     "label": "form of energy"
+    },
+    {
+     "id": "Q107715",
+     "label": "physical quantity"
+    },
+    {
+     "id": "Q184550",
+     "label": "mechanical energy"
+    }
+   ]
+  },
+  {
+   "use": "Q152763",
+   "items": 1,
+   "labels": {
+    "en": "lithium",
+    "ru": "препараты лития",
+    "uk": "сполуки літію"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q11497468",
+     "label": "antimanic agents"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    },
+    {
+     "id": "Q2622367",
+     "label": "mood stabilizer"
+    },
+    {
+     "id": "Q35456",
+     "label": "WHO essential medicines"
+    },
+    {
+     "id": "Q568",
+     "label": "lithium"
+    }
+   ]
+  },
+  {
+   "use": "Q15119237",
+   "items": 1,
+   "labels": {
+    "en": "dopant",
+    "ru": "допант",
+    "uk": "легування"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q350176",
+     "label": "additive"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q1485500",
+   "items": 1,
+   "labels": {
+    "en": "tangible good",
+    "ru": "товар",
+    "uk": "товар"
+   },
+   "classes": [
+    {
+     "id": "Q137425179",
+     "label": "type of good"
+    },
+    {
+     "id": "Q28877",
+     "label": "good/s"
+    },
+    {
+     "id": "Q337060",
+     "label": "perceptible physical object"
+    },
+    {
+     "id": "Q61964280",
+     "label": "inanimate object"
+    }
+   ]
+  },
+  {
+   "use": "Q1875049",
+   "items": 1,
+   "labels": {},
+   "classes": [
+    {
+     "id": "Q1495119",
+     "label": "gas mixture"
+    }
+   ]
+  },
+  {
+   "use": "Q1978365",
+   "items": 1,
+   "labels": {
+    "en": "nettle agent",
+    "uk": "Отруйні речовини кропивної дії"
+   },
+   "classes": []
+  },
+  {
+   "use": "Q1969361",
+   "items": 1,
+   "labels": {
+    "en": "quantum dot display",
+    "uk": "Дисплей на квантових точках",
+    "ru": "Дисплей на квантовых точках"
+   },
+   "classes": [
+    {
+     "id": "Q54006339",
+     "label": "display technology"
+    }
+   ]
+  },
+  {
+   "use": "Q194523",
+   "items": 1,
+   "labels": {
+    "en": "nuclear fuel",
+    "uk": "ядерне паливо",
+    "ru": "ядерное топливо"
+   },
+   "classes": [
+    {
+     "id": "Q140478661",
+     "label": "type of fuel"
+    },
+    {
+     "id": "Q1522115",
+     "label": "energy source"
+    },
+    {
+     "id": "Q483674",
+     "label": "fissile material"
+    }
+   ]
+  },
+  {
+   "use": "Q193161",
+   "items": 1,
+   "labels": {
+    "en": "ligand",
+    "ru": "Лиганд",
+    "uk": "Ліганд"
+   },
+   "classes": [
+    {
+     "id": "Q4897819",
+     "label": "role"
+    }
+   ]
+  },
+  {
+   "use": "Q192127",
+   "items": 1,
+   "labels": {
+    "en": "photovoltaics",
+    "ru": "фотовольтаика",
+    "uk": "фотовольтаїка"
+   },
+   "classes": [
+    {
+     "id": "Q1483757",
+     "label": "solar power"
+    }
+   ]
+  },
+  {
+   "use": "Q191667",
+   "items": 1,
+   "labels": {
+    "en": "hydroponics",
+    "ru": "гидропоника",
+    "uk": "гідропоніка"
+   },
+   "classes": [
+    {
+     "id": "Q10843872",
+     "label": "process"
+    },
+    {
+     "id": "Q11451",
+     "label": "agriculture"
+    },
+    {
+     "id": "Q16951286",
+     "label": "controlled-environment agriculture"
+    },
+    {
+     "id": "Q48803",
+     "label": "horticulture"
+    }
+   ]
+  },
+  {
+   "use": "Q190512",
+   "items": 1,
+   "labels": {
+    "en": "tear gas",
+    "ru": "слезоточивый газ",
+    "uk": "сльозогінний газ"
+   },
+   "classes": [
+    {
+     "id": "Q124078422",
+     "label": "weapon type"
+    },
+    {
+     "id": "Q11432",
+     "label": "gas"
+    },
+    {
+     "id": "Q3639228",
+     "label": "chemical weapon"
+    },
+    {
+     "id": "Q50430156",
+     "label": "chemical riot control agents"
+    },
+    {
+     "id": "Q911881",
+     "label": "non-lethal weapon"
+    }
+   ]
+  },
+  {
+   "use": "Q190100",
+   "items": 1,
+   "labels": {
+    "en": "bearing",
+    "uk": "вальниця",
+    "ru": "подшипник"
+   },
+   "classes": [
+    {
+     "id": "Q18819626",
+     "label": "connector"
+    },
+    {
+     "id": "Q2424752",
+     "label": "product"
+    },
+    {
+     "id": "Q839546",
+     "label": "machine element"
+    }
+   ]
+  },
+  {
+   "use": "Q1434934",
+   "items": 1,
+   "labels": {
+    "en": "liquid mirror telescope",
+    "uk": "телескоп з рідким дзеркалом",
+    "ru": "телескоп с жидким зеркалом"
+   },
+   "classes": [
+    {
+     "id": "Q35221",
+     "label": "reflecting telescope"
+    }
+   ]
+  },
+  {
+   "use": "Q1865299",
+   "items": 1,
+   "labels": {
+    "en": "lithium cobalt oxide battery"
+   },
+   "classes": [
+    {
+     "id": "Q73060694",
+     "label": "battery chemistry type"
+    },
+    {
+     "id": "Q2822895",
+     "label": "lithium-ion battery"
+    }
+   ]
+  },
+  {
+   "use": "Q184191",
+   "items": 1,
+   "labels": {
+    "en": "lipstick",
+    "ru": "Губная помада",
+    "uk": "помада"
+   },
+   "classes": [
+    {
+     "id": "Q116221766",
+     "label": "lip make-up"
+    },
+    {
+     "id": "Q131207",
+     "label": "cosmetics"
+    }
+   ]
+  },
+  {
+   "use": "Q18235213",
+   "items": 1,
+   "labels": {
+    "en": "staining dye",
+    "ru": "красители для микроскопии"
+   },
+   "classes": [
+    {
+     "id": "Q911922",
+     "label": "colourant"
+    }
+   ]
+  },
+  {
+   "use": "Q18212318",
+   "items": 1,
+   "labels": {
+    "en": "magnesium sulfate",
+    "ru": "Сульфат магния",
+    "uk": "Сульфат магнію (медичне застосування)"
+   },
+   "classes": [
+    {
+     "id": "Q28885102",
+     "label": "pharmaceutical product"
+    },
+    {
+     "id": "Q35456",
+     "label": "WHO essential medicines"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    }
+   ]
+  },
+  {
+   "use": "Q180507",
+   "items": 1,
+   "labels": {
+    "en": "adaptive radiation therapy",
+    "ru": "лучевая терапия",
+    "uk": "променева терапія"
+   },
+   "classes": [
+    {
+     "id": "Q130705900",
+     "label": "type of medical treatment"
+    },
+    {
+     "id": "Q930752",
+     "label": "medical specialty"
+    },
+    {
+     "id": "Q179661",
+     "label": "therapy"
+    },
+    {
+     "id": "Q2575340",
+     "label": "treatment of cancer"
+    }
+   ]
+  },
+  {
+   "use": "Q1796959",
+   "items": 1,
+   "labels": {
+    "en": "heat sink",
+    "ru": "кулер",
+    "uk": "кулер"
+   },
+   "classes": [
+    {
+     "id": "Q1572702",
+     "label": "radiator"
+    },
+    {
+     "id": "Q839546",
+     "label": "machine element"
+    }
+   ]
+  },
+  {
+   "use": "Q179661",
+   "items": 1,
+   "labels": {
+    "en": "therapy",
+    "ru": "терапия",
+    "uk": "терапія"
+   },
+   "classes": [
+    {
+     "id": "Q55214844",
+     "label": "medical procedure type"
+    },
+    {
+     "id": "Q796194",
+     "label": "medical procedure"
+    }
+   ]
+  },
+  {
+   "use": "Q1778124",
+   "items": 1,
+   "labels": {
+    "en": "salt substitute",
+    "ru": "Солезаменитель"
+   },
+   "classes": [
+    {
+     "id": "Q11302381",
+     "label": "imitation food"
+    },
+    {
+     "id": "Q2596997",
+     "label": "condiment"
+    }
+   ]
+  },
+  {
+   "use": "Q10913792",
+   "items": 1,
+   "labels": {
+    "en": "flammable gas",
+    "ru": "горючий газ",
+    "uk": "спалимий газ"
+   },
+   "classes": [
+    {
+     "id": "Q1115533",
+     "label": "flammable object"
+    },
+    {
+     "id": "Q11432",
+     "label": "gas"
+    },
+    {
+     "id": "Q42501",
+     "label": "fuel"
+    }
+   ]
+  },
+  {
+   "use": "Q11872304",
+   "items": 1,
+   "labels": {
+    "en": "chelating agent",
+    "ru": "хелаты"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q174211",
+     "label": "organic compound"
+    }
+   ]
+  },
+  {
+   "use": "Q11498931",
+   "items": 1,
+   "labels": {
+    "en": "radiation protection agent",
+    "ru": "средство защиты от радиации"
+   },
+   "classes": [
+    {
+     "id": "Q50380088",
+     "label": "protective agent"
+    }
+   ]
+  },
+  {
+   "use": "Q11456",
+   "items": 1,
+   "labels": {
+    "en": "semiconductor",
+    "uk": "напівпровідник",
+    "ru": "полупроводник"
+   },
+   "classes": [
+    {
+     "id": "Q124291",
+     "label": "electrical conductor"
+    },
+    {
+     "id": "Q214609",
+     "label": "material"
+    },
+    {
+     "id": "Q31450902",
+     "label": ""
+    }
+   ]
+  },
+  {
+   "use": "Q11404705",
+   "items": 1,
+   "labels": {
+    "en": "quasi-drug"
+   },
+   "classes": []
+  },
+  {
+   "use": "Q1134475",
+   "items": 1,
+   "labels": {
+    "en": "flux",
+    "uk": "флюс",
+    "ru": "Флюс"
+   },
+   "classes": [
+    {
+     "id": "Q16829513",
+     "label": "material"
+    }
+   ]
+  },
+  {
+   "use": "Q113144093",
+   "items": 1,
+   "labels": {
+    "en": "Ketamine-assisted psychotherapy"
+   },
+   "classes": [
+    {
+     "id": "Q183257",
+     "label": "psychotherapy"
+    }
+   ]
+  },
+  {
+   "use": "Q11273038",
+   "items": 1,
+   "labels": {
+    "en": "Nitride semiconductor"
+   },
+   "classes": [
+    {
+     "id": "Q11456",
+     "label": "semiconductor"
+    }
+   ]
+  },
+  {
+   "use": "Q11254",
+   "items": 1,
+   "labels": {
+    "en": "table salt",
+    "uk": "кухонна сіль",
+    "ru": "поваренная соль"
+   },
+   "classes": [
+    {
+     "id": "Q10675206",
+     "label": "ingredient"
+    },
+    {
+     "id": "Q169336",
+     "label": "mixture"
+    },
+    {
+     "id": "Q25403900",
+     "label": "food ingredient"
+    },
+    {
+     "id": "Q42527",
+     "label": "spice"
+    },
+    {
+     "id": "Q6509670",
+     "label": "food preservative"
+    }
+   ]
+  },
+  {
+   "use": "Q122676743",
+   "items": 1,
+   "labels": {
+    "en": "meat curing agent"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q108784686",
+   "items": 1,
+   "labels": {
+    "en": "nereistoxins"
+   },
+   "classes": [
+    {
+     "id": "Q17339814",
+     "label": "group or class of chemical substances"
+    },
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    },
+    {
+     "id": "Q181322",
+     "label": "insecticide"
+    }
+   ]
+  },
+  {
+   "use": "Q107870616",
+   "items": 1,
+   "labels": {
+    "en": "fire-prevention agent"
+   },
+   "classes": [
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q1074814",
+   "items": 1,
+   "labels": {
+    "en": "surgical instrument",
+    "ru": "хирургический инструмент",
+    "uk": "хірургічний інструмент"
+   },
+   "classes": [
+    {
+     "id": "Q44575957",
+     "label": "surgical instrument type"
+    },
+    {
+     "id": "Q2578402",
+     "label": "hand tool"
+    },
+    {
+     "id": "Q39546",
+     "label": "physical tool"
+    },
+    {
+     "id": "Q6554101",
+     "label": "medical device"
+    }
+   ]
+  },
+  {
+   "use": "Q106575154",
+   "items": 1,
+   "labels": {
+    "en": "aprotic solvent"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q146505",
+     "label": "solvent"
+    }
+   ]
+  },
+  {
+   "use": "Q1054722",
+   "items": 1,
+   "labels": {
+    "en": "polishing",
+    "ru": "полирование",
+    "uk": "полірування"
+   },
+   "classes": [
+    {
+     "id": "Q2009662",
+     "label": "surface finishing"
+    }
+   ]
+  },
+  {
+   "use": "Q1040889",
+   "items": 1,
+   "labels": {
+    "en": "French polishing",
+    "ru": "Политура",
+    "uk": "політура"
+   },
+   "classes": [
+    {
+     "id": "Q906204",
+     "label": "impregnation"
+    }
+   ]
+  },
+  {
+   "use": "Q10359898",
+   "items": 1,
+   "labels": {
+    "en": "NMR spectroscopy",
+    "ru": "ЯМР-спектроскопия",
+    "uk": "ЯМР-спектроскопія"
+   },
+   "classes": [
+    {
+     "id": "Q4162444",
+     "label": "branch of physics"
+    },
+    {
+     "id": "Q4751159",
+     "label": "analytical chemical technique"
+    },
+    {
+     "id": "Q483666",
+     "label": "spectroscopy"
+    }
+   ]
+  },
+  {
+   "use": "Q102836",
+   "items": 1,
+   "labels": {
+    "en": "spring",
+    "ru": "пружина",
+    "uk": "пружина"
+   },
+   "classes": [
+    {
+     "id": "Q839546",
+     "label": "machine element"
+    }
+   ]
+  },
+  {
+   "use": "Q1287168",
+   "items": 1,
+   "labels": {
+    "en": "fire suppression system",
+    "uk": "система пожежогасіння"
+   },
+   "classes": [
+    {
+     "id": "Q825237",
+     "label": "safety instrumented system"
+    }
+   ]
+  },
+  {
+   "use": "Q143458",
+   "items": 1,
+   "labels": {
+    "en": "tooth bleaching",
+    "ru": "Отбеливание зубов"
+   },
+   "classes": [
+    {
+     "id": "Q2341717",
+     "label": "cosmetic dentistry"
+    },
+    {
+     "id": "Q3249551",
+     "label": "process"
+    }
+   ]
+  },
+  {
+   "use": "Q1426433",
+   "items": 1,
+   "labels": {
+    "en": "ozone therapy",
+    "ru": "Озонотерапия",
+    "uk": "Озонотерапія"
+   },
+   "classes": [
+    {
+     "id": "Q188504",
+     "label": "alternative medicine"
+    },
+    {
+     "id": "Q31338769",
+     "label": "alternative medicine"
+    }
+   ]
+  },
+  {
+   "use": "Q136092114",
+   "items": 1,
+   "labels": {
+    "en": "Spin Trap"
+   },
+   "classes": []
+  },
+  {
+   "use": "Q1354051",
+   "items": 1,
+   "labels": {
+    "en": "fire retardant",
+    "uk": "антипірен",
+    "ru": "огнетушащий состав"
+   },
+   "classes": [
+    {
+     "id": "Q1287168",
+     "label": "fire suppression system"
+    },
+    {
+     "id": "Q214609",
+     "label": "material"
+    }
+   ]
+  },
+  {
+   "use": "Q132041",
+   "items": 1,
+   "labels": {
+    "en": "key",
+    "ru": "ключ",
+    "uk": "ключ"
+   },
+   "classes": [
+    {
+     "id": "Q39546",
+     "label": "physical tool"
+    }
+   ]
+  },
+  {
+   "use": "Q131790",
+   "items": 1,
+   "labels": {
+    "en": "adhesive",
+    "ru": "клей",
+    "uk": "клей"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q1726215",
+     "label": "process material"
+    }
+   ]
+  },
+  {
+   "use": "Q131647",
+   "items": 1,
+   "labels": {
+    "en": "medal",
+    "ru": "медаль",
+    "uk": "медаль"
+   },
+   "classes": [
+    {
+     "id": "Q107467117",
+     "label": "type of award"
+    },
+    {
+     "id": "Q1065579",
+     "label": "fashion accessory"
+    },
+    {
+     "id": "Q116035976",
+     "label": "monetiform object"
+    },
+    {
+     "id": "Q140167784",
+     "label": "award item"
+    },
+    {
+     "id": "Q28886448",
+     "label": "work with multiple executions"
+    },
+    {
+     "id": "Q618779",
+     "label": "award"
+    },
+    {
+     "id": "Q838948",
+     "label": "work of art"
+    }
+   ]
+  },
+  {
+   "use": "Q131207",
+   "items": 1,
+   "labels": {
+    "en": "cosmetics",
+    "ru": "косметика",
+    "uk": "косметика"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q115922057",
+     "label": "health care or beauty item"
+    },
+    {
+     "id": "Q31273116",
+     "label": "cosmetic product"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q2002016",
+   "items": 1,
+   "labels": {
+    "en": "fastener",
+    "ru": "крепёжные изделия",
+    "uk": "кріпильні вироби"
+   },
+   "classes": [
+    {
+     "id": "Q123035442",
+     "label": "type of physical object by use"
+    },
+    {
+     "id": "Q44409287",
+     "label": "type of machine element"
+    },
+    {
+     "id": "Q609507",
+     "label": "hypernym"
+    },
+    {
+     "id": "Q18819626",
+     "label": "connector"
+    },
+    {
+     "id": "Q28935403",
+     "label": "costume component"
+    },
+    {
+     "id": "Q39546",
+     "label": "physical tool"
+    },
+    {
+     "id": "Q839546",
+     "label": "machine element"
+    }
+   ]
+  },
+  {
+   "use": "Q128535137",
+   "items": 1,
+   "labels": {
+    "en": "oxygen bleach"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q11587",
+     "label": "bleach"
+    },
+    {
+     "id": "Q187689",
+     "label": "oxidizing agent"
+    }
+   ]
+  },
+  {
+   "use": "Q12802",
+   "items": 1,
+   "labels": {
+    "en": "nuclear weapon",
+    "uk": "ядерна зброя",
+    "ru": "ядерное оружие"
+   },
+   "classes": [
+    {
+     "id": "Q124078422",
+     "label": "weapon type"
+    },
+    {
+     "id": "Q3054261",
+     "label": "explosive device"
+    },
+    {
+     "id": "Q348091",
+     "label": "nuclear technology"
+    },
+    {
+     "id": "Q3733190",
+     "label": "nuclear explosive"
+    },
+    {
+     "id": "Q49394",
+     "label": "weapon of mass destruction"
+    }
+   ]
+  },
+  {
+   "use": "Q12800011",
+   "items": 1,
+   "labels": {
+    "en": "reactant",
+    "ru": "реагент",
+    "uk": "реактант"
+   },
+   "classes": [
+    {
+     "id": "Q4897819",
+     "label": "role"
+    },
+    {
+     "id": "Q75232720",
+     "label": "participant"
+    }
+   ]
+  },
+  {
+   "use": "Q1271190",
+   "items": 1,
+   "labels": {
+    "en": "helium–cadmium laser"
+   },
+   "classes": [
+    {
+     "id": "Q38867",
+     "label": "laser"
+    }
+   ]
+  },
+  {
+   "use": "Q125191437",
+   "items": 1,
+   "labels": {
+    "en": "P2Y12 inhibitor"
+   },
+   "classes": [
+    {
+     "id": "Q11173",
+     "label": "chemical compound"
+    }
+   ]
+  },
+  {
+   "use": "Q124946",
+   "items": 1,
+   "labels": {
+    "en": "gardening",
+    "uk": "садівництво",
+    "ru": "садоводство"
+   },
+   "classes": [
+    {
+     "id": "Q47728",
+     "label": "hobby"
+    },
+    {
+     "id": "Q5687161",
+     "label": "branch of agriculture"
+    },
+    {
+     "id": "Q47728",
+     "label": "hobby"
+    },
+    {
+     "id": "Q48803",
+     "label": "horticulture"
+    }
+   ]
+  },
+  {
+   "use": "Q124291",
+   "items": 1,
+   "labels": {
+    "en": "electrical conductor",
+    "uk": "провідник",
+    "ru": "проводник"
+   },
+   "classes": [
+    {
+     "id": "Q26717101",
+     "label": "conductor"
+    }
+   ]
+  },
+  {
+   "use": "Q2984395",
+   "items": 1,
+   "labels": {
+    "en": "azo dye",
+    "uk": "Азобарвники",
+    "ru": "азокрасители"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q322251",
+     "label": "azo compound"
+    },
+    {
+     "id": "Q66732478",
+     "label": "synthetic dye"
+    }
+   ]
+  },
+  {
+   "use": "Q32489",
+   "items": 1,
+   "labels": {
+    "en": "knife",
+    "uk": "ніж",
+    "ru": "нож"
+   },
+   "classes": [
+    {
+     "id": "Q1310214",
+     "label": "utensil"
+    },
+    {
+     "id": "Q28692583",
+     "label": "bladed object"
+    },
+    {
+     "id": "Q39546",
+     "label": "physical tool"
+    },
+    {
+     "id": "Q8205328",
+     "label": "artificial physical object"
+    }
+   ]
+  },
+  {
+   "use": "Q323840",
+   "items": 1,
+   "labels": {
+    "en": "lubricant",
+    "uk": "мастило",
+    "ru": "смазочные материалы"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q169336",
+     "label": "mixture"
+    }
+   ]
+  },
+  {
+   "use": "Q31896",
+   "items": 1,
+   "labels": {
+    "en": "Nazi human experimentation",
+    "uk": "Експерименти нацистів над людьми",
+    "ru": "Эксперименты нацистов над людьми"
+   },
+   "classes": [
+    {
+     "id": "Q173462",
+     "label": "crime against humanity"
+    },
+    {
+     "id": "Q19929707",
+     "label": "unethical human experimentation"
+    }
+   ]
+  },
+  {
+   "use": "Q31887",
+   "items": 1,
+   "labels": {
+    "en": "Copper indium gallium selenide solar cells"
+   },
+   "classes": [
+    {
+     "id": "Q58803",
+     "label": "solar cell"
+    }
+   ]
+  },
+  {
+   "use": "Q3184856",
+   "items": 1,
+   "labels": {
+    "en": "substance abuse",
+    "uk": "зловживання речовинами",
+    "ru": "злоупотребление веществом"
+   },
+   "classes": [
+    {
+     "id": "Q112193867",
+     "label": "type of disease"
+    },
+    {
+     "id": "Q2057971",
+     "label": "health problem"
+    },
+    {
+     "id": "Q110207349",
+     "label": "psychoactive drug use"
+    },
+    {
+     "id": "Q1920219",
+     "label": "social issue"
+    },
+    {
+     "id": "Q83267",
+     "label": "crime"
+    }
+   ]
+  },
+  {
+   "use": "Q310491",
+   "items": 1,
+   "labels": {
+    "en": "entheogen",
+    "uk": "ентеогени",
+    "ru": "энтеоген"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q3706669",
+     "label": "psychoactive drug"
+    }
+   ]
+  },
+  {
+   "use": "Q3045009",
+   "items": 1,
+   "labels": {
+    "en": "nitrovasodilator"
+   },
+   "classes": [
+    {
+     "id": "Q4008956",
+     "label": "vasodilator agent"
+    },
+    {
+     "id": "Q603741",
+     "label": "prodrug"
+    }
+   ]
+  },
+  {
+   "use": "Q3040056",
+   "items": 1,
+   "labels": {
+    "en": "dental material",
+    "ru": "Пломбировочные материалы"
+   },
+   "classes": [
+    {
+     "id": "Q214609",
+     "label": "material"
+    },
+    {
+     "id": "Q50379874",
+     "label": "biomedical and dental material"
+    },
+    {
+     "id": "Q5259421",
+     "label": "dental instrument"
+    }
+   ]
+  },
+  {
+   "use": "Q330946",
+   "items": 1,
+   "labels": {
+    "en": "blade",
+    "uk": "клинок",
+    "ru": "лезвие"
+   },
+   "classes": [
+    {
+     "id": "Q131408",
+     "label": "wedge"
+    },
+    {
+     "id": "Q66310125",
+     "label": "nonbiological component"
+    }
+   ]
+  },
+  {
+   "use": "Q28885102",
+   "items": 1,
+   "labels": {
+    "en": "pharmaceutical product",
+    "ru": "фармацевтический продукт",
+    "uk": "фармацевтичний продукт"
+   },
+   "classes": [
+    {
+     "id": "Q12034612",
+     "label": "medicinal product"
+    }
+   ]
+  },
+  {
+   "use": "Q287464",
+   "items": 1,
+   "labels": {
+    "en": "rocket propellant",
+    "uk": "ракетне паливо",
+    "ru": "ракетное топливо"
+   },
+   "classes": [
+    {
+     "id": "Q140478661",
+     "label": "type of fuel"
+    },
+    {
+     "id": "Q1364934",
+     "label": "propellant"
+    },
+    {
+     "id": "Q337540",
+     "label": "motor fuel"
+    }
+   ]
+  },
+  {
+   "use": "Q2822895",
+   "items": 1,
+   "labels": {
+    "en": "lithium-ion battery",
+    "ru": "литий-ионный аккумулятор",
+    "uk": "літій-іонний акумулятор"
+   },
+   "classes": [
+    {
+     "id": "Q73060694",
+     "label": "battery chemistry type"
+    },
+    {
+     "id": "Q187510",
+     "label": "rechargeable battery"
+    }
+   ]
+  },
+  {
+   "use": "Q2811078",
+   "items": 1,
+   "labels": {
+    "en": "copper conductor",
+    "ru": "провод линии электропередачи"
+   },
+   "classes": [
+    {
+     "id": "Q110064679",
+     "label": "copper wire"
+    },
+    {
+     "id": "Q124291",
+     "label": "electrical conductor"
+    },
+    {
+     "id": "Q188447",
+     "label": "electrical cable"
+    }
+   ]
+  },
+  {
+   "use": "Q278061",
+   "items": 1,
+   "labels": {
+    "en": "drying",
+    "uk": "сушіння",
+    "ru": "сушка"
+   },
+   "classes": [
+    {
+     "id": "Q898987",
+     "label": "separation process"
+    },
+    {
+     "id": "Q909534",
+     "label": "mass transfer"
+    }
+   ]
+  },
+  {
+   "use": "Q27721689",
+   "items": 1,
+   "labels": {
+    "en": "Food industries"
+   },
+   "classes": [
+    {
+     "id": "Q5633421",
+     "label": "scientific journal"
+    }
+   ]
+  },
+  {
+   "use": "Q2752427",
+   "items": 1,
+   "labels": {
+    "en": "medical research",
+    "ru": "медицинское исследование",
+    "uk": "медичні дослідження"
+   },
+   "classes": [
+    {
+     "id": "Q30032115",
+     "label": "biological research"
+    },
+    {
+     "id": "Q42240",
+     "label": "research"
+    },
+    {
+     "id": "Q627436",
+     "label": "field of work"
+    }
+   ]
+  },
+  {
+   "use": "Q27492876",
+   "items": 1,
+   "labels": {
+    "ru": "Добавки и приправы вкусовые (ОКП 91 9940)"
+   },
+   "classes": [
+    {
+     "id": "Q27492417",
+     "label": ""
+    }
+   ]
+  },
+  {
+   "use": "Q3591110",
+   "items": 1,
+   "labels": {
+    "en": "lifestyle drug"
+   },
+   "classes": [
+    {
+     "id": "Q2585617",
+     "label": "drug class"
+    },
+    {
+     "id": "Q12140",
+     "label": "medication"
+    }
+   ]
+  },
+  {
+   "use": "Q4241150",
+   "items": 1,
+   "labels": {
+    "en": "Cryocooler",
+    "ru": "Криокамера"
+   },
+   "classes": []
+  },
+  {
+   "use": "Q417062",
+   "items": 1,
+   "labels": {
+    "en": "chaotropic agent"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    }
+   ]
+  },
+  {
+   "use": "Q4100432",
+   "items": 1,
+   "labels": {
+    "en": "Good's buffers",
+    "ru": "Буферные растворы Гуда"
+   },
+   "classes": [
+    {
+     "id": "Q208465",
+     "label": "buffer solution"
+    }
+   ]
+  },
+  {
+   "use": "Q40867",
+   "items": 1,
+   "labels": {
+    "en": "poison",
+    "uk": "отрути",
+    "ru": "яд"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q1931388",
+     "label": "cause of death"
+    },
+    {
+     "id": "Q124326543",
+     "label": "production environment factor"
+    },
+    {
+     "id": "Q50379880",
+     "label": "noxa"
+    },
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q4085787",
+   "items": 1,
+   "labels": {
+    "en": "lead-free solder",
+    "ru": "Бессвинцовые припои"
+   },
+   "classes": [
+    {
+     "id": "Q119892838",
+     "label": "type of mixture of chemical entities"
+    },
+    {
+     "id": "Q866612",
+     "label": "solder"
+    }
+   ]
+  },
+  {
+   "use": "Q396622",
+   "items": 1,
+   "labels": {
+    "en": "agribusiness",
+    "ru": "агробизнес",
+    "uk": "агробізнес"
+   },
+   "classes": [
+    {
+     "id": "Q268592",
+     "label": "industry"
+    }
+   ]
+  },
+  {
+   "use": "Q385378",
+   "items": 1,
+   "labels": {
+    "en": "construction",
+    "uk": "будівництво",
+    "ru": "строительство"
+   },
+   "classes": [
+    {
+     "id": "Q8187769",
+     "label": "economic activity"
+    },
+    {
+     "id": "Q3875186",
+     "label": "construction"
+    },
+    {
+     "id": "Q8187769",
+     "label": "economic activity"
+    }
+   ]
+  },
+  {
+   "use": "Q3639228",
+   "items": 1,
+   "labels": {
+    "en": "chemical weapon",
+    "ru": "химическое оружие",
+    "uk": "хімічна зброя"
+   },
+   "classes": [
+    {
+     "id": "Q124078422",
+     "label": "weapon type"
+    },
+    {
+     "id": "Q49394",
+     "label": "weapon of mass destruction"
+    }
+   ]
+  },
+  {
+   "use": "Q27098513",
+   "items": 1,
+   "labels": {
+    "en": "water heating",
+    "uk": "водяне опалення",
+    "ru": "водяное отопление"
+   },
+   "classes": [
+    {
+     "id": "Q11880006",
+     "label": "heating equipment"
+    },
+    {
+     "id": "Q4311765",
+     "label": "heating"
+    }
+   ]
+  },
+  {
+   "use": "Q3512172",
+   "items": 1,
+   "labels": {
+    "en": "demulcent"
+   },
+   "classes": [
+    {
+     "id": "Q1809112",
+     "label": "dermatologic drug"
+    },
+    {
+     "id": "Q191154",
+     "label": "surfactant"
+    },
+    {
+     "id": "Q1923741",
+     "label": "respiratory system agents"
+    },
+    {
+     "id": "Q50377202",
+     "label": "gastrointestinal agent"
+    },
+    {
+     "id": "Q581996",
+     "label": "anti-inflammatory agent"
+    }
+   ]
+  },
+  {
+   "use": "Q34956",
+   "items": 1,
+   "labels": {
+    "en": "vitamin",
+    "ru": "витамины",
+    "uk": "вітаміни"
+   },
+   "classes": [
+    {
+     "id": "Q136908428",
+     "label": "nutrient group"
+    },
+    {
+     "id": "Q55640599",
+     "label": "group of chemical entities"
+    },
+    {
+     "id": "Q174211",
+     "label": "organic compound"
+    },
+    {
+     "id": "Q181394",
+     "label": "nutrient"
+    },
+    {
+     "id": "Q531507",
+     "label": "micronutrient"
+    }
+   ]
+  },
+  {
+   "use": "Q34379",
+   "items": 1,
+   "labels": {
+    "en": "musical instrument",
+    "uk": "музичний інструмент",
+    "ru": "музыкальный инструмент"
+   },
+   "classes": [
+    {
+     "id": "Q123588392",
+     "label": "type of tool"
+    },
+    {
+     "id": "Q267228",
+     "label": "sound generator"
+    },
+    {
+     "id": "Q39546",
+     "label": "physical tool"
+    },
+    {
+     "id": "Q56146933",
+     "label": "music equipment"
+    },
+    {
+     "id": "Q8205328",
+     "label": "artificial physical object"
+    }
+   ]
+  },
+  {
+   "use": "Q337038",
+   "items": 1,
+   "labels": {
+    "en": "acidulant",
+    "uk": "ацидулянт"
+   },
+   "classes": [
+    {
+     "id": "Q15812117",
+     "label": "flavoring"
+    },
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q336",
+   "items": 1,
+   "labels": {
+    "en": "science",
+    "ru": "наука",
+    "uk": "наука"
+   },
+   "classes": [
+    {
+     "id": "Q11862829",
+     "label": "academic discipline"
+    },
+    {
+     "id": "Q8027727",
+     "label": "Wissenschaft"
+    },
+    {
+     "id": "Q105606485",
+     "label": "intellectual activity"
+    },
+    {
+     "id": "Q105948247",
+     "label": "knowledge system"
+    },
+    {
+     "id": "Q221173",
+     "label": "outline of academic disciplines"
+    },
+    {
+     "id": "Q42240",
+     "label": "research"
+    },
+    {
+     "id": "Q9081",
+     "label": "knowledge"
+    },
+    {
+     "id": "Q9471",
+     "label": "epistemology"
+    }
+   ]
+  },
+  {
+   "use": "Q335283",
+   "items": 1,
+   "labels": {
+    "en": "drill bit",
+    "uk": "свердло",
+    "ru": "сверло"
+   },
+   "classes": [
+    {
+     "id": "Q111326287",
+     "label": "bit"
+    },
+    {
+     "id": "Q11789812",
+     "label": "woodworking tool"
+    },
+    {
+     "id": "Q1760958",
+     "label": "cutting tool"
+    }
+   ]
+  },
+  {
+   "use": "Q3325848",
+   "items": 1,
+   "labels": {
+    "en": "Masson's trichrome stain",
+    "ru": "Трихром Массона"
+   },
+   "classes": [
+    {
+     "id": "Q1621078",
+     "label": "histological procedure"
+    },
+    {
+     "id": "Q2332446",
+     "label": "staining"
+    }
+   ]
+  },
+  {
+   "use": "Q208465",
+   "items": 1,
+   "labels": {
+    "en": "buffer solution",
+    "ru": "буферный раствор",
+    "uk": "розчин буферний"
+   },
+   "classes": [
+    {
+     "id": "Q50379882",
+     "label": "laboratory chemical"
+    },
+    {
+     "id": "Q898753",
+     "label": "acidity regulator"
+    },
+    {
+     "id": "Q906356",
+     "label": "aqueous solution"
+    }
+   ]
+  },
+  {
+   "use": "Q2227292",
+   "items": 1,
+   "labels": {
+    "en": "chemical oxygen generator",
+    "uk": "Хімічний генератор кисню"
+   },
+   "classes": [
+    {
+     "id": "Q1183543",
+     "label": "device"
+    },
+    {
+     "id": "Q1476837",
+     "label": "gas generator"
+    },
+    {
+     "id": "Q557573",
+     "label": "chemical reactor"
+    }
+   ]
+  },
+  {
+   "use": "Q21852420",
+   "items": 1,
+   "labels": {
+    "en": "PET radiotracer"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q9178218",
+     "label": "radiopharmaceutical"
+    }
+   ]
+  },
+  {
+   "use": "Q217972",
+   "items": 1,
+   "labels": {
+    "en": "laxative",
+    "uk": "проносне",
+    "ru": "слабительное"
+   },
+   "classes": [
+    {
+     "id": "Q3410946",
+     "label": "purgative"
+    },
+    {
+     "id": "Q50377202",
+     "label": "gastrointestinal agent"
+    }
+   ]
+  },
+  {
+   "use": "Q216830",
+   "items": 1,
+   "labels": {
+    "en": "reducing agent",
+    "uk": "відновник",
+    "ru": "восстановитель"
+   },
+   "classes": [
+    {
+     "id": "Q100434640",
+     "label": "class of chemical substances by use"
+    },
+    {
+     "id": "Q4897819",
+     "label": "role"
+    },
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q50377175",
+     "label": "indicators and reagents"
+    },
+    {
+     "id": "Q911571",
+     "label": "electron donor"
+    }
+   ]
+  },
+  {
+   "use": "Q214963",
+   "items": 1,
+   "labels": {
+    "en": "nuclear medicine",
+    "uk": "ядерна медицина",
+    "ru": "Ядерная медицина"
+   },
+   "classes": [
+    {
+     "id": "Q11862829",
+     "label": "academic discipline"
+    },
+    {
+     "id": "Q930752",
+     "label": "medical specialty"
+    },
+    {
+     "id": "Q11190",
+     "label": "medicine"
+    },
+    {
+     "id": "Q113129019",
+     "label": "clinical sciences"
+    },
+    {
+     "id": "Q77604",
+     "label": "radiology"
+    }
+   ]
+  },
+  {
+   "use": "Q210765",
+   "items": 1,
+   "labels": {
+    "en": "photodetector",
+    "uk": "фотодавач",
+    "ru": "фотодетектор"
+   },
+   "classes": [
+    {
+     "id": "Q11585131",
+     "label": "optoelectronic device"
+    },
+    {
+     "id": "Q2066909",
+     "label": "detector"
+    }
+   ]
+  },
+  {
+   "use": "Q21073024",
+   "items": 1,
+   "labels": {
+    "en": "flammable solid",
+    "ru": "взрывоопасное твёрдое тело",
+    "uk": "горюча тверда речовина"
+   },
+   "classes": [
+    {
+     "id": "Q1115533",
+     "label": "flammable object"
+    },
+    {
+     "id": "Q11438",
+     "label": "solid"
+    }
+   ]
+  },
+  {
+   "use": "Q2102629",
+   "items": 1,
+   "labels": {
+    "en": "pole piece"
+   },
+   "classes": []
+  },
+  {
+   "use": "Q223417",
+   "items": 1,
+   "labels": {
+    "en": "bacteriostatic agent",
+    "uk": "Бактеріостатичні речовини"
+   },
+   "classes": [
+    {
+     "id": "Q1207505",
+     "label": "quality"
+    }
+   ]
+  },
+  {
+   "use": "Q208443",
+   "items": 1,
+   "labels": {
+    "en": "valve",
+    "ru": "вентиль",
+    "uk": "клапан"
+   },
+   "classes": [
+    {
+     "id": "Q182612",
+     "label": "plumbing"
+    },
+    {
+     "id": "Q332918",
+     "label": ""
+    },
+    {
+     "id": "Q40659076",
+     "label": "in-line component"
+    },
+    {
+     "id": "Q8205328",
+     "label": "artificial physical object"
+    }
+   ]
+  },
+  {
+   "use": "Q208376",
+   "items": 1,
+   "labels": {
+    "en": "positron emission tomography",
+    "uk": "позитрон-емісійна томографія",
+    "ru": "позитронно-эмиссионная томография"
+   },
+   "classes": [
+    {
+     "id": "Q2671652",
+     "label": "medical test"
+    },
+    {
+     "id": "Q2695280",
+     "label": "technique"
+    },
+    {
+     "id": "Q841267",
+     "label": "tomography"
+    }
+   ]
+  },
+  {
+   "use": "Q208144",
+   "items": 1,
+   "labels": {
+    "en": "antipsychotics",
+    "ru": "антипсихотический препарат",
+    "uk": "антипсихотичні препарати"
+   },
+   "classes": [
+    {
+     "id": "Q41014950",
+     "label": "ChEBI Ontology term"
+    },
+    {
+     "id": "Q1572854",
+     "label": "psychopharmacological medication"
+    },
+    {
+     "id": "Q1941660",
+     "label": "tranquilizer"
+    },
+    {
+     "id": "Q3706669",
+     "label": "psychoactive drug"
+    }
+   ]
+  },
+  {
+   "use": "Q207652",
+   "items": 1,
+   "labels": {
+    "en": "chemical industry",
+    "ru": "химическая промышленность",
+    "uk": "хімічна промисловість"
+   },
+   "classes": [
+    {
+     "id": "Q136653105",
+     "label": "type of industry"
+    },
+    {
+     "id": "Q268592",
+     "label": "industry"
+    },
+    {
+     "id": "Q3958441",
+     "label": "economic sector"
+    }
+   ]
+  },
+  {
+   "use": "Q205348",
+   "items": 1,
+   "labels": {
+    "en": "gas chamber",
+    "uk": "газова камера",
+    "ru": "газовая камера"
+   },
+   "classes": [
+    {
+     "id": "Q15169167",
+     "label": "execution method"
+    }
+   ]
+  },
+  {
+   "use": "Q2041172",
+   "items": 1,
+   "labels": {
+    "en": "measuring instrument",
+    "uk": "вимірювальний прилад",
+    "ru": "измерительный прибор"
+   },
+   "classes": [
+    {
+     "id": "Q123035442",
+     "label": "type of physical object by use"
+    },
+    {
+     "id": "Q1047213",
+     "label": "measurement tool"
+    },
+    {
+     "id": "Q39546",
+     "label": "physical tool"
+    }
+   ]
+  },
+  {
+   "use": "Q20180697",
+   "items": 1,
+   "labels": {
+    "en": "protein staining"
+   },
+   "classes": [
+    {
+     "id": "Q2332446",
+     "label": "staining"
+    }
+   ]
+  },
+  {
+   "use": "Q20180653",
+   "items": 1,
+   "labels": {
+    "en": "melamine resin"
+   },
+   "classes": [
+    {
+     "id": "Q1418040",
+     "label": "synthetic resin"
+    },
+    {
+     "id": "Q6665766",
+     "label": "aminoplastic"
+    }
+   ]
+  },
+  {
+   "use": "Q24568869",
+   "items": 1,
+   "labels": {
+    "en": "thermal interface material",
+    "ru": "Термоинтерфейс"
+   },
+   "classes": [
+    {
+     "id": "Q2053097",
+     "label": "thermal conductor"
+    },
+    {
+     "id": "Q214609",
+     "label": "material"
+    }
+   ]
+  },
+  {
+   "use": "Q26883713",
+   "items": 1,
+   "labels": {
+    "en": "Milk sugar and syrups",
+    "ru": "Сахар молочный и сиропы на его основе"
+   },
+   "classes": [
+    {
+     "id": "Q26844267",
+     "label": "milk and dairy products (including cheese, excluding ice cream; including services)"
+    }
+   ]
+  },
+  {
+   "use": "Q26820931",
+   "items": 1,
+   "labels": {
+    "en": "fitting",
+    "ru": "фитинг",
+    "uk": "фітинг"
+   },
+   "classes": [
+    {
+     "id": "Q2424752",
+     "label": "product"
+    },
+    {
+     "id": "Q40659076",
+     "label": "in-line component"
+    }
+   ]
+  },
+  {
+   "use": "Q2592323",
+   "items": 1,
+   "labels": {
+    "en": "acetylcholinesterase inhibitor",
+    "ru": "ингибитор ацетилхолинэстеразы",
+    "uk": "інгібітор ацетилхолінестерази"
+   },
+   "classes": [
+    {
+     "id": "Q56256173",
+     "label": "class of chemical entities with similar applications or functions"
+    },
+    {
+     "id": "Q427492",
+     "label": "enzyme inhibitor"
+    },
+    {
+     "id": "Q50430231",
+     "label": "cholinergic agent"
+    },
+    {
+     "id": "Q65089169",
+     "label": "cholinesterase inhibitor"
+    }
+   ]
+  },
+  {
+   "use": "Q2585799",
+   "items": 1,
+   "labels": {
+    "en": "Er:YAG laser",
+    "ru": "Er:YAG лазер"
+   },
+   "classes": [
+    {
+     "id": "Q2593515",
+     "label": "YAG-laser"
+    },
+    {
+     "id": "Q650257",
+     "label": "solid-state laser"
+    }
+   ]
+  },
+  {
+   "use": "Q2585625",
+   "items": 1,
+   "labels": {
+    "en": "active substance"
+   },
+   "classes": [
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    }
+   ]
+  },
+  {
+   "use": "Q248312",
+   "items": 1,
+   "labels": {
+    "en": "Zündstein"
+   },
+   "classes": [
+    {
+     "id": "Q79529",
+     "label": "chemical substance"
+    },
+    {
+     "id": "Q39546",
+     "label": "physical tool"
+    }
+   ]
+  },
+  {
+   "use": "Q24629374",
+   "items": 1,
+   "labels": {
+    "en": "white phosphorus munition",
+    "uk": "Фосфорні боєприпаси",
+    "ru": "Фосфорные боеприпасы"
+   },
+   "classes": [
+    {
+     "id": "Q124078422",
+     "label": "weapon type"
+    },
+    {
+     "id": "Q185785",
+     "label": "ammunition"
+    }
+   ]
+  },
+  {
+   "use": "Q2457003",
+   "items": 1,
+   "labels": {
+    "en": "carrier"
+   },
+   "classes": [
+    {
+     "id": "Q189567",
+     "label": "food additive"
+    }
+   ]
+  },
+  {
+   "use": "Q426809",
+   "items": 1,
+   "labels": {
+    "en": "organochlorine compound",
+    "ru": "хлорорганические соединения",
+    "uk": "хлорорганічна сполука"
+   },
+   "classes": [
+    {
+     "id": "Q47154513",
+     "label": "structural class of chemical entities"
+    },
+    {
+     "id": "Q387914",
+     "label": "organohalogen compound"
+    },
+    {
+     "id": "Q72695611",
+     "label": "chlorine compound"
+    }
+   ]
+  },
+  {
+   "use": "Q2449552",
+   "items": 1,
+   "labels": {
+    "en": "transparent conducting film",
+    "ru": "Прозрачные проводники"
+   },
+   "classes": [
+    {
+     "id": "Q1137203",
+     "label": "thin film"
+    },
+    {
+     "id": "Q124291",
+     "label": "electrical conductor"
+    }
+   ]
+  },
+  {
+   "use": "Q2393344",
+   "items": 1,
+   "labels": {
+    "en": "teething",
+    "ru": "Прорезывание зубов",
+    "uk": "Прорізування зубів"
+   },
+   "classes": [
+    {
+     "id": "Q15178060",
+     "label": "tooth eruption"
+    }
+   ]
+  },
+  {
+   "use": "Q2392011",
+   "items": 1,
+   "labels": {
+    "en": "plasma etching"
+   },
+   "classes": [
+    {
+     "id": "Q4364316",
+     "label": "plasma processing"
+    }
+   ]
+  },
+  {
+   "use": "Q235352",
+   "items": 1,
+   "labels": {
+    "en": "crop",
+    "ru": "сельскохозяйственная культура",
+    "uk": "сільськогосподарська культура"
+   },
+   "classes": [
+    {
+     "id": "Q1138571",
+     "label": "renewable resource"
+    },
+    {
+     "id": "Q11992872",
+     "label": "useful plant"
+    }
+   ]
+  },
+  {
+   "use": "Q2332446",
+   "items": 1,
+   "labels": {
+    "en": "staining",
+    "uk": "мікроскопічне фарбування",
+    "ru": "окрашивание"
+   },
+   "classes": [
+    {
+     "id": "Q2695280",
+     "label": "technique"
+    },
+    {
+     "id": "Q937228",
+     "label": "property"
+    },
+    {
+     "id": "Q104637425",
+     "label": "material processing"
+    },
+    {
+     "id": "Q104637564",
+     "label": "histological assay"
+    },
+    {
+     "id": "Q3247516",
+     "label": "lab technique"
+    }
+   ]
+  },
+  {
+   "use": "Q2314176",
+   "items": 1,
+   "labels": {
+    "en": "psychedelic drug",
+    "ru": "психоделики",
+    "uk": "Психоделіки"
+   },
+   "classes": [
+    {
+     "id": "Q2585617",
+     "label": "drug class"
+    },
+    {
+     "id": "Q194270",
+     "label": "hallucinogen"
+    }
+   ]
+  },
+  {
+   "use": "Q227790",
+   "items": 1,
+   "labels": {
+    "en": "Type of sugar",
+    "ru": "вид сахара"
+   },
+   "classes": [
+    {
+     "id": "Q151885",
+     "label": "concept"
+    },
+    {
+     "id": "Q19478619",
+     "label": "metaclass"
+    },
+    {
+     "id": "Q2516154",
+     "label": "sales label"
+    }
+   ]
+  }
+ ],
+ "elements": [
+  [
+   "Q1053",
+   "Q12385831",
+   "catalyst"
+  ],
+  [
+   "Q1053",
+   "Q124291",
+   "electrical conductor"
+  ],
+  [
+   "Q1053",
+   "Q131790",
+   "adhesive"
+  ],
+  [
+   "Q1053",
+   "Q161179",
+   "pigment"
+  ],
+  [
+   "Q1053",
+   "Q31887",
+   "Copper indium gallium selenide solar cells"
+  ],
+  [
+   "Q1053",
+   "Q323840",
+   "lubricant"
+  ],
+  [
+   "Q1053",
+   "Q3325848",
+   "Masson's trichrome stain"
+  ],
+  [
+   "Q1053",
+   "Q37756",
+   "alloy"
+  ],
+  [
+   "Q1053",
+   "Q746133",
+   "thin layer chromatography"
+  ],
+  [
+   "Q1053",
+   "Q83323",
+   "fertilizer"
+  ],
+  [
+   "Q1053",
+   "Q899016",
+   "hydrodesulfurization"
+  ],
+  [
+   "Q1090",
+   "Q15303351",
+   "art material"
+  ],
+  [
+   "Q1090",
+   "Q1683099",
+   "household silver"
+  ],
+  [
+   "Q1090",
+   "Q189567",
+   "food additive"
+  ],
+  [
+   "Q1090",
+   "Q41207",
+   "coin"
+  ],
+  [
+   "Q1090",
+   "Q81944",
+   "cutlery"
+  ],
+  [
+   "Q1091",
+   "Q1271190",
+   "helium–cadmium laser"
+  ],
+  [
+   "Q1091",
+   "Q161179",
+   "pigment"
+  ],
+  [
+   "Q1091",
+   "Q1969361",
+   "quantum dot display"
+  ],
+  [
+   "Q1091",
+   "Q210765",
+   "photodetector"
+  ],
+  [
+   "Q1091",
+   "Q221033",
+   "nuclear poison"
+  ],
+  [
+   "Q1091",
+   "Q3503392",
+   "electroplating"
+  ],
+  [
+   "Q1091",
+   "Q48798855",
+   "Silver-cadmium battery"
+  ],
+  [
+   "Q1091",
+   "Q58803",
+   "solar cell"
+  ],
+  [
+   "Q1091",
+   "Q898377",
+   "nickel–cadmium battery"
+  ],
+  [
+   "Q1103",
+   "Q28196266",
+   "iodine in medicine"
+  ],
+  [
+   "Q1396",
+   "Q15119237",
+   "dopant"
+  ],
+  [
+   "Q1846",
+   "Q2102629",
+   "pole piece"
+  ],
+  [
+   "Q1846",
+   "Q221033",
+   "nuclear poison"
+  ],
+  [
+   "Q1849",
+   "Q221033",
+   "nuclear poison"
+  ],
+  [
+   "Q1849",
+   "Q2585799",
+   "Er:YAG laser"
+  ],
+  [
+   "Q1849",
+   "Q37756",
+   "alloy"
+  ],
+  [
+   "Q1849",
+   "Q4241150",
+   "Cryocooler"
+  ],
+  [
+   "Q1849",
+   "Q8348044",
+   "glass coloring and color marking"
+  ],
+  [
+   "Q556",
+   "Q11549077",
+   "hydrogen fuel"
+  ],
+  [
+   "Q556",
+   "Q1854358",
+   "hydrogen technologies"
+  ],
+  [
+   "Q560",
+   "Q1056832",
+   "coolant"
+  ],
+  [
+   "Q560",
+   "Q1310239",
+   "component"
+  ],
+  [
+   "Q560",
+   "Q1408137",
+   "lifting gas"
+  ],
+  [
+   "Q560",
+   "Q189567",
+   "food additive"
+  ],
+  [
+   "Q568",
+   "Q152763",
+   "lithium"
+  ],
+  [
+   "Q568",
+   "Q2822895",
+   "lithium-ion battery"
+  ],
+  [
+   "Q627",
+   "Q189567",
+   "food additive"
+  ],
+  [
+   "Q629",
+   "Q189567",
+   "food additive"
+  ],
+  [
+   "Q663",
+   "Q189720",
+   "dye"
+  ],
+  [
+   "Q674",
+   "Q83323",
+   "fertilizer"
+  ],
+  [
+   "Q677",
+   "Q907347",
+   "ferroalloy"
+  ],
+  [
+   "Q682",
+   "Q65967059",
+   "ecological crop protection"
+  ],
+  [
+   "Q696",
+   "Q189567",
+   "food additive"
+  ],
+  [
+   "Q706",
+   "Q35456",
+   "WHO essential medicines"
+  ],
+  [
+   "Q708",
+   "Q3535009",
+   "nuclear reactor coolant"
+  ],
+  [
+   "Q753",
+   "Q1796959",
+   "heat sink"
+  ],
+  [
+   "Q753",
+   "Q2811078",
+   "copper conductor"
+  ],
+  [
+   "Q753",
+   "Q65967059",
+   "ecological crop protection"
+  ],
+  [
+   "Q758",
+   "Q175233",
+   "cathode"
+  ],
+  [
+   "Q925",
+   "Q3535009",
+   "nuclear reactor coolant"
+  ]
+ ],
+ "element_items": 22,
+ "showcase": [
+  [
+   "Q153",
+   "medication"
+  ],
+  [
+   "Q153",
+   "polar protic solvent"
+  ],
+  [
+   "Q153",
+   "solvent"
+  ],
+  [
+   "Q18216",
+   "WHO essential medicines"
+  ],
+  [
+   "Q18216",
+   "medication"
+  ],
+  [
+   "Q199678",
+   "antioxidant"
+  ],
+  [
+   "Q199678",
+   "food additive"
+  ],
+  [
+   "Q199678",
+   "medication"
+  ],
+  [
+   "Q199678",
+   "synergist"
+  ],
+  [
+   "Q1997",
+   "coolant"
+  ],
+  [
+   "Q1997",
+   "food additive"
+  ],
+  [
+   "Q1997",
+   "medication"
+  ],
+  [
+   "Q28086552",
+   "drug"
+  ],
+  [
+   "Q28086552",
+   "insecticide"
+  ],
+  [
+   "Q28086552",
+   "medication"
+  ],
+  [
+   "Q283",
+   "hydroponics"
+  ],
+  [
+   "Q283",
+   "nuclear reactor coolant"
+  ],
+  [
+   "Q283",
+   "potential energy"
+  ],
+  [
+   "Q283",
+   "refrigerant"
+  ],
+  [
+   "Q36933",
+   "Q4332246"
+  ],
+  [
+   "Q36933",
+   "ozone therapy"
+  ],
+  [
+   "Q37129",
+   "fuel"
+  ],
+  [
+   "Q37129",
+   "lifting gas"
+  ],
+  [
+   "Q4087",
+   "industrial gas"
+  ],
+  [
+   "Q4087",
+   "lifting gas"
+  ],
+  [
+   "Q4087",
+   "polar protic solvent"
+  ],
+  [
+   "Q4087",
+   "refrigerant"
+  ],
+  [
+   "Q4118",
+   "acidulant"
+  ],
+  [
+   "Q41576",
+   "medication"
+  ],
+  [
+   "Q57055",
+   "medication"
+  ]
+ ]
+}

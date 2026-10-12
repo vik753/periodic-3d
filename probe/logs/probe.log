@@ -1,24 +1,24 @@
 $ python tools/probe/probe.py out/probe
-started: 2026-10-12T08:22:21Z
+started: 2026-10-12T08:49:55Z
 # Замер источников данных (этап 0)
 
 ## Доступность источников из GitHub Actions
 
 | Источник | HTTP | Время, с | Байт |
 | --- | --- | --- | --- |
-| PubChem PUG REST | 200 | 0.28 | 125 |
-| PubChem 3D SDF | 200 | 0.19 | 1220 |
-| QLever (Wikidata) | 200 | 1.21 | 139 |
-| Wikidata Query Service | 200 | 0.12 | 167 |
-| Wikidata EntityData | 200 | 0.28 | 426183 |
-| Wikipedia RU REST | 200 | 0.1 | 3819 |
-| Wikipedia UK REST | 200 | 0.11 | 3459 |
-| Wikipedia EN REST | 200 | 0.08 | 3141 |
-| Wikimedia Commons API | 200 | 0.14 | 3862 |
-| COD OPTIMADE | -1 | 0.79 | 63 |
-| MP OPTIMADE | 200 | 0.63 | 2430 |
-| MP API heartbeat | 200 | 0.62 | 207 |
-| MP open data (S3) | 200 | 0.32 | 358571 |
+| PubChem PUG REST | 200 | 0.31 | 125 |
+| PubChem 3D SDF | 200 | 0.23 | 1220 |
+| QLever (Wikidata) | 200 | 1.34 | 139 |
+| Wikidata Query Service | 200 | 0.41 | 167 |
+| Wikidata EntityData | 200 | 0.43 | 426183 |
+| Wikipedia RU REST | 200 | 0.11 | 3819 |
+| Wikipedia UK REST | 200 | 0.09 | 3459 |
+| Wikipedia EN REST | 200 | 0.09 | 3141 |
+| Wikimedia Commons API | 200 | 0.2 | 3862 |
+| COD OPTIMADE | -1 | 60.44 | 71 |
+| MP OPTIMADE | 200 | 0.48 | 2430 |
+| MP API heartbeat | 200 | 0.59 | 207 |
+| MP open data (S3) | 200 | 0.52 | 358571 |
 
 ## Свойства Wikidata
 
@@ -30,15 +30,15 @@ started: 2026-10-12T08:22:21Z
 
 | Метрика | Значение | Время, с | Статус |
 | --- | --- | --- | --- |
-| formula_total | 1427644 | 1.72 | ok |
-| formula_any_wiki | 27954 | 2.48 | ok |
-| formula_any_wiki_with_pubchem | 23390 | 1.1 | ok |
-| formula_any_wiki_without_pubchem | 4564 | 2.73 | ok |
-| minerals_any_wiki | 2076 | 1.57 | ok |
-| formula_enwiki | 24490 | 1.53 | ok |
-| formula_ruwiki | 10070 | 1.24 | ok |
-| formula_ukwiki | 4268 | 1.08 | ok |
-| formula_any_wiki_with_P9902 | 1 | 0.97 | ok |
+| formula_total | 1427644 | 1.68 | ok |
+| formula_any_wiki | 27954 | 2.42 | ok |
+| formula_any_wiki_with_pubchem | 23390 | 2.65 | ok |
+| formula_any_wiki_without_pubchem | 4564 | 3.32 | ok |
+| minerals_any_wiki | 2076 | 1.72 | ok |
+| formula_enwiki | 24490 | 1.79 | ok |
+| formula_ruwiki | 10070 | 1.27 | ok |
+| formula_ukwiki | 4268 | 1.07 | ok |
+| formula_any_wiki_with_P9902 | 1 | 1.04 | ok |
 
 ## Покрытие элементов (соединения со статьёй RU/UK/EN)
 
@@ -177,22 +177,22 @@ started: 2026-10-12T08:22:21Z
 
 - Выборка: 150; с 3D: 106 (0.707); ошибок: 0.
 - Медианный размер SDF: 6670.0 байт.
-- Пакетный запрос 4 CID: {'status': 200, 'records': 4, 'seconds': 0.22}.
+- Пакетный запрос 4 CID: {'status': 200, 'records': 4, 'seconds': 0.24}.
 
 ## OPTIMADE: mp
 
 | Формула | Reduced | HTTP | Записей | Время, с |
 | --- | --- | --- | --- | --- |
-| NaCl | ClNa | 200 | 154387 | 0.48 |
-| Fe2O3 | Fe2O3 | 200 | 154387 | 0.29 |
-| SiO2 | O2Si | 200 | 154387 | 0.29 |
-| CaCO3 | CCaO3 | 200 | 154387 | 0.3 |
-| Al2O3 | Al2O3 | 200 | 154387 | 0.34 |
-| TiO2 | O2Ti | 200 | 154387 | 0.25 |
-| Fe3O4 | Fe3O4 | 200 | 154387 | 0.3 |
-| CuSO4 | CuO4S | 200 | 154387 | 0.43 |
-| KMnO4 | KMnO4 | 200 | 154387 | 0.38 |
-| FeS2 | FeS2 | 200 | 154387 | 0.3 |
+| NaCl | ClNa | 200 | 154387 | 0.36 |
+| Fe2O3 | Fe2O3 | 200 | 154387 | 0.47 |
+| SiO2 | O2Si | 200 | 154387 | 0.34 |
+| CaCO3 | CCaO3 | 200 | 154387 | 0.71 |
+| Al2O3 | Al2O3 | 200 | 154387 | 0.31 |
+| TiO2 | O2Ti | 200 | 154387 | 0.29 |
+| Fe3O4 | Fe3O4 | 200 | 154387 | 0.28 |
+| CuSO4 | CuO4S | 200 | 154387 | 0.39 |
+| KMnO4 | KMnO4 | 200 | 154387 | 0.39 |
+| FeS2 | FeS2 | 200 | 154387 | 0.33 |
 
 Поля атрибутов: _mp_chemical_system, _mp_stability, assemblies, cartesian_site_positions, chemical_formula_anonymous, chemical_formula_descriptive, chemical_formula_hill, chemical_formula_reduced, dimension_types, elements, elements_ratios, immutable_id, last_modified, lattice_vectors, nelements, nperiodic_dimensions, nsites, space_group_it_number, space_group_symbol_hall, space_group_symbol_hermann_mauguin, space_group_symbol_hermann_mauguin_extended, space_group_symmetry_operations_xyz, species, species_at_sites, structure_features
 
@@ -200,20 +200,20 @@ started: 2026-10-12T08:22:21Z
 
 | Формула | Reduced | HTTP | Записей | Время, с |
 | --- | --- | --- | --- | --- |
-| NaCl | ClNa | 501 | None | 4.24 |
-| Fe2O3 | Fe2O3 | 501 | None | 4.74 |
-| SiO2 | O2Si | 501 | None | 4.57 |
-| CaCO3 | CCaO3 | -1 | None | 1.91 |
-| Al2O3 | Al2O3 | 501 | None | 4.39 |
-| TiO2 | O2Ti | 501 | None | 4.12 |
-| Fe3O4 | Fe3O4 | 501 | None | 4.73 |
-| CuSO4 | CuO4S | -1 | None | 1.15 |
-| KMnO4 | KMnO4 | 501 | None | 3.74 |
-| FeS2 | FeS2 | 501 | None | 5.02 |
+| NaCl | ClNa | 501 | None | 5.05 |
+| Fe2O3 | Fe2O3 | -1 | None | 93.76 |
+| SiO2 | O2Si | 501 | None | 8.9 |
+| CaCO3 | CCaO3 | -1 | None | 2.46 |
+| Al2O3 | Al2O3 | 501 | None | 9.72 |
+| TiO2 | O2Ti | -1 | None | 9.79 |
+| Fe3O4 | Fe3O4 | 501 | None | 11.56 |
+| CuSO4 | CuO4S | 501 | None | 0.91 |
+| KMnO4 | KMnO4 | -1 | None | 10.85 |
+| FeS2 | FeS2 | 501 | None | 10.49 |
 
 Поля атрибутов: 
 
-Общее время замера: 158.1 с.
+Общее время замера: 347.5 с.
 
-finished: 2026-10-12T08:24:59Z
+finished: 2026-10-12T08:55:42Z
 exit code: 0

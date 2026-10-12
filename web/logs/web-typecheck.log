@@ -1,8 +1,8 @@
 $ npm run typecheck
-started: 2026-10-12T08:28:07Z
+started: 2026-10-12T08:59:37Z
 
 > @periodic-3d/web@1.5.0 typecheck
 > tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit
 
-finished: 2026-10-12T08:28:14Z
+finished: 2026-10-12T08:59:42Z
 exit code: 0

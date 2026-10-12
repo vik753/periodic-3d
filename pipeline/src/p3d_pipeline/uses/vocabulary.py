@@ -1442,7 +1442,7 @@ TERMS: tuple[Term, ...] = (
         r"dyes? in foods?",
         priority=2,
         group="food",
-        category=(r"colou?r\w*", r"dyes?"),
+        category=(r"colou?r(?:s|ing|ings|ants?)?(?! retention| stabili[sz]\w*)", r"dyes?"),
     ),
     T(
         "food_antioxidant",
@@ -1466,11 +1466,11 @@ TERMS: tuple[Term, ...] = (
         r"food preservatives?",
         r"preserv\w* (?:of )?(?:foods?|meats?|fish|beverages?|wines?|fruits?|vegetables?)",
         r"preservatives? (?:in|for) (?:foods?|beverages?|wines?|meats?)",
-        r"(?:meat )?curing (?:of )?(?:meats?|salts?|agents?)|cured meats?",
+        r"(?:meat )?curing (?:of )?(?:meats?|salts?)|cured meats?",
         r"pickling (?:of )?(?:foods?|vegetables?|cucumbers?)",
         priority=2,
         group="food",
-        category=(r"preservatives?", r"antimicrobials?"),
+        category=(r"preservatives?", r"antimicrobials?", r"colou?r retention agents?"),
     ),
     T(
         "sweetener",

@@ -219,6 +219,7 @@ MEDICINE = frozenset({"medicine"})
 FOOD = frozenset({"food"})
 AGRICULTURE = frozenset({"agriculture"})
 HOUSEHOLD = frozenset({"household"})
+TECHNICAL = frozenset({"industry", "materials", "energy", "electronics"})
 
 
 @dataclass(frozen=True)
@@ -244,54 +245,63 @@ EU_PESTICIDES = "EU Pesticides Database"
 PUBCHEM_RULES: dict[tuple[str, str], Rule] = {
     ("Uses", HSDB): _rule("hsdb"),
     ("Uses", HAZMAP): _rule("hazmap", cue=True),
-    ("Uses", "EPA Chemical and Products Database (CPDat)"): _rule("epa_cpdat", categories=True, spheres=NO_MEDICINE),
-    ("Uses", CIR): _rule("cir", spheres=HOUSEHOLD, categories=True, default="cosmetics"),
+    ("Uses", "EPA Chemical and Products Database (CPDat)"): _rule(
+        "epa_cpdat", categories=TECHNICAL, spheres=NO_MEDICINE
+    ),
+    ("Uses", CIR): _rule("cir", spheres=HOUSEHOLD, categories=HOUSEHOLD, default="cosmetics"),
     ("Uses", "Toxin and Toxin Target Database (T3DB)"): _rule("t3db", cue=True),
     ("Uses", NORMAN): _rule("norman"),
     ("Uses", "NIST Synthetic Polymer MALDI Recipes Database"): _rule(
-        "nist_maldi", spheres=frozenset({"science"}), categories=True, default="analysis"
+        "nist_maldi", spheres=frozenset({"science"}), categories=frozenset({"science"}), default="analysis"
     ),
     ("Uses", "EPA Hazardous Air Pollutants"): _rule("epa_hap"),
     ("Uses", "The National Institute for Occupational Safety and Health (NIOSH)"): _rule("niosh"),
     ("Uses", "Pertti (Bert) Hakkinen's Toxicology and Other Annotations"): _rule("hakkinen", cue=True),
-    ("Use Classification", NORMAN): _rule("norman", categories=True),
-    ("Use Classification", JECFA): _rule("jecfa", spheres=FOOD, categories=True, default="food_additive"),
+    ("Use Classification", NORMAN): _rule("norman", categories=frozenset({"medicine", "agriculture"})),
+    ("Use Classification", JECFA): _rule("jecfa", spheres=FOOD, categories=FOOD),
     ("Use Classification", "International Fragrance Association (IFRA)"): _rule(
-        "ifra", spheres=HOUSEHOLD, categories=True, default="fragrance"
+        "ifra", spheres=HOUSEHOLD, categories=HOUSEHOLD, default="fragrance"
     ),
     ("Use Classification", "EPA Safer Choice"): _rule(
-        "epa_saferchoice", spheres=frozenset({"household", "industry"}), categories=True, default="cleaning"
+        "epa_saferchoice",
+        spheres=frozenset({"household", "industry"}),
+        categories=frozenset({"household", "industry"}),
+        default="cleaning",
     ),
     ("Use Classification", "FDA Approved Animal Drug Products (Green Book)"): _rule(
         "fda_greenbook", spheres=MEDICINE, default="veterinary"
     ),
     ("Use Classification", "USGS Columbia Environmental Research Center"): _rule(
-        "usgs_cerc", spheres=NO_MEDICINE, categories=True
+        "usgs_cerc", spheres=NO_MEDICINE, categories=AGRICULTURE
     ),
-    ("Use Classification", EU_FOOD): _rule("eu_food", spheres=FOOD, categories=True, default="food_additive"),
-    ("Industry Uses", CDR): _rule("epa_cdr", spheres=NO_MEDICINE - {"defense"}, categories=True),
-    ("Consumer Uses", CDR): _rule("epa_cdr", spheres=NO_MEDICINE - {"defense"}, categories=True),
-    ("Therapeutic Uses", HSDB): _rule("hsdb", spheres=MEDICINE, categories=True, default="drug", labels_only=True),
+    ("Use Classification", EU_FOOD): _rule("eu_food", spheres=FOOD, categories=FOOD),
+    ("Industry Uses", CDR): _rule("epa_cdr", spheres=NO_MEDICINE - {"defense"}, categories=TECHNICAL | AGRICULTURE),
+    ("Consumer Uses", CDR): _rule("epa_cdr", spheres=NO_MEDICINE - {"defense"}, categories=TECHNICAL | AGRICULTURE),
+    ("Therapeutic Uses", HSDB): _rule("hsdb", spheres=MEDICINE, categories=MEDICINE, default="drug", labels_only=True),
     ("Drug Classes", "Drugs and Lactation Database (LactMed)"): _rule(
-        "lactmed", spheres=MEDICINE, categories=True, default="drug"
+        "lactmed", spheres=MEDICINE, categories=MEDICINE, default="drug"
     ),
-    ("Drug Classes", "LiverTox"): _rule("livertox", spheres=MEDICINE, categories=True, default="drug"),
-    ("Food Additive Classes", JECFA): _rule("jecfa", spheres=FOOD, categories=True, default="food_additive"),
-    ("Food Additive Classes", EU_FOOD): _rule("eu_food", spheres=FOOD, categories=True, default="food_additive"),
+    ("Drug Classes", "LiverTox"): _rule("livertox", spheres=MEDICINE, categories=MEDICINE, default="drug"),
+    ("Food Additive Classes", JECFA): _rule("jecfa", spheres=FOOD, categories=FOOD),
+    ("Food Additive Classes", EU_FOOD): _rule("eu_food", spheres=FOOD, categories=FOOD),
     ("Agrochemical Category", EU_PESTICIDES): _rule(
-        "eu_pesticides", spheres=AGRICULTURE, categories=True, default="pesticide"
+        "eu_pesticides", spheres=AGRICULTURE, categories=AGRICULTURE, default="pesticide"
     ),
     ("Agrochemical Category", "EPA Pesticide Ecotoxicity Database"): _rule(
-        "epa_ecotox", spheres=AGRICULTURE, categories=True, default="pesticide"
+        "epa_ecotox", spheres=AGRICULTURE, categories=AGRICULTURE, default="pesticide"
     ),
-    ("Agrochemical Category", NORMAN): _rule("norman", spheres=AGRICULTURE, categories=True, default="pesticide"),
-    ("Pesticides", EU_PESTICIDES): _rule("eu_pesticides", spheres=AGRICULTURE, categories=True, default="pesticide"),
-    ("Pesticides", NORMAN): _rule("norman", spheres=AGRICULTURE, categories=True, default="pesticide"),
-    ("Pesticides", HAZMAP): _rule("hazmap", spheres=AGRICULTURE, categories=True, default="pesticide"),
-    ("Cosmetics", CIR): _rule("cir", spheres=HOUSEHOLD, categories=True, default="cosmetics"),
-    ("Cosmetics", NORMAN): _rule("norman", spheres=HOUSEHOLD, categories=True, default="cosmetics"),
+    ("Agrochemical Category", NORMAN): _rule(
+        "norman", spheres=AGRICULTURE, categories=AGRICULTURE, default="pesticide"
+    ),
+    ("Pesticides", EU_PESTICIDES): _rule(
+        "eu_pesticides", spheres=AGRICULTURE, categories=AGRICULTURE, default="pesticide"
+    ),
+    ("Pesticides", NORMAN): _rule("norman", spheres=AGRICULTURE, categories=AGRICULTURE, default="pesticide"),
+    ("Pesticides", HAZMAP): _rule("hazmap", spheres=AGRICULTURE, categories=AGRICULTURE, default="pesticide"),
+    ("Cosmetics", CIR): _rule("cir", spheres=HOUSEHOLD, categories=HOUSEHOLD, default="cosmetics"),
+    ("Cosmetics", NORMAN): _rule("norman", spheres=HOUSEHOLD, categories=HOUSEHOLD, default="cosmetics"),
     ("Cosmetics", "California Safe Cosmetics Program (CSCP) Product Database"): _rule(
-        "cscp", spheres=HOUSEHOLD, categories=True, default="cosmetics"
+        "cscp", spheres=HOUSEHOLD, categories=HOUSEHOLD, default="cosmetics"
     ),
 }
 PUBCHEM_HEADINGS: tuple[str, ...] = tuple(dict.fromkeys(heading for heading, _ in PUBCHEM_RULES))
@@ -313,5 +323,5 @@ ELEMENT_RULES: dict[str, Context] = {
     "Isotopes in Biology": Context(default="isotope_tracers", fixed=True),
 }
 
-CHEBI_CONTEXT = Context(spheres=NO_MEDICINE, categories=True)
+CHEBI_CONTEXT = Context(spheres=NO_MEDICINE, categories=frozenset({"science"}))
 WIKIDATA_CONTEXT = Context()

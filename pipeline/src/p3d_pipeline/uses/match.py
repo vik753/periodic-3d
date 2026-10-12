@@ -100,7 +100,9 @@ class Context:
     """How to read the strings of one source under one heading."""
 
     spheres: frozenset[str] | None = None  # allowed spheres; None: all
-    categories: bool = False  # the strings are category labels: category patterns apply
+    # Spheres whose category patterns apply: the source labels uses of that domain
+    # ("COLOUR" from JECFA is a food colour, "Stabilizer" from EPA CDR is not a food additive).
+    categories: frozenset[str] = frozenset()
     cue: bool = False  # each sentence must contain a use cue
     default: str | None = None  # term for an informative string that matched nothing
     past_ok: bool = False
@@ -144,7 +146,7 @@ class Matcher:
             if context.spheres is not None and term.sphere not in context.spheres:
                 continue
             patterns = [item.general]
-            if context.categories:
+            if term.sphere in context.categories:
                 patterns.append(item.category)
             hit = False
             for pattern in patterns:

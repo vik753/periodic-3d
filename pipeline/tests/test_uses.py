@@ -194,3 +194,16 @@ def test_isotope_notes_give_one_term_per_section() -> None:
     context = registry.ELEMENT_RULES["Isotopes in Medicine"]
     hits = MATCHER.find(["Iodine-131 is used to treat thyroid cancer and hyperthyroidism."], context)
     assert {hit.term for hit in hits} == {"nuclear_medicine"}
+
+
+def test_category_patterns_stay_in_their_domain() -> None:
+    # "Stabilizer" from EPA CDR is not a food additive; JECFA colour retention is not a colour.
+    assert "emulsifier" not in terms("Industry Uses", registry.CDR, ["Stabilizer", "Solvent"])
+    assert terms(
+        "Food Additive Classes", registry.JECFA, ["Food Additives -> PRESERVATIVE; COLOUR_RETENTION_AGENT"]
+    ) == {
+        "food_additive",
+        "food_preservative",
+    }
+    # JECFA also evaluates residues and contaminants: no "food additive" by default.
+    assert terms("Use Classification", registry.JECFA, ["Veterinary drug residue"]) == set()

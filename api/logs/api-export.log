@@ -1,0 +1,2 @@
+$ uv run p3d-api export-static out/static-data
+started: 2026-10-12T06:43:25Z

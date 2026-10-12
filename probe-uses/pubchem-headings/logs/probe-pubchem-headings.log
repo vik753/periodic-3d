@@ -1,0 +1,14 @@
+$ python3 ../tools/probe/pubchem_headings.py ../tools/probe/cids.txt out/probe/pubchem-headings
+started: 2026-10-12T07:59:02Z
+Use Classification {'pages': 26, 'read': 26, 'annotations': 25467, 'covered': 3056}
+Uses {'pages': 62, 'read': 40, 'annotations': 40000, 'covered': 6262}
+Industry Uses {'pages': 8, 'read': 8, 'annotations': 7063, 'covered': 1817}
+Consumer Uses {'pages': 5, 'read': 5, 'annotations': 4409, 'covered': 1255}
+Therapeutic Uses {'pages': 2, 'read': 2, 'annotations': 2000, 'covered': 1432}
+Drug Classes {'pages': 4, 'read': 4, 'annotations': 3155, 'covered': 1358}
+Food Additive Classes {'pages': 12, 'read': 12, 'annotations': 11275, 'covered': 1061}
+Agrochemical Category {'pages': 3, 'read': 3, 'annotations': 2928, 'covered': 717}
+Pesticides {'pages': 6, 'read': 6, 'annotations': 5556, 'covered': 1002}
+Cosmetics {'pages': 10, 'read': 10, 'annotations': 9788, 'covered': 1012}
+finished: 2026-10-12T08:07:09Z
+exit code: 0

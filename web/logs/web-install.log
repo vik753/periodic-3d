@@ -1,8 +1,8 @@
 $ bash ../../tools/ci/npm-install.sh
-started: 2026-10-12T08:17:43Z
+started: 2026-10-12T08:27:57Z
 npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
 
-added 330 packages in 8s
-finished: 2026-10-12T08:17:50Z
+added 330 packages in 9s
+finished: 2026-10-12T08:28:07Z
 exit code: 0

@@ -31,6 +31,24 @@ const SOURCES = [
     role: 'about.srcCommons',
   },
   {
+    name: 'ChEBI (EMBL-EBI)',
+    url: 'https://www.ebi.ac.uk/chebi/',
+    license: 'CC BY 4.0',
+    role: 'about.srcChebi',
+  },
+  {
+    name: 'WHO ATC',
+    url: 'https://atcddd.fhi.no/atc_ddd_index/',
+    license: 'CC0 (Wikidata)',
+    role: 'about.srcAtc',
+  },
+  {
+    name: 'USGS Mineral Commodity Summaries',
+    url: 'https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries',
+    license: 'public domain (U.S. Government)',
+    role: 'about.srcUsgs',
+  },
+  {
     name: 'GNoME (Google DeepMind)',
     url: 'https://github.com/google-deepmind/materials_discovery',
     license: 'CC BY-NC 4.0',

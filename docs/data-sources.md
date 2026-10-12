@@ -13,6 +13,11 @@
 | [RDKit](https://www.rdkit.org/) (программа, BSD) | 3D-модели, рассчитанные по SMILES, если в PubChem нет 3D | Результат расчёта; исходные SMILES — PubChem или Wikidata | «Рассчитано RDKit по SMILES» |
 | [Crystallography Open Database](https://www.crystallography.net/) | Не используем: OPTIMADE у COD отвечает 501 | Общественное достояние | — |
 
+| [ChEBI](https://www.ebi.ac.uk/chebi/) (EMBL-EBI) | Роли-применения веществ (гербицид, краситель, хладагент…) по ChEBI ID из Wikidata (P683) | CC BY 4.0 | Ссылка на запись ChEBI в разделе «Где используется» |
+| Аннотации PubChem: HSDB, EPA (CDR, CPDat, HAP, Safer Choice), FDA Green Book, LiverTox, LactMed, JECFA, базы ЕС, NORMAN, IFRA, CIR и др. | Применения соединений (раздел «Где используется»): только термины словаря, правила чтения — `pipeline/src/p3d_pipeline/uses/registry.py` | У каждого источника своя: тексты правительства США — общественное достояние; остальное — факты, без цитат | Короткое имя источника и ссылка на раздел PubChem; цитаты только из общественного достояния |
+| Страницы элементов PubChem (Los Alamos, Jefferson Lab, IUPAC) | Применения элементов и изотопов | Факты через PubChem, без цитат | Ссылка на страницу элемента |
+| Коды ATC ВОЗ (через Wikidata, P267) | Группа лекарства (сердце, нервная система…) | Коды — CC0 (Wikidata) | Ссылка на индекс ATC/DDD |
+| [USGS Mineral Commodity Summaries 2026](https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries) | Доли отраслей для 59 видов сырья, вручную, с дословной цитатой (`tools/probe/usgs_curate.py`) | Общественное достояние (правительство США) | Полоса долей, цитата и ссылка на PDF |
 | [GNoME](https://github.com/google-deepmind/materials_discovery) (Google DeepMind) | Слой «Предсказанные материалы»: 554 054 кристалла, их ячейки и расчётные свойства | CC BY-NC 4.0 — только некоммерческое использование | Фиолетовая пометка «предсказано расчётом», источник, лицензия и цитата в карточке материала и на странице «О проекте» |
 
 GNoME — отдельный слой (ADR 0007). Его материалы никогда не смешиваются с известными

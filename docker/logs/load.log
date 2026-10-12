@@ -1,1 +1,1 @@
-all: requests 1000, errors 0, concurrency 32, rps 201, ms p50 35.1 p95 236.3 p99 337.2 max 414.6
+all: requests 1000, errors 0, concurrency 32, rps 266, ms p50 18.1 p95 137.2 p99 278.3 max 349.4

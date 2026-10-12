@@ -1,18 +1,28 @@
-$ bash -x tools/ci/version-tag.sh v1.0.0=8f517d14 v1.1.0=72ecceee v1.2.0=ea2cfbb4 v1.3.0=89f0b7b8 v1.4.0=f02d2b49 v1.5.0=67dbe06c
-started: 2026-10-12T06:46:21Z
+$ bash -x tools/ci/version-tag.sh
+started: 2026-10-12T06:48:02Z
 + set -euo pipefail
 ++ git rev-parse --show-toplevel
 + cd /home/runner/work/periodic-3d/periodic-3d
 + git config user.name 'github-actions[bot]'
 + git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-+ for pair in "$@"
-+ tag v1.0.0 8f517d14 false
-+ local name=v1.0.0 commit=8f517d14 latest=false
-+ git ls-remote --exit-code --tags origin refs/tags/v1.0.0
-+ git tag -a v1.0.0 8f517d14 -m 'Site v1.0.0'
-+ git push --quiet origin refs/tags/v1.0.0
-To https://github.com/vik753/periodic-3d
- ! [remote rejected]   v1.0.0 -> v1.0.0 (refusing to allow a GitHub App to create or update workflow `.github/workflows/ci.yml` without `workflows` permission)
-error: failed to push some refs to 'https://github.com/vik753/periodic-3d'
-finished: 2026-10-12T06:46:22Z
-exit code: 1
+++ python3 -c 'import json; print(json.load(open("apps/web/package.json"))["version"])'
++ version=1.5.0
+++ git rev-parse HEAD
++ tag v1.5.0 b88e2d6b94de1218710890817f69b8350634314a true
++ local name=v1.5.0 commit=b88e2d6b94de1218710890817f69b8350634314a latest=true
++ git ls-remote --exit-code --tags origin refs/tags/v1.5.0
++ git tag -a v1.5.0 b88e2d6b94de1218710890817f69b8350634314a -m 'Site v1.5.0'
++ git push --quiet origin refs/tags/v1.5.0
++ notes 1.5.0
++ awk -v version=1.5.0 '
+    index($0, "## [" version "]") == 1 { on = 1; next }
+    on && /^## \[/ { exit }
+    on && /^\[/ { exit }
+    on { print }
+  ' CHANGELOG.md
++ gh release create v1.5.0 --title 'Site v1.5.0' --notes-file /home/runner/work/_temp/notes.md --verify-tag --latest=true
+https://github.com/vik753/periodic-3d/releases/tag/v1.5.0
++ echo 'version-tag: v1.5.0 → b88e2d6b94de1218710890817f69b8350634314a'
+version-tag: v1.5.0 → b88e2d6b94de1218710890817f69b8350634314a
+finished: 2026-10-12T06:48:06Z
+exit code: 0

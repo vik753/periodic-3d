@@ -1,10 +1,16 @@
 name: probe-uses
 
-# Task U.1: measure where "uses" of elements and compounds can come from (Wikidata P366,
-# PubChem PUG-View, USGS Mineral Commodity Summaries). Results go to ci-results/probe-uses.
+# Task U.1: measure where "uses" of elements and compounds can come from. Each part writes
+# to ci-results/probe-uses/<part>.
 
 on:
   workflow_dispatch:
+    inputs:
+      part:
+        description: "What to probe"
+        type: choice
+        options: [pubchem-headings, wikidata, usgs]
+        default: pubchem-headings
 
 permissions:
   contents: write
@@ -12,33 +18,40 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     defaults:
       run:
         working-directory: pipeline
     env:
       RUN: ../tools/ci/run.sh
+      PART: ${{ inputs.part }}
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
+        if: inputs.part == 'wikidata'
         with:
           python-version: "3.12"
-      - name: Install
-        run: bash $RUN pipeline-install bash ../tools/ci/uv-sync.sh
-      - name: Probe Wikidata and PubChem
-        continue-on-error: true
-        run: bash $RUN probe-uses uv run p3d-pipeline probe-uses --cache "$RUNNER_TEMP/cache" --out out/probe-uses
-      - name: Probe USGS Mineral Commodity Summaries
+      - name: Wikidata P366 (and a small PubChem sample)
+        if: inputs.part == 'wikidata'
         continue-on-error: true
         run: |
-          mkdir -p out/probe-uses/usgs
+          bash $RUN pipeline-install bash ../tools/ci/uv-sync.sh
+          bash $RUN probe-wikidata uv run p3d-pipeline probe-uses --cache "$RUNNER_TEMP/cache" --out "out/probe/$PART"
+      - name: PubChem annotations by heading
+        if: inputs.part == 'pubchem-headings'
+        continue-on-error: true
+        run: bash $RUN probe-pubchem-headings python3 ../tools/probe/pubchem_headings.py ../tools/probe/cids.txt "out/probe/$PART"
+      - name: USGS Mineral Commodity Summaries
+        if: inputs.part == 'usgs'
+        continue-on-error: true
+        run: |
           python3 -m pip install --quiet --break-system-packages pypdf
-          bash $RUN probe-usgs python3 ../tools/probe/usgs.py out/probe-uses/usgs
+          bash $RUN probe-usgs python3 ../tools/probe/usgs.py "out/probe/$PART"
       - name: Publish results
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p out/probe-uses
-          cp -R out/logs out/probe-uses/ 2>/dev/null || true
-          bash ../tools/ci/publish-results.sh out/probe-uses probe-uses "ci: probe uses ${GITHUB_SHA::7}"
+          mkdir -p "out/probe/$PART"
+          cp -R out/logs "out/probe/$PART/" 2>/dev/null || true
+          bash ../tools/ci/publish-results.sh "out/probe/$PART" "probe-uses/$PART" "ci: probe uses $PART ${GITHUB_SHA::7}"

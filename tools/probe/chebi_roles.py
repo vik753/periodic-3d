@@ -20,10 +20,12 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 OBO_URLS = [
-    "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_lite.obo.gz",
-    "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_lite.obo",
-    "http://purl.obolibrary.org/obo/chebi/chebi_lite.obo",
+    "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi_core.obo.gz",
+    "https://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi.obo.gz",
+    "http://purl.obolibrary.org/obo/chebi.obo",
 ]
+# "has role": the name in older files, the Relation Ontology ID in newer ones.
+HAS_ROLE = ("relationship: has_role CHEBI:", "relationship: RO:0000087 CHEBI:")
 QLEVER = "https://qlever.cs.uni-freiburg.de/api/wikidata"
 QUERY = """PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX schema: <http://schema.org/>
@@ -72,8 +74,9 @@ def load_obo() -> tuple[dict[str, str], dict[str, set[str]], dict[str, set[str]]
             names[current] = line[6:]
         elif current and line.startswith("is_a: CHEBI:"):
             parents[current].add(line[6:].split()[0])
-        elif current and line.startswith("relationship: has_role CHEBI:"):
+        elif current and line.startswith(HAS_ROLE):
             roles[current].add(line.split()[2])
+    print(f"ChEBI: {len(names)} terms, {sum(len(v) for v in roles.values())} role links")
     return names, parents, roles
 
 

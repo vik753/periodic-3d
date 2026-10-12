@@ -172,3 +172,25 @@ def test_usgs_curated_data() -> None:
         "share": 88,
         "term": "batteries",
     }
+
+
+def test_therapeutic_uses_read_labels_not_studies() -> None:
+    found = terms(
+        "Therapeutic Uses",
+        registry.HSDB,
+        [
+            "Vasodilator Agents",
+            "In a randomized trial of 40 patients, the drug reduced the frequency of migraine attacks. It was safe.",
+        ],
+    )
+    assert found == {"cardiovascular"}
+
+
+def test_inert_ingredients_are_not_the_product() -> None:
+    assert "pesticide" not in terms("Uses", registry.HSDB, ["Used as an inert ingredient in pesticide formulations"])
+
+
+def test_isotope_notes_give_one_term_per_section() -> None:
+    context = registry.ELEMENT_RULES["Isotopes in Medicine"]
+    hits = MATCHER.find(["Iodine-131 is used to treat thyroid cancer and hyperthyroidism."], context)
+    assert {hit.term for hit in hits} == {"nuclear_medicine"}

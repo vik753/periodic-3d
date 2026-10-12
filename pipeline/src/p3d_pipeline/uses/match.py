@@ -74,10 +74,15 @@ MADE_FROM = re.compile(
     r"(?:production|manufactur\w*|synthesis|preparation|making|formulation) of (?:(?:the|other|various|many|some) )?"
     r"(?:[\w()/-]+,? (?:and |or )?){0,12}$"
     r"|(?:to|used to|help) (?:make|produce|manufacture|synthesi[sz]e) (?:[\w()/-]+,? (?:and |or )?){0,12}$"
-    r"|(?:making|producing|manufacturing|synthesi[sz]ing) (?:[\w()/-]+,? (?:and |or )?){0,12}$",
+    r"|(?:making|producing|manufacturing|synthesi[sz]ing) (?:[\w()/-]+,? (?:and |or )?){0,12}$"
+    r"|(?:inert |inactive |other )?(?:ingredients?|components?|carriers?|diluents?|solvents?|vehicles?|excipients?)"
+    r" (?:in|of|for) (?:[\w()/-]+,? (?:and |or )?){0,6}$"
+    r"|(?:in|for) (?:the )?formulations? (?:of )?(?:[\w()/-]+,? (?:and |or )?){0,6}$",
     re.IGNORECASE,
 )
 _SPACES = re.compile(r"\s+")
+_SENTENCE_END = re.compile(r"[a-z)][.!?](?:\s|$)")
+LABEL_MAX = 160
 _BOUNDARY = r"(?<![a-z0-9]){}(?![a-z0-9])"
 
 
@@ -99,6 +104,8 @@ class Context:
     cue: bool = False  # each sentence must contain a use cue
     default: str | None = None  # term for an informative string that matched nothing
     past_ok: bool = False
+    labels_only: bool = False  # read only short label strings ("Vasodilator Agents"), not study texts
+    fixed: bool = False  # every informative string means the default term, patterns are not used
 
 
 @dataclass
@@ -163,6 +170,8 @@ class Matcher:
         for text in strings:
             if EXPOSURE.search(text):
                 continue
+            if context.labels_only and (len(text) > LABEL_MAX or _SENTENCE_END.search(text)):
+                continue
             for sentence in sentences(text):
                 if UNINFORMATIVE.match(sentence):
                     informative += 1
@@ -170,6 +179,8 @@ class Matcher:
                 if negative.search(sentence):
                     continue
                 informative += 1
+                if context.fixed:
+                    continue
                 if context.cue and not CUE.search(sentence):
                     continue
                 hits += [Hit(term, sentence) for term in self.sentence_terms(sentence, context)]

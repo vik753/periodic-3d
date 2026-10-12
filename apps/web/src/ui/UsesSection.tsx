@@ -20,6 +20,34 @@ const SPHERE_ICONS: Record<UseSphereId, string> = {
   defense: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z',
 };
 
+/**
+ * Curated or official sources. A term named by one of them, or by two sources of any kind,
+ * is shown at once; a term found in a single encyclopedic or toxicology text waits behind
+ * "N more".
+ */
+const STRONG_SOURCES = new Set([
+  'usgs_mcs',
+  'atc',
+  'hsdb',
+  'jecfa',
+  'eu_food',
+  'eu_pesticides',
+  'fda_greenbook',
+  'livertox',
+  'lactmed',
+  'ifra',
+  'cir',
+  'cscp',
+  'epa_saferchoice',
+  'epa_hap',
+  'chebi',
+  'niosh',
+]);
+
+function isStrong(term: UseTerm): boolean {
+  return term.sources.length >= 2 || term.sources.some((source) => STRONG_SOURCES.has(source));
+}
+
 /** Segment colours of a share bar; the last item "other" is grey. */
 const SHARE_COLOURS = ['#62d2ff', '#b69cff', '#ffc857', '#7ee0b5', '#ff8fa3', '#8fa8ff', '#f5a65b', '#9be3ef'];
 const OTHER_COLOUR = 'rgb(233 238 248 / 0.22)';
@@ -158,14 +186,21 @@ function TermChip({
 export function UsesSection({ uses }: { uses: Uses }) {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState<string | null>(null);
+  const [all, setAll] = useState(false);
   const baseId = useId();
   const sources = new Map(uses.sources.map((source) => [source.id, source] as const));
+  const total = uses.spheres.reduce((sum, sphere) => sum + sphere.terms.length, 0);
+  const strong = uses.spheres.reduce((sum, sphere) => sum + sphere.terms.filter(isStrong).length, 0);
+  const showAll = all || strong === 0;
+  const spheres = uses.spheres
+    .map((sphere) => ({ ...sphere, terms: showAll ? sphere.terms : sphere.terms.filter(isStrong) }))
+    .filter((sphere) => sphere.terms.length > 0);
 
   return (
     <Section title={t('uses.title')}>
       {uses.shares?.map((block) => <SharesBlock key={block.url + pickName(block.commodity, 'en')} block={block} />)}
       <ul className="space-y-3">
-        {uses.spheres.map((sphere) => {
+        {spheres.map((sphere) => {
           const selected = sphere.terms.find((term) => open === `${sphere.id}:${term.id}`);
           const detailsId = `${baseId}-${sphere.id}`;
           return (
@@ -201,6 +236,15 @@ export function UsesSection({ uses }: { uses: Uses }) {
           );
         })}
       </ul>
+      {strong > 0 && strong < total && (
+        <button
+          type="button"
+          onClick={() => setAll(!all)}
+          className="mt-3 rounded-full px-3 py-1 text-xs text-muted ring-1 ring-rim transition-colors hover:text-text"
+        >
+          {all ? t('uses.collapse') : t('uses.expand', { count: total - strong })}
+        </button>
+      )}
       {uses.quotes && uses.quotes.length > 0 && (
         <details className="mt-3 text-[11px] leading-snug">
           <summary className="cursor-pointer text-muted hover:text-text">{t('uses.quotes')}</summary>

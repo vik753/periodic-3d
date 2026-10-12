@@ -207,7 +207,35 @@ const shots = [
   { name: 'phone-table', path: '', viewport: phone, dpr: 2 },
   { name: 'phone-element-fe', path: 'e/Fe', viewport: phone, dpr: 2, wait: 3500 },
   { name: 'phone-compound-hematite', path: 'c/Q103223', viewport: phone, dpr: 2, wait: 4000 },
+  // "Where it is used" (U.4): scroll the card to the section; open the first chip.
+  { name: 'uses-element-li', path: 'e/Li', viewport: desktop, wait: 3500, act: showUses() },
+  { name: 'uses-element-he', path: 'e/He', viewport: desktop, wait: 3500, act: showUses(true) },
+  { name: 'uses-element-nd-ru', path: 'e/Nd', viewport: desktop, wait: 3500, lang: 'ru', act: showUses() },
+  { name: 'uses-compound-caffeine', path: 'c/Q60235', viewport: desktop, wait: 4000, act: showUses(true) },
+  { name: 'uses-compound-aspirin-en', path: 'c/Q18216', viewport: desktop, wait: 4000, lang: 'en', act: showUses() },
+  { name: 'uses-compound-salt', path: 'c/Q2314', viewport: desktop, wait: 4000, act: showUses() },
+  { name: 'phone-uses-element-cu', path: 'e/Cu', viewport: phone, dpr: 2, wait: 3500, act: showUses() },
 ];
+
+/** Scroll the card to "Where it is used" (any language); optionally open the first term chip. */
+function showUses(openChip = false) {
+  return async (page) => {
+    const heading = page.getByRole('heading', { name: /^(Де використовується|Где используется|Where it is used)$/ });
+    await heading.waitFor({ timeout: 15_000 });
+    await heading.scrollIntoViewIfNeeded();
+    await page.evaluate(() => {
+      const panel = document.querySelector('aside');
+      const title = [...document.querySelectorAll('aside h2')].find((node) =>
+        /використовується|используется|is used/.test(node.textContent ?? ''),
+      );
+      if (panel && title) panel.scrollTop += title.getBoundingClientRect().top - panel.getBoundingClientRect().top - 12;
+    });
+    if (openChip) {
+      await page.locator('section', { has: heading }).locator('button[aria-expanded]').first().click();
+    }
+    await page.waitForTimeout(400);
+  };
+}
 
 await mkdir(outDir, { recursive: true });
 const launch = () =>

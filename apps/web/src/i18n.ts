@@ -280,6 +280,8 @@ const resources = {
         group: 'Дані для всієї групи рідкісноземельних елементів.',
         quote: 'Цитата з джерела (англійською)',
         quotes: 'Що пишуть джерела (англійською)',
+        expand: 'Ще {{count}}: згадані лише в одному тексті',
+        collapse: 'Згорнути',
         hint: 'Лише перевірені джерела. Колишні, заборонені й лише можливі застосування не показуємо.',
       },
       a11y: {
@@ -583,6 +585,8 @@ const resources = {
         group: 'Данные для всей группы редкоземельных элементов.',
         quote: 'Цитата из источника (на английском)',
         quotes: 'Что пишут источники (на английском)',
+        expand: 'Ещё {{count}}: упомянуты только в одном тексте',
+        collapse: 'Свернуть',
         hint: 'Только проверенные источники. Бывшие, запрещённые и лишь возможные применения не показываем.',
       },
       a11y: {
@@ -875,6 +879,8 @@ const resources = {
         group: 'Data for the rare-earth elements as a group.',
         quote: 'Quote from the source',
         quotes: 'What the sources say',
+        expand: '{{count}} more: mentioned in one text only',
+        collapse: 'Show less',
         hint: 'Checked sources only. Former, banned and merely possible uses are not shown.',
       },
       a11y: {

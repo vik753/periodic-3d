@@ -271,7 +271,7 @@ PUBCHEM_RULES: dict[tuple[str, str], Rule] = {
     ("Use Classification", EU_FOOD): _rule("eu_food", spheres=FOOD, categories=True, default="food_additive"),
     ("Industry Uses", CDR): _rule("epa_cdr", spheres=NO_MEDICINE - {"defense"}, categories=True),
     ("Consumer Uses", CDR): _rule("epa_cdr", spheres=NO_MEDICINE - {"defense"}, categories=True),
-    ("Therapeutic Uses", HSDB): _rule("hsdb", spheres=MEDICINE, categories=True, default="drug"),
+    ("Therapeutic Uses", HSDB): _rule("hsdb", spheres=MEDICINE, categories=True, default="drug", labels_only=True),
     ("Drug Classes", "Drugs and Lactation Database (LactMed)"): _rule(
         "lactmed", spheres=MEDICINE, categories=True, default="drug"
     ),
@@ -304,12 +304,13 @@ ELEMENT_SOURCES = {
 ISOTOPE_SOURCE = "iupac_isotopes"
 ELEMENT_RULES: dict[str, Context] = {
     "Uses": Context(),
-    "Isotopes in Medicine": Context(spheres=MEDICINE, default="nuclear_medicine"),
-    "Isotopes in Industry": Context(spheres=ALL - MEDICINE, default="isotope_tracers"),
-    "Isotopes in Earth/Planetary Science": Context(spheres=frozenset({"science"}), default="isotope_dating"),
-    "Isotopes in Geochronology": Context(spheres=frozenset({"science"}), default="isotope_dating"),
-    "Isotopes in Forensic Science and Anthropology": Context(spheres=frozenset({"science"}), default="isotope_tracers"),
-    "Isotopes in Biology": Context(spheres=frozenset({"science", "medicine"}), default="isotope_tracers"),
+    # IUPAC isotope notes: one term per section; only the industry notes are read for terms.
+    "Isotopes in Medicine": Context(spheres=MEDICINE, default="nuclear_medicine", fixed=True),
+    "Isotopes in Industry": Context(spheres=frozenset({"energy", "science"}), default="isotope_tracers"),
+    "Isotopes in Earth/Planetary Science": Context(default="isotope_dating", fixed=True),
+    "Isotopes in Geochronology": Context(default="isotope_dating", fixed=True),
+    "Isotopes in Forensic Science and Anthropology": Context(default="isotope_tracers", fixed=True),
+    "Isotopes in Biology": Context(default="isotope_tracers", fixed=True),
 }
 
 CHEBI_CONTEXT = Context(spheres=NO_MEDICINE, categories=True)

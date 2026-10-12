@@ -1,5 +1,5 @@
 $ uv run pytest -q
-started: 2026-10-12T15:08:03Z
+started: 2026-10-12T15:09:55Z
 ........................................................................ [ 75%]
 ........................                                                 [100%]
 =============================== warnings summary ===============================
@@ -10,6 +10,6 @@ tests/test_structures.py::test_crystal_fragment_recovers_cubic_iron_from_a_noisy
     _set_no_error()
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-96 passed, 3 warnings in 1.24s
-finished: 2026-10-12T15:08:05Z
+96 passed, 3 warnings in 1.19s
+finished: 2026-10-12T15:09:57Z
 exit code: 0

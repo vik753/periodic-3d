@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 
 from p3d_pipeline.uses import registry
-from p3d_pipeline.uses.collect import USGS_FILE, ChebiOntology, Evidence, Uses, card
+from p3d_pipeline.uses.collect import USGS_FILE, ChebiOntology, Collector, Evidence, Uses, card
 from p3d_pipeline.uses.match import Context, Matcher
 from p3d_pipeline.uses.vocabulary import SPHERE_IDS, TERM_BY_ID, TERMS, atc_term
 
@@ -207,3 +207,71 @@ def test_category_patterns_stay_in_their_domain() -> None:
     }
     # JECFA also evaluates residues and contaminants: no "food additive" by default.
     assert terms("Use Classification", registry.JECFA, ["Veterinary drug residue"]) == set()
+
+
+def test_eu_only_unapproved_pesticide_is_dropped() -> None:
+    uses = Uses(
+        evidence=[Evidence("pesticide", "eu_pesticides", "u1"), Evidence("beverages", "hsdb", "u2")],
+        notes={"eu_not_approved"},
+    )
+    result = card(uses)
+    assert result is not None
+    assert [sphere["id"] for sphere in result["spheres"]] == ["food"]
+    assert [source["id"] for source in result["sources"]] == ["hsdb"]
+
+
+def test_shares_order_terms_and_spheres() -> None:
+    uses = Uses(
+        evidence=[
+            Evidence("biocide", "hsdb", "u"),
+            Evidence("biocide", "lanl", "u"),
+            Evidence("biocide", "jlab", "u"),
+            Evidence("construction", "usgs_mcs", "u"),
+            Evidence("automotive", "usgs_mcs", "u"),
+        ],
+        shares=[
+            {
+                "url": "u",
+                "items": [
+                    {"names": {"en": "building"}, "share": 42, "term": "construction"},
+                    {"names": {"en": "transport"}, "share": 18, "term": "automotive"},
+                ],
+            }
+        ],
+    )
+    result = card(uses)
+    assert result is not None
+    assert result["spheres"][0]["id"] == "materials"  # 42% beats three mentions
+    industry = next(sphere for sphere in result["spheres"] if sphere["id"] == "industry")
+    assert [term["id"] for term in industry["terms"]] == ["automotive", "biocide"]
+
+
+def test_chebi_ancestor_gives_only_specific_terms() -> None:
+    obo = b"""[Term]
+id: CHEBI:33232
+name: application
+
+[Term]
+id: CHEBI:33286
+name: agrochemical
+is_a: CHEBI:33232
+
+[Term]
+id: CHEBI:2
+name: plant activator
+is_a: CHEBI:33286
+
+[Term]
+id: CHEBI:24852
+name: insecticide
+is_a: CHEBI:33286
+
+[Term]
+id: CHEBI:3
+name: proinsecticide
+is_a: CHEBI:24852
+"""
+    ontology = ChebiOntology.parse(obo)
+    collector = Collector(fetcher=None)  # type: ignore[arg-type]
+    assert collector._chebi_terms(ontology, "CHEBI:2") == []  # not a pesticide
+    assert collector._chebi_terms(ontology, "CHEBI:3") == ["insecticide"]

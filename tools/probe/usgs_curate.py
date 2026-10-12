@@ -593,6 +593,7 @@ C = [
         "key": "rare-earths",
         "commodity": n("Рідкісноземельні елементи", "Редкоземельные элементы", "Rare earths"),
         "elements": ["La", "Ce", "Pr", "Nd", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu"],
+        "group": True,
         "scope": None,
         "quote": "The estimated leading domestic end use of rare earths was catalysts, whereas the estimated leading "
         "global use was magnets. Other end uses included batteries, ceramics and glass, metallurgical applications "
@@ -884,6 +885,7 @@ def main() -> None:
                 "year": entry.get("year", "2025"),
                 "scope": entry["scope"],
                 "ranked": entry.get("ranked", False),
+                "group": entry.get("group", False),
                 "url": source["url"],
                 "quote": quote if not quote.endswith(";") else quote[:-1] + "…",
                 "shares": entry["shares"],

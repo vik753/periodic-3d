@@ -16,6 +16,7 @@
    "year": "2025",
    "scope": "world",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf",
    "quote": "global end uses were estimated as follows: batteries, 88%; ceramics and glass, 4%; lubricating greases, 2%; air treatment, 1%; continuous casting mold flux powders, 1%; medical, 1%; and other uses, 3%.",
    "shares": [
@@ -97,6 +98,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-copper.pdf",
    "quote": "copper and copper alloy products were used in building construction, 42%; electrical and electronic products, 23%; transportation equipment, 18%; consumer and general products, 10%; and industrial machinery and equipment, 7%.",
    "shares": [
@@ -161,6 +163,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-aluminum.pdf",
    "quote": "Transportation applications accounted for 36% of domestic consumption; the remainder was used in packaging, 24%; building, 13%; electrical, 9%; consumer durables and machinery, 8% each; and other, 2%.",
    "shares": [
@@ -241,6 +244,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf",
    "quote": "In the United States, the leading uses of antimony were metal products, including flame retardants, 49%; antimonial lead and ammunition, 40%; and nonmetal products, including ceramics and glass and rubber products, 11%.",
    "shares": [
@@ -292,6 +296,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-beryllium.pdf",
    "quote": "approximately 29% of beryllium products were used in consumer electronics, 24% in aerospace and defense applications, 17% in industrial components, 9% in automotive electronics, 8% in energy applications, 2% in semiconductor applications, and 11% in other applications.",
    "shares": [
@@ -374,6 +379,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf",
    "quote": "An estimated 51% of cobalt consumed in the United States was used in superalloys, mainly for aircraft gas turbine engines; 25% in a variety of chemical applications; 15% in various other metallic applications; and 9% in cemented carbides for cutting and wear-resistant applications.",
    "shares": [
@@ -429,6 +435,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
    "quote": "ICs accounted for 73% of domestic gallium consumption, and optoelectronic devices accounted for 26%.",
    "shares": [
@@ -471,6 +478,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
    "quote": "Helium was used for, in decreasing quantity of use, analytical, engineering, lab, science, and specialty gases (22%); controlled atmospheres, fiber optics, and semiconductors (17%); lifting gas (17%); magnetic resonance imaging (15%); aerospace (9%); welding (8%); diving (5%); leak detection (5%); and other applications (2%).",
    "shares": [
@@ -571,6 +579,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
    "quote": "Neon was used for, in decreasing quantity of use, lamps (53%), semiconductors (32%), plasma displays (12%), and other (3%).",
    "shares": [
@@ -626,6 +635,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
    "quote": "Argon was used for welding (66%), steelmaking (20%), electronics (10%), and other (4%).",
    "shares": [
@@ -681,6 +691,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
    "quote": "Krypton was used for semiconductors (67%), lamps (20%), insulated glass (10%), and other (3%).",
    "shares": [
@@ -736,6 +747,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf",
    "quote": "Xenon was used for lamps (37%), semiconductors (36%), lasers (13%), medical (6%), and other (8%).",
    "shares": [
@@ -800,6 +812,7 @@
    "year": "2025",
    "scope": "world",
    "ranked": true,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-iodine.pdf",
    "quote": "Worldwide, the leading uses of iodine and its compounds were, in descending order of quantity consumed, X-ray contrast media (XRCM), liquid crystal displays (LCDs), pharmaceuticals, iodophors, animal feed, and fluorochemicals.",
    "shares": [
@@ -872,6 +885,7 @@
    "year": "2021",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-mercury.pdf",
    "quote": "The leading domestic end uses of mercury and mercury compounds were relays, sensors, switches, and valves, 65%; dental amalgam, 27%; formulated products (buffers, catalysts, fixatives, and vaccination uses), 7%; and bulbs, lamps, and lighting, 1%.",
    "shares": [
@@ -927,6 +941,7 @@
    "year": "2025",
    "scope": "world",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-selenium.pdf",
    "quote": "In 2025, estimated end uses for selenium in global consumption were metallurgy (including electrolytic manganese metal production), 40%; agriculture and animal health, 20%; glass manufacturing, 20%; electronics and photovoltaics, 10%; chemicals and pigments, 5%; and other applications, 5%.",
    "shares": [
@@ -1008,6 +1023,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-silver.pdf",
    "quote": "In 2025, the estimated domestic uses for silver were in electrical and electronics, 25%; other industrial uses and photography, 19%; net physical investment (bars), 18%; photovoltaics (PV), 15%; coins and medals, 14%; jewelry and silverware, 6%; and brazing and solder, 3%.",
    "shares": [
@@ -1100,6 +1116,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-soda-ash.pdf",
    "quote": "the estimated distribution of soda ash by end use was glass, 45%; chemicals, 28%; miscellaneous uses, 9%; distributors, 7%; soap and detergents, 5%; flue gas desulfurization, 4%; pulp and paper, 1%; and water treatment, 1%.",
    "shares": [
@@ -1192,6 +1209,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-salt.pdf",
    "quote": "The chemical industry accounted for about 42% of total salt sales, with salt in brine accounting for approximately 90% of the salt used for chemical feedstock. Chlorine and caustic soda manufacturers were the main consumers within the chemical industry. Highway deicing accounted for about 37% of total salt consumed.",
    "shares": [
@@ -1233,6 +1251,7 @@
    "year": "2025",
    "scope": "world",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tellurium.pdf",
    "quote": "In 2025, estimated end uses for tellurium in global consumption were solar power cells, 70%; thermoelectric devices, 15%; metallurgy, 10%; and other applications, 5%.",
    "shares": [
@@ -1296,6 +1315,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf",
    "quote": "The major uses of rhenium were in superalloys used in high-temperature turbine engine components and in petroleum-reforming catalysts, representing an estimated 80% and 15%, respectively, of end uses.",
    "shares": [
@@ -1339,6 +1359,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf",
    "quote": "Major end-use distribution of domestic niobium consumption was estimated as follows: steels, about 77%, and superalloys, about 23%.",
    "shares": [
@@ -1379,6 +1400,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-iron-steel.pdf",
    "quote": "Construction accounted for an estimated 31% of net shipments by market classification, followed by steel service centers and distributors, 26%; automotive, 15%; and steel for converting and processing, 11%; all other applications accounted for 17% of net shipments.",
    "shares": [
@@ -1443,6 +1465,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-magnesium-metal.pdf",
    "quote": "In 2025, an estimated 69% of primary magnesium consumption was used in castings, principally for the automotive industry. Aluminum-base alloys that were used for packaging, transportation, and other applications accounted for an estimated 15% of consumption; desulfurization of iron and steel, 9%; and all other uses, 7%.",
    "shares": [
@@ -1498,6 +1521,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-magnesium-compounds.pdf",
    "quote": "The remaining magnesium compounds were consumed for refractories in the form of dead-burned magnesia, fused magnesia, and olivine.",
    "shares": [],
@@ -1522,6 +1546,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-potash.pdf",
    "quote": "The fertilizer industry used about 85% of U.S. potash sales, and the remainder was used for chemical and industrial applications.",
    "shares": [
@@ -1562,6 +1587,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nitrogen.pdf",
    "quote": "Approximately 88% of domestic ammonia production was for fertilizer use, including anhydrous ammonia for direct application, urea, ammonium nitrates, ammonium phosphates, and other nitrogen compounds.",
    "shares": [
@@ -1595,6 +1621,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf",
    "quote": "More than 95% of the phosphate rock mined in the United States was used to manufacture wet-process phosphoric acid and superphosphoric acid, which were used as intermediate feedstocks in the manufacture of granular and liquid ammonium phosphate fertilizers and animal feed supplements.",
    "shares": [
@@ -1628,6 +1655,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-strontium.pdf",
    "quote": "the estimated end-use distribution in the United States for strontium, including celestite and strontium compounds, was drilling fluids, 65%; ceramic ferrite magnets and pyrotechnics and signals, 14% each; and other uses, including electrolytic production of zinc, glass, master alloys, and pigments and fillers, 7%.",
    "shares": [
@@ -1687,6 +1715,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tin.pdf",
    "quote": "The uses for tin in the United States were chemicals, 25%; tinplate, 16%; alloys, 12%; solder, 11%; babbitt, brass and bronze, and tinning, 7%; bar tin, 2%; and other, 27%.",
    "shares": [
@@ -1767,6 +1796,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tungsten.pdf",
    "quote": "An estimated 60% of the tungsten consumed in the United States was used in cemented carbide parts for cutting and wear-resistant applications, primarily in the construction, metalworking, mining, and oil-and gas-drilling industries.",
    "shares": [
@@ -1802,6 +1832,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf",
    "quote": "Metallurgical use, primarily as an alloying agent for iron and steel, accounted for more than 90% of domestic reported vanadium consumption in 2025.",
    "shares": [
@@ -1834,6 +1865,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
    "quote": "Stainless and alloy steel and nickel-containing alloys typically account for more than 85% of domestic consumption.",
    "shares": [
@@ -1868,6 +1900,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lead.pdf",
    "quote": "The lead-acid battery industry accounted for an estimated 67% of U.S. apparent consumption of lead during 2025.",
    "shares": [
@@ -1899,6 +1932,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-arsenic.pdf",
    "quote": "Domestically, the leading use of arsenic was for the production of herbicides, insecticides, and wood preservatives (more than 80%), followed by metallurgical and semiconductor applications.",
    "shares": [
@@ -1938,6 +1972,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-barite.pdf",
    "quote": "Typically, more than 90% of the barite sold in the United States is used as a weighting agent in fluids used in the drilling of oil and natural gas wells.",
    "shares": [
@@ -1988,6 +2023,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": true,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
    "quote": "The estimated leading domestic end use of rare earths was catalysts, whereas the estimated leading global use was magnets. Other end uses included batteries, ceramics and glass, metallurgical applications and alloys, and polishing.",
    "shares": [],
@@ -2015,6 +2051,7 @@
    "year": "2025",
    "scope": "world",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-yttrium.pdf",
    "quote": "The leading domestic and global end uses of yttrium were in ceramics and phosphors. Lesser amounts were consumed for fiber optics, optical glass, pigments and other applications, including yttrium-aluminum-garnet crystals used in lasers for communication, industrial, and medical applications.",
    "shares": [],
@@ -2040,6 +2077,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-scandium.pdf",
    "quote": "The principal uses for scandium in 2025 were in aerospace alloys and solid oxide fuel cells used in large-scale power generation and backup power systems for critical infrastructure.",
    "shares": [],
@@ -2065,6 +2103,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-zirconium-hafnium.pdf",
    "quote": "The leading end use for zircon was ceramics. Other primary uses of zircon included foundry sand, refractories, and zirconium chemicals.",
    "shares": [],
@@ -2088,6 +2127,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-zirconium-hafnium.pdf",
    "quote": "The leading use of hafnium metal was in superalloys.",
    "shares": [],
@@ -2109,6 +2149,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium.pdf",
    "quote": "the majority of titanium metal was used in aerospace applications, and the remainder was used in armor, chemical processing, marine hardware, medical implants, power generation, and other applications.",
    "shares": [],
@@ -2131,6 +2172,7 @@
    "year": "2025",
    "scope": "world",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-indium.pdf",
    "quote": "Production of indium tin oxide (ITO) continued to account for most global indium consumption.",
    "shares": [],
@@ -2156,6 +2198,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf",
    "quote": "A company in St. George, UT, produced germanium wafers mostly for solar cells used in satellites from imported and recycled germanium. A company in Quapaw, OK, produced germanium tetrachloride for the production of fiber optics from imported and recycled germanium materials.",
    "shares": [],
@@ -2181,6 +2224,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-graphite.pdf",
    "quote": "Natural graphite was widely used in batteries, brake linings, lubricants, powdered metals, refractory applications, and steelmaking, and was also incorporated into some defense-related materials and components.",
    "shares": [],
@@ -2209,6 +2253,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-diamond.pdf",
    "quote": "The major consuming sectors of industrial diamond are computer chip production; construction; drilling for minerals, natural gas, and oil; machinery manufacturing; stone cutting and polishing; and transportation (infrastructure and vehicles).",
    "shares": [],
@@ -2236,6 +2281,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-fluorspar.pdf",
    "quote": "Aqueous HF is the primary feedstock for the manufacture of virtually all fluorine-bearing chemicals, particularly refrigerants and fluoropolymers, and chemicals used in the processing of primary aluminum and uranium.",
    "shares": [],
@@ -2260,6 +2306,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-manganese.pdf",
    "quote": "Other companies consumed ore for nonmetallurgical purposes, such as in the production of animal feed, brick colorant, dry cell batteries, and fertilizers.",
    "shares": [],
@@ -2286,6 +2333,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-molybdenum.pdf",
    "quote": "Molybdenum is a refractory metallic element used principally as an alloying agent in cast iron, steel, and superalloys and is also used in numerous chemical applications, including catalysts, lubricants, and pigments.",
    "shares": [],
@@ -2311,6 +2359,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-chromium.pdf",
    "quote": "Stainless-steel and heat-resisting-steel producers were the leading consumers of ferrochromium.",
    "shares": [],
@@ -2333,6 +2382,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": true,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-zinc.pdf",
    "quote": "Of the total reported zinc consumed, most was used to produce galvanized steel, followed by brass and bronze, zinc-base alloys, and other uses.",
    "shares": [
@@ -2383,6 +2433,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-silicon.pdf",
    "quote": "The main consumers of silicon metal were producers of aluminum alloys and the chemical industry, in particular for the manufacture of silicones.",
    "shares": [],
@@ -2406,6 +2457,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-boron.pdf",
    "quote": "In 2025, the glass and ceramics industries remained the leading domestic users of boron products. Boron also was used as a component in abrasives, cleaning products, insecticides, insulation, and in the production of semiconductors.",
    "shares": [],
@@ -2433,6 +2485,7 @@
    "year": "2025",
    "scope": "world",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bromine.pdf",
    "quote": "The leading global applications of bromine are for the production of brominated flame retardants (BFRs) and clear brine drilling fluids.",
    "shares": [],
@@ -2457,6 +2510,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cadmium.pdf",
    "quote": "Cadmium metal and compounds are mainly consumed for nickel cadmium (NiCd) batteries, but also for alloys, coatings, and pigments.",
    "shares": [],
@@ -2483,6 +2537,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf",
    "quote": "Most domestic bismuth consumption was for chemicals used in cosmetic, industrial, laboratory, and pharmaceutical applications.",
    "shares": [],
@@ -2511,6 +2566,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cesium.pdf",
    "quote": "Cesium formate brines are used for high-pressure, high-temperature well drilling for oil and gas exploration and production.",
    "shares": [],
@@ -2533,6 +2589,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rubidium.pdf",
    "quote": "Applications for rubidium and its compounds include biomedical research, electronics, pyrotechnics, and specialty glass.",
    "shares": [],
@@ -2557,6 +2614,7 @@
    "year": "2025",
    "scope": null,
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-thallium.pdf",
    "quote": "The primary end uses included the following: radioisotope thallium-201 used for medical purposes in cardiovascular imaging; thallium used as an activator (sodium iodide crystal doped with thallium) in electronics for photoelectric cells and gamma radiation detection; thallium-barium-calcium-copper-oxide high-temperature superconductors…",
    "shares": [],
@@ -2583,6 +2641,7 @@
    "year": "2025",
    "scope": "us",
    "ranked": false,
+   "group": false,
    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf",
    "quote": "Companies in the United States produced tantalum alloys, capacitors, carbides, compounds, and tantalum metal from imported tantalum ores and concentrates and tantalum-containing materials.",
    "shares": [],

@@ -56,6 +56,7 @@ CHEBI_APPLICATION = "CHEBI:33232"
 CHEBI_PHARMACEUTICAL = "CHEBI:52217"
 HAS_ROLE = ("relationship: has_role CHEBI:", "relationship: RO:0000087 CHEBI:")
 MAX_PAGES = 200
+CHEBI_ANCESTORS = 2  # how far up the ChEBI role tree a specific term may come from
 QUOTES_PER_SUBSTANCE = 2
 QUOTE_MIN, QUOTE_MAX = 40, 320
 USGS_FILE = Path(__file__).with_name("usgs_end_uses.json")
@@ -207,10 +208,16 @@ class Collector:
                     self._add(key, (Hit(term, ontology.names.get(role)) for term in memo[role]), "chebi", url)
 
     def _chebi_terms(self, ontology: ChebiOntology, role: str) -> list[str]:
-        """Terms for a role: its own name first, then the names of its ancestors."""
-        for candidate in ontology.lineage(role):
+        """Terms for a role: its own name, else the name of a close ancestor.
+
+        An ancestor counts only for a specific term: "plant activator" sits under
+        "agrochemical", but that does not make every plant activator a pesticide.
+        """
+        for depth, candidate in enumerate(ontology.lineage(role)[: 1 + CHEBI_ANCESTORS]):
             name = ontology.names.get(candidate, "")
             terms = self.matcher.sentence_terms(name, CHEBI_CONTEXT)
+            if depth > 0:
+                terms = [term for term in terms if not TERM_BY_ID[term].umbrella]
             if terms:
                 return terms
         return []
@@ -265,7 +272,7 @@ class Collector:
                         "year": entry["year"],
                         "scope": entry["scope"],
                         "ranked": entry["ranked"],
-                        "group": len(entry["elements"]) > 1,
+                        "group": bool(entry.get("group")),
                         "url": entry["url"],
                         "quote": entry["quote"],
                         "items": entry["shares"],
@@ -382,14 +389,18 @@ def card(uses: Uses) -> dict[str, Any] | None:
     sources: dict[str, str] = {}  # source id → URL for this substance
     spheres: dict[str, list[dict[str, Any]]] = defaultdict(list)
     weight: Counter[str] = Counter()
+    top_share: Counter[str] = Counter()
     for term_id, items in by_term.items():
         term = TERM_BY_ID[term_id]
         term_sources = list(dict.fromkeys(item.source for item in items))
+        pesticide = "pesticide" in (term.group, term.umbrella)
+        not_approved = "eu_not_approved" in uses.notes and "eu_approved" not in uses.notes
+        if pesticide and not_approved and term_sources == ["eu_pesticides"]:
+            continue  # only the EU list names it, and the EU does not approve it
         for item in items:
             sources.setdefault(item.source, item.url)
         entry: dict[str, Any] = {"id": term_id, "names": term.names, "sources": term_sources}
-        pesticide = "pesticide" in (term.group, term.umbrella)
-        if pesticide and "eu_not_approved" in uses.notes and "eu_approved" not in uses.notes:
+        if pesticide and not_approved:
             entry["notes"] = ["eu_not_approved"]
         share = next(
             (
@@ -404,8 +415,9 @@ def card(uses: Uses) -> dict[str, Any] | None:
             entry["share"] = share
         spheres[term.sphere].append(entry)
         weight[term.sphere] += len(term_sources)
+        top_share[term.sphere] = max(top_share[term.sphere], entry.get("share", 0))
     for entries in spheres.values():
-        entries.sort(key=lambda entry: (-len(entry["sources"]), -entry.get("share", 0), TERM_ORDER[entry["id"]]))
+        entries.sort(key=lambda entry: (-entry.get("share", 0), -len(entry["sources"]), TERM_ORDER[entry["id"]]))
 
     quotes: list[dict[str, str]] = []
     candidates = [
@@ -427,7 +439,9 @@ def card(uses: Uses) -> dict[str, Any] | None:
     result: dict[str, Any] = {
         "spheres": [
             {"id": sphere, "terms": spheres[sphere]}
-            for sphere in sorted(spheres, key=lambda sphere: (-weight[sphere], SPHERE_ORDER[sphere]))
+            for sphere in sorted(
+                spheres, key=lambda sphere: (-top_share[sphere], -weight[sphere], SPHERE_ORDER[sphere])
+            )
         ],
         "sources": [
             {

@@ -65,7 +65,7 @@ SOURCES: dict[str, Source] = {
         ),
         Source(
             "epa_hap",
-            "EPA",
+            "EPA HAP",
             "EPA Hazardous Air Pollutants fact sheets",
             PUBLIC_DOMAIN,
             "https://www.epa.gov/haps",
@@ -79,7 +79,11 @@ SOURCES: dict[str, Source] = {
             "https://www.epa.gov/saferchoice/safer-ingredients",
         ),
         Source(
-            "epa_ecotox", "EPA", "EPA Pesticide Ecotoxicity Database", PUBLIC_DOMAIN, "https://ecotox.ipmcenters.org"
+            "epa_ecotox",
+            "EPA ECOTOX",
+            "EPA Pesticide Ecotoxicity Database",
+            PUBLIC_DOMAIN,
+            "https://ecotox.ipmcenters.org",
         ),
         Source("cir", "CIR", "Cosmetic Ingredient Review", "Facts via PubChem", "https://www.cir-safety.org"),
         Source(
@@ -101,14 +105,14 @@ SOURCES: dict[str, Source] = {
         ),
         Source(
             "eu_food",
-            "EU",
+            "EU food",
             "EU Food Improvement Agents (European Commission)",
             "© European Union, reuse allowed",
             "https://food.ec.europa.eu/food-safety/food-improvement-agents_en",
         ),
         Source(
             "eu_pesticides",
-            "EU",
+            "EU pesticides",
             "EU Pesticides Database (European Commission)",
             "© European Union, reuse allowed",
             "https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en",
@@ -154,7 +158,7 @@ SOURCES: dict[str, Source] = {
         ),
         Source(
             "usgs_cerc",
-            "USGS",
+            "USGS CERC",
             "USGS Columbia Environmental Research Center",
             PUBLIC_DOMAIN,
             "https://www.usgs.gov/centers/cerc",

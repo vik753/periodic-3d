@@ -1,6 +1,6 @@
 {
   "budgetKb": 400,
-  "initialJsGzipKb": 393.4,
+  "initialJsGzipKb": 393.5,
   "withinBudget": true,
   "rows": [
     {
@@ -22,79 +22,79 @@
       "initial": true
     },
     {
-      "file": "assets/index-DWT3qnLi.js",
-      "kb": 181,
-      "gzipKb": 59.8,
+      "file": "assets/index-D8EcEYji.js",
+      "kb": 181.3,
+      "gzipKb": 59.9,
       "initial": true
     },
     {
-      "file": "assets/index-Brlo5SJ3.css",
-      "kb": 40,
+      "file": "assets/index-DQhjXg2F.css",
+      "kb": 40.1,
       "gzipKb": 9.7,
       "initial": true
     },
     {
-      "file": "assets/ElementPanel-Ckv92Q_h.js",
+      "file": "assets/ElementPanel-RoYlwD9l.js",
       "kb": 12.3,
       "gzipKb": 3.4,
       "initial": false
     },
     {
-      "file": "assets/Rays-CpBlPsQs.js",
+      "file": "assets/AboutPanel-0Qr7ifIt.js",
+      "kb": 7.6,
+      "gzipKb": 2.8,
+      "initial": false
+    },
+    {
+      "file": "assets/Rays-CxMw6Cra.js",
       "kb": 6.1,
       "gzipKb": 2.7,
       "initial": false
     },
     {
-      "file": "assets/CompoundCloud-ChNkJH2i.js",
+      "file": "assets/CompoundCloud-BNYhpMR_.js",
       "kb": 5.5,
       "gzipKb": 2.6,
       "initial": false
     },
     {
-      "file": "assets/RayWalk-g8SAo9d9.js",
+      "file": "assets/RayWalk-oJlmKv3U.js",
       "kb": 5.4,
       "gzipKb": 2.6,
       "initial": false
     },
     {
-      "file": "assets/AboutPanel-VHm4Y8sw.js",
-      "kb": 6.5,
-      "gzipKb": 2.5,
-      "initial": false
-    },
-    {
-      "file": "assets/StructureView-DlawRlEp.js",
+      "file": "assets/StructureView-DA_H_uLZ.js",
       "kb": 5.5,
       "gzipKb": 2.5,
       "initial": false
     },
     {
-      "file": "assets/CompoundPanel-bYJKyvud.js",
+      "file": "assets/CompoundPanel-Bc5nj5Az.js",
       "kb": 6,
       "gzipKb": 2.1,
       "initial": false
     },
     {
-      "file": "assets/SetPanel-DhlKZZkY.js",
+      "file": "assets/SetPanel-7iTwLyhJ.js",
       "kb": 6.2,
       "gzipKb": 2,
       "initial": false
     },
     {
-      "file": "assets/MaterialPanel-CjAFYnFy.js",
+      "file": "assets/MaterialPanel-DevvvdId.js",
       "kb": 5.1,
       "gzipKb": 1.8,
       "initial": false
     },
     {
-      "file": "assets/AtomModel-7gMQ9V5M.js",
+      "file": "assets/AtomModel-kx0T0vPa.js",
       "kb": 2.6,
       "gzipKb": 1.3,
       "initial": false
     },
     {
-      "file": "assets/CompositionView-aAlua0H3.js",
+      "file": "assets/CompositionView-CQfpuUqD.js",
       "kb": 2,
       "gzipKb": 1,
       "initial": false

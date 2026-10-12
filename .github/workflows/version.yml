@@ -36,4 +36,9 @@ jobs:
           HISTORY: ${{ inputs.history }}
         run: |
           # shellcheck disable=SC2086 # the pairs are separate words
-          bash tools/ci/version-tag.sh $HISTORY
+          bash tools/ci/run.sh version-tag bash -x tools/ci/version-tag.sh $HISTORY
+      - name: Publish logs
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash tools/ci/publish-results.sh out/logs version/logs "ci: version logs ${GITHUB_SHA::7}"
